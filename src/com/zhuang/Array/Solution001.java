@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Deacription 数组题解
+ * @Deacription 数组刷题学习
  * @Author Zhuang
  * @Date 2021/7/22 10:58
  * @Version 1.0
@@ -31,7 +31,8 @@ public class Solution001 {
     /**
      * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和
      *
-     * @param nums https://leetcode-cn.com/problems/maximum-subarray/
+     * https://leetcode-cn.com/problems/maximum-subarray/
+     * @param nums
      * @return res
      */
     public static int maxSubArray(int[] nums) {
@@ -57,9 +58,9 @@ public class Solution001 {
      * <p>
      * https://leetcode-cn.com/problems/remove-element/
      *
-     * @param nums
-     * @param val
-     * @return
+     * @param nums 数组
+     * @param val 值
+     * @return int
      */
     public static int removeElement(int[] nums, int val) {
         // 快慢指针
@@ -106,11 +107,12 @@ public class Solution001 {
      * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。
      * <p>
      * 如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+     *
      * https://leetcode-cn.com/problems/search-insert-position/
      *
-     * @param nums
-     * @param target
-     * @return
+     * @param nums 数组
+     * @param target 目标值
+     * @return int
      */
     public static int searchInsert(int[] nums, int target) {
         for (int i = 0; i < nums.length; i++) {
@@ -132,7 +134,7 @@ public class Solution001 {
      *
      * @param rowIndex 数组
      * @param rowIndex 索引
-     * @return
+     * @return list
      */
     public static List<Integer> getRow(int rowIndex) {
         ArrayList<List<Integer>> ret = new ArrayList<>();
