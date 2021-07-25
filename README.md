@@ -1,6 +1,7 @@
 # LeetCodeLearn
 记录康小庄的刷题代码和记录
-<<<<<<< HEAD
+
+每天提交一点刷题代码，学习和强化数据结构和算法知识，加油！💪💪💪
 
 **个人博客地址:[康小庄的博客 - 记录学习成长 (itkxz.cn)](https://itkxz.cn/)**
 # 1.数组篇
@@ -20,6 +21,3 @@
 - [只出现一次的数字](https://leetcode-cn.com/problems/single-number/)
 - [重复 N 次的元素 ](https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/)
 - [独一无二的出现次数 ](https://leetcode-cn.com/problems/unique-number-of-occurrences/)
-=======
-- 每天提交一点刷题代码，学习和强化数据结构和算法知识，加油！💪💪💪
->>>>>>> d1ac24428a87b0a0a2362865f6a84516e141ecb9
