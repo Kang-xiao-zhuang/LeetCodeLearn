@@ -31,16 +31,12 @@ public class Solution002 {
     }
 
     /**
-     * 给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。
-     * <p>
-     * 初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。你可以假设 nums1 的空间大小等于 m + n，这样它就有足够的空间保存来自 nums2 的元素。
-     * <p>
      * https://leetcode-cn.com/problems/merge-sorted-array/
      *
-     * @param nums1
-     * @param m
-     * @param nums2
-     * @param n
+     * @param nums1 数组1
+     * @param m 值1
+     * @param nums2 数组2
+     * @param n 值2
      */
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
         int p1 = 0, p2 = 0;
@@ -65,15 +61,11 @@ public class Solution002 {
     }
 
     /**
-     * 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
-     * <p>
-     * 注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词
-     * <p>
      * https://leetcode-cn.com/problems/valid-anagram/
      *
      * @param s 字符串1
      * @param t 字符串2
-     * @return
+     * @return 布尔
      */
     public static boolean isAnagram(String s, String t) {
         if (s.length() != t.length()) {
@@ -90,9 +82,9 @@ public class Solution002 {
     /**
      * 解法2
      *
-     * @param s
-     * @param t
-     * @return
+     * @param s 字符串1
+     * @param t 字符串2
+     * @return 布尔
      */
     public static boolean isAnagram2(String s, String t) {
         int[] record = new int[26];
@@ -111,8 +103,6 @@ public class Solution002 {
     }
 
     /**
-     * 给定两个数组，编写一个函数来计算它们的交集。
-     * <p>
      * https://leetcode-cn.com/problems/intersection-of-two-arrays/
      *
      * @param nums1 数组1
@@ -156,10 +146,6 @@ public class Solution002 {
     }
 
     /**
-     * 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
-     *
-     * 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
-     *
      * https://leetcode-cn.com/problems/two-sum/
      *
      * @param nums   数组
