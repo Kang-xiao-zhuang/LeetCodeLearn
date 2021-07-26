@@ -21,3 +21,9 @@
 - [只出现一次的数字](https://leetcode-cn.com/problems/single-number/)
 - [重复 N 次的元素 ](https://leetcode-cn.com/problems/n-repeated-element-in-size-2n-array/)
 - [独一无二的出现次数 ](https://leetcode-cn.com/problems/unique-number-of-occurrences/)
+- [最富有客户的资产总量](https://leetcode-cn.com/problems/richest-customer-wealth/)
+- [拥有最多糖果的孩子](https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies/)
+
+## 中等篇
+- [有效的数独](https://leetcode-cn.com/problems/valid-sudoku/)
+- [矩阵置零](https://leetcode-cn.com/problems/set-matrix-zeroes/)
