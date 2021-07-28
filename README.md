@@ -35,13 +35,13 @@
 
 ## 简单篇
 
-- [环形链表](![img](file:///C:\Users\dell\AppData\Roaming\Tencent\QQTempSys\%W@GJ$ACOF(TYDYECOKVDYB.png)https://leetcode-cn.com/problems/linked-list-cycle/)
+- [环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
 
-- [合并两个有序链表](![img](file:///C:\Users\dell\AppData\Roaming\Tencent\QQTempSys\%W@GJ$ACOF(TYDYECOKVDYB.png)https://leetcode-cn.com/problems/merge-two-sorted-lists/)
+- [合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 
 # 3.字符串篇
 
 # 简单篇
 
-- [反转字符串](![img](file:///C:\Users\dell\AppData\Roaming\Tencent\QQTempSys\%W@GJ$ACOF(TYDYECOKVDYB.png)https://leetcode-cn.com/problems/reverse-string/)
+- [反转字符串](https://leetcode-cn.com/problems/reverse-string/)
 
