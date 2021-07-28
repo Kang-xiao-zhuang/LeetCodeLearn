@@ -23,7 +23,25 @@
 - [独一无二的出现次数 ](https://leetcode-cn.com/problems/unique-number-of-occurrences/)
 - [最富有客户的资产总量](https://leetcode-cn.com/problems/richest-customer-wealth/)
 - [拥有最多糖果的孩子](https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies/)
+- [字符串中的第一个唯一字符](https://leetcode-cn.com/problems/first-unique-character-in-a-string/)
+- [赎金信](https://leetcode-cn.com/problems/ransom-note/)
+- [查找常用字符](https://leetcode-cn.com/problems/find-common-characters/)
 
 ## 中等篇
 - [有效的数独](https://leetcode-cn.com/problems/valid-sudoku/)
 - [矩阵置零](https://leetcode-cn.com/problems/set-matrix-zeroes/)
+
+# 2.链表篇
+
+## 简单篇
+
+- [环形链表](![img](file:///C:\Users\dell\AppData\Roaming\Tencent\QQTempSys\%W@GJ$ACOF(TYDYECOKVDYB.png)https://leetcode-cn.com/problems/linked-list-cycle/)
+
+- [合并两个有序链表](![img](file:///C:\Users\dell\AppData\Roaming\Tencent\QQTempSys\%W@GJ$ACOF(TYDYECOKVDYB.png)https://leetcode-cn.com/problems/merge-two-sorted-lists/)
+
+# 3.字符串篇
+
+# 简单篇
+
+- [反转字符串](![img](file:///C:\Users\dell\AppData\Roaming\Tencent\QQTempSys\%W@GJ$ACOF(TYDYECOKVDYB.png)https://leetcode-cn.com/problems/reverse-string/)
+
