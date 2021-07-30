@@ -12,8 +12,8 @@ public class Solution001 {
     public static void main(String[] args) {
         char[] s = {'h', 'e', 'l', 'l', 'o'};
         char[] s2 = {'H', 'a', 'n', 'n', 'a', 'h'};
-     //   reverseString(s);
-      //  reverseString(s2);
+        //   reverseString(s);
+        //  reverseString(s2);
         reverseString2(s);
     }
 
@@ -32,7 +32,8 @@ public class Solution001 {
         System.out.println(String.valueOf(s));
     }
 
-    /** 异或法
+    /**
+     * 异或法
      * https://leetcode-cn.com/problems/reverse-string/
      *
      * @param s 数组

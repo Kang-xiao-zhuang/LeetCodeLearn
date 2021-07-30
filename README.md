@@ -1,9 +1,10 @@
 # LeetCodeLearn
-记录康小庄的刷题代码和记录
+记录康小庄的刷题代码和记录(题目均来自[力扣官网 (leetcode-cn.com)](https://leetcode-cn.com/)
 
 每天提交一点刷题代码，学习和强化数据结构和算法知识，加油！💪💪💪
 
 **个人博客地址:[康小庄的博客 - 记录学习成长 (itkxz.cn)](https://itkxz.cn/)**
+
 # 1.数组篇
 ## 简单篇
 - [最大子序和 ](https://leetcode-cn.com/problems/maximum-subarray/)
@@ -36,8 +37,14 @@
 ## 简单篇
 
 - [环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
-
 - [合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
+- [移除链表元素](https://leetcode-cn.com/problems/remove-linked-list-elements/)
+- [反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
+- [删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+
+## 中等篇
+
+- [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
 
 # 3.字符串篇
 
@@ -45,3 +52,6 @@
 
 - [反转字符串](https://leetcode-cn.com/problems/reverse-string/)
 
+# 4. 栈篇
+
+- [有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
