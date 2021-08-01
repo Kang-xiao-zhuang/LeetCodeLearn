@@ -27,6 +27,7 @@
 - [字符串中的第一个唯一字符](https://leetcode-cn.com/problems/first-unique-character-in-a-string/)
 - [赎金信](https://leetcode-cn.com/problems/ransom-note/)
 - [查找常用字符](https://leetcode-cn.com/problems/find-common-characters/)
+- [加一](https://leetcode-cn.com/problems/plus-one/)
 
 ## 中等篇
 - [有效的数独](https://leetcode-cn.com/problems/valid-sudoku/)
@@ -41,6 +42,7 @@
 - [移除链表元素](https://leetcode-cn.com/problems/remove-linked-list-elements/)
 - [反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
 - [删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+- [从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 
 ## 中等篇
 
@@ -51,7 +53,16 @@
 # 简单篇
 
 - [反转字符串](https://leetcode-cn.com/problems/reverse-string/)
+- [最后一个单词的长度](https://leetcode-cn.com/problems/length-of-last-word/)
+- [罗马数字转整数](https://leetcode-cn.com/problems/roman-to-integer/)
 
 # 4. 栈篇
 
 - [有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
+
+
+
+# 5. 树篇
+
+- [二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
+

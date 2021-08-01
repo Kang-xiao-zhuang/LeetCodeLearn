@@ -1,6 +1,7 @@
 package com.zhuang.String;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @Deacription 字符串学习
@@ -14,7 +15,13 @@ public class Solution001 {
         char[] s2 = {'H', 'a', 'n', 'n', 'a', 'h'};
         //   reverseString(s);
         //  reverseString(s2);
-        reverseString2(s);
+        // reverseString2(s);
+
+        //  String str = "Hello World";
+        //  lengthOfLastWord(str);
+
+        String str = "IV";
+        romanToInt(str);
     }
 
     /**
@@ -52,5 +59,54 @@ public class Solution001 {
             r--;
         }
         System.out.println(String.valueOf(s));
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/length-of-last-word/
+     *
+     * @param s 字符串
+     * @return int
+     */
+    public static int lengthOfLastWord(String s) {
+        int len = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) != ' ') {
+                len++;
+            } else if (len != 0) {
+                System.out.println(len);
+                return len;
+            }
+        }
+        System.out.println(len);
+        return len;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/roman-to-integer/
+     *
+     * @param s 字符串
+     * @return int
+     */
+    public static int romanToInt(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+        int res = 0;
+        int len = s.length();
+        for (int i = 0; i < len; i++) {
+            int val = map.get(s.charAt(i));
+            if (i < len - 1 && val < map.get(s.charAt(i + 1))) {
+                res -= val;
+            } else {
+                res += val;
+            }
+        }
+        System.out.println(res);
+        return res;
     }
 }
