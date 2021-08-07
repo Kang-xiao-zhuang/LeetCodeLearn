@@ -5,8 +5,10 @@
 
 **个人博客地址:[康小庄的博客 - 记录学习成长 (itkxz.cn)](https://itkxz.cn/)**
 
-# 🍚数组篇
-## 简单篇
+# 数据结构篇
+
+## 🍚数组篇
+### 简单篇
 - [最大子序和 ](https://leetcode-cn.com/problems/maximum-subarray/)
 - [移除元素](https://leetcode-cn.com/problems/remove-element/)
 - [杨辉三角 ](https://leetcode-cn.com/problems/pascals-triangle/)
@@ -29,15 +31,20 @@
 - [查找常用字符](https://leetcode-cn.com/problems/find-common-characters/)
 - [加一](https://leetcode-cn.com/problems/plus-one/)
 - [搜索插入位置](https://leetcode-cn.com/problems/search-insert-position/)
+- [两数之和II](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/)
+- [存在重复元素II ](https://leetcode-cn.com/problems/contains-duplicate-ii/)
+- [下一个更大元素 I ](https://leetcode-cn.com/problems/next-greater-element-i/)
+- [多数元素](https://leetcode-cn.com/problems/majority-element/)
 
-## 中等篇
+### 中等篇
 - [有效的数独](https://leetcode-cn.com/problems/valid-sudoku/)
 - [矩阵置零](https://leetcode-cn.com/problems/set-matrix-zeroes/)
 - [对角线遍历](https://leetcode-cn.com/problems/diagonal-traverse/)
+- [三数之和](https://leetcode-cn.com/problems/3sum/)
 
-# 🍜链表篇
+## 🍜链表篇
 
-## 简单篇
+### 简单篇
 
 - [环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
 - [合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
@@ -46,26 +53,28 @@
 - [删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
 - [从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 
-## 中等篇
+### 中等篇
 
 - [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
 
-# 🥗字符串篇
+## 🥗字符串篇
 
-## 简单篇
+### 简单篇
 
 - [反转字符串](https://leetcode-cn.com/problems/reverse-string/)
 - [最后一个单词的长度](https://leetcode-cn.com/problems/length-of-last-word/)
 - [罗马数字转整数](https://leetcode-cn.com/problems/roman-to-integer/)
 - [最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
 
-# 🍩栈篇
+## 🍩栈篇
+
+### 简单篇
 
 - [有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
 
-# 🍦树篇
+## 🍦树篇
 
-## 简单篇
+### 简单篇
 
 - [二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
 
@@ -77,6 +86,31 @@
 - [路径总和](https://leetcode-cn.com/problems/path-sum/)
 - [翻转二叉树](https://leetcode-cn.com/problems/invert-binary-tree/submissions/)
 
-## 中等篇
+### 中等篇
 
 - [二叉树的层序遍历 ](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)
+
+
+
+# 算法篇
+
+## 🍯二分查找
+
+### 简单篇
+
+- [二分查找](https://leetcode-cn.com/problems/binary-search/)
+
+- [x的平方根](https://leetcode-cn.com/problems/sqrtx/)
+
+- [猜数字大小](https://leetcode-cn.com/problems/guess-number-higher-or-lower/)
+- [第一个错误的版本](https://leetcode-cn.com/problems/first-bad-version/)
+
+### 中等篇
+
+- [搜索旋转排序数组](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
+
+- [寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
+
+- [寻找旋转排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/) 
+- [在排序数组中查找元素的第一个和最后一个位置](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
