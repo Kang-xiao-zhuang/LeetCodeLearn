@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * @Deacription 字符串学习
+ * @Description 字符串学习
  * @Author Zhuang
  * @Date 2021/7/28 16:21
  * @Version 1.0

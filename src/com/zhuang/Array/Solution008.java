@@ -3,7 +3,7 @@ package com.zhuang.Array;
 import java.util.*;
 
 /**
- * @Deacription TODO
+ * @Description 数组学习
  * @Author Zhuang
  * @Date 2021/8/4 10:26
  * @Version 1.0

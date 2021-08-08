@@ -3,7 +3,7 @@ package com.zhuang.LinkedList;
 import java.util.HashSet;
 
 /**
- * @Deacription 链表学习
+ * @Description 链表学习
  * @Author Zhuang
  * @Date 2021/7/28 9:31
  * @Version 1.0

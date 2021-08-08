@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * @Deacription 链表学习
+ * @Description 链表学习
  * @Author Zhuang
  * @Date 2021/7/31 9:31
  * @Version 1.0

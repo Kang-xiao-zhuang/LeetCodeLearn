@@ -3,7 +3,7 @@ package com.zhuang.BinarySearch;
 import java.util.Arrays;
 
 /**
- * @Deacription 二分查找学习
+ * @Description 二分查找学习
  * @Author Zhuang
  * @Date 2021/8/6 10:26
  * @Version 1.0

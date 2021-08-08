@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * @Deacription 栈的学习
+ * @Description 栈的学习
  * @Author Zhuang
  * @Date 2021/7/30 15:12
  * @Version 1.0

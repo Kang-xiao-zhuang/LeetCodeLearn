@@ -77,9 +77,7 @@
 ### 简单篇
 
 - [二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
-
 - [二叉树的中序遍历](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
-
 - [二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/)
 - [二叉树的层平均值](https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/)
 - [二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
@@ -99,18 +97,17 @@
 ### 简单篇
 
 - [二分查找](https://leetcode-cn.com/problems/binary-search/)
-
 - [x的平方根](https://leetcode-cn.com/problems/sqrtx/)
-
 - [猜数字大小](https://leetcode-cn.com/problems/guess-number-higher-or-lower/)
 - [第一个错误的版本](https://leetcode-cn.com/problems/first-bad-version/)
 
 ### 中等篇
 
 - [搜索旋转排序数组](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
-
 - [寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
-
 - [寻找旋转排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/) 
 - [在排序数组中查找元素的第一个和最后一个位置](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+- [找到K个最接近的元素](https://leetcode-cn.com/problems/find-k-closest-elements/)
+- [有效的完全平方数](https://leetcode-cn.com/problems/valid-perfect-square/)
+- [寻找比目标字母大的最小字母](https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/)
 

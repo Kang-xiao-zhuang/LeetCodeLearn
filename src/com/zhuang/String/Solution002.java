@@ -1,7 +1,7 @@
 package com.zhuang.String;
 
 /**
- * @Deacription 字符串学习
+ * @Description 字符串学习
  * @Author Zhuang
  * @Date 2021/8/2 10:05
  * @Version 1.0

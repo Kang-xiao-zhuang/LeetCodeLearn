@@ -1,7 +1,7 @@
 package com.zhuang.BinarySearch;
 
 /**
- * @Deacription 二分查找学习
+ * @Description 二分查找学习
  * @Author Zhuang
  * @Date 2021/8/5 15:34
  * @Version 1.0

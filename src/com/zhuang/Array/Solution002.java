@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @Deacription 数组刷题学习
+ * @Description 数组刷题学习
  * @Author Zhuang
  * @Date 2021/7/23 11:44
  * @Version 1.0

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Deacription 数组学习
+ * @Description 数组学习
  * @Author Zhuang
  * @Date 2021/8/5 13:31
  * @Version 1.0
