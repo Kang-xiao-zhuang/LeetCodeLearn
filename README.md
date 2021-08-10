@@ -56,7 +56,6 @@
 ### 中等篇
 
 - [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
-- [翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
 
 ## 🥗字符串篇
 
@@ -69,6 +68,7 @@
 
 ### 中等篇
 - [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
+- [翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
 ## 🍩栈篇
 
 ### 简单篇
