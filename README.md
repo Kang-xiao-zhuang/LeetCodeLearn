@@ -56,6 +56,7 @@
 ### 中等篇
 
 - [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
+- [翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
 
 ## 🥗字符串篇
 
@@ -66,6 +67,8 @@
 - [罗马数字转整数](https://leetcode-cn.com/problems/roman-to-integer/)
 - [最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
 
+### 中等篇
+- [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
 ## 🍩栈篇
 
 ### 简单篇
@@ -110,4 +113,6 @@
 - [找到K个最接近的元素](https://leetcode-cn.com/problems/find-k-closest-elements/)
 - [有效的完全平方数](https://leetcode-cn.com/problems/valid-perfect-square/)
 - [寻找比目标字母大的最小字母](https://leetcode-cn.com/problems/find-smallest-letter-greater-than-target/)
-
+- [寻找重复数](https://leetcode-cn.com/problems/find-the-duplicate-number/)
+### 困难篇
+- [寻找旋转排序数组中的最小值II](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/)
