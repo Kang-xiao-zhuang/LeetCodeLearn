@@ -65,10 +65,13 @@
 - [最后一个单词的长度](https://leetcode-cn.com/problems/length-of-last-word/)
 - [罗马数字转整数](https://leetcode-cn.com/problems/roman-to-integer/)
 - [最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
+- [实现strStr()](https://leetcode-cn.com/problems/implement-strstr/)
+- [数组拆分 ](https://leetcode-cn.com/problems/array-partition-i/)
 
 ### 中等篇
 - [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
 - [翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
+- [长度最小的子数组](https://leetcode-cn.com/problems/minimum-size-subarray-sum/)
 ## 🍩栈篇
 
 ### 简单篇

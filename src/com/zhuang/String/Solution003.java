@@ -13,7 +13,14 @@ public class Solution003 {
         //    longestPalindrome(s);
         String s = "the sky is blue";
         String s2 = "  hello world  ";
-        reverseWords(s2);
+        //    reverseWords(s2);
+
+        String haystack = "hello";
+        String needle = "ll";
+        //  strStr(haystack, needle);
+        //   strStr2(haystack, needle);
+        //  strStr3(haystack, needle);
+        strStr4(haystack, needle);
     }
 
     /**
@@ -139,4 +146,97 @@ public class Solution003 {
             end = start + 1;
         }
     }
+
+
+    /**
+     * https://leetcode-cn.com/problems/implement-strstr/
+     *
+     * @param haystack 字符串
+     * @param needle   字符串
+     * @return int
+     */
+    public static int strStr(String haystack, String needle) {
+        System.out.println(haystack.indexOf(needle));
+        return haystack.indexOf(needle);
+    }
+
+    /**
+     * 暴力匹配
+     *
+     * @param haystack 字符串
+     * @param needle   字符串
+     * @return int
+     */
+    public static int strStr2(String haystack, String needle) {
+        int n = haystack.length();
+        int m = needle.length();
+        for (int i = 0; i + m <= n; i++) {
+            boolean flag = true;
+            for (int j = 0; j < m; j++) {
+                if (haystack.charAt(i + j) != needle.charAt(j)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                System.out.println(i);
+                return i;
+            }
+        }
+        System.out.println(-1);
+        return -1;
+    }
+
+    /**
+     * 转化为数组的方法
+     *
+     * @param haystack 字符串
+     * @param needle   字符串
+     * @return int
+     */
+    public static int strStr3(String haystack, String needle) {
+        char[] ch1 = haystack.toCharArray();
+        char[] ch2 = needle.toCharArray();
+        for (int i = 0; i <= ch1.length - ch2.length; i++) {
+            int j;
+            for (j = 0; j < ch2.length; j++) {
+                if (ch1[i + j] != ch2[j]) {
+                    break;
+                }
+            }
+            if (j == ch2.length) {
+                System.out.println(i);
+                return i;
+            }
+        }
+        System.out.println(-1);
+        return -1;
+    }
+
+
+    /**
+     * 双指针法
+     *
+     * @param haystack 字符串
+     * @param needle   字符串
+     * @return int
+     */
+    public static int strStr4(String haystack, String needle) {
+
+        int left = 0;
+        int right = 0;
+        int index = 0;
+        while (right < haystack.length() && index < needle.length()) {
+            if (haystack.charAt(right) != needle.charAt(index)) {
+                left++;
+                right = left;
+                index = 0;
+            } else {
+                right++;
+                index++;
+            }
+        }
+        return index == needle.length() ? left : -1;
+    }
+
 }
