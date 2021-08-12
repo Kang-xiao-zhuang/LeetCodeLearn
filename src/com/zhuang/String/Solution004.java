@@ -1,6 +1,7 @@
 package com.zhuang.String;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * @Classname Solution004
@@ -15,10 +16,17 @@ public class Solution004 {
         //   int[] nums = {1, 1, 0, 1, 1, 1};
         //   findMaxConsecutiveOnes(nums);
 
-        int[] nums = {2, 3, 1, 2, 4, 3};
+        //   int[] nums = {2, 3, 1, 2, 4, 3};
         // minSubArrayLen(7, nums);
-        minSubArrayLen2(7, nums);
-        minSubArrayLen3(7, nums);
+        //     minSubArrayLen2(7, nums);
+        //      minSubArrayLen3(7, nums);
+
+        String s = "Let's take LeetCode contest";
+        reverseWords(s);
+        reverseWords2(s);
+        reverseWords3(s);
+
+
     }
 
     /**
@@ -120,4 +128,67 @@ public class Solution004 {
         System.out.println(min == Integer.MAX_VALUE ? 0 : min);
         return min == Integer.MAX_VALUE ? 0 : min;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/
+     * 暴力法
+     *
+     * @param s
+     * @return
+     */
+    public static String reverseWords(String s) {
+        String[] help = s.split(" ");
+        StringBuilder SB = new StringBuilder();
+
+        for (String str : help) {
+            StringBuilder temp = new StringBuilder();
+            temp.append(str).reverse();
+            SB.append(temp).append(" ");
+        }
+        System.out.println(SB.toString().substring(0, SB.length() - 1));
+        return SB.toString().substring(0, SB.length() - 1);
+    }
+
+    /**
+     * 栈的方法
+     *
+     * @param s 字符串
+     * @return Stirng
+     */
+    public static String reverseWords2(String s) {
+        Stack<Character> stack = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ' ') {
+                while (!stack.isEmpty()) {
+                    sb.append(stack.pop());
+                }
+                sb.append(' ');
+            } else {
+                stack.push(c);
+            }
+        }
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop());
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
+
+    public static String reverseWords3(String s) {
+        String[] a = s.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < a.length; i++) {
+            for (int j = a[i].length() - 1; j >= 0; j--) {
+                sb.append(a[i].charAt(j));
+            }
+            if (i != a.length - 1) {
+                sb.append(" ");
+            }
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
+
 }

@@ -35,12 +35,18 @@
 - [存在重复元素II ](https://leetcode-cn.com/problems/contains-duplicate-ii/)
 - [下一个更大元素 I ](https://leetcode-cn.com/problems/next-greater-element-i/)
 - [多数元素](https://leetcode-cn.com/problems/majority-element/)
+- [移动零](https://leetcode-cn.com/problems/move-zeroes/)
+- [删除有序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+- [买卖股票的最佳时机II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/)
+- [存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/)
 
 ### 中等篇
 - [有效的数独](https://leetcode-cn.com/problems/valid-sudoku/)
 - [矩阵置零](https://leetcode-cn.com/problems/set-matrix-zeroes/)
 - [对角线遍历](https://leetcode-cn.com/problems/diagonal-traverse/)
 - [三数之和](https://leetcode-cn.com/problems/3sum/)
+- [旋转数组](https://leetcode-cn.com/problems/rotate-array/)
+- [旋转图像](https://leetcode-cn.com/problems/rotate-image/)
 
 ## 🍜链表篇
 
@@ -67,6 +73,7 @@
 - [最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
 - [实现strStr()](https://leetcode-cn.com/problems/implement-strstr/)
 - [数组拆分 ](https://leetcode-cn.com/problems/array-partition-i/)
+- [反转字符串中的单词III ](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/)
 
 ### 中等篇
 - [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
