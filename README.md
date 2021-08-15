@@ -74,6 +74,7 @@
 - [实现strStr()](https://leetcode-cn.com/problems/implement-strstr/)
 - [数组拆分 ](https://leetcode-cn.com/problems/array-partition-i/)
 - [反转字符串中的单词III ](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/)
+- [验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
 
 ### 中等篇
 - [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
