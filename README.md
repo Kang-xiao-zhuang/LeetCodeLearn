@@ -61,10 +61,12 @@
 - [反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
 - [删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
 - [从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+- [回文链表](https://leetcode-cn.com/problems/aMhZSa/)
 
 ### 中等篇
 
 - [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
+- [删除链表的倒数第 N 个结点 ](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
 
 ## 🥗字符串篇
 
@@ -83,6 +85,7 @@
 - [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
 - [翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
 - [长度最小的子数组](https://leetcode-cn.com/problems/minimum-size-subarray-sum/)
+- [外观数列](https://leetcode-cn.com/problems/count-and-say/)
 ## 🍩栈篇
 
 ### 简单篇
