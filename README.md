@@ -80,6 +80,7 @@
 - [数组拆分 ](https://leetcode-cn.com/problems/array-partition-i/)
 - [反转字符串中的单词III ](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/)
 - [验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
+- [整数反转](https://leetcode-cn.com/problems/reverse-integer/)
 
 ### 中等篇
 - [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
@@ -103,10 +104,12 @@
 - [二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
 - [路径总和](https://leetcode-cn.com/problems/path-sum/)
 - [翻转二叉树](https://leetcode-cn.com/problems/invert-binary-tree/submissions/)
+- [将有序数组转换为二叉搜索树](https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/)
 
 ### 中等篇
 
 - [二叉树的层序遍历 ](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)
+- [验证二叉搜索树](https://leetcode-cn.com/problems/validate-binary-search-tree/)
 
 
 
