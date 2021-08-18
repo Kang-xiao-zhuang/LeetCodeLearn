@@ -55,8 +55,9 @@
 
 
 
-
+# 已完成
 [551. 学生出勤记录 I - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-i/)
+
 [![fhRptg.png](https://z3.ax1x.com/2021/08/17/fhRptg.png)](https://imgtu.com/i/fhRptg)
 
 - 一次for遍历
@@ -85,6 +86,38 @@ class Solution {
         }
         System.out.println(true);
         return true;
+    }
+}
+```
+
+# 未完成
+[552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)
+[![fTmlsx.png](https://z3.ax1x.com/2021/08/18/fTmlsx.png)](https://imgtu.com/i/fTmlsx)
+```java
+class Solution {
+    int MOD = 1000000007;
+
+    public int checkRecord(int n) {
+        long[][] dp = new long[2][6];
+        // 初始值
+        dp[0][0] = 1;
+        dp[0][1] = 1;
+        dp[0][3] = 1;
+
+        for (int i = 1; i < n; i++) {
+            // 当前使用的下标
+            int cur = i & 1;
+            // 上一次使用的下标
+            int last = (i - 1) & 1;
+            dp[cur][0] = (dp[last][0] + dp[last][1] + dp[last][2]) % MOD;
+            dp[cur][1] = dp[last][0];
+            dp[cur][2] = dp[last][1];
+            dp[cur][3] = (dp[last][3] + dp[last][4] + dp[last][5] + dp[last][0] + dp[last][1] + dp[last][2]) % MOD;
+            dp[cur][4] = dp[last][3];
+            dp[cur][5] = dp[last][4];
+        }
+
+        return (int) (LongStream.of(dp[(n - 1) & 1]).sum() % MOD);
     }
 }
 ```
