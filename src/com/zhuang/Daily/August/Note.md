@@ -35,26 +35,6 @@
 31. [912. 排序数组 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/sort-an-array/)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 已完成
 [551. 学生出勤记录 I - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-i/)
 
@@ -89,6 +69,40 @@ class Solution {
     }
 }
 ```
+[345. 反转字符串中的元音字母 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/)
+[![f7HVeK.png](https://z3.ax1x.com/2021/08/19/f7HVeK.png)](https://imgtu.com/i/f7HVeK)
+
+```java
+class Solution {
+    public String reverseVowels(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+
+        char[] chars = s.toCharArray();
+        while (left < right) {
+            if (isVowel(chars[left]) && isVowel(chars[right])) {
+                char temp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = temp;
+                left++;
+                right--;
+            }
+                if (!isVowel(chars[left])) {
+                    left++;
+                }
+                if (!isVowel(chars[right])) {
+                    right--;
+                }
+            }
+        return new String(chars);
+    }
+    public static boolean isVowel(char c) {
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'
+         || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
+    }
+}
+```
+
 
 # 未完成
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)

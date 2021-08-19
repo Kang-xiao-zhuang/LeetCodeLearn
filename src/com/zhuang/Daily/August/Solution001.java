@@ -1,5 +1,6 @@
 package com.zhuang.Daily.August;
 
+import java.util.Arrays;
 import java.util.stream.LongStream;
 
 /**
@@ -12,9 +13,12 @@ import java.util.stream.LongStream;
 public class Solution001 {
 
     public static void main(String[] args) {
-        String s = "PPALLP";
-        checkRecord(s);
-        checkRecord(2);
+        // String s = "PPALLP";
+        //  checkRecord(s);
+        //  checkRecord(2);
+
+        String s = "leetcode";
+        reverseVowels(s);
     }
 
     /**
@@ -79,5 +83,41 @@ public class Solution001 {
         }
         System.out.println((int) (LongStream.of(dp[(n - 1) & 1]).sum() % MOD));
         return (int) (LongStream.of(dp[(n - 1) & 1]).sum() % MOD);
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/reverse-vowels-of-a-string/
+     * 8.19
+     *
+     * @param s 字符串
+     * @return String
+     */
+    public static String reverseVowels(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+
+        char[] chars = s.toCharArray();
+        while (left < right) {
+            if (isVowel(chars[left]) && isVowel(chars[right])) {
+                char temp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = temp;
+                left++;
+                right--;
+            }
+            if (!isVowel(chars[left])) {
+                left++;
+            }
+            if (!isVowel(chars[right])) {
+                right--;
+            }
+        }
+        System.out.println(Arrays.toString(chars));
+        return new String(chars);
+    }
+
+
+    public static boolean isVowel(char c) {
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
     }
 }
