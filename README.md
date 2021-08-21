@@ -87,7 +87,7 @@
 - [翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
 - [长度最小的子数组](https://leetcode-cn.com/problems/minimum-size-subarray-sum/)
 - [外观数列](https://leetcode-cn.com/problems/count-and-say/)
-- [颜色分类)](https://leetcode-cn.com/problems/sort-colors/)
+- [颜色分类](https://leetcode-cn.com/problems/sort-colors/)
 ## 🍩栈篇
 
 ### 简单篇
