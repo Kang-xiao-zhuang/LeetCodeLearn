@@ -73,20 +73,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 已完成
 
 [551. 学生出勤记录 I - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-i/)
@@ -191,6 +177,56 @@ class Solution {
     }
 }
 ```
+[443. 压缩字符串 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/string-compression/)
+![](https://pic.imgdb.cn/item/612069cc4907e2d39cf2b8ed.jpg)
+```java
+class Solution {
+    public int compress(char[] chars) {
+       int n = chars.length;
+        int i = 0, j = 0;
+        while (i < n) {
+            int index = i;
+            while (index < n && chars[index] == chars[i]) {
+                index++;
+            }
+            int distance = index - i;
+            // 指定插入的位置
+            chars[j++] = chars[i];
+            if (distance > 1) {
+                int start = j;
+                int end = start;
+                while (distance != 0) {
+                    chars[end++] = (char) ((distance % 10) + '0');
+                    distance /= 10;
+                }
+                reverse(chars, start, end - 1);
+                j = end;
+            }
+            i = index;
+        }
+        System.out.println(j);
+        return j;
+    }
+    public static void reverse(char[] arr, int left, int right) {
+        while (left < right) {
+            
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+             /*
+            arr[left] ^= arr[right];
+            arr[right] ^= arr[left];
+            arr[left] ^= arr[right];
+            */
+            left++;
+            right--;
+        }
+    }
+}
+```
+
+
+
 # 未完成
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)
 

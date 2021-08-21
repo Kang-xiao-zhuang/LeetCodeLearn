@@ -17,11 +17,15 @@ public class Solution001 {
         //  checkRecord(s);
         //  checkRecord(2);
 
-    //    String s = "leetcode";
-     //   reverseVowels(s);
+        //    String s = "leetcode";
+        //   reverseVowels(s);
 
-        String a = "abcdefg";
-        reverseStr(a,2);
+        //  String a = "abcdefg";
+        // reverseStr(a, 2);
+
+        char[] chars = new char[]{'a', 'a', 'b', 'b', 'c', 'c', 'c'};
+        //  compress(chars);
+        compress2(chars);
     }
 
     /**
@@ -128,6 +132,7 @@ public class Solution001 {
     /**
      * https://leetcode-cn.com/problems/reverse-string-ii/
      * 8.20
+     *
      * @param s 字符串
      * @param k 前k个字符
      * @return 字符串
@@ -157,12 +162,75 @@ public class Solution001 {
             arr[left] = arr[right];
             arr[right] = temp;
              */
-            arr[left]^=arr[right];
-            arr[right]^=arr[left];
-            arr[left]^=arr[right];
+            arr[left] ^= arr[right];
+            arr[right] ^= arr[left];
+            arr[left] ^= arr[right];
             left++;
             right--;
         }
     }
 
+    /**
+     * https://leetcode-cn.com/problems/string-compression/
+     * 8.21 解法1
+     *
+     * @param chars 数组
+     * @return int 长度
+     */
+    public static int compress(char[] chars) {
+        int n = chars.length;
+        int i = 0, j = 0;
+        while (i < n) {
+            int index = i;
+            while (index < n && chars[index] == chars[i]) {
+                index++;
+            }
+            int distance = index - i;
+            // 指定插入的位置
+            chars[j++] = chars[i];
+            if (distance > 1) {
+                int start = j;
+                int end = start;
+                while (distance != 0) {
+                    chars[end++] = (char) ((distance % 10) + '0');
+                    distance /= 10;
+                }
+                reverse(chars, start, end - 1);
+                j = end;
+            }
+            i = index;
+        }
+        System.out.println(Arrays.toString(chars));
+        System.out.println(j);
+        return j;
+    }
+
+    /**
+     * 8.21 解法2
+     *
+     * @param chars 数组
+     * @return 长度
+     */
+    public static int compress2(char[] chars) {
+        int n = chars.length;
+        int write = 0, left = 0;
+        for (int read = 0; read < n; read++) {
+            if (read == n - 1 || chars[read] != chars[read + 1]) {
+                chars[write++] = chars[read];
+                int num = read - left + 1;
+                if (num > 1) {
+                    int anchor = write;
+                    while (num > 0) {
+                        chars[write++] = (char) (num % 10 + '0');
+                        num /= 10;
+                    }
+                    reverse(chars, anchor, write - 1);
+                }
+                left = read + 1;
+            }
+        }
+        System.out.println(Arrays.toString(chars));
+        System.out.println(write);
+        return write;
+    }
 }
