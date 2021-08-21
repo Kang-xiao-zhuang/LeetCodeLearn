@@ -1,6 +1,6 @@
 开始补做2020.3月份开始的力扣每日一题，争取每个月都拿勋章，注意，要讲究融会贯通，效率之上💪💪💪
 
-## 2020.3
+# 2020.3
 
 1. [225. 用队列实现栈 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/implement-stack-using-queues/)
 2. [206. 反转链表 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-linked-list/)
@@ -35,7 +35,60 @@
 31. [912. 排序数组 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/sort-an-array/)
 
 
+
+# 2020.4
+
+1. [1111. 有效括号的嵌套深度 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/maximum-nesting-depth-of-two-valid-parentheses-strings/)
+2. [289. 生命游戏 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/game-of-life/)
+3. [8. 字符串转换整数 (atoi) - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/string-to-integer-atoi/)
+4. [42. 接雨水 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/trapping-rain-water/)
+5. [460. LFU 缓存 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/lfu-cache/)
+6. [72. 编辑距离 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/edit-distance/)
+7. [面试题 01.07. 旋转矩阵 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/rotate-matrix-lcci/)
+8. [剑指 Offer 13. 机器人的运动范围 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/)
+9. [22. 括号生成 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/generate-parentheses/)
+10. [151. 翻转字符串里的单词 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
+11. [887. 鸡蛋掉落 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/super-egg-drop/)
+12. [面试题 16.03. 交点 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/intersection-lcci/)
+13. [355. 设计推特 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/design-twitter/)
+14. [445. 两数相加 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/add-two-numbers-ii/)
+15. [542. 01 矩阵 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/01-matrix/)
+16. [56. 合并区间 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/merge-intervals/)
+17. [55. 跳跃游戏 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/jump-game/)
+18. [11. 盛最多水的容器 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/container-with-most-water/)
+19. [466. 统计重复个数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/count-the-repetitions/)
+20. [200. 岛屿数量 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/number-of-islands/)
+21. [1248. 统计「优美子数组」 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/count-number-of-nice-subarrays/)
+22. [199. 二叉树的右视图 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
+23. [面试题 08.11. 硬币 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/coin-lcci/)
+24. [剑指 Offer 51. 数组中的逆序对 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/)
+25. [46. 全排列 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/permutations/)
+26. [23. 合并K个升序链表 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/merge-k-sorted-lists/)
+27. [33. 搜索旋转排序数组 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
+28. [剑指 Offer 56 - I. 数组中数字出现的次数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/)
+29. [1095. 山脉数组中查找目标值 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/find-in-mountain-array/)
+30. [202. 快乐数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/happy-number/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 已完成
+
 [551. 学生出勤记录 I - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-i/)
 
 [![fhRptg.png](https://z3.ax1x.com/2021/08/17/fhRptg.png)](https://imgtu.com/i/fhRptg)
@@ -71,7 +124,6 @@ class Solution {
 ```
 [345. 反转字符串中的元音字母 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/)
 [![f7HVeK.png](https://z3.ax1x.com/2021/08/19/f7HVeK.png)](https://imgtu.com/i/f7HVeK)
-
 ```java
 class Solution {
     public String reverseVowels(String s) {
@@ -102,10 +154,46 @@ class Solution {
     }
 }
 ```
+[541. 反转字符串 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-string-ii/)
+[![fOerM4.png](https://z3.ax1x.com/2021/08/20/fOerM4.png)](https://imgtu.com/i/fOerM4)
+```java
+class Solution {
+    public String reverseStr(String s, int k) {
+        char[] arr = s.toCharArray();
+        int n = s.length();
+        //每次前进2k，但是只交换前k个字符
+        for (int i = 0; i < n; i += 2 * k) {
+            reverse(arr, i, Math.min(i + k, n) - 1);
+        }
+        return new String(arr);
+    }
 
-
+    /**
+     * 辅助函数 反转字符串
+     *
+     * @param arr   数组
+     * @param left  左指针
+     * @param right 右指针
+     */
+    public void reverse(char[] arr, int left, int right) {
+        while (left < right) {
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+             /*
+            arr[left]^=arr[right];
+            arr[right]^=arr[left];
+            arr[left]^=arr[right];
+            */
+            left++;
+            right--;
+        }
+    }
+}
+```
 # 未完成
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)
+
 [![fTmlsx.png](https://z3.ax1x.com/2021/08/18/fTmlsx.png)](https://imgtu.com/i/fTmlsx)
 ```java
 class Solution {

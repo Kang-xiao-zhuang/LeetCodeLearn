@@ -17,8 +17,11 @@ public class Solution001 {
         //  checkRecord(s);
         //  checkRecord(2);
 
-        String s = "leetcode";
-        reverseVowels(s);
+    //    String s = "leetcode";
+     //   reverseVowels(s);
+
+        String a = "abcdefg";
+        reverseStr(a,2);
     }
 
     /**
@@ -120,4 +123,46 @@ public class Solution001 {
     public static boolean isVowel(char c) {
         return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
     }
+
+
+    /**
+     * https://leetcode-cn.com/problems/reverse-string-ii/
+     * 8.20
+     * @param s 字符串
+     * @param k 前k个字符
+     * @return 字符串
+     */
+    public static String reverseStr(String s, int k) {
+        char[] arr = s.toCharArray();
+        int n = s.length();
+        //每次前进2k，但是只交换前k个字符
+        for (int i = 0; i < n; i += 2 * k) {
+            reverse(arr, i, Math.min(i + k, n) - 1);
+        }
+        System.out.println(Arrays.toString(arr));
+        return new String(arr);
+    }
+
+    /**
+     * 辅助函数 反转字符串
+     *
+     * @param arr   数组
+     * @param left  左指针
+     * @param right 右指针
+     */
+    public static void reverse(char[] arr, int left, int right) {
+        while (left < right) {
+            /*
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+             */
+            arr[left]^=arr[right];
+            arr[right]^=arr[left];
+            arr[left]^=arr[right];
+            left++;
+            right--;
+        }
+    }
+
 }
