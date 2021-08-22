@@ -50,6 +50,7 @@
 - [三数之和](https://leetcode-cn.com/problems/3sum/)
 - [旋转数组](https://leetcode-cn.com/problems/rotate-array/)
 - [旋转图像](https://leetcode-cn.com/problems/rotate-image/)
+- [数组中的第k大的数字](https://leetcode-cn.com/problems/xx4gT2/)
 
 ## 🍜链表篇
 
