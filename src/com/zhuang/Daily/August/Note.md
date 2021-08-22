@@ -109,6 +109,7 @@ class Solution {
 }
 ```
 [345. 反转字符串中的元音字母 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/)
+
 [![f7HVeK.png](https://z3.ax1x.com/2021/08/19/f7HVeK.png)](https://imgtu.com/i/f7HVeK)
 ```java
 class Solution {
@@ -141,6 +142,7 @@ class Solution {
 }
 ```
 [541. 反转字符串 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-string-ii/)
+
 [![fOerM4.png](https://z3.ax1x.com/2021/08/20/fOerM4.png)](https://imgtu.com/i/fOerM4)
 ```java
 class Solution {
@@ -178,6 +180,7 @@ class Solution {
 }
 ```
 [443. 压缩字符串 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/string-compression/)
+
 ![](https://pic.imgdb.cn/item/612069cc4907e2d39cf2b8ed.jpg)
 ```java
 class Solution {
@@ -224,8 +227,27 @@ class Solution {
     }
 }
 ```
+[789. 逃脱阻碍者 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/escape-the-ghosts/)
 
-
+![](https://pic.imgdb.cn/item/61220c6b4907e2d39cb16790.jpg)
+```java
+class Solution {
+    public boolean escapeGhosts(int[][] ghosts, int[] target) {
+        // 计算出人走的距离
+        int human_path = Math.abs(target[0]) + Math.abs(target[1]);
+        // 有几个鬼 那就遍历几次
+        for (int i = 0; i < ghosts.length; i++) {
+            // 鬼走的距离，通过曼哈顿距离来求出  distance=|x1,x2|+|y1-y2|
+            int ghost_path = Math.abs(ghosts[i][0] - target[0]) + Math.abs(ghosts[i][1] - target[1]);
+            // 两个距离比较，人距离小，成功，否则GG
+            if (human_path >= ghost_path) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
 
 # 未完成
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)

@@ -23,9 +23,14 @@ public class Solution001 {
         //  String a = "abcdefg";
         // reverseStr(a, 2);
 
-        char[] chars = new char[]{'a', 'a', 'b', 'b', 'c', 'c', 'c'};
+        // char[] chars = new char[]{'a', 'a', 'b', 'b', 'c', 'c', 'c'};
         //  compress(chars);
-        compress2(chars);
+        // compress2(chars);
+
+        int[][] ghost = {{1, 0}, {0, 3}};
+        int[] target = {0, 1};
+        escapeGhosts(ghost, target);
+
     }
 
     /**
@@ -232,5 +237,30 @@ public class Solution001 {
         System.out.println(Arrays.toString(chars));
         System.out.println(write);
         return write;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/escape-the-ghosts/
+     * 8.22每日一题
+     *
+     * @param ghosts 阻碍者
+     * @param target 目的地
+     * @return 布尔
+     */
+    public static boolean escapeGhosts(int[][] ghosts, int[] target) {
+        // 计算出人走的距离
+        int human_path = Math.abs(target[0]) + Math.abs(target[1]);
+        // 有几个鬼 那就遍历几次
+        for (int i = 0; i < ghosts.length; i++) {
+            // 鬼走的距离，通过曼哈顿距离来求出  distance=|x1,x2|+|y1-y2|
+            int ghost_path = Math.abs(ghosts[i][0] - target[0]) + Math.abs(ghosts[i][1] - target[1]);
+            // 两个距离比较，人距离小，成功，否则GG
+            if (human_path >= ghost_path) {
+                System.out.println(false);
+                return false;
+            }
+        }
+        System.out.println(true);
+        return true;
     }
 }
