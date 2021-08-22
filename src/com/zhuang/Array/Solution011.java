@@ -1,5 +1,7 @@
 package com.zhuang.Array;
 
+import java.util.PriorityQueue;
+
 /**
  * @Classname Solution011
  * @Description 数组学习
@@ -9,10 +11,13 @@ package com.zhuang.Array;
 
 public class Solution011 {
     public static void main(String[] args) {
-        int[] nums = {1, 1, 1, 2, 2, 3};
+        // int[] nums = {1, 1, 1, 2, 2, 3};
         //removeDuplicates(nums);
         //removeDuplicates2(nums);
-        removeDuplicates3(nums);
+        // removeDuplicates3(nums);
+
+        int[] arr = {3, 2, 1, 5, 6, 4};
+        findKthLargest(arr, 2);
     }
 
     /**
@@ -87,5 +92,24 @@ public class Solution011 {
         }
         System.out.println(slow);
         return slow;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+     *
+     * @param nums 数组
+     * @param k    第K个大的元素
+     * @return int
+     */
+    public static int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for (int num : nums) {
+            queue.offer(num);
+            if (queue.size() > k) {
+                queue.poll();
+            }
+        }
+        System.out.println(queue.poll());
+        return queue.poll();
     }
 }
