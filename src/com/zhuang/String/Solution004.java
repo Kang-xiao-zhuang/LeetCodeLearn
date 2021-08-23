@@ -16,16 +16,16 @@ public class Solution004 {
         //   int[] nums = {1, 1, 0, 1, 1, 1};
         //   findMaxConsecutiveOnes(nums);
 
-        //   int[] nums = {2, 3, 1, 2, 4, 3};
-        // minSubArrayLen(7, nums);
-        //     minSubArrayLen2(7, nums);
-        //      minSubArrayLen3(7, nums);
+        int[] nums = {2, 3, 1, 2, 4, 3};
+        //  minSubArrayLen(7, nums);
+        //  minSubArrayLen2(7, nums);
+        //  minSubArrayLen3(7, nums);
+        minSubArrayLen4(7, nums);
 
-        String s = "Let's take LeetCode contest";
-        reverseWords(s);
-        reverseWords2(s);
-        reverseWords3(s);
-
+        //   String s = "Let's take LeetCode contest";
+        //   reverseWords(s);
+        //   reverseWords2(s);
+        //   reverseWords3(s);
 
     }
 
@@ -90,7 +90,7 @@ public class Solution004 {
     }
 
     /**
-     * 双指针法
+     * 双指针法+队列
      *
      * @param target 目标值
      * @param nums   数组
@@ -112,7 +112,13 @@ public class Solution004 {
         return min == Integer.MAX_VALUE ? 0 : min;
     }
 
-
+    /**
+     * 双指针法+队列
+     *
+     * @param target 目标值
+     * @param nums   数组
+     * @return int
+     */
     public static int minSubArrayLen3(int target, int[] nums) {
         int low = 0;
         int high = 0;
@@ -128,6 +134,36 @@ public class Solution004 {
         System.out.println(min == Integer.MAX_VALUE ? 0 : min);
         return min == Integer.MAX_VALUE ? 0 : min;
     }
+
+    /**
+     * 滑动窗口法
+     *
+     * @param target 目标值
+     * @param nums   数组
+     * @return int
+     */
+    public static int minSubArrayLen4(int target, int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int ans = Integer.MAX_VALUE;
+        int start = 0;
+        int end = 0;
+        int sum = 0;
+        while (end < n) {
+            sum += nums[end];
+            while (sum >= target) {
+                ans = Math.min(ans, end - start + 1);
+                sum -= nums[start];
+                start++;
+            }
+            end++;
+        }
+        System.out.println(ans == Integer.MAX_VALUE ? 0 : ans);
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
+
 
     /**
      * https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/
