@@ -16,8 +16,12 @@ public class Solution011 {
         //removeDuplicates2(nums);
         // removeDuplicates3(nums);
 
-        int[] arr = {3, 2, 1, 5, 6, 4};
-        findKthLargest(arr, 2);
+        // int[] arr = {3, 2, 1, 5, 6, 4};
+        // findKthLargest(arr, 2);
+
+        int[] height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+       // maxArea(height);
+        maxArea2(height);
     }
 
     /**
@@ -111,5 +115,56 @@ public class Solution011 {
         }
         System.out.println(queue.poll());
         return queue.poll();
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/container-with-most-water/
+     * 暴力法
+     *
+     * @param height 高度
+     * @return 盛水最多的最大值
+     */
+    public static int maxArea(int[] height) {
+        int len = height.length;
+        if (len < 2) {
+            return 0;
+        }
+        int res = 0;
+        for (int i = 0; i < len - 1; i++) {
+            for (int j = i + 1; j < len; j++) {
+                res = Math.max(res, Math.min(height[i], height[j]) * (j - i));
+            }
+        }
+        System.out.println(res);
+        return res;
+    }
+
+    /**
+     * 双指针法
+     *
+     * @param height 高度
+     * @return 盛水最多的最大值
+     */
+    public static int maxArea2(int[] height) {
+        int len = height.length;
+        if (len < 2) {
+            return 0;
+        }
+        int res = 0;
+        int left = 0;
+        int right = len - 1;
+        while (left < right) {
+            // 计算水的容量
+            int maxArea = Math.min(height[left], height[right]) * (right - left);
+            res = Math.max(res, maxArea);
+            // 判断移动指针
+            if (height[left] <= height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        System.out.println(res);
+        return res;
     }
 }
