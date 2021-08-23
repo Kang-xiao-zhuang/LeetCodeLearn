@@ -248,7 +248,34 @@ class Solution {
     }
 }
 ```
+[1646. 获取生成数组中的最大值 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/get-maximum-in-generated-array/)
 
+[![h9DOG4.png](https://z3.ax1x.com/2021/08/23/h9DOG4.png)](https://imgtu.com/i/h9DOG4)
+```java
+class Solution {
+    public int getMaximumGenerated(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        int[] nums = new int[n + 1];
+        nums[0] = 0;
+        nums[1] = 1;
+        for (int i = 0; i < n; i++) {
+            if (2 * i <= n) {
+                nums[2 * i] = nums[i];
+            }
+            if (2 * i + 1 <= n) {
+                nums[2 * i + 1] = nums[i] + nums[i + 1];
+            }
+        }
+        int res = 0;
+        for (int num : nums) {
+            res = Math.max(res, num);
+        }
+        return res;
+    }
+}
+```
 # 未完成
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)
 
