@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
  * @Classname Solution011
  * @Description 数组学习
  * @Date 2021/8/21 21:29
- * @Author by dell
+ * @Author by Zhuang
  */
 
 public class Solution011 {
