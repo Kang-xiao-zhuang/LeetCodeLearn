@@ -31,7 +31,10 @@ public class Solution001 {
         // int[] target = {0, 1};
         // escapeGhosts(ghost, target);
 
-        getMaximumGenerated(7);
+       // getMaximumGenerated(7);
+
+        int[][] filights={{0,1,100},{1,2,100},{0,2,500}};
+        findCheapestPrice(3,filights,0,2,1);
 
     }
 
@@ -294,5 +297,37 @@ public class Solution001 {
         }
         System.out.println(res);
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/
+     * 8.24
+     *
+     * @param n n个城市
+     * @param flights 飞机数组
+     * @param src 出发城市
+     * @param dst 目的地
+     * @param k 站台数
+     * @return 最便宜的价格
+     */
+    public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        final int INF = 10000 * 101 + 1;
+        int[][] f = new int[k + 2][n];
+        for (int i = 0; i < k + 2; ++i) {
+            Arrays.fill(f[i], INF);
+        }
+        f[0][src] = 0;
+        for (int t = 1; t <= k + 1; ++t) {
+            for (int[] flight : flights) {
+                int j = flight[0], i = flight[1], cost = flight[2];
+                f[t][i] = Math.min(f[t][i], f[t - 1][j] + cost);
+            }
+        }
+        int ans = INF;
+        for (int t = 1; t <= k + 1; ++t) {
+            ans = Math.min(ans, f[t][dst]);
+        }
+        System.out.println(ans == INF ? -1 : ans);
+        return ans == INF ? -1 : ans;
     }
 }
