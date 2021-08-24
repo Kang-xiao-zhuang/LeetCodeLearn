@@ -1,6 +1,8 @@
 package com.zhuang.String;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Classname Solution006
@@ -12,11 +14,15 @@ public class Solution006 {
 
     public static void main(String[] args) {
         int x = 123;
-        reverse(123);
+        //   reverse(123);
 
         int[] nums = {2, 0, 2, 1, 1, 0};
-    //    sortColors(nums);
-        sortColors2(nums);
+        //    sortColors(nums);
+        //   sortColors2(nums);
+
+        String s = "abcabcbb";
+        // lengthOfLongestSubstring(s);
+        lengthOfLongestSubstring2(s);
     }
 
     /**
@@ -91,5 +97,60 @@ public class Solution006 {
             }
         }
         System.out.println(Arrays.toString(nums));
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+     * Map+双指针法
+     *
+     * @param s 字符串
+     * @return 最长子串的长度
+     */
+    public static int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        int ans = 0;
+        // 用来存储字符串 判断是否重复
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int start = 0, end = 0; end < n; end++) {
+            // 将字符串转成字符
+            char letter = s.charAt(end);
+            // 如果字符重复了，start指针变换位置
+            if (map.containsKey(letter)) {
+                start = Math.max(map.get(letter), start);
+            }
+            // 更换长度
+            ans = Math.max(end - start + 1, ans);
+            // 存入Map集合中
+            map.put(s.charAt(end), end + 1);
+        }
+        System.out.println(ans);
+        return ans;
+    }
+
+    /**
+     * Map的另一个解法
+     *
+     * @param s 字符串
+     * @return 最长子串的长度
+     */
+    public static int lengthOfLongestSubstring2(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int n = s.length();
+        int ans = 0;
+        for (int start = 0, end = 0; end < n; end++) {
+            char right = s.charAt(end);
+            map.put(right, map.getOrDefault(right, 0) + 1);
+            // 如果大于1 就说明有重复
+            while (map.get(right) > 1) {
+                // 将重复的字符去掉个数
+                char left = s.charAt(start);
+                map.put(left, map.get(left) - 1);
+                start++;
+            }
+            // 更换长度
+            ans = Math.max(end - start + 1, ans);
+        }
+        System.out.println(ans);
+        return ans;
     }
 }
