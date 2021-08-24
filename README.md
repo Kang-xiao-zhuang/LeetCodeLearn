@@ -64,11 +64,12 @@
 - [删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
 - [从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 - [回文链表](https://leetcode-cn.com/problems/aMhZSa/)
+- [链表的中间结点](https://leetcode-cn.com/problems/middle-of-the-linked-list/)
 
 ### 中等篇
 
 - [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
-- [删除链表的倒数第 N 个结点 ](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+- [删除链表的倒数第N个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
 
 ## 🥗字符串篇
 
@@ -79,8 +80,8 @@
 - [罗马数字转整数](https://leetcode-cn.com/problems/roman-to-integer/)
 - [最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
 - [实现strStr()](https://leetcode-cn.com/problems/implement-strstr/)
-- [数组拆分 ](https://leetcode-cn.com/problems/array-partition-i/)
-- [反转字符串中的单词III ](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/)
+- [数组拆分](https://leetcode-cn.com/problems/array-partition-i/)
+- [反转字符串中的单词III](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/)
 - [验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
 - [整数反转](https://leetcode-cn.com/problems/reverse-integer/)
 
