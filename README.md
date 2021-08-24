@@ -52,6 +52,7 @@
 - [旋转图像](https://leetcode-cn.com/problems/rotate-image/)
 - [数组中的第k大的数字](https://leetcode-cn.com/problems/xx4gT2/)
 - [盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
+- [最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/)
 
 ## 🍜链表篇
 
@@ -91,6 +92,8 @@
 - [长度最小的子数组](https://leetcode-cn.com/problems/minimum-size-subarray-sum/)
 - [外观数列](https://leetcode-cn.com/problems/count-and-say/)
 - [颜色分类](https://leetcode-cn.com/problems/sort-colors/)
+- [无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+
 ## 🍩栈篇
 
 ### 简单篇
