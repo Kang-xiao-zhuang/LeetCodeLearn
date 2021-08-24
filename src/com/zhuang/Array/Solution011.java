@@ -1,5 +1,6 @@
 package com.zhuang.Array;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
@@ -19,9 +20,13 @@ public class Solution011 {
         // int[] arr = {3, 2, 1, 5, 6, 4};
         // findKthLargest(arr, 2);
 
-        int[] height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+        // int[] height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
         // maxArea(height);
-        maxArea2(height);
+        // maxArea2(height);
+
+        int[] nums = {-1, 2, 1, -4};
+        //threeSumClosest(nums, 1);
+        threeSumClosest2(nums, 1);
     }
 
     /**
@@ -167,5 +172,74 @@ public class Solution011 {
         }
         System.out.println(res);
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/3sum-closest/
+     * 双指针法
+     *
+     * @param nums   整数数组
+     * @param target 目标值
+     * @return int
+     */
+    public static int threeSumClosest(int[] nums, int target) {
+        // 数组首先排序
+        Arrays.sort(nums);
+        // 初始化ans
+        int ans = nums[0] + nums[1] + nums[2];
+        for (int i = 0; i < nums.length; i++) {
+            // 定义头指针和尾指针
+            int start = i + 1;
+            int end = nums.length - 1;
+            // 循环开始
+            while (start < end) {
+                // sum为三个值的和
+                int sum = nums[start] + nums[end] + nums[i];
+                // 如果 target-sum的绝对值<target-ans的绝对值 说明 sum更接近target
+                // 将sum的值赋值给ans
+                if (Math.abs(target - sum) < Math.abs(target - ans)) {
+                    ans = sum;
+                }
+                // 如果大于 那么 尾指针向前移动
+                if (sum > target) {
+                    end--;
+                    // 如果小于 那么 头指针向后移动
+                } else if (sum < target) {
+                    start++;
+                    // 返回ans
+                } else {
+                    return ans;
+                }
+            }
+        }
+        System.out.println(ans);
+        return ans;
+    }
+
+    /**
+     * 暴力法
+     *
+     * @param nums   整数数组
+     * @param target 目标值
+     * @return int
+     */
+    public static int threeSumClosest2(int[] nums, int target) {
+        Arrays.sort(nums);
+        int ans = nums[0] + nums[1] + nums[2];
+        if (target <= ans) {
+            return ans;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                for (int k = j + 1; k < nums.length; k++) {
+                    int sum = nums[i] + nums[j] + nums[k];
+                    if (Math.abs(target - sum) <= Math.abs(target - ans)) {
+                        ans = sum;
+                    }
+                }
+            }
+        }
+        System.out.println(ans);
+        return ans;
     }
 }
