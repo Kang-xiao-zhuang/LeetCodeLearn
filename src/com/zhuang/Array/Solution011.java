@@ -250,7 +250,7 @@ public class Solution011 {
 
     /**
      * https://leetcode-cn.com/problems/arithmetic-slices/
-     * 数学思想
+     * 数学思想(三叶)未懂
      *
      * @param nums 数组
      * @return 子数组个数
