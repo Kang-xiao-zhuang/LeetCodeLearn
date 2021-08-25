@@ -1,6 +1,6 @@
 package com.zhuang.Daily.August;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.stream.LongStream;
 
 /**
@@ -31,10 +31,13 @@ public class Solution001 {
         // int[] target = {0, 1};
         // escapeGhosts(ghost, target);
 
-       // getMaximumGenerated(7);
+        // getMaximumGenerated(7);
 
-        int[][] filights={{0,1,100},{1,2,100},{0,2,500}};
-        findCheapestPrice(3,filights,0,2,1);
+        //int[][] filights = {{0, 1, 100}, {1, 2, 100}, {0, 2, 500}};
+        //findCheapestPrice(3, filights, 0, 2, 1);
+
+        int[][] graph = {{1, 2}, {3}, {3}, {}};
+        allPathsSourceTarget(graph);
 
     }
 
@@ -303,11 +306,11 @@ public class Solution001 {
      * https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/
      * 8.24
      *
-     * @param n n个城市
+     * @param n       n个城市
      * @param flights 飞机数组
-     * @param src 出发城市
-     * @param dst 目的地
-     * @param k 站台数
+     * @param src     出发城市
+     * @param dst     目的地
+     * @param k       站台数
      * @return 最便宜的价格
      */
     public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
@@ -329,5 +332,43 @@ public class Solution001 {
         }
         System.out.println(ans == INF ? -1 : ans);
         return ans == INF ? -1 : ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/all-paths-from-source-to-target/
+     * 8.25
+     *
+     * @param graph 二维数组
+     * @return 集合
+     */
+
+    static List<List<Integer>> ans = new ArrayList<List<Integer>>();
+    static Deque<Integer> stack = new ArrayDeque<Integer>();
+
+    public static List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        // 栈加入0
+        stack.offerLast(0);
+        dfs(graph, 0, graph.length - 1);
+        System.out.println(ans.toString());
+        return ans;
+    }
+
+    /**
+     * dfs搜索方法
+     *
+     * @param graph 二维数组
+     * @param x     int
+     * @param n     int
+     */
+    public static void dfs(int[][] graph, int x, int n) {
+        if (x == n) {
+            ans.add(new ArrayList<Integer>(stack));
+            return;
+        }
+        for (int y : graph[x]) {
+            stack.offerLast(y);
+            dfs(graph, y, n);
+            stack.pollLast();
+        }
     }
 }

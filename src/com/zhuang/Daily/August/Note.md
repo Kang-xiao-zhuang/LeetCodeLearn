@@ -334,3 +334,30 @@ class Solution {
     }
 }
 ```
+[797. 所有可能的路径 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/all-paths-from-source-to-target/)
+
+[![hVi8IK.png](https://z3.ax1x.com/2021/08/25/hVi8IK.png)](https://imgtu.com/i/hVi8IK)
+```java
+class Solution {
+    List<List<Integer>> ans = new ArrayList<List<Integer>>();
+    Deque<Integer> stack = new ArrayDeque<Integer>();
+
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        stack.offerLast(0);
+        dfs(graph, 0, graph.length - 1);
+        return ans;
+    }
+
+    public void dfs(int[][] graph, int x, int n) {
+        if (x == n) {
+            ans.add(new ArrayList<Integer>(stack));
+            return;
+        }
+        for (int y : graph[x]) {
+            stack.offerLast(y);
+            dfs(graph, y, n);
+            stack.pollLast();
+        }
+    }
+}
+```
