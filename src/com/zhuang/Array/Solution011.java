@@ -24,9 +24,14 @@ public class Solution011 {
         // maxArea(height);
         // maxArea2(height);
 
-        int[] nums = {-1, 2, 1, -4};
+        //int[] nums = {-1, 2, 1, -4};
         //threeSumClosest(nums, 1);
-        threeSumClosest2(nums, 1);
+        //threeSumClosest2(nums, 1);
+
+        //int[] nums = {1, 2, 3, 4};
+        //numberOfArithmeticSlices(nums);
+        //numberOfArithmeticSlices2(nums);
+        //numberOfArithmeticSlices3(nums);
     }
 
     /**
@@ -236,6 +241,80 @@ public class Solution011 {
                     if (Math.abs(target - sum) <= Math.abs(target - ans)) {
                         ans = sum;
                     }
+                }
+            }
+        }
+        System.out.println(ans);
+        return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/arithmetic-slices/
+     * 数学思想
+     *
+     * @param nums 数组
+     * @return 子数组个数
+     */
+    public static int numberOfArithmeticSlices(int[] nums) {
+        int n = nums.length;
+        int ans = 0;
+        for (int i = 0; i < n - 2; ) {
+            int j = i, d = nums[i + 1] - nums[i];
+            while (j + 1 < n && nums[j + 1] - nums[j] == d) {
+                j++;
+            }
+            int len = j - i + 1;
+            // a1：⻓度为 len 的⼦数组数量；an：⻓度为 3 的⼦数组数量
+            int a1 = 1, an = len - 3 + 1;
+            // 符合条件（⻓度⼤于等于3）的⼦数组的数量为「差值数列求和」结果
+            int cnt = (a1 + an) * an / 2;
+            ans += cnt;
+            i = j;
+        }
+        System.out.println(ans);
+        return ans;
+    }
+
+    /**
+     * 找规律
+     *
+     * @param nums 数组
+     * @return 子数组个数
+     */
+    public static int numberOfArithmeticSlices2(int[] nums) {
+        if (nums == null || nums.length <= 2) {
+            return 0;
+        }
+        int res = 0;
+        int sum = 0;
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i - 1] - nums[i] == nums[i - 2] - nums[i - 1]) {
+                sum++;
+                res += sum;
+            } else {
+                sum = 0;
+            }
+        }
+        System.out.println(res);
+        return res;
+    }
+
+    /**
+     * 暴力法
+     *
+     * @param nums 数组
+     * @return 子数组个数
+     */
+    public static int numberOfArithmeticSlices3(int[] nums) {
+        int n = nums.length;
+        int ans = 0;
+        for (int i = 0; i <= n - 3; i++) {
+            for (int j = i + 2; j < n; j++) {
+                // 判断第三个值-第二个值是否等于第二个值-第一个值
+                if (nums[j] - nums[j - 1] == nums[j - 1] - nums[j - 2]) {
+                    ans++;
+                } else {
+                    break;
                 }
             }
         }
