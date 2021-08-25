@@ -53,6 +53,7 @@
 - [数组中的第k大的数字](https://leetcode-cn.com/problems/xx4gT2/)
 - [盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
 - [最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/)
+- [等差数列划分](https://leetcode-cn.com/problems/arithmetic-slices/)
 
 ## 🍜链表篇
 
