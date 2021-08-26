@@ -276,6 +276,30 @@ class Solution {
     }
 }
 ```
+[881. 救生艇 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/boats-to-save-people/)
+
+[![hejOHK.png](https://z3.ax1x.com/2021/08/26/hejOHK.png)](https://imgtu.com/i/hejOHK)
+```java
+class Solution {
+    public int numRescueBoats(int[] people, int limit) {
+        int res = 0;
+        // 排序
+        Arrays.sort(people);
+        // 双指针
+        int left = 0;
+        int right = people.length - 1;
+        while (left <= right) {
+            if (people[left] + people[right] <= limit) {
+                left++;
+            }
+            right--;
+            res++;
+        }
+        return res;
+    }
+}
+```
+
 # 未完成
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)
 
