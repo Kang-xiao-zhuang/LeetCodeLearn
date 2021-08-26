@@ -5,7 +5,7 @@ import java.util.stream.LongStream;
 
 /**
  * @Classname Solution001
- * @Description 2021.8的每日一题
+ * @Description 2021.8.17-2021.8.25每日一题
  * @Date 2021/8/17 11:23
  * @Author by Zhuang
  */
@@ -345,6 +345,13 @@ public class Solution001 {
     static List<List<Integer>> ans = new ArrayList<List<Integer>>();
     static Deque<Integer> stack = new ArrayDeque<Integer>();
 
+    /**
+     * https://leetcode-cn.com/problems/all-paths-from-source-to-target/
+     * 8.25
+     *
+     * @param graph 二维数组
+     * @return List集合
+     */
     public static List<List<Integer>> allPathsSourceTarget(int[][] graph) {
         // 栈加入0
         stack.offerLast(0);
