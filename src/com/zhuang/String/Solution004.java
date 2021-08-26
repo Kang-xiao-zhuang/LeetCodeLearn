@@ -13,8 +13,6 @@ public class Solution004 {
     public static void main(String[] args) {
         //  int[] nums = {1, 4, 3, 2};
         //   arrayPairSum(nums);
-        //   int[] nums = {1, 1, 0, 1, 1, 1};
-        //   findMaxConsecutiveOnes(nums);
 
         int[] nums = {2, 3, 1, 2, 4, 3};
         //  minSubArrayLen(7, nums);
@@ -45,23 +43,6 @@ public class Solution004 {
         return sum;
     }
 
-
-    /**
-     * https://leetcode-cn.com/problems/max-consecutive-ones/
-     *
-     * @param nums 数组
-     * @return itn
-     */
-    public static int findMaxConsecutiveOnes(int[] nums) {
-        int max = 0;
-        int cur = 0;
-        for (int num : nums) {
-            cur = num == 0 ? 0 : (cur + 1);
-            max = Math.max(max, cur);
-        }
-        System.out.println(max);
-        return max;
-    }
 
     /**
      * https://leetcode-cn.com/problems/minimum-size-subarray-sum/
