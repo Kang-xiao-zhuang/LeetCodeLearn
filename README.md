@@ -42,6 +42,7 @@
 - [删除有序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
 - [买卖股票的最佳时机II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/)
 - [存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/)
+- [最大连续1的个数](https://leetcode-cn.com/problems/max-consecutive-ones/)
 
 ### 中等篇
 - [有效的数独](https://leetcode-cn.com/problems/valid-sudoku/)
@@ -54,6 +55,8 @@
 - [盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
 - [最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/)
 - [等差数列划分](https://leetcode-cn.com/problems/arithmetic-slices/)
+- [四数之和](https://leetcode-cn.com/problems/4sum/)
+- [最短无序连续子数组](https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/)
 
 ## 🍜链表篇
 
