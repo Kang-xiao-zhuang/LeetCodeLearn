@@ -15,9 +15,14 @@ public class Solution012 {
         //int[] nums = {1, 0, -1, 0, -2, 2};
         //fourSum(nums, 0);
 
-        int[] nums = {1, 1, 0, 1, 1, 1};
+        //int[] nums = {1, 1, 0, 1, 1, 1};
         //findMaxConsecutiveOnes(nums);
-        findMaxConsecutiveOnes2(nums);
+        //findMaxConsecutiveOnes2(nums);
+
+        int[] nums = {2, 6, 4, 8, 10, 9, 15};
+        //findUnsortedSubarray(nums);
+        //findUnsortedSubarray2(nums);
+        findUnsortedSubarray3(nums);
     }
 
     /**
@@ -120,5 +125,93 @@ public class Solution012 {
         }
         System.out.println(ans);
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/
+     * 双指针法
+     *
+     * @param nums 数组
+     * @return 最短子数组长度
+     */
+    public static int findUnsortedSubarray(int[] nums) {
+        int n = nums.length;
+        int[] arr = nums.clone();
+        Arrays.sort(arr);
+        // 定义两个指针
+        int left = 0;
+        int right = n - 1;
+        while (left <= right && arr[left] == nums[left]) {
+            left++;
+        }
+        while (left <= right && arr[right] == nums[right]) {
+            right--;
+        }
+        System.out.println(right - left + 1);
+        return right - left + 1;
+    }
+
+    /**
+     * 双指针法(三叶题解)未懂
+     *
+     * @param nums 数组
+     * @return 最短子数组长度
+     */
+    public static int findUnsortedSubarray2(int[] nums) {
+        int MIN = Integer.MIN_VALUE;
+        int MAX = Integer.MAX_VALUE;
+        int n = nums.length;
+        // 定义两个指针
+        int i = 0, j = n - 1;
+        while (i < j && nums[i] <= nums[i + 1]) {
+            i++;
+        }
+        while (i < j && nums[j] >= nums[j - 1]) {
+            j--;
+        }
+        // 再定义两个指针
+        int left = i, right = j;
+        // 定义最小值，最大值
+        int min = nums[i], max = nums[j];
+        for (int k = left; k <= right; k++) {
+            if (nums[k] < min) {
+                while (i >= 0 && nums[i] > nums[k]) {
+                    i--;
+                }
+                min = i >= 0 ? nums[i] : MIN;
+            }
+            if (nums[k] > max) {
+                while (j < n && nums[j] <= nums[k]) {
+                    j++;
+                }
+                max = j < n ? nums[j] : MAX;
+            }
+        }
+        System.out.println(j == i ? 0 : (j - 1) - (i + 1) + 1);
+        return j == i ? 0 : (j - 1) - (i + 1) + 1;
+    }
+
+    /**
+     * 集合的方法
+     *
+     * @param nums 数组
+     * @return 最短子数组长度
+     */
+    public static int findUnsortedSubarray3(int[] nums) {
+        int[] arr = Arrays.copyOf(nums, nums.length);
+        ArrayList<Integer> list = new ArrayList<>();
+        Arrays.sort(arr);
+        for (int i = 0; i < nums.length; i++) {
+            // 不相等就保存下标
+            if (nums[i] != arr[i]) {
+                list.add(i);
+            }
+        }
+        if (list.size() == 0) {
+            return 0;
+        }
+        int len = list.get(list.size() - 1) - list.get(0) + 1;
+        System.out.println(len);
+        return len;
     }
 }
