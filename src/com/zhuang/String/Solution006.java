@@ -2,6 +2,7 @@ package com.zhuang.String;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -22,7 +23,11 @@ public class Solution006 {
 
         String s = "abcabcbb";
         // lengthOfLongestSubstring(s);
-        lengthOfLongestSubstring2(s);
+        //lengthOfLongestSubstring2(s);
+
+
+        //isHappy(19);
+        //isHappy2(19);
     }
 
     /**
@@ -152,5 +157,60 @@ public class Solution006 {
         }
         System.out.println(ans);
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/happy-number/
+     *
+     * @param n 正整数
+     * @return 布尔值
+     */
+    public static boolean isHappy(int n) {
+        HashSet<Integer> set = new HashSet<>();
+        set.add(n);
+        while (n != 1) {
+            n = bigSquareSum(n);
+            if (!set.add(n)) {
+                System.out.println(false);
+                return false;
+            }
+        }
+        System.out.println(true);
+        return true;
+    }
+
+    /**
+     * 快慢指针
+     *
+     * @param n 正整数
+     * @return 布尔值
+     */
+    public static boolean isHappy2(int n) {
+        // 定义快慢指针
+        int slow = n;
+        int fast = bigSquareSum(n);
+        while (fast != 1 && slow != fast) {
+            slow = bigSquareSum(slow);
+            fast = bigSquareSum(bigSquareSum(fast));
+        }
+        System.out.println(fast == 1);
+        return fast == 1;
+    }
+
+    /**
+     * 获取各位数的平方和
+     *
+     * @param x 正整数
+     * @return int
+     */
+    public static int bigSquareSum(int x) {
+        int temp = 0;
+        int sum = 0;
+        while (x > 0) {
+            temp = x % 10;
+            sum += temp * temp;
+            x = x / 10;
+        }
+        return sum;
     }
 }
