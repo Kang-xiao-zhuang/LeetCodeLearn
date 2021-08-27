@@ -13,7 +13,7 @@ public class Solution013 {
         int[] nums = {2, 2, 3, 4};
         //triangleNumber(nums);
         //triangleNumber2(nums);
-        triangleNumber3(nums);
+        //triangleNumber3(nums);
     }
 
 
