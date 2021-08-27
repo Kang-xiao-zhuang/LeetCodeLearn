@@ -28,6 +28,9 @@ public class Solution006 {
 
         //isHappy(19);
         //isHappy2(19);
+
+        judgeSquareSum(3);
+        judgeSquareSum2(2147483600);
     }
 
     /**
@@ -212,5 +215,50 @@ public class Solution006 {
             x = x / 10;
         }
         return sum;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/sum-of-square-numbers/
+     * sqrt方法
+     *
+     * @param c 非负整数
+     * @return 是否满足条件
+     */
+    public static boolean judgeSquareSum(int c) {
+        int max = (int) Math.sqrt(c);
+        for (int a = 0; a <= max; a++) {
+            int b = (int) Math.sqrt(c - a * a);
+            if (a * a + b * b == c) {
+                System.out.println(true);
+                return true;
+            }
+        }
+        System.out.println(false);
+        return false;
+    }
+
+    /**
+     * 双指针(测试用例没全过)
+     *
+     * @param c 非负整数
+     * @return 是否满足条件
+     */
+    public static boolean judgeSquareSum2(int c) {
+        int a = 0;
+        long b = (long) Math.sqrt(c);
+
+        while (a <= b) {
+            long sum = a * a + b * b;
+            if (sum == c) {
+                System.out.println(true);
+                return true;
+            } else if (sum > c) {
+                b--;
+            } else {
+                a++;
+            }
+        }
+        System.out.println(false);
+        return false;
     }
 }
