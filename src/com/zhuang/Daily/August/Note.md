@@ -34,8 +34,6 @@
 30. [剑指 Offer 62. 圆圈中最后剩下的数字 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/)
 31. [912. 排序数组 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/sort-an-array/)
 
-
-
 # 2020.4
 
 1. [1111. 有效括号的嵌套深度 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/maximum-nesting-depth-of-two-valid-parentheses-strings/)
@@ -68,10 +66,6 @@
 28. [剑指 Offer 56 - I. 数组中数字出现的次数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/)
 29. [1095. 山脉数组中查找目标值 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/find-in-mountain-array/)
 30. [202. 快乐数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/happy-number/)
-
-
-
-
 
 # 已完成
 
@@ -108,9 +102,11 @@ class Solution {
     }
 }
 ```
+
 [345. 反转字符串中的元音字母 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-vowels-of-a-string/)
 
 [![f7HVeK.png](https://z3.ax1x.com/2021/08/19/f7HVeK.png)](https://imgtu.com/i/f7HVeK)
+
 ```java
 class Solution {
     public String reverseVowels(String s) {
@@ -126,24 +122,27 @@ class Solution {
                 left++;
                 right--;
             }
-                if (!isVowel(chars[left])) {
-                    left++;
-                }
-                if (!isVowel(chars[right])) {
-                    right--;
-                }
+            if (!isVowel(chars[left])) {
+                left++;
             }
+            if (!isVowel(chars[right])) {
+                right--;
+            }
+        }
         return new String(chars);
     }
+
     public static boolean isVowel(char c) {
         return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'
-         || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
+                || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U';
     }
 }
 ```
+
 [541. 反转字符串 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/reverse-string-ii/)
 
 [![fOerM4.png](https://z3.ax1x.com/2021/08/20/fOerM4.png)](https://imgtu.com/i/fOerM4)
+
 ```java
 class Solution {
     public String reverseStr(String s, int k) {
@@ -179,13 +178,15 @@ class Solution {
     }
 }
 ```
+
 [443. 压缩字符串 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/string-compression/)
 
 ![](https://pic.imgdb.cn/item/612069cc4907e2d39cf2b8ed.jpg)
+
 ```java
 class Solution {
     public int compress(char[] chars) {
-       int n = chars.length;
+        int n = chars.length;
         int i = 0, j = 0;
         while (i < n) {
             int index = i;
@@ -210,9 +211,10 @@ class Solution {
         System.out.println(j);
         return j;
     }
+
     public static void reverse(char[] arr, int left, int right) {
         while (left < right) {
-            
+
             char temp = arr[left];
             arr[left] = arr[right];
             arr[right] = temp;
@@ -227,9 +229,11 @@ class Solution {
     }
 }
 ```
+
 [789. 逃脱阻碍者 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/escape-the-ghosts/)
 
 ![](https://pic.imgdb.cn/item/61220c6b4907e2d39cb16790.jpg)
+
 ```java
 class Solution {
     public boolean escapeGhosts(int[][] ghosts, int[] target) {
@@ -248,9 +252,11 @@ class Solution {
     }
 }
 ```
+
 [1646. 获取生成数组中的最大值 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/get-maximum-in-generated-array/)
 
 [![h9DOG4.png](https://z3.ax1x.com/2021/08/23/h9DOG4.png)](https://imgtu.com/i/h9DOG4)
+
 ```java
 class Solution {
     public int getMaximumGenerated(int n) {
@@ -276,9 +282,11 @@ class Solution {
     }
 }
 ```
+
 [881. 救生艇 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/boats-to-save-people/)
 
 [![hejOHK.png](https://z3.ax1x.com/2021/08/26/hejOHK.png)](https://imgtu.com/i/hejOHK)
+
 ```java
 class Solution {
     public int numRescueBoats(int[] people, int limit) {
@@ -301,9 +309,11 @@ class Solution {
 ```
 
 # 未完成
+
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)
 
 [![fTmlsx.png](https://z3.ax1x.com/2021/08/18/fTmlsx.png)](https://imgtu.com/i/fTmlsx)
+
 ```java
 class Solution {
     int MOD = 1000000007;
@@ -332,9 +342,11 @@ class Solution {
     }
 }
 ```
+
 [787. K 站中转内最便宜的航班 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/)
 
 [![hioABV.png](https://z3.ax1x.com/2021/08/24/hioABV.png)](https://imgtu.com/i/hioABV)
+
 ```java
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
@@ -358,9 +370,11 @@ class Solution {
     }
 }
 ```
+
 [797. 所有可能的路径 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/all-paths-from-source-to-target/)
 
 [![hVi8IK.png](https://z3.ax1x.com/2021/08/25/hVi8IK.png)](https://imgtu.com/i/hVi8IK)
+
 ```java
 class Solution {
     List<List<Integer>> ans = new ArrayList<List<Integer>>();
@@ -384,4 +398,50 @@ class Solution {
         }
     }
 }
+```
+
+[295. 数据流的中位数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/find-median-from-data-stream/)
+
+[![hMqhDI.png](https://z3.ax1x.com/2021/08/27/hMqhDI.png)](https://imgtu.com/i/hMqhDI)
+
+官方题解，自己没写
+
+```java
+class MedianFinder {
+    PriorityQueue<Integer> queMin;
+    PriorityQueue<Integer> queMax;
+
+    public MedianFinder() {
+        queMin = new PriorityQueue<Integer>((a, b) -> (b - a));
+        queMax = new PriorityQueue<Integer>((a, b) -> (a - b));
+    }
+
+    public void addNum(int num) {
+        if (queMin.isEmpty() || num <= queMin.peek()) {
+            queMin.offer(num);
+            if (queMax.size() + 1 < queMin.size()) {
+                queMax.offer(queMin.poll());
+            }
+        } else {
+            queMax.offer(num);
+            if (queMax.size() > queMin.size()) {
+                queMin.offer(queMax.poll());
+            }
+        }
+    }
+
+    public double findMedian() {
+        if (queMin.size() > queMax.size()) {
+            return queMin.peek();
+        }
+        return (queMin.peek() + queMax.peek()) / 2.0;
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
 ```
