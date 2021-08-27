@@ -308,6 +308,21 @@ class Solution {
 }
 ```
 
+[1480. 一维数组的动态和 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/running-sum-of-1d-array/)
+
+[![hlBccQ.png](https://z3.ax1x.com/2021/08/28/hlBccQ.png)](https://imgtu.com/i/hlBccQ)
+```java
+class Solution {
+    public int[] runningSum(int[] nums) {
+      int n = nums.length;
+        for (int i = 1; i < n; i++) {
+            nums[i] += nums[i - 1];
+        }
+        return nums;
+    }
+}
+```
+
 # 未完成
 
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)
