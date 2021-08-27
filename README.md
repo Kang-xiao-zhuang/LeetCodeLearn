@@ -43,6 +43,7 @@
 - [买卖股票的最佳时机II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/)
 - [存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/)
 - [最大连续1的个数](https://leetcode-cn.com/problems/max-consecutive-ones/)
+- [翻转图像](https://leetcode-cn.com/problems/flipping-an-image/)
 
 ### 中等篇
 - [有效的数独](https://leetcode-cn.com/problems/valid-sudoku/)
@@ -57,6 +58,7 @@
 - [等差数列划分](https://leetcode-cn.com/problems/arithmetic-slices/)
 - [四数之和](https://leetcode-cn.com/problems/4sum/)
 - [最短无序连续子数组](https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/)
+- [有效三角形的个数](https://leetcode-cn.com/problems/valid-triangle-number/)
 
 ## 🍜链表篇
 
@@ -89,6 +91,7 @@
 - [反转字符串中的单词III](https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/)
 - [验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
 - [整数反转](https://leetcode-cn.com/problems/reverse-integer/)
+- [快乐数](https://leetcode-cn.com/problems/happy-number/)
 
 ### 中等篇
 - [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
@@ -97,6 +100,7 @@
 - [外观数列](https://leetcode-cn.com/problems/count-and-say/)
 - [颜色分类](https://leetcode-cn.com/problems/sort-colors/)
 - [无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+- [平方数之和](https://leetcode-cn.com/problems/sum-of-square-numbers/)
 
 ## 🍩栈篇
 
