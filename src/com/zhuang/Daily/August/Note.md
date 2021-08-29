@@ -323,6 +323,75 @@ class Solution {
 }
 ```
 
+[1588. 所有奇数长度子数组的和 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/sum-of-all-odd-length-subarrays/)
+
+[![hGkT3D.png](https://z3.ax1x.com/2021/08/29/hGkT3D.png)](https://imgtu.com/i/hGkT3D)
+
+**暴力解法-暴力优化-前缀和(需要学)**
+
+```java
+class Solution {
+    public int sumOddLengthSubarrays(int[] arr) {
+      int sum = 0;
+        int n = arr.length;
+        // 定义两个指针 start ,length
+        for (int start = 0; start < n; start++) {
+            // 每次跳2个长度
+            for (int length = 1; start + length <= n; length += 2) {
+                // 奇数组的长度范围确定下
+                int end = start + length - 1;
+                for (int i = start; i <= end; i++) {
+                    sum += arr[i];
+                }
+            }
+        }
+        return sum;
+    }
+}
+```
+
+```java
+class Solution {
+    public int sumOddLengthSubarrays(int[] arr) {
+      int sum = 0;
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j += 2) {
+                int temp = i;
+                while (temp <= j) {
+                    sum += arr[temp];
+                    temp++;
+                }
+            }
+        }
+        return sum;
+    }
+}
+```
+
+```java
+class Solution {
+    public int sumOddLengthSubarrays(int[] arr) {
+     int sum = 0;
+        int n = arr.length;
+        //定义前缀和数组
+        int[] prefix = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = arr[i] + prefix[i];
+        }
+        // 子串起始坐标
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j += 2) {
+                sum += prefix[j + 1] - prefix[i];
+            }
+        }
+        return sum;
+    }
+}
+```
+
+
+
 # 未完成
 
 [552. 学生出勤记录 II - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/student-attendance-record-ii/)
