@@ -60,6 +60,9 @@
 - [最短无序连续子数组](https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/)
 - [有效三角形的个数](https://leetcode-cn.com/problems/valid-triangle-number/)
 
+- [和相同的二元子数组](https://leetcode-cn.com/problems/binary-subarrays-with-sum/)
+- [爱生气的书店老板](https://leetcode-cn.com/problems/grumpy-bookstore-owner/)
+
 ## 🍜链表篇
 
 ### 简单篇
