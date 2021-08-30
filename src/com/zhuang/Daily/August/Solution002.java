@@ -48,6 +48,8 @@ public class Solution002 {
         return res;
     }
 
+    // 8.27 笔记里有
+
     /**
      * https://leetcode-cn.com/problems/running-sum-of-1d-array/
      * 8.28
@@ -135,4 +137,6 @@ public class Solution002 {
         System.out.println(sum);
         return sum;
     }
+
+    // 8.30 笔记里有
 }
