@@ -1,6 +1,7 @@
 package com.zhuang.Array;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @Classname Solution013
@@ -10,15 +11,21 @@ import java.util.Arrays;
  */
 public class Solution013 {
     public static void main(String[] args) {
-        int[] nums = {2, 2, 3, 4};
+        //int[] nums = {2, 2, 3, 4};
         //triangleNumber(nums);
         //triangleNumber2(nums);
         //triangleNumber3(nums);
 
 
-        int[][] images = {{1, 1, 0}, {1, 0, 1}, {0, 0, 0}};
+        //int[][] images = {{1, 1, 0}, {1, 0, 1}, {0, 0, 0}};
         //flipAndInvertImage(images);
         //flipAndInvertImage2(images);
+
+        //int[] nums = {1, 0, 1, 0, 1};
+        //numSubarraysWithSum(nums, 2);
+
+        int[] customers = {1, 0, 1, 2, 1, 1, 7, 5}, grumpy = {0, 1, 0, 1, 0, 1, 0, 1};
+        maxSatisfied(customers, grumpy, 3);
 
     }
 
@@ -158,5 +165,65 @@ public class Solution013 {
         }
         System.out.println(Arrays.deepToString(ans));
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/binary-subarrays-with-sum/
+     * 哈希表
+     *
+     * @param nums 二元数组
+     * @param goal 整数
+     * @return 多少个和为goal的非空子数组
+     */
+    public static int numSubarraysWithSum(int[] nums, int goal) {
+        int sum = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        for (int num : nums) {
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+            sum += num;
+            res += map.getOrDefault(sum - goal, 0);
+        }
+        System.out.println(res);
+        return res;
+    }
+
+
+    /**
+     * https://leetcode-cn.com/problems/grumpy-bookstore-owner/
+     *
+     * @param customers 顾客数组
+     * @param grumpy    老板数组
+     * @param minutes   连续X分钟不生气
+     * @return 客户满意的数量
+     */
+    public static int maxSatisfied(int[] customers, int[] grumpy, int minutes) {
+        // 首先算出原本就满意的客户
+        int n = customers.length;
+        // 来接收满意客户的总和
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            // 如果老板生气
+            if (grumpy[i] == 0) {
+                ans += customers[i];
+                customers[i] = 0;
+            }
+        }
+        // 定义最大数，和临时值
+        int max = 0, cur = 0;
+        // 定义两个指针，在customer数组内，找一段长度为minutes的子数组，使其的总和最大
+        for (int i = 0, j = 0; i < n; i++) {
+            cur += customers[i];
+            // 如果长度大于minutes
+            if (i - j + 1 > minutes) {
+                cur -= customers[j];
+                // 指针后移
+                j++;
+            }
+            max = Math.max(max, cur);
+        }
+        // 最后将总和加起来
+        System.out.println(ans + max);
+        return ans + max;
     }
 }
