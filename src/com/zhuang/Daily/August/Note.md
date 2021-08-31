@@ -390,6 +390,44 @@ class Solution {
 }
 ```
 
+[1109. 航班预订统计 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/corporate-flight-bookings/)
+
+[![hUFN80.png](https://z3.ax1x.com/2021/08/31/hUFN80.png)](https://imgtu.com/i/hUFN80)
+
+**暴力解法**
+
+```java
+class Solution {
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+        int[] ans = new int[n];
+        for (int i = 0; i < bookings.length; i++) {
+            // 在子数组的第2个元素到第三个元素区间内
+            for (int j = bookings[i][0] - 1; j < bookings[i][1]; j++) {
+                ans[j] += bookings[i][2];
+            }
+        }
+        return ans;
+    }
+}
+```
+**差分数组**
+```java
+class Solution {
+    public int[] corpFlightBookings(int[][] bookings, int n) {
+        int[] ans = new int[n];
+        for (int[] booking : bookings) {
+            ans[booking[0] - 1] += booking[2];
+            if (booking[1] < n) {
+                ans[booking[1]] -= booking[2];
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            ans[i] += ans[i - 1];
+        }
+        return ans;
+    }
+}
+```
 
 
 # 未完成

@@ -16,10 +16,15 @@ public class Solution002 {
         //int[] nums = {1, 2, 3, 4};
         //runningSum(nums);
 
-        int[] arr = {10, 11, 12};
+        //int[] arr = {10, 11, 12};
         //sumOddLengthSubarrays(arr);
         //sumOddLengthSubarrays2(arr);
-        sumOddLengthSubarrays3(arr);
+        //sumOddLengthSubarrays3(arr);
+
+        int[][] bookings = {{1, 2, 10}, {2, 3, 20}, {2, 5, 25}};
+        //corpFlightBookings(bookings, 5);
+        corpFlightBookings2(bookings, 5);
+
     }
 
     /**
@@ -139,4 +144,47 @@ public class Solution002 {
     }
 
     // 8.30 笔记里有
+
+    /**
+     * https://leetcode-cn.com/problems/corporate-flight-bookings/
+     * 暴力解法
+     * 8.31
+     *
+     * @param bookings 航班预定表数组
+     * @param n        长度
+     * @return 数组
+     */
+    public static int[] corpFlightBookings(int[][] bookings, int n) {
+        int[] ans = new int[n];
+        for (int i = 0; i < bookings.length; i++) {
+            // 在子数组的第2个元素到第三个元素区间内
+            for (int j = bookings[i][0] - 1; j < bookings[i][1]; j++) {
+                ans[j] += bookings[i][2];
+            }
+        }
+        System.out.println(Arrays.toString(ans));
+        return ans;
+    }
+
+    /**
+     * 差分数组
+     *
+     * @param bookings 航班预定表数组
+     * @param n        长度
+     * @return 数组
+     */
+    public static int[] corpFlightBookings2(int[][] bookings, int n) {
+        int[] ans = new int[n];
+        for (int[] booking : bookings) {
+            ans[booking[0] - 1] += booking[2];
+            if (booking[1] < n) {
+                ans[booking[1]] -= booking[2];
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            ans[i] += ans[i - 1];
+        }
+        System.out.println(Arrays.toString(ans));
+        return ans;
+    }
 }
