@@ -92,20 +92,20 @@ public class Solution001 {
 
     /**
      * https://leetcode-cn.com/problems/reverse-linked-list/
+     * 迭代法
      *
      * @param head 节点
      * @return ListNode
      */
     public static ListNode reverseList(ListNode head) {
-        ListNode pre = null;
-        ListNode cur = head;
-        while (cur != null) {
-            ListNode temp = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = temp;
+        ListNode newHead = null;
+        while (head != null) {
+            ListNode tmp = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = tmp;
         }
-        return cur;
+        return newHead;
     }
 
     /**
