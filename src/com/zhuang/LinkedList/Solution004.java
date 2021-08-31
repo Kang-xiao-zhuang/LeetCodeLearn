@@ -66,6 +66,36 @@ public class Solution004 {
         return temp;
     }
 
+    /**
+     * https://leetcode-cn.com/problems/add-two-numbers/
+     *
+     * @param l1 链表1
+     * @param l2 链表2
+     * @return 节点
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        //虚拟节点 也叫哨兵节点
+        ListNode dummy = new ListNode(0);
+        ListNode temp = dummy;
+        int sum = 0;
+        while (l1 != null || l2 != null) {
+            int a = l1 != null ? l1.val : 0;
+            int b = l2 != null ? l2.val : 0;
+            sum = a + b + sum;
+            // 满10进1
+            temp.next = new ListNode(sum % 10);
+            sum /= 10;
+            // 节点后移
+            temp = temp.next;
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;
+        }
+        if (sum > 0) {
+            temp.next = new ListNode(sum);
+        }
+        return dummy.next;
+    }
+
 
     /**
      * Definition for singly-linked list.
