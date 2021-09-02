@@ -17,6 +17,7 @@ public class Solution001 {
     /**
      * https://leetcode-cn.com/problems/compare-version-numbers/
      * 字符串分割
+     * 9.1
      *
      * @param version1 版本1
      * @param version2 版本2
@@ -74,5 +75,68 @@ public class Solution001 {
         }
         System.out.println(0);
         return 0;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/
+     * 9.2
+     *
+     * @param head 头节点
+     * @param k    倒数第k个节点
+     * @return 节点对象
+     */
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        ListNode fast = head;
+        while (fast != null) {
+            fast = fast.next;
+            if (k == 0) {
+                head = head.next;
+            } else {
+                k--;
+            }
+        }
+        return head;
+    }
+
+    /**
+     * 顺序查找
+     *
+     * @param head 头节点
+     * @param k    倒数第k个节点
+     * @return 节点对象
+     */
+    public ListNode getKthFromEnd2(ListNode head, int k) {
+        int n = 0;
+        ListNode node = null;
+
+        for (node = head; node != null; node = node.next) {
+            n++;
+        }
+        for (node = head; n > k; n--) {
+            node = node.next;
+        }
+        return node;
+    }
+
+    /**
+     * 快慢指针
+     *
+     * @param head 头节点
+     * @param k    倒数第k个节点
+     * @return 节点对象
+     */
+    public ListNode getKthFromEnd3(ListNode head, int k) {
+        ListNode fast = head;
+        ListNode slow = head;
+
+        while (fast != null && k > 0) {
+            fast = fast.next;
+            k--;
+        }
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 }
