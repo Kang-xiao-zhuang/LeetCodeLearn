@@ -1,5 +1,8 @@
 package com.zhuang.Daily.September;
 
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
 /**
  * @Classname Solution001
  * @Description 2021.9.1-2021.9.6每日一题
@@ -8,10 +11,14 @@ package com.zhuang.Daily.September;
  */
 public class Solution001 {
     public static void main(String[] args) {
-        String version1 = "1.01";
-        String version2 = "1.001";
-        compareVersion(version1, version2);
-        compareVersion2(version1, version2);
+        //String version1 = "1.01";
+        //String version2 = "1.001";
+        //compareVersion(version1, version2);
+        //compareVersion2(version1, version2);
+
+        int[] arr = {1, 3, 5, 7, 2, 4, 6, 8};
+        smallestK(arr, 4);
+        smallestK2(arr, 4);
     }
 
     /**
@@ -138,5 +145,42 @@ public class Solution001 {
             slow = slow.next;
         }
         return slow;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/smallest-k-lcci/
+     * 9.3
+     * API法
+     *
+     * @param arr 数组
+     * @param k   最小的k个数
+     * @return 数组
+     */
+    public static int[] smallestK(int[] arr, int k) {
+        Arrays.sort(arr);
+        int[] res = Arrays.copyOfRange(arr, 0, k);
+        System.out.println(Arrays.toString(res));
+        return res;
+    }
+
+    /**
+     * 优先队列
+     *
+     * @param arr 数组
+     * @param k   最小的k个数
+     * @return 数组
+     */
+    public static int[] smallestK2(int[] arr, int k) {
+        // 利用优先队列的特性，先输出小的值
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for (int i : arr) {
+            queue.offer(i);
+        }
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            res[i] = queue.poll();
+        }
+        System.out.println(Arrays.toString(res));
+        return res;
     }
 }

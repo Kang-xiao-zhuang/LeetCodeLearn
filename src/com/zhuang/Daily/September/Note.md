@@ -141,3 +141,37 @@ class Solution {
 }
 ```
 
+[面试题 17.14. 最小K个数](https://leetcode-cn.com/problems/smallest-k-lcci/)
+
+[![hyd18f.png](https://z3.ax1x.com/2021/09/03/hyd18f.png)](https://imgtu.com/i/hyd18f)
+
+**API法**
+
+```java
+class Solution {
+    public int[] smallestK(int[] arr, int k) {
+         Arrays.sort(arr);
+         return Arrays.copyOfRange(arr, 0, k);
+    }
+}
+```
+
+**优先队列**
+
+```java
+class Solution {
+    public int[] smallestK(int[] arr, int k) {
+         // 利用优先队列的特性，先输出小的值
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for (int i : arr) {
+            queue.offer(i);
+        }
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            res[i] = queue.poll();
+        }
+        return res;
+    }
+}
+```
+
