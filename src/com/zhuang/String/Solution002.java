@@ -11,9 +11,15 @@ public class Solution002 {
         String[] strs = {"flower", "flow", "flight"};
         String[] strs2 = {"dog", "racecar", "car"};
         //  longestCommonPrefix(strs);
-        //     longestCommonPrefix(strs2);
+        //  longestCommonPrefix(strs2);
     }
 
+    /**
+     * https://leetcode-cn.com/problems/longest-common-prefix/
+     *
+     * @param strs 字符串
+     * @return 字符串
+     */
     public static String longestCommonPrefix(String[] strs) {
         if (strs.length == 0) {
             return "";
