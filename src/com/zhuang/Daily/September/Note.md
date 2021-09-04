@@ -1,5 +1,7 @@
 # 已完成
 
+## 2021.9.1-2021.9.6
+
 [165. 比较版本号](https://leetcode-cn.com/problems/compare-version-numbers/)
 
 [![hwDRJO.png](https://z3.ax1x.com/2021/09/01/hwDRJO.png)](https://imgtu.com/i/hwDRJO)
@@ -171,6 +173,46 @@ class Solution {
             res[i] = queue.poll();
         }
         return res;
+    }
+}
+```
+
+[剑指 Offer 10- I. 斐波那契数列 ](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/)
+
+[![hchIlF.png](https://z3.ax1x.com/2021/09/04/hchIlF.png)](https://imgtu.com/i/hchIlF)
+
+**两个动态规划方法，快速矩阵幂后续补上**
+
+```java
+class Solution {
+    public int fib(int n) {
+      int a = 0, b = 1, sum = 0;
+        for (int i = 1; i <= n; i++) {
+            sum = (a + b) % 1000000007;
+            a = b;
+            b = sum;
+        }
+        return a;
+    }
+}
+```
+
+```java
+class Solution {
+    public int fib(int n) {
+      int mod = (int) 1e9 + 7;
+        if (n < 2) {
+            return n;
+        }
+        int a = 0, b = 1;
+        for (int i = 2; i <= n; i++) {
+            // 滚动数组
+            int c = a + b;
+            c %= mod;
+            a = b;
+            b = c;
+        }
+        return b;
     }
 }
 ```

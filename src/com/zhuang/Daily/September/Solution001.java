@@ -16,9 +16,12 @@ public class Solution001 {
         //compareVersion(version1, version2);
         //compareVersion2(version1, version2);
 
-        int[] arr = {1, 3, 5, 7, 2, 4, 6, 8};
-        smallestK(arr, 4);
-        smallestK2(arr, 4);
+        //int[] arr = {1, 3, 5, 7, 2, 4, 6, 8};
+        //smallestK(arr, 4);
+        //smallestK2(arr, 4);
+
+        //fib(5);
+        fib2(5);
     }
 
     /**
@@ -182,5 +185,47 @@ public class Solution001 {
         }
         System.out.println(Arrays.toString(res));
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/
+     * 9.4
+     * 动态规划1
+     *
+     * @param n 正整数
+     * @return 斐波那契数列第n项
+     */
+    public static int fib(int n) {
+        int mod = (int) 1e9 + 7;
+        if (n < 2) {
+            return n;
+        }
+        int a = 0, b = 1;
+        for (int i = 2; i <= n; i++) {
+            // 滚动数组
+            int c = a + b;
+            c %= mod;
+            a = b;
+            b = c;
+        }
+        System.out.println(b);
+        return b;
+    }
+
+    /**
+     * 动态规划2
+     *
+     * @param n 正整数
+     * @return 斐波那契数列第n项
+     */
+    public static int fib2(int n) {
+        int a = 0, b = 1, sum = 0;
+        for (int i = 1; i <= n; i++) {
+            sum = (a + b) % 1000000007;
+            a = b;
+            b = sum;
+        }
+        System.out.println(a);
+        return a;
     }
 }
