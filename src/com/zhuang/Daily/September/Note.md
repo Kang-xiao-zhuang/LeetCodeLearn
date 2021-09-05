@@ -1,7 +1,5 @@
 # 已完成
 
-## 2021.9.1-2021.9.6
-
 [165. 比较版本号](https://leetcode-cn.com/problems/compare-version-numbers/)
 
 [![hwDRJO.png](https://z3.ax1x.com/2021/09/01/hwDRJO.png)](https://imgtu.com/i/hwDRJO)
@@ -213,6 +211,31 @@ class Solution {
             b = c;
         }
         return b;
+    }
+}
+```
+
+
+
+# 未完成
+
+[470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
+
+```java
+/**
+ * The rand7() API is already defined in the parent class SolBase.
+ * public int rand7();
+ * @return a random integer in the range 1 to 7
+ */
+class Solution extends SolBase {
+    public int rand10() {
+        while (true) {
+            int num = (rand7() - 1) * 7 + rand7();
+            // 生成的如果是41~49，则重新生成
+            if (num <= 40) {
+                return num % 10 + 1;
+            }
+        }
     }
 }
 ```
