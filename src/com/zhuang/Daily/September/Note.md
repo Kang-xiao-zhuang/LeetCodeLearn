@@ -221,6 +221,8 @@ class Solution {
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
 
+[![hRwP4H.png](https://z3.ax1x.com/2021/09/05/hRwP4H.png)](https://imgtu.com/i/hRwP4H)
+
 ```java
 /**
  * The rand7() API is already defined in the parent class SolBase.
