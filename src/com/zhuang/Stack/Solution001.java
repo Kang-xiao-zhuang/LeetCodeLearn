@@ -82,4 +82,19 @@ public class Solution001 {
         System.out.println(stack.isEmpty());
         return stack.isEmpty();
     }
+
+    /**
+     * 替换字符串方法
+     *
+     * @param s 字符串
+     * @return 布尔值
+     */
+    public static boolean isValid3(String s) {
+        while (s.contains("{}") || s.contains("[]") || s.contains("()")) {
+            s = s.replace("{}", "");
+            s = s.replace("[]", "");
+            s = s.replace("()", "");
+        }
+        return s.isEmpty();
+    }
 }
