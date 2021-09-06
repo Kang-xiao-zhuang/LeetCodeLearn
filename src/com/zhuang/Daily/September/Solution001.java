@@ -21,7 +21,10 @@ public class Solution001 {
         //smallestK2(arr, 4);
 
         //fib(5);
-        fib2(5);
+        //fib2(5);
+
+        int[] nums = {-1, 0, 3, 5, 9, 12};
+        search(nums, 9);
     }
 
     /**
@@ -230,4 +233,32 @@ public class Solution001 {
     }
 
     // 9.5笔记里有
+
+    /**
+     * https://leetcode-cn.com/problems/binary-search/
+     * 9.6
+     *
+     * @param nums   数组
+     * @param target 目标值
+     * @return 目标值的下标
+     */
+    public static int search(int[] nums, int target) {
+        // 定义左指针
+        int left = 0;
+        // 定义右指针
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                System.out.println(mid);
+                return mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        System.out.println(-1);
+        return -1;
+    }
 }

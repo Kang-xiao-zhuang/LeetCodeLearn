@@ -215,7 +215,32 @@ class Solution {
 }
 ```
 
+[704. 二分查找](https://leetcode-cn.com/problems/binary-search/)
 
+[![hfDvz4.png](https://z3.ax1x.com/2021/09/06/hfDvz4.png)](https://imgtu.com/i/hfDvz4)
+
+```java
+class Solution {
+    public int search(int[] nums, int target) {
+         // 定义左指针
+        int left = 0;
+        // 定义右指针
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left)/2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        // 未找到值
+        return -1;
+    }
+}
+```
 
 # 未完成
 
