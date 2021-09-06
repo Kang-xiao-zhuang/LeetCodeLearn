@@ -8,10 +8,13 @@ package com.zhuang.String;
  **/
 public class Solution002 {
     public static void main(String[] args) {
-        String[] strs = {"flower", "flow", "flight"};
-        String[] strs2 = {"dog", "racecar", "car"};
+        //String[] strs = {"flower", "flow", "flight"};
+        //String[] strs2 = {"dog", "racecar", "car"};
         //  longestCommonPrefix(strs);
         //  longestCommonPrefix(strs2);
+
+        //convertToTitle(28);
+        //titleToNumber("ZY");
     }
 
     /**
@@ -36,5 +39,40 @@ public class Solution002 {
         }
         System.out.println(s);
         return s;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/excel-sheet-column-title/
+     *
+     * @param columnNumber 整数
+     * @return 对应列名称
+     */
+    public static String convertToTitle(int columnNumber) {
+        StringBuilder sb = new StringBuilder();
+        while (columnNumber > 0) {
+            columnNumber--;
+            sb.append((char) (columnNumber % 26 + 'A'));
+            columnNumber /= 26;
+        }
+        sb.reverse();
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/excel-sheet-column-number/
+     *
+     * @param columnTitle 字符串
+     * @return 列名称对应的序列号
+     */
+    public static int titleToNumber(String columnTitle) {
+        char[] cs = columnTitle.toCharArray();
+        int n = cs.length;
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            ans = ans * 26 + (cs[i] - 'A' + 1);
+        }
+        System.out.println(ans);
+        return ans;
     }
 }
