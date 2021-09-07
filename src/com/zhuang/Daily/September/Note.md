@@ -246,6 +246,7 @@ class Solution {
 
 [![h547VK.png](https://z3.ax1x.com/2021/09/07/h547VK.png)](https://imgtu.com/i/h547VK)
 
+**计数法**
 ```java
 class Solution {
     public int balancedStringSplit(String s) {
@@ -264,7 +265,26 @@ class Solution {
     }
 }
 ```
-
+**栈方法**
+```java
+class Solution {
+    public int balancedStringSplit(String s) {
+        int res = 0;
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (!stack.isEmpty() && stack.peek() != s.charAt(i)) {
+                stack.pop();
+            } else {
+                stack.push(s.charAt(i));
+            }
+            if (stack.isEmpty()) {
+                res++;
+            }
+        }
+        return res;
+    }
+}
+```
 # 未完成
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
