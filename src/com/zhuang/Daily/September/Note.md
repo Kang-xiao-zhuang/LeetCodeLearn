@@ -242,6 +242,29 @@ class Solution {
 }
 ```
 
+[1221. 分割平衡字符串](https://leetcode-cn.com/problems/split-a-string-in-balanced-strings/)
+
+[![h547VK.png](https://z3.ax1x.com/2021/09/07/h547VK.png)](https://imgtu.com/i/h547VK)
+
+```java
+class Solution {
+    public int balancedStringSplit(String s) {
+        int res = 0, diff = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'L') {
+                diff++;
+            } else {
+                diff--;
+            }
+            if (diff == 0) {
+                res++;
+            }
+        }
+        return res;
+    }
+}
+```
+
 # 未完成
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
