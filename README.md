@@ -98,6 +98,7 @@
 - [整数转罗马数字](https://leetcode-cn.com/problems/integer-to-roman/)
 - [Excel表列名称](https://leetcode-cn.com/problems/excel-sheet-column-title/)
 - [Excel表列序号](https://leetcode-cn.com/problems/excel-sheet-column-number/)
+- [丑数](https://leetcode-cn.com/problems/ugly-number/)
 
 ### 中等篇
 - [最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
