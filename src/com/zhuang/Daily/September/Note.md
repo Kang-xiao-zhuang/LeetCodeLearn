@@ -285,6 +285,36 @@ class Solution {
     }
 }
 ```
+[1894. 找到需要补充粉笔的学生编号](https://leetcode-cn.com/problems/find-the-student-that-will-replace-the-chalk/)
+
+[![hXkOhj.png](https://z3.ax1x.com/2021/09/10/hXkOhj.png)](https://imgtu.com/i/hXkOhj)
+
+**模拟**
+
+```java
+class Solution {
+    public int chalkReplacer(int[] chalk, int k) {
+        int len = chalk.length;
+        long sum = 0;
+        for (int num : chalk) {
+            // 计算数组中的粉笔总和
+            sum += num;
+        }
+        // 对k取模
+        k %= sum;
+        int res = -1;
+        for (int i = 0; i < len; i++) {
+            if (chalk[i] > k) {
+                res = i;
+                break;
+            }
+            k -= chalk[i];
+        }
+        return res;
+    }
+}
+```
+
 # 未完成
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)

@@ -10,9 +10,13 @@ import java.util.*;
  */
 public class Solution002 {
     public static void main(String[] args) {
-        String s = "RLLLLRRRLR";
-        balancedStringSplit(s);
-        balancedStringSplit2(s);
+        //String s = "RLLLLRRRLR";
+        //balancedStringSplit(s);
+        //balancedStringSplit2(s);
+
+
+        int[] chalk = {5, 1, 5};
+        chalkReplacer(chalk, 22);
     }
 
     /**
@@ -103,6 +107,7 @@ public class Solution002 {
     /**
      * https://leetcode-cn.com/problems/text-justification/
      * 9.9
+     *
      * @param words    单词数组
      * @param maxWidth 最大宽度
      * @return List集合
@@ -170,5 +175,35 @@ public class Solution002 {
             ans.add(sb.toString());
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/find-the-student-that-will-replace-the-chalk/
+     * 9.10
+     *
+     * @param chalk 粉笔数组
+     * @param k     整数k
+     * @return 补充粉笔的学生编号
+     */
+    public static int chalkReplacer(int[] chalk, int k) {
+        int len = chalk.length;
+        // 注意溢出
+        long sum = 0;
+        for (int num : chalk) {
+            // 计算数组中的粉笔总和
+            sum += num;
+        }
+        // 对k取模
+        k %= sum;
+        int res = -1;
+        for (int i = 0; i < len; i++) {
+            if (chalk[i] > k) {
+                res = i;
+                break;
+            }
+            k -= chalk[i];
+        }
+        System.out.println(res);
+        return res;
     }
 }
