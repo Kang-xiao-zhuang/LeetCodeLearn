@@ -449,7 +449,7 @@ class Solution {
 
 [600. 不含连续1的非负整数](https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/)
 
-[![hxAcmq.png](https://z3.ax1x.com/2021/09/11/hxAcmq.png)](https://imgtu.com/i/hxAcmq)
+[![hxAcmq.png](https://z3.ax1x.com/2021/09/11/hxAcmq.png)]()
 
 ```java
 class Solution {
