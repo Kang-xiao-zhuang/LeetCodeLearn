@@ -315,6 +315,86 @@ class Solution {
 }
 ```
 
+[678. 有效的括号字符串](https://leetcode-cn.com/problems/valid-parenthesis-string/)
+
+[![4S4hv9.png](https://z3.ax1x.com/2021/09/12/4S4hv9.png)](https://imgtu.com/i/4S4hv9)
+
+
+
+**栈方法**
+
+```java
+class Solution {
+    public boolean checkValidString(String s) {
+      Deque<Integer> leftStack = new LinkedList<>();
+        Deque<Integer> startStack = new LinkedList<>();
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                leftStack.push(i);
+            } else if (c == '*') {
+                startStack.push(i);
+            } else {
+                if (!leftStack.isEmpty()) {
+                    leftStack.pop();
+                } else if (!startStack.isEmpty()) {
+                    startStack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+            while (!leftStack.isEmpty() && !startStack.isEmpty()) {
+                int leftIndex = leftStack.pop();
+                int startIndex = startStack.pop();
+                if (leftIndex > startIndex) {
+                    return false;
+                }
+            }
+        return leftStack.isEmpty();
+    }
+}
+```
+
+**贪心方法**
+
+```java
+class Solution {
+    public boolean checkValidString(String s) {
+     // 定义最小值和最大值变量
+        int minCount = 0;
+        int maxCount = 0;
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            // 如果遇到左括号，则最小值最大值分别加1
+            if (c == '(') {
+                minCount++;
+                maxCount++;
+                // 如果遇到右括号，则最大值和最小值分别减1
+            } else if (c == ')') {
+                minCount--;
+                minCount = Math.max(minCount, 0);
+                maxCount--;
+                // 如果maxCount为负 说明不匹配 返回false
+                if (maxCount < 0) {
+                    return false;
+                }
+            } else {
+                // 遇到*
+                minCount--;
+                minCount = Math.max(minCount, 0);
+                maxCount++;
+            }
+        }
+        return minCount == 0;
+      }
+}
+```
+
+
+
 # 未完成
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)

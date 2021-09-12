@@ -15,8 +15,14 @@ public class Solution002 {
         //balancedStringSplit2(s);
 
 
-        int[] chalk = {5, 1, 5};
-        chalkReplacer(chalk, 22);
+        //int[] chalk = {5, 1, 5};
+        //chalkReplacer(chalk, 22);
+
+
+        String s = "(*))";
+        //checkValidString(s);
+        checkValidString2(s);
+
     }
 
     /**
@@ -240,5 +246,87 @@ public class Solution002 {
             }
         }
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/valid-parenthesis-string/
+     * 9.12
+     * 栈方法
+     *
+     * @param s 字符串
+     * @return 是否为有效字符串
+     */
+    public static boolean checkValidString(String s) {
+        Deque<Integer> leftStack = new LinkedList<>();
+        Deque<Integer> startStack = new LinkedList<>();
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            // 遇到左括号
+            if (c == '(') {
+                leftStack.push(i);
+                // 遇到*号
+            } else if (c == '*') {
+                startStack.push(i);
+            } else {
+                if (!leftStack.isEmpty()) {
+                    leftStack.pop();
+                } else if (!startStack.isEmpty()) {
+                    startStack.pop();
+                } else {
+                    System.out.println(false);
+                    return false;
+                }
+            }
+        }
+        // 比较栈中的下标值
+        while (!leftStack.isEmpty() && !startStack.isEmpty()) {
+            int leftIndex = leftStack.pop();
+            int startIndex = startStack.pop();
+            if (leftIndex > startIndex) {
+                System.out.println(false);
+                return false;
+            }
+        }
+        System.out.println(leftStack.isEmpty());
+        return leftStack.isEmpty();
+    }
+
+    /**
+     * 贪心法
+     *
+     * @param s 字符串
+     * @return 是否为有效字符串
+     */
+    public static boolean checkValidString2(String s) {
+        // 定义最小值和最大值变量
+        int minCount = 0;
+        int maxCount = 0;
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            // 如果遇到左括号，则最小值最大值分别加1
+            if (c == '(') {
+                minCount++;
+                maxCount++;
+                // 如果遇到右括号，则最大值和最小值分别减1
+            } else if (c == ')') {
+                minCount--;
+                minCount = Math.max(minCount, 0);
+                maxCount--;
+                // 如果maxCount为负 说明不匹配 返回false
+                if (maxCount < 0) {
+                    System.out.println(false);
+                    return false;
+                }
+            } else {
+                // 遇到*
+                minCount--;
+                minCount = Math.max(minCount, 0);
+                maxCount++;
+            }
+        }
+        System.out.println(minCount == 0);
+        return minCount == 0;
     }
 }
