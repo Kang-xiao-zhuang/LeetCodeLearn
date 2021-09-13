@@ -395,6 +395,35 @@ class Solution {
 
 
 
+[447. 回旋镖的数量](https://leetcode-cn.com/problems/number-of-boomerangs/)
+
+[![4CVfbQ.png](https://z3.ax1x.com/2021/09/13/4CVfbQ.png)](https://imgtu.com/i/4CVfbQ)
+
+**哈希表**
+
+```java
+class Solution {
+    public int numberOfBoomerangs(int[][] points) {
+        int res = 0;
+        for (int i = 0; i < points.length; i++) {
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int j = 0; j < points.length; j++) {
+                // 横坐标的差值
+                int dx = points[i][0] - points[j][0];
+                // 纵坐标的差值
+                int dy = points[i][1] - points[j][1];
+                int dis = dx * dx + dy * dy;
+                map.put(dis, map.getOrDefault(dis, 0) + 1);
+            }
+            for (int val : map.values()) {
+                res += val * (val - 1);
+            }
+        }
+        return res;
+    }
+}
+```
+
 # 未完成
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)

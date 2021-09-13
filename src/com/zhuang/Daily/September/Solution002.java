@@ -19,10 +19,11 @@ public class Solution002 {
         //chalkReplacer(chalk, 22);
 
 
-        String s = "(*))";
+        //String s = "(*))";
         //checkValidString(s);
-        checkValidString2(s);
-
+        //checkValidString2(s);
+        int[][] points = {{0, 0}, {1, 0}, {2, 0}};
+        numberOfBoomerangs(points);
     }
 
     /**
@@ -328,5 +329,32 @@ public class Solution002 {
         }
         System.out.println(minCount == 0);
         return minCount == 0;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/number-of-boomerangs/
+     * 9.13
+     *
+     * @param points 互不相同的点
+     * @return 平面上所有回旋镖的数量
+     */
+    public static int numberOfBoomerangs(int[][] points) {
+        int res = 0;
+        for (int i = 0; i < points.length; i++) {
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int j = 0; j < points.length; j++) {
+                // 横坐标的差值
+                int dx = points[i][0] - points[j][0];
+                // 纵坐标的差值
+                int dy = points[i][1] - points[j][1];
+                int dis = dx * dx + dy * dy;
+                map.put(dis, map.getOrDefault(dis, 0) + 1);
+            }
+            for (int val : map.values()) {
+                res += val * (val - 1);
+            }
+        }
+        System.out.println(res);
+        return res;
     }
 }
