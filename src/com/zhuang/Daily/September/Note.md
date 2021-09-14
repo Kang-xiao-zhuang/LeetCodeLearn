@@ -424,6 +424,70 @@ class Solution {
 }
 ```
 
+[524. 通过删除字母匹配到字典里最长单词](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/)
+
+[![4FcwfU.png](https://z3.ax1x.com/2021/09/14/4FcwfU.png)](https://imgtu.com/i/4FcwfU)
+
+**双指针**
+
+```java
+class Solution {
+    public String findLongestWord(String s, List<String> dictionary) {
+        String res = "";
+        for (String str : dictionary) {
+            int i = 0, j = 0;
+            while (i < str.length() && j < s.length()) {
+                if (str.charAt(i) == s.charAt(j)) {
+                    i++;
+                }
+                j++;
+            }
+            if (i == str.length()) {
+                /*
+                int compareTo(String anotherString)
+                如果参数字符串等于此字符串，则返回值 0；
+                如果此字符串小于字符串参数，则返回一个小于 0 的值；
+                如果此字符串大于字符串参数，则返回一个大于 0 的值。
+                 */
+                if (str.length() > res.length() || (str.length() == res.length() && str.compareTo(res) < 0)) {
+                    res = str;
+                }
+            }
+        }
+        return res;
+    }
+}
+```
+
+**排序+双指针**
+
+```java
+class Solution {
+    public String findLongestWord(String s, List<String> dictionary) {
+         Collections.sort(dictionary, (a, b) -> {
+            if (a.length() != b.length()) {
+                return b.length() - a.length();
+            }
+            return a.compareTo(b);
+        });
+        int n = s.length();
+        for (String str : dictionary) {
+            int i = 0, j = 0;
+            while (i < str.length() && j < s.length()) {
+                if (str.charAt(i) == s.charAt(j)) {
+                    i++;
+                }
+                j++;
+            }
+            if (i == str.length()) {
+                return str;
+            }
+        }
+        return "";
+    }
+}
+```
+
 # 未完成
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
