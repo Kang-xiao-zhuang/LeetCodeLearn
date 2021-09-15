@@ -488,6 +488,30 @@ class Solution {
 }
 ```
 
+[162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
+
+[![4E2fDe.png](https://z3.ax1x.com/2021/09/15/4E2fDe.png)](https://imgtu.com/i/4E2fDe)
+
+**二分法**
+
+```java
+class Solution {
+    public int findPeakElement(int[] nums) {
+           int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[mid + 1]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+}
+```
+
 # 未完成
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
