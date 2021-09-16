@@ -10,7 +10,8 @@ import java.util.HashMap;
  */
 public class Solution01 {
     public static void main(String[] args) {
-
+        String s = "abcabcbb";
+        lengthOfLongestSubstring(s);
     }
 
     /**
@@ -87,5 +88,34 @@ public class Solution01 {
             temp.next = new ListNode(sum);
         }
         return dummy.next;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+     * 第3题
+     *
+     * @param s 字符串
+     * @return 最长子串的长度
+     */
+    public static int lengthOfLongestSubstring(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int n = s.length();
+        int ans = 0;
+        for (int start = 0, end = 0; end < n; end++) {
+            // 获取到字符
+            char right = s.charAt(end);
+            map.put(right, map.getOrDefault(right, 0) + 1);
+            // 如果map中大于1，说明有重复
+            while (map.get(right) > 1) {
+                char left = s.charAt(start);
+                // 去掉重复的字符个数减1
+                map.put(left, map.get(left) - 1);
+                start++;
+            }
+            // 更新字符串的长度
+            ans = Math.max(end - start + 1, ans);
+        }
+        System.out.println(ans);
+        return ans;
     }
 }
