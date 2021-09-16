@@ -488,29 +488,6 @@ class Solution {
 }
 ```
 
-[162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
-
-[![4E2fDe.png](https://z3.ax1x.com/2021/09/15/4E2fDe.png)](https://imgtu.com/i/4E2fDe)
-
-**二分法**
-
-```java
-class Solution {
-    public int findPeakElement(int[] nums) {
-           int left = 0;
-        int right = nums.length - 1;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] > nums[mid + 1]) {
-                right = mid;
-            } else {
-                left = mid + 1;
-            }
-        }
-        return left;
-    }
-}
-```
 
 # 未完成
 
@@ -680,3 +657,141 @@ class Solution {
 }
 ```
 
+[162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
+
+[![4E2fDe.png](https://z3.ax1x.com/2021/09/15/4E2fDe.png)](https://imgtu.com/i/4E2fDe)
+
+**二分法**
+
+```java
+class Solution {
+    public int findPeakElement(int[] nums) {
+           int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > nums[mid + 1]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+}
+```
+
+#### [212. 单词搜索 II](https://leetcode-cn.com/problems/word-search-ii/)
+
+给定一个 `m x n` 二维字符网格 `board` 和一个单词（字符串）列表 `words`，找出所有同时在二维网格和字典中出现的单词。
+
+单词必须按照字母顺序，通过 **相邻的单元格** 内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母在一个单词中不允许被重复使用。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/11/07/search1.jpg)
+
+```
+输入：board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]
+输出：["eat","oath"]
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2020/11/07/search2.jpg)
+
+```
+输入：board = [["a","b"],["c","d"]], words = ["abcb"]
+输出：[]
+```
+
+ 
+
+**提示：**
+
+- `m == board.length`
+- `n == board[i].length`
+- `1 <= m, n <= 12`
+- `board[i][j]` 是一个小写英文字母
+- `1 <= words.length <= 3 * 104`
+- `1 <= words[i].length <= 10`
+- `words[i]` 由小写英文字母组成
+- `words` 中的所有字符串互不相同
+
+**回溯+递归**
+
+```java
+class Solution {
+	public List<String> findWords(char[][] board, String[] words) {
+		List<String> ans = new ArrayList<>();
+		for (int i = 0; i < words.length; i++) {
+			String str = words[i];
+			if (exist(board, str)) {
+				ans.add(str);
+			}
+		}
+		return ans;
+	}
+
+	public boolean exist(char[][] board, String word) {
+		int[] dics = new int[128];
+		char[] wordc = word.toCharArray();
+		char head = wordc[0];
+		Queue<Integer[]> heads = new LinkedList<>();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				dics[board[i][j]]++;
+				if (board[i][j] == head) {
+					heads.add(new Integer[] { i, j });
+				}
+			}
+		}
+		for (int i = 0; i < wordc.length; i++) {
+			if (--dics[wordc[i]] < 0) {
+				return false;
+			}
+		}
+		while (!heads.isEmpty()) {
+			Integer[] pos = heads.poll();
+			boolean has = exist(pos[0], pos[1], board, wordc, 0);
+			if (has)
+				return true;
+		}
+		return false;
+	}
+
+	private boolean exist(Integer x, Integer y, char[][] board, char[] wordc, int i) {
+		if (x < 0 || x >= board.length || y < 0 || y >= board[0].length)
+			return false;
+		// 以 x,y为起点，在board，上有以i为起点 wordc后续的字符串吗？
+		if (board[x][y] != wordc[i]) {
+			return false;
+		}
+		if (i == wordc.length - 1) {
+			return true;
+		}
+		char temp = board[x][y];
+		board[x][y] = '!';
+		if (exist(x + 1, y, board, wordc, i + 1)) {
+			board[x][y] = temp;
+			return true;
+		}
+		if (exist(x - 1, y, board, wordc, i + 1)) {
+			board[x][y] = temp;
+			return true;
+		}
+		if (exist(x, y + 1, board, wordc, i + 1)) {
+			board[x][y] = temp;
+			return true;
+		}
+		if (exist(x, y - 1, board, wordc, i + 1)) {
+			board[x][y] = temp;
+			return true;
+		}
+		board[x][y] = temp;
+		return false;
+	}
+}
+```
