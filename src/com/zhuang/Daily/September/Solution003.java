@@ -13,9 +13,14 @@ public class Solution003 {
         //int[] nums = {1, 2, 3, 1};
         //findPeakElement(nums);
 
-        char[][] board = {{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}};
-        String[] words = {"oath", "pea", "eat", "rain"};
-        findWords(board,words);
+        //char[][] board = {{'o', 'a', 'a', 'n'}, {'e', 't', 'a', 'e'}, {'i', 'h', 'k', 'r'}, {'i', 'f', 'l', 'v'}};
+        //String[] words = {"oath", "pea", "eat", "rain"};
+        //findWords(board, words);
+
+        char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}, {'6', '.', '.', '1', '9', '5', '.', '.', '.'}, {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
+                {'8', '.', '.', '.', '6', '.', '.', '.', '3'}, {'4', '.', '.', '8', '.', '3', '.', '.', '1'}, {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
+                {'.', '6', '.', '.', '.', '.', '2', '8', '.'}, {'.', '.', '.', '4', '1', '9', '.', '.', '5'}, {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+        isValidSudoku2(board);
     }
 
     /**
@@ -124,5 +129,83 @@ public class Solution003 {
         }
         board[x][y] = temp;
         return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/valid-sudoku/
+     * 9.17
+     * 模拟
+     *
+     * @param board 二维数独数组
+     * @return 布尔
+     */
+    public static boolean isValidSudoku(char[][] board) {
+        // 定义三个二维数组
+        int[][] rows = new int[9][9];
+        int[][] cols = new int[9][9];
+        int[][] boxes = new int[9][9];
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] != '.') {
+                    int num = board[i][j] - '1';
+                    int index_box = (i / 3) * 3 + j / 3;
+                    if (rows[i][num] == 1) {
+                        return false;
+                    } else {
+                        rows[i][num] = 1;
+                    }
+                    if (cols[j][num] == 1) {
+                        return false;
+                    } else {
+                        cols[j][num] = 1;
+                    }
+                    if (boxes[index_box][num] == 1) {
+                        return false;
+                    } else {
+                        boxes[index_box][num] = 1;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 哈希表
+     *
+     * @param board 二维数独数组
+     * @return 布尔
+     */
+    public static boolean isValidSudoku2(char[][] board) {
+        HashMap<Integer, Set<Integer>> rows = new HashMap<>();
+        HashMap<Integer, Set<Integer>> cols = new HashMap<>();
+        HashMap<Integer, Set<Integer>> boxes = new HashMap<>();
+
+        for (int i = 0; i < 9; i++) {
+            rows.put(i, new HashSet<>());
+            cols.put(i, new HashSet<>());
+            boxes.put(i, new HashSet<>());
+        }
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                char c = board[i][j];
+                if (c == '.') {
+                    continue;
+                }
+                int u = c - '0';
+                int index = (i / 3) * 3 + j / 3;
+                if (rows.get(i).contains(u) || cols.get(j).contains(u) || boxes.get(index).contains(u)) {
+                    System.out.println(false);
+                    return false;
+                }
+                rows.get(i).add(u);
+                cols.get(j).add(u);
+                boxes.get(index).add(u);
+            }
+        }
+        System.out.println(true);
+        return true;
     }
 }
