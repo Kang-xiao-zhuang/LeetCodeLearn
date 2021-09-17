@@ -10,8 +10,11 @@ import java.util.HashMap;
  */
 public class Solution01 {
     public static void main(String[] args) {
-        String s = "abcabcbb";
-        lengthOfLongestSubstring(s);
+        //String s = "abcabcbb";
+        //lengthOfLongestSubstring(s);
+
+        String s = "babad";
+        longestPalindrome(s);
     }
 
     /**
@@ -117,5 +120,54 @@ public class Solution01 {
         }
         System.out.println(ans);
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/longest-palindromic-substring/
+     * 第5题
+     *
+     * @param s 字符串
+     * @return 最长的回文子串
+     */
+    public static String longestPalindrome(String s) {
+        int len = s.length();
+        if (len < 2) {
+            return s;
+        }
+        int maxLen = 1;
+        int begin = 0;
+
+        char[] charArrary = s.toCharArray();
+
+        // 枚举所有长度严格大于1的子串
+        for (int i = 0; i < len - 1; i++) {
+            for (int j = i + 1; j < len; j++) {
+                if (j - i + 1 > maxLen && validPalindromic(charArrary, i, j)) {
+                    maxLen = j - i + 1;
+                    begin = i;
+                }
+            }
+        }
+        System.out.println(s.substring(begin, begin + maxLen));
+        return s.substring(begin, begin + maxLen);
+    }
+
+    /**
+     * 判断是否为回文串
+     *
+     * @param charArray 数组
+     * @param left      左指针
+     * @param right     右指针
+     * @return 布尔值
+     */
+    private static boolean validPalindromic(char[] charArray, int left, int right) {
+        while (left < right) {
+            if (charArray[left] != charArray[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
     }
 }

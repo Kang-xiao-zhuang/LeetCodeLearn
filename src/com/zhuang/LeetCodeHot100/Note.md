@@ -219,3 +219,153 @@ class Solution {
 }
 ```
 
+#### [4. 寻找两个正序数组的中位数](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/)
+
+给定两个大小分别为 `m` 和 `n` 的正序（从小到大）数组 `nums1` 和 `nums2`。请你找出并返回这两个正序数组的 **中位数** 。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums1 = [1,3], nums2 = [2]
+输出：2.00000
+解释：合并数组 = [1,2,3] ，中位数 2
+```
+
+**示例 2：**
+
+```
+输入：nums1 = [1,2], nums2 = [3,4]
+输出：2.50000
+解释：合并数组 = [1,2,3,4] ，中位数 (2 + 3) / 2 = 2.5
+```
+
+**示例 3：**
+
+```
+输入：nums1 = [0,0], nums2 = [0,0]
+输出：0.00000
+```
+
+**示例 4：**
+
+```
+输入：nums1 = [], nums2 = [1]
+输出：1.00000
+```
+
+**示例 5：**
+
+```
+输入：nums1 = [2], nums2 = []
+输出：2.00000
+```
+
+ 
+
+**提示：**
+
+- `nums1.length == m`
+- `nums2.length == n`
+- `0 <= m <= 1000`
+- `0 <= n <= 1000`
+- `1 <= m + n <= 2000`
+- `-106 <= nums1[i], nums2[i] <= 106`
+
+ 
+
+**进阶：**你能设计一个时间复杂度为 `O(log (m+n))` 的算法解决此问题吗？
+
+
+
+#### [5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
+
+给你一个字符串 `s`，找到 `s` 中最长的回文子串。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "babad"
+输出："bab"
+解释："aba" 同样是符合题意的答案。
+```
+
+**示例 2：**
+
+```
+输入：s = "cbbd"
+输出："bb"
+```
+
+**示例 3：**
+
+```
+输入：s = "a"
+输出："a"
+```
+
+**示例 4：**
+
+```
+输入：s = "ac"
+输出："a"
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 1000`
+- `s` 仅由数字和英文字母（大写和/或小写）组成
+
+**模拟**
+
+```java
+class Solution {
+    public String longestPalindrome(String s) {
+        int len = s.length();
+        if (len < 2) {
+            return s;
+        }
+        int maxLen = 1;
+        int begin = 0;
+
+        char[] charArrary = s.toCharArray();
+
+        // 枚举所有长度严格大于1的子串
+        for (int i = 0; i < len - 1; i++) {
+            for (int j = i + 1; j < len; j++) {
+                if (j - i + 1 > maxLen && validPalindromic(charArrary, i, j)) {
+                    maxLen = j - i + 1;
+                    begin = i;
+                }
+            }
+        }
+        System.out.println(s.substring(begin, begin + maxLen));
+        return s.substring(begin, begin + maxLen);
+    }
+
+    /**
+     * 判断是否为回文串
+     *
+     * @param charArray 数组
+     * @param left      左指针
+     * @param right     右指针
+     * @return 布尔值
+     */
+    private static boolean validPalindromic(char[] charArray, int left, int right) {
+        while (left < right) {
+            if (charArray[left] != charArray[right]) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+```
+
