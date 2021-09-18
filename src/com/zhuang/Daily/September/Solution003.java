@@ -208,4 +208,15 @@ public class Solution003 {
         System.out.println(true);
         return true;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/nim-game/
+     * 9.18
+     *
+     * @param n 石头数量
+     * @return 是否可以赢得游戏
+     */
+    public static boolean canWinNim(int n) {
+        return n % 4 != 0;
+    }
 }
