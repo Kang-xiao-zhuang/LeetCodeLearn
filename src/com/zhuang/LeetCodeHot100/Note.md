@@ -369,3 +369,224 @@ class Solution {
 }
 ```
 
+#### [10. 正则表达式匹配](https://leetcode-cn.com/problems/regular-expression-matching/)
+
+给你一个字符串 `s` 和一个字符规律 `p`，请你来实现一个支持 `'.'` 和 `'*'` 的正则表达式匹配。
+
+- `'.'` 匹配任意单个字符
+- `'*'` 匹配零个或多个前面的那一个元素
+
+所谓匹配，是要涵盖 **整个** 字符串 `s`的，而不是部分字符串。
+
+**示例 1：**
+
+```
+输入：s = "aa" p = "a"
+输出：false
+解释："a" 无法匹配 "aa" 整个字符串。
+```
+
+**示例 2:**
+
+```
+输入：s = "aa" p = "a*"
+输出：true
+解释：因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'。因此，字符串 "aa" 可被视为 'a' 重复了一次。
+```
+
+**示例 3：**
+
+```
+输入：s = "ab" p = ".*"
+输出：true
+解释：".*" 表示可匹配零个或多个（'*'）任意字符（'.'）。
+```
+
+**示例 4：**
+
+```
+输入：s = "aab" p = "c*a*b"
+输出：true
+解释：因为 '*' 表示零个或多个，这里 'c' 为 0 个, 'a' 被重复一次。因此可以匹配字符串 "aab"。
+```
+
+**示例 5：**
+
+```
+输入：s = "mississippi" p = "mis*is*p*."
+输出：false
+```
+
+ 
+
+**提示：**
+
+- `0 <= s.length <= 20`
+- `0 <= p.length <= 30`
+- `s` 可能为空，且只包含从 `a-z` 的小写字母。
+- `p` 可能为空，且只包含从 `a-z` 的小写字母，以及字符 `.` 和 `*`。
+- 保证每次出现字符 `*` 时，前面都匹配到有效的字符
+
+
+
+#### [11. 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
+
+给你 `n` 个非负整数 `a1，a2，...，a``n`，每个数代表坐标中的一个点 `(i, ai)` 。在坐标内画 `n` 条垂直线，垂直线 `i` 的两个端点分别为 `(i, ai)` 和 `(i, 0)` 。找出其中的两条线，使得它们与 `x` 轴共同构成的容器可以容纳最多的水。
+
+**说明：**你不能倾斜容器。
+
+ 
+
+**示例 1：**
+
+![img](https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg)
+
+```
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49 
+解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
+```
+
+**示例 2：**
+
+```
+输入：height = [1,1]
+输出：1
+```
+
+**示例 3：**
+
+```
+输入：height = [4,3,2,1,4]
+输出：16
+```
+
+**示例 4：**
+
+```
+输入：height = [1,2,1]
+输出：2
+```
+
+ 
+
+**提示：**
+
+- `n == height.length`
+- `2 <= n <= 105`
+- `0 <= height[i] <= 104`
+
+**双指针法**
+
+```java
+class Solution {
+    public int maxArea(int[] height) {
+        int len = height.length;
+        if (len < 2) {
+            return 0;
+        }
+        int res = 0;
+        int left = 0;
+        int right = len - 1;
+        while (left < right) {
+            // 计算水的容量
+            int MaxArea = Math.min(height[left], height[right]) * (right - left);
+            res = Math.max(res, MaxArea);
+            // 判断移动指针
+            if (height[left] <= height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return res;
+    }   
+}
+```
+
+#### [15. 三数之和](https://leetcode-cn.com/problems/3sum/)
+
+给你一个包含 `n` 个整数的数组 `nums`，判断 `nums` 中是否存在三个元素 *a，b，c ，*使得 *a + b + c =* 0 ？请你找出所有和为 `0` 且不重复的三元组。
+
+**注意：**答案中不可以包含重复的三元组。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+```
+
+**示例 2：**
+
+```
+输入：nums = []
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：nums = [0]
+输出：[]
+```
+
+ 
+
+**提示：**
+
+- `0 <= nums.length <= 3000`
+- `-105 <= nums[i] <= 105`
+
+```java
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length <= 2) {
+            return res;
+        }
+        // 数组先排序
+        Arrays.sort(nums);
+
+        // 循环遍历数组
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (nums[i] > 0) {
+                break;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int target = -nums[i];
+            // 定义双指针
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                // 如果等于目标值，那么就加入到集合中
+                if (nums[left] + nums[right] == target) {
+                    res.add(new ArrayList<>(Arrays.asList(nums[i], nums[left], nums[right])));
+                    left++;
+                    right--;
+                    // nums[left] == nums[left - 1]时，左指针后移
+                    while (left < right && nums[left] == nums[left - 1]) {
+                        left++;
+                    }
+                    // nums[right] == nums[right + 1]时，右指针前移
+                    while (left < right && nums[right] == nums[right + 1]) {
+                        right--;
+                    }
+                    // 和小于目标值，左指针后移
+                } else if (nums[left] + nums[right] < target) {
+                    left++;
+                    // 和大于目标值，右指针前移
+                } else {
+                    right--;
+                }
+            }
+        }
+        return res;
+    }
+}
+```
+
