@@ -590,3 +590,94 @@ class Solution {
 }
 ```
 
+#### [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)
+
+
+给定一个仅包含数字 `2-9` 的字符串，返回所有它能表示的字母组合。答案可以按 **任意顺序** 返回。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/original_images/17_telephone_keypad.png)
+
+ 
+
+**示例 1：**
+
+```
+输入：digits = "23"
+输出：["ad","ae","af","bd","be","bf","cd","ce","cf"]
+```
+
+**示例 2：**
+
+```
+输入：digits = ""
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：digits = "2"
+输出：["a","b","c"]
+```
+
+ 
+
+**提示：**
+
+- `0 <= digits.length <= 4`
+- `digits[i]` 是范围 `['2', '9']` 的一个数字。
+
+**递归＋回溯**
+
+```java
+class Solution {
+    public List<String> letterCombinations(String digits) {
+       ArrayList<String> res = new ArrayList<>();
+        // 判断字符串是否为空
+        if (digits.length() == 0) {
+            return res;
+        }
+        HashMap<Character, String> map = new HashMap<Character, String>() {{
+            put('2', "abc");
+            put('3', "def");
+            put('4', "ghi");
+            put('5', "jkl");
+            put('6', "mno");
+            put('7', "pqrs");
+            put('8', "tuv");
+            put('9', "wxyz");
+        }};
+        backtrack(res, map, digits, 0, new StringBuilder());
+        return res;
+    }
+
+    /**
+     * @param res         结果集
+     * @param map         哈希
+     * @param digits      字符串
+     * @param index       索引
+     * @param combination 组合方式
+     */
+    public static void backtrack(List<String> res, Map<Character, String> map, String digits, int index, StringBuilder combination) {
+        // 如果传入索引等于字符串长度
+        if (index == digits.length()) {
+            res.add(combination.toString());
+        } else {
+            // 根据索引获取字符
+            char digit = digits.charAt(index);
+            // 根据字符key在map中获取对应的value
+            String letters = map.get(digit);
+            // 遍历所对应的value字符串
+            int count = letters.length();
+            for (int i = 0; i < count; i++) {
+                combination.append(letters.charAt(i));
+                backtrack(res, map, digits, index + 1, combination);
+                combination.deleteCharAt(index);
+            }
+        }
+    }
+}
+```
+

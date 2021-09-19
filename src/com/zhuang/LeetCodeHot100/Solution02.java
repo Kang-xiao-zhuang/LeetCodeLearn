@@ -1,8 +1,6 @@
 package com.zhuang.LeetCodeHot100;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Classname Solution02
@@ -15,14 +13,16 @@ public class Solution02 {
         //int[] height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
         //maxArea(height);
 
-        int[] nums = {-1, 0, 1, 2, -1, -4};
-        threeSum(nums);
+        //int[] nums = {-1, 0, 1, 2, -1, -4};
+        //threeSum(nums);
+
+        letterCombinations("23");
     }
 
 
     /**
      * https://leetcode-cn.com/problems/container-with-most-water/
-     * 第7题
+     * 第11题
      *
      * @param height 高度
      * @return 最大容量
@@ -53,6 +53,7 @@ public class Solution02 {
 
     /**
      * https://leetcode-cn.com/problems/3sum/
+     * 第15题
      *
      * @param nums 数组
      * @return 所有和为0的不重复三元组
@@ -102,5 +103,59 @@ public class Solution02 {
         }
         System.out.println(res.toString());
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
+     * 第17题
+     *
+     * @param digits 数字字符串
+     * @return 返回能表示的字母组合
+     */
+    public static List<String> letterCombinations(String digits) {
+        ArrayList<String> res = new ArrayList<>();
+        // 判断字符串是否为空
+        if (digits.length() == 0) {
+            return res;
+        }
+        HashMap<Character, String> map = new HashMap<Character, String>() {{
+            put('2', "abc");
+            put('3', "def");
+            put('4', "ghi");
+            put('5', "jkl");
+            put('6', "mno");
+            put('7', "pqrs");
+            put('8', "tuv");
+            put('9', "wxyz");
+        }};
+        backtrack(res, map, digits, 0, new StringBuffer());
+        System.out.println(res.toString());
+        return res;
+    }
+
+    /**
+     * @param res         结果集
+     * @param map         哈希
+     * @param digits      字符串
+     * @param index       索引
+     * @param combination 组合方式
+     */
+    public static void backtrack(List<String> res, Map<Character, String> map, String digits, int index, StringBuffer combination) {
+        // 如果传入索引等于字符串长度
+        if (index == digits.length()) {
+            res.add(combination.toString());
+        } else {
+            // 根据索引获取字符
+            char digit = digits.charAt(index);
+            // 根据字符key在map中获取对应的value
+            String letters = map.get(digit);
+            // 遍历所对应的value字符串
+            int count = letters.length();
+            for (int i = 0; i < count; i++) {
+                combination.append(letters.charAt(i));
+                backtrack(res, map, digits, index + 1, combination);
+                combination.deleteCharAt(index);
+            }
+        }
     }
 }
