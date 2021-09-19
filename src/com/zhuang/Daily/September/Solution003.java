@@ -20,7 +20,9 @@ public class Solution003 {
         char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}, {'6', '.', '.', '1', '9', '5', '.', '.', '.'}, {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
                 {'8', '.', '.', '.', '6', '.', '.', '.', '3'}, {'4', '.', '.', '8', '.', '3', '.', '.', '1'}, {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
                 {'.', '6', '.', '.', '.', '.', '2', '8', '.'}, {'.', '.', '.', '4', '1', '9', '.', '.', '5'}, {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
-        isValidSudoku2(board);
+        //isValidSudoku2(board);
+
+        minSteps(3);
     }
 
     /**
@@ -218,5 +220,27 @@ public class Solution003 {
      */
     public static boolean canWinNim(int n) {
         return n % 4 != 0;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/2-keys-keyboard/
+     * 9.19
+     *
+     * @param n 数字n
+     * @return 对A的最少操作数
+     */
+    public static int minSteps(int n) {
+        int ans = 0;
+        for (int i = 2; i * i <= n; i++) {
+            while (n % i == 0) {
+                n /= i;
+                ans += i;
+            }
+        }
+            if (n > 1) {
+                ans += n;
+            }
+        System.out.println(ans);
+        return ans;
     }
 }
