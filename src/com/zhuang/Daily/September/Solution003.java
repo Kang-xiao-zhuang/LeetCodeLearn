@@ -277,4 +277,23 @@ public class Solution003 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/length-of-last-word/
+     * 9.21
+     *
+     * @param s 字符串
+     * @return 字符串中最后一个单词的长度
+     */
+    public int lengthOfLastWord(String s) {
+        int len = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) != ' ') {
+                len++;
+            } else if (len != 0) {
+                return len;
+            }
+        }
+        return len;
+    }
 }
