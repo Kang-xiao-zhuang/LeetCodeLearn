@@ -18,9 +18,15 @@ public class Solution02 {
 
         //letterCombinations("23");
 
-        int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
+        //int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
         //lengthOfLIS(nums);
-        lengthOfLIS2(nums);
+        //lengthOfLIS2(nums);
+
+        //String s = "()[]{}";
+        //isValid(s);
+        //isValid2(s);
+        //isValid3(s);
+
     }
 
 
@@ -230,5 +236,125 @@ public class Solution02 {
         }
         System.out.println(res);
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/
+     * 第19题
+     * 双指针法
+     *
+     * @param head 头节点
+     * @param n    倒数第n个节点
+     * @return 链表的头节点
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        // 定义一个前驱节点
+        ListNode pre = new ListNode(0, head);
+        // 定义快慢节点
+        ListNode slow = pre, fast = head;
+        while (n-- > 0 && fast != null) {
+            fast = fast.next;
+        }
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        return pre.next;
+    }
+
+    /**
+     * 栈方法
+     *
+     * @param head 头节点
+     * @param n    倒数第n个节点
+     * @return 链表的头节点
+     */
+    public ListNode removeNthFromEnd2(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = dummy;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        for (int i = 0; i < n; i++) {
+            stack.pop();
+        }
+        ListNode pre = stack.pop();
+        pre.next = pre.next.next;
+        return dummy.next;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/valid-parentheses/
+     * 字符串替换
+     *
+     * @param s 字符串
+     * @return 是否为有效的括号
+     */
+    public static boolean isValid(String s) {
+        while (s.contains("{}") || s.contains("[]") || s.contains("()")) {
+            s.replace("{}", "");
+            s.replace("[]", "");
+            s.replace("()", "");
+        }
+        return s.isEmpty();
+    }
+
+    /**
+     * 栈方法
+     *
+     * @param s 字符串
+     * @return 是否为有效的括号
+     */
+    public static boolean isValid2(String s) {
+        // 定义一个栈
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            // 判断为左大括号，栈加入右大括号
+            if (c == '{') {
+                stack.push('}');
+                // 判断为左小括号，栈加入右小括号
+            } else if (c == '(') {
+                stack.push(')');
+                // 判断为左中括号，栈加入右中括号
+            } else if (c == '[') {
+                stack.push(']');
+            } else if (stack.isEmpty() || c != stack.pop()) {
+                System.out.println(false);
+                return false;
+            }
+        }
+        System.out.println(stack.isEmpty());
+        return stack.isEmpty();
+    }
+
+    /**
+     * 哈希表
+     *
+     * @param s 字符串
+     * @return 是否为有效的括号
+     */
+    public static boolean isValid3(String s) {
+        Stack<Character> stack = new Stack<>();
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put('}', '{');
+        map.put(']', '[');
+        map.put(')', '(');
+        for (char c : s.toCharArray()) {
+            if (!stack.isEmpty() && map.containsKey(c)) {
+                if (stack.peek().equals(map.get(c))) {
+                    stack.pop();
+                } else {
+                    System.out.println(false);
+                    return false;
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+        System.out.println(stack.isEmpty());
+        return stack.isEmpty();
     }
 }

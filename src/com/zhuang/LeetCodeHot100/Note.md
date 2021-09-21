@@ -788,3 +788,224 @@ class Solution {
 ```
 
 **贪心+二分后续补上**
+
+#### [19. 删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+
+给你一个链表，删除链表的倒数第 `n` 个结点，并且返回链表的头结点。
+
+**进阶：**你能尝试使用一趟扫描实现吗？
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/03/remove_ex1.jpg)
+
+```
+输入：head = [1,2,3,4,5], n = 2
+输出：[1,2,3,5]
+```
+
+**示例 2：**
+
+```
+输入：head = [1], n = 1
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：head = [1,2], n = 1
+输出：[1]
+```
+
+ 
+
+**提示：**
+
+- 链表中结点的数目为 `sz`
+- `1 <= sz <= 30`
+- `0 <= Node.val <= 100`
+- `1 <= n <= sz`
+
+**双指针法**
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode pre = new ListNode(0, head);
+        ListNode slow = pre, fast = head;
+        while (n-- > 0 && fast != null) {
+            fast = fast.next;
+        }
+        while (fast != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return pre.next;
+    }
+}
+```
+
+**栈方法**
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+         ListNode dummy = new ListNode(0, head);
+        Stack<ListNode> stack = new Stack<>();
+        ListNode cur = dummy;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        for (int i = 0; i < n; i++) {
+            stack.pop();
+        }
+        ListNode pre = stack.pop();
+        pre.next = pre.next.next;
+        return dummy.next;
+    }
+}
+```
+
+#### [20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
+
+给定一个只包括 `'('`，`')'`，`'{'`，`'}'`，`'['`，`']'` 的字符串 `s` ，判断字符串是否有效。
+
+有效字符串需满足：
+
+1. 左括号必须用相同类型的右括号闭合。
+2. 左括号必须以正确的顺序闭合。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "()"
+输出：true
+```
+
+**示例 2：**
+
+```
+输入：s = "()[]{}"
+输出：true
+```
+
+**示例 3：**
+
+```
+输入：s = "(]"
+输出：false
+```
+
+**示例 4：**
+
+```
+输入：s = "([)]"
+输出：false
+```
+
+**示例 5：**
+
+```
+输入：s = "{[]}"
+输出：true
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 104`
+- `s` 仅由括号 `'()[]{}'` 组成
+
+**替换字符串**
+
+```java
+class Solution {
+    public boolean isValid(String s) {
+        while (s.contains("{}") || s.contains("[]") || s.contains("()")) {
+            s = s.replace("{}", "");
+            s = s.replace("[]", "");
+            s = s.replace("()", "");
+        }
+        return s.isEmpty();
+    }
+}
+```
+
+**栈方法**
+
+```java
+class Solution {
+    public boolean isValid(String s) {
+         // 定义一个栈
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c=='('){
+                stack.push(')');
+            }else if (c=='['){
+                stack.push(']');
+            }else if (c=='{'){
+                stack.push('}');
+            }else if(stack.isEmpty()||c!=stack.pop()){
+                System.out.println(false);
+                return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+```
+
+**哈希表**
+
+```java
+class Solution {
+    public boolean isValid(String s) {
+      Stack<Character> stack = new Stack<>();
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put('}', '{');
+        map.put(']', '[');
+        map.put(')', '(');
+        for (char c : s.toCharArray()) {
+            if (!stack.isEmpty() && map.containsKey(c)) {
+                if (stack.peek().equals(map.get(c))) {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+```
+
