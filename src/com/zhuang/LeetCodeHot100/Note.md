@@ -1009,3 +1009,115 @@ class Solution {
 }
 ```
 
+#### [22. 括号生成](https://leetcode-cn.com/problems/generate-parentheses/)
+
+数字 `n` 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 **有效的** 括号组合。
+
+有效括号组合需满足：左括号必须以正确的顺序闭合。
+
+ 
+
+**示例 1：**
+
+```
+输入：n = 3
+输出：["((()))","(()())","(())()","()(())","()()()"]
+```
+
+**示例 2：**
+
+```
+输入：n = 1
+输出：["()"]
+```
+
+ 
+
+**提示：**
+
+- `1 <= n <= 8`
+
+**暴力递归**
+
+```java
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        ArrayList<String> combinations = new ArrayList<>();
+        generateAll(new char[2 * n], 0, combinations);
+        return combinations;
+    }
+    /**
+     * 生成所有的可能组合
+     *
+     * @param current 数组
+     * @param pos     索引
+     * @param res     集合
+     */
+    public static void generateAll(char[] current, int pos, List<String> res) {
+        if (pos == current.length) {
+            if (valid(current)) {
+                res.add(new String(current));
+            }
+        } else {
+            current[pos] = '(';
+            generateAll(current, pos + 1, res);
+            current[pos] = ')';
+            generateAll(current, pos + 1, res);
+        }
+    }
+
+    /**
+     * 判断是否为有效括号
+     *
+     * @param current 数组
+     * @return 布尔值
+     */
+    public static boolean valid(char[] current) {
+        int balance = 0;
+        for (char c : current) {
+            if (c == '(') {
+                ++balance;
+            } else {
+                --balance;
+            }
+            if (balance < 0) {
+                return false;
+            }
+        }
+        return balance == 0;
+    }
+}
+```
+
+**深度优先遍历**
+
+```java
+class Solution {
+    List<String> res = new ArrayList<String>();
+    public List<String> generateParenthesis(int n) {
+        dfs(n, n, "");
+        return res;
+    }
+	/**
+     * @param left   左括号
+     * @param right  右括号
+     * @param curStr 当前字符串
+     */
+    private void dfs(int left, int right, String curStr) {
+        // 左右括号都为0，递归终止
+        if (left == 0 && right == 0) {
+            res.add(curStr);
+            return;
+        }
+        // 如果左括号剩余，可拼接左括号
+        if (left > 0) {
+            dfs(left - 1, right, curStr + "(");
+        }
+        // 如果右括号多余左括号，可以拼接右括号
+        if (right > left) {
+            dfs(left, right - 1, curStr + ")");
+        }
+    }
+}
+```
+

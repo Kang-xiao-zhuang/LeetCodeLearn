@@ -27,6 +27,9 @@ public class Solution02 {
         //isValid2(s);
         //isValid3(s);
 
+
+        //generateParenthesis(3);
+        generateParenthesis2(3);
     }
 
 
@@ -356,5 +359,94 @@ public class Solution02 {
         }
         System.out.println(stack.isEmpty());
         return stack.isEmpty();
+    }
+
+
+    static List<String> res = new ArrayList<String>();
+
+    /**
+     * https://leetcode-cn.com/problems/generate-parentheses/
+     * 第22题
+     *
+     * @param n 数字n
+     * @return 有效括号组合
+     */
+    public static List<String> generateParenthesis(int n) {
+        dfs(n, n, "");
+        System.out.println(res.toString());
+        return res;
+    }
+
+    /**
+     * @param left   左括号
+     * @param right  右括号
+     * @param curStr 当前字符串
+     */
+    private static void dfs(int left, int right, String curStr) {
+        // 左右括号都为0，递归终止
+        if (left == 0 && right == 0) {
+            res.add(curStr);
+            return;
+        }
+        // 如果左括号剩余，可拼接左括号
+        if (left > 0) {
+            dfs(left - 1, right, curStr + "(");
+        }
+        // 如果右括号多余左括号，可以拼接右括号
+        if (right > left) {
+            dfs(left, right - 1, curStr + ")");
+        }
+    }
+
+    /**
+     * @param n 数字n
+     * @return 有效括号组合
+     */
+    public static List<String> generateParenthesis2(int n) {
+        ArrayList<String> combinations = new ArrayList<>();
+        generateAll(new char[2 * n], 0, combinations);
+        System.out.println(combinations.toString());
+        return combinations;
+    }
+
+    /**
+     * 生成所有的可能组合
+     *
+     * @param current 数组
+     * @param pos     索引
+     * @param res     集合
+     */
+    public static void generateAll(char[] current, int pos, List<String> res) {
+        if (pos == current.length) {
+            if (valid(current)) {
+                res.add(new String(current));
+            }
+        } else {
+            current[pos] = '(';
+            generateAll(current, pos + 1, res);
+            current[pos] = ')';
+            generateAll(current, pos + 1, res);
+        }
+    }
+
+    /**
+     * 判断是否为有效括号
+     *
+     * @param current 数组
+     * @return 布尔值
+     */
+    public static boolean valid(char[] current) {
+        int balance = 0;
+        for (char c : current) {
+            if (c == '(') {
+                ++balance;
+            } else {
+                --balance;
+            }
+            if (balance < 0) {
+                return false;
+            }
+        }
+        return balance == 0;
     }
 }
