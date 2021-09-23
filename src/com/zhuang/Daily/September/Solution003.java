@@ -328,4 +328,28 @@ public class Solution003 {
         }
         return parts;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/power-of-three/
+     * 9.23
+     *
+     * @param n 整数n
+     * @return 是否是3的幂次方
+     */
+    public static boolean isPowerOfThree(int n) {
+        return n > 0 && 1162261467 % n == 0;
+    }
+
+    /**
+     * 试除法
+     *
+     * @param n 整数n
+     * @return 是否是3的幂次方
+     */
+    public static boolean isPowerOfThree2(int n) {
+        while (n != 0 && n % 3 == 0) {
+            n /= 3;
+        }
+        return n == 1;
+    }
 }

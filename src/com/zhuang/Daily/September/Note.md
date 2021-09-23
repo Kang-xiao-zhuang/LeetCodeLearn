@@ -735,6 +735,81 @@ class Solution {
 
 
 
+#### [326. 3的幂](https://leetcode-cn.com/problems/power-of-three/)
+
+给定一个整数，写一个函数来判断它是否是 3 的幂次方。如果是，返回 `true` ；否则，返回 `false` 。
+
+整数 `n` 是 3 的幂次方需满足：存在整数 `x` 使得 `n == 3x`
+
+ 
+
+**示例 1：**
+
+```
+输入：n = 27
+输出：true
+```
+
+**示例 2：**
+
+```
+输入：n = 0
+输出：false
+```
+
+**示例 3：**
+
+```
+输入：n = 9
+输出：true
+```
+
+**示例 4：**
+
+```
+输入：n = 45
+输出：false
+```
+
+ 
+
+**提示：**
+
+- `-231 <= n <= 231 - 1`
+
+ 
+
+**进阶：**
+
+- 你能不使用循环或者递归来完成本题吗？
+
+
+
+**试除法**
+
+```java
+class Solution {
+    public boolean isPowerOfThree(int n) {
+         while (n != 0 && n % 3 == 0) {
+            n /= 3;
+        }
+        return n == 1;
+    }
+}
+```
+
+**约数**
+
+```java
+class Solution {
+    public boolean isPowerOfThree(int n) {
+        return n > 0 && 1162261467 % n == 0;
+    }
+}
+```
+
+
+
 # 未完成
 
 [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
