@@ -352,4 +352,113 @@ public class Solution003 {
         }
         return n == 1;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/flatten-a-multilevel-doubly-linked-list/
+     * 9.24
+     * 递归解法
+     *
+     * @param head 头节点
+     * @return Node节点
+     */
+    public static Node flatten(Node head) {
+        Node dummy = new Node(0);
+        dummy.next = head;
+        while (head != null) {
+            // head没有child节点，指针直接向后移动
+            if (head.child == null) {
+                head = head.next;
+                // head没有child节点
+            } else {
+                Node tmp = head.next;
+                Node chead = flatten(head.child);
+                head.next = chead;
+                chead.prev = head;
+                head.child = null;
+                while (head.next != null) {
+                    head = head.next;
+                }
+                head.next = tmp;
+                if (tmp != null) {
+                    tmp.prev = head;
+                }
+                head = tmp;
+            }
+        }
+        return dummy.next;
+    }
+
+    /**
+     * 迭代解法
+     *
+     * @param head 头节点
+     * @return Node节点
+     */
+    public static Node flatten2(Node head) {
+        Node dummy = new Node(0);
+        dummy.next = head;
+        while (head != null) {
+            // head没有child节点，指针直接向后移动
+            if (head.child == null) {
+                head = head.next;
+                // head没有child节点
+            } else {
+                Node tmp = head.next;
+                Node child = head.child;
+                head.next = child;
+                child.prev = head;
+                head.child = null;
+                Node last = head;
+                while (last.next != null) {
+                    last = last.next;
+                }
+                last.next = tmp;
+                if (tmp != null) {
+                    tmp.prev = last;
+                }
+                head = head.next;
+            }
+        }
+        return dummy.next;
+    }
+
+    /**
+     * 深度优先搜索
+     *
+     * @param head 头节点
+     * @return Node节点
+     */
+    public static Node flatten3(Node head) {
+        dfs(head);
+        return head;
+    }
+
+    public static Node dfs(Node node) {
+        Node cur = node;
+        // 记录链表的最后一个节点
+        Node last = null;
+        while (cur != null) {
+            Node next = cur.next;
+            // 如果有子节点，先处理子节点
+            if (cur.child != null) {
+                Node childLast = dfs(cur.child);
+                next = cur.next;
+                // node 和 child相连
+                cur.next = cur.child;
+                cur.child.prev = cur;
+                // 如果next不为空，就将last与next相连
+                if (next != null) {
+                    childLast.next = next;
+                    next.prev = childLast;
+                }
+                // 将child置为空
+                cur.child = null;
+                last = childLast;
+            } else {
+                last = cur;
+            }
+            cur = next;
+        }
+        return last;
+    }
 }
