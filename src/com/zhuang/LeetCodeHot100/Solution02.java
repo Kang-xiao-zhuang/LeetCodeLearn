@@ -32,6 +32,9 @@ public class Solution02 {
         //generateParenthesis2(3);
         //int[] nums = {1, 2, 3};
         //nextPermutation(nums);
+
+        int[] candidates = {2, 3, 5};
+        combinationSum(candidates, 8);
     }
 
     /**
@@ -498,6 +501,47 @@ public class Solution02 {
             swap(nums, left, right);
             left++;
             right--;
+        }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/combination-sum/
+     * 第39题
+     *
+     * @param candidates 正整数数组
+     * @param target     正整数
+     * @return 所有可以使数字和为目标数 target 的唯一组合
+     */
+    public static List<List<Integer>> combinationSum(int[] candidates, int target) {
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        ArrayList<Integer> combinations = new ArrayList<>();
+        dfs(candidates, target, res, combinations, 0);
+        System.out.println(res.toString());
+        return res;
+    }
+
+    /**
+     * @param candidates   正整数数组
+     * @param target       正整数
+     * @param res          集合
+     * @param combinations 所有组合的集合
+     * @param index        索引
+     */
+    public static void dfs(int[] candidates, int target, List<List<Integer>> res, List<Integer> combinations, int index) {
+        if (index == candidates.length) {
+            return;
+        }
+        if (target == 0) {
+            res.add(new ArrayList<Integer>(combinations));
+            return;
+        }
+        // 直接跳过
+        dfs(candidates, target, res, combinations, index + 1);
+        // 选择当前树
+        if (target - candidates[index] >= 0) {
+            combinations.add(candidates[index]);
+            dfs(candidates, target - candidates[index], res, combinations, index);
+            combinations.remove(combinations.size() - 1);
         }
     }
 }
