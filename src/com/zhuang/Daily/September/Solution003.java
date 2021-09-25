@@ -433,6 +433,12 @@ public class Solution003 {
         return head;
     }
 
+    /**
+     * 深度优先搜索
+     *
+     * @param node 节点
+     * @return Node节点
+     */
     public static Node dfs(Node node) {
         Node cur = node;
         // 记录链表的最后一个节点
