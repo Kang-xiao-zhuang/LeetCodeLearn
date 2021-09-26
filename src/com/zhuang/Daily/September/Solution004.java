@@ -9,9 +9,11 @@ package com.zhuang.Daily.September;
 
 public class Solution004 {
     public static void main(String[] args) {
-        String word1 = "sea";
-        String word2 = "eat";
-        minDistance(word1, word2);
+        //String word1 = "sea";
+        //String word2 = "eat";
+        //minDistance(word1, word2);
+
+        //getSum(1, 2);
     }
 
     /**
@@ -40,5 +42,24 @@ public class Solution004 {
         int lcs = dp[m][n];
         System.out.println(m - lcs + n - lcs);
         return m - lcs + n - lcs;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/sum-of-two-integers/
+     * 9.26每日一题
+     * 位运算
+     *
+     * @param a 整数
+     * @param b 整数
+     * @return 两整数之和
+     */
+    public static int getSum(int a, int b) {
+        while (b != 0) {
+            int carry = (a & b) << 1;
+            a = a ^ b;
+            b = carry;
+        }
+        System.out.println(a);
+        return a;
     }
 }
