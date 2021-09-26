@@ -1,3 +1,5 @@
+# 🔥 LeetCode 热题 HOT 100
+
 #### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
 
 给定一个整数数组 `nums` 和一个整数目标值 `target`，请你在该数组中找出 **和为目标值** *`target`* 的那 **两个** 整数，并返回它们的数组下标。
@@ -1372,6 +1374,129 @@ class Solution {
             combinations.add(candidates[index]);
             dfs(candidates, target - candidates[index], res, combinations, index);
             combinations.remove(combinations.size() - 1);
+        }
+    }
+}
+```
+
+#### [46. 全排列](https://leetcode-cn.com/problems/permutations/)
+
+给定一个不含重复数字的数组 `nums` ，返回其 **所有可能的全排列** 。你可以 **按任意顺序** 返回答案。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+```
+
+**示例 2：**
+
+```
+输入：nums = [0,1]
+输出：[[0,1],[1,0]]
+```
+
+**示例 3：**
+
+```
+输入：nums = [1]
+输出：[[1]]
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 6`
+- `-10 <= nums[i] <= 10`
+- `nums` 中的所有整数 **互不相同**
+
+ 
+
+**深度优先搜索**
+
+```java
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        if (nums.length == 0) {
+            return res;
+        }
+        Deque<Integer> path = new ArrayDeque<>();
+        // 布尔数组，判断数字是否被使用
+        boolean[] used = new boolean[nums.length];
+        dfs(nums, nums.length, 0, path, used, res);
+        return res;
+    }
+
+    /**
+     * 深度优先搜索
+     *
+     * @param nums   数组
+     * @param length 数组长度
+     * @param depth  深度
+     * @param path   路径
+     * @param used   布尔数组
+     * @param res    结果集合
+     */
+    private static void dfs(int[] nums, int length, int depth, Deque<Integer> path, boolean[] used, ArrayList<List<Integer>> res) {
+        // 如果深度等于长度
+        if (depth == length) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = 0; i < length; i++) {
+            if (used[i]) {
+                continue;
+            }
+            path.addLast(nums[i]);
+            used[i] = true;
+            // 开始遍历，深度+1
+            dfs(nums, length, depth + 1, path, used, res);
+            path.removeLast();
+            used[i] = false;
+        }
+    }
+}
+```
+
+**回溯法**
+
+```java
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        ArrayList<Integer> output = new ArrayList<>();
+
+        for (int num : nums) {
+            output.add(num);
+        }
+        backtrack(nums.length, output, res, 0);
+        return res;
+    }
+
+    /**
+     * 回溯
+     *
+     * @param length 数组长度
+     * @param output 输出数组
+     * @param res    结果数组
+     * @param index  索引
+     */
+    private static void backtrack(int length, ArrayList<Integer> output, ArrayList<List<Integer>> res, int index) {
+        if (index == length) {
+            res.add(new ArrayList<>(output));
+        }
+        for (int i = index; i < length; i++) {
+            // 交换数组中的值
+            Collections.swap(output, index, i);
+            // 递归执行下一个 数
+            backtrack(length, output, res, index + 1);
+            // 撤销操作
+            Collections.swap(output, index, i);
         }
     }
 }
