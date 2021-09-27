@@ -13,6 +13,9 @@ public class Solution03 {
         int[] nums = {1, 2, 3};
         //permute(nums);
         //permute2(nums);
+
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        rotate(matrix);
     }
 
 
@@ -101,5 +104,28 @@ public class Solution03 {
             path.removeLast();
             used[i] = false;
         }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/rotate-image/
+     * 第48题
+     *
+     * @param matrix 二维数组
+     */
+    public static void rotate(int[][] matrix) {
+        // 对于矩阵中第 i 行的第 j 个元素，在旋转后，它出现在倒数第 i 列的第 j 个位置
+        int n = matrix.length;
+        int[][] temp = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                temp[j][n - i - 1] = matrix[i][j];
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = temp[i][j];
+            }
+        }
+        System.out.println(Arrays.deepToString(matrix));
     }
 }
