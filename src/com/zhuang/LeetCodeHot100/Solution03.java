@@ -17,9 +17,15 @@ public class Solution03 {
         //int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         //rotate(matrix);
 
-        String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        //String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
         //groupAnagrams(strs);
-        groupAnagrams2(strs);
+        //groupAnagrams2(strs);
+
+        //int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        //maxSubArray(nums);
+        //maxSubArray2(nums);
+        //int[] nums = {3, 2, 1, 0, 4};
+        //canJump(nums);
     }
 
 
@@ -185,5 +191,64 @@ public class Solution03 {
         }
         System.out.println(new ArrayList<List<String>>(map.values()).toString());
         return new ArrayList<List<String>>(map.values());
+    }
+
+
+    /**
+     * https://leetcode-cn.com/problems/maximum-subarray/
+     * 第53题
+     *
+     * @param nums 整数数组
+     * @return 最大和
+     */
+    public static int maxSubArray(int[] nums) {
+        int res = nums[0];
+        int sum = 0;
+        for (int num : nums) {
+            if (sum > 0) {
+                sum += num;
+            } else {
+                sum = num;
+            }
+            res = Math.max(res, sum);
+        }
+        System.out.println(res);
+        return res;
+    }
+
+    /**
+     * 动态规划
+     *
+     * @param nums 整数数组
+     * @return 最大和
+     */
+    public static int maxSubArray2(int[] nums) {
+        int pre = 0, maxSum = nums[0];
+        for (int num : nums) {
+            pre = Math.max(pre + num, num);
+            maxSum = Math.max(maxSum, pre);
+        }
+        System.out.println(maxSum);
+        return maxSum;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/jump-game/
+     * 第55题
+     *
+     * @param nums 非负整数数组
+     * @return 是否能够到达最后一个下标
+     */
+    public static boolean canJump(int[] nums) {
+        int reach = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > reach) {
+                System.out.println(false);
+                return false;
+            }
+            reach = Math.max(i + nums[i], reach);
+        }
+        System.out.println(true);
+        return true;
     }
 }

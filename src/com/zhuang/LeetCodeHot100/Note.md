@@ -1659,3 +1659,140 @@ class Solution {
 }
 ```
 
+#### [53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
+
+给定一个整数数组 `nums` ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+**示例 1：**
+
+```
+输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出：6
+解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+```
+
+**示例 2：**
+
+```
+输入：nums = [1]
+输出：1
+```
+
+**示例 3：**
+
+```
+输入：nums = [0]
+输出：0
+```
+
+**示例 4：**
+
+```
+输入：nums = [-1]
+输出：-1
+```
+
+**示例 5：**
+
+```
+输入：nums = [-100000]
+输出：-100000
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 3 * 104`
+- `-105 <= nums[i] <= 105`
+
+ 
+
+**进阶：**如果你已经实现复杂度为 `O(n)` 的解法，尝试使用更为精妙的 **分治法** 求解。
+
+**动态规划**
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int pre = 0, maxSum = nums[0];
+        for (int num : nums) {
+            pre = Math.max(pre + num, num);
+            maxSum = Math.max(maxSum, pre);
+        }
+        return maxSum;
+    }
+}
+```
+
+**贪心**
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int res = nums[0];
+        int sum = 0;
+        for (int num : nums) {
+            if (sum > 0) {
+                sum += num;
+            }
+            else{
+                sum = num;
+            }
+            res = Math.max(res, sum);
+        }
+        return res;
+    }
+}
+```
+
+#### [55. 跳跃游戏](https://leetcode-cn.com/problems/jump-game/)
+
+给定一个非负整数数组 `nums` ，你最初位于数组的 **第一个下标** 。
+
+数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+判断你是否能够到达最后一个下标。
+
+
+
+**示例 1：**
+
+```
+输入：nums = [2,3,1,1,4]
+输出：true
+解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标。
+```
+
+**示例 2：**
+
+```
+输入：nums = [3,2,1,0,4]
+输出：false
+解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 3 * 104`
+- `0 <= nums[i] <= 105`
+
+**贪心**
+
+```java
+class Solution {
+    public boolean canJump(int[] nums) {
+        int reach = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > reach) {
+                return false;
+            }
+            reach = Math.max(i + nums[i], reach);
+        }
+        return true;
+    }
+}
+```
+
