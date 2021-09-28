@@ -1,5 +1,7 @@
 package com.zhuang.Daily.September;
 
+import java.util.HashMap;
+
 /**
  * @Classname Solution004
  * @Description 2021.9.25-2021.9.30每日一题
@@ -113,4 +115,70 @@ public class Solution004 {
         }
         return (c0 != '0' && (c0 - '0') * 10 + (c1 - '0') <= 26) ? 1 : 0;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/path-sum-iii/
+     * 9.28
+     * 深度优先搜索
+     * @param root      根节点
+     * @param targetSum 整数
+     * @return 节点值之和等于targetSum的路径的数目
+     */
+    public static int pathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return 0;
+        }
+        int res = rootSum(root, targetSum);
+        res += pathSum(root.left, targetSum);
+        res += pathSum(root.right, targetSum);
+        return res;
+    }
+
+    /**
+     * @param root      根节点
+     * @param targetSum 整数
+     * @return 数目
+     */
+    private static int rootSum(TreeNode root, int targetSum) {
+        int res = 0;
+        if (root == null) {
+            return 0;
+        }
+        int val = root.val;
+        if (val == targetSum) {
+            res++;
+        }
+        res += rootSum(root.left, targetSum - val);
+        res += rootSum(root.right, targetSum - val);
+        return res;
+    }
+
+    public static int pathSum2(TreeNode root, int targetSum) {
+        HashMap<Integer, Integer> prefix = new HashMap<>();
+        prefix.put(0,1);
+        return dfs(root,prefix,0,targetSum);
+    }
+
+    /**
+     *
+     * @param root 根节点
+     * @param prefix 前缀和
+     * @param cur 当前的值
+     * @param targetSum 目标值
+     * @return 节点值之和等于targetSum的路径的数目
+     */
+    private static int dfs(TreeNode root, HashMap<Integer, Integer> prefix, int cur, int targetSum) {
+        if (root==null){
+            return 0;
+        }
+        int res=0;
+        cur+=root.val;
+        res=prefix.getOrDefault(cur-targetSum,0);
+        prefix.put(cur,prefix.getOrDefault(cur,0)+1);
+        res+=dfs(root.left,prefix,cur,targetSum);
+        res+=dfs(root.right,prefix,cur,targetSum);
+        prefix.put(cur,prefix.getOrDefault(cur,0)-1);
+        return res;
+    }
+
 }
