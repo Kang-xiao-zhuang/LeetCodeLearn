@@ -1,8 +1,67 @@
 # 已完成
 
-[165. 比较版本号](https://leetcode-cn.com/problems/compare-version-numbers/)
+#### [165. 比较版本号](https://leetcode-cn.com/problems/compare-version-numbers/)
 
-[![hwDRJO.png](https://z3.ax1x.com/2021/09/01/hwDRJO.png)](https://imgtu.com/i/hwDRJO)
+给你两个版本号 `version1` 和 `version2` ，请你比较它们。
+
+版本号由一个或多个修订号组成，各修订号由一个 `'.'` 连接。每个修订号由 **多位数字** 组成，可能包含 **前导零** 。每个版本号至少包含一个字符。修订号从左到右编号，下标从 0 开始，最左边的修订号下标为 0 ，下一个修订号下标为 1 ，以此类推。例如，`2.5.33` 和 `0.1` 都是有效的版本号。
+
+比较版本号时，请按从左到右的顺序依次比较它们的修订号。比较修订号时，只需比较 **忽略任何前导零后的整数值** 。也就是说，修订号 `1` 和修订号 `001` **相等** 。如果版本号没有指定某个下标处的修订号，则该修订号视为 `0` 。例如，版本 `1.0` 小于版本 `1.1` ，因为它们下标为 `0` 的修订号相同，而下标为 `1` 的修订号分别为 `0` 和 `1` ，`0 < 1` 。
+
+返回规则如下：
+
+- 如果 `*version1* > *version2*` 返回 `1`，
+- 如果 `*version1* < *version2*` 返回 `-1`，
+- 除此之外返回 `0`。
+
+ 
+
+**示例 1：**
+
+```
+输入：version1 = "1.01", version2 = "1.001"
+输出：0
+解释：忽略前导零，"01" 和 "001" 都表示相同的整数 "1"
+```
+
+**示例 2：**
+
+```
+输入：version1 = "1.0", version2 = "1.0.0"
+输出：0
+解释：version1 没有指定下标为 2 的修订号，即视为 "0"
+```
+
+**示例 3：**
+
+```
+输入：version1 = "0.1", version2 = "1.1"
+输出：-1
+解释：version1 中下标为 0 的修订号是 "0"，version2 中下标为 0 的修订号是 "1" 。0 < 1，所以 version1 < version2
+```
+
+**示例 4：**
+
+```
+输入：version1 = "1.0.1", version2 = "1"
+输出：1
+```
+
+**示例 5：**
+
+```
+输入：version1 = "7.5.2.4", version2 = "7.5.3"
+输出：-1
+```
+
+ 
+
+**提示：**
+
+- `1 <= version1.length, version2.length <= 500`
+- `version1` 和 `version2` 仅包含数字和 `'.'`
+- `version1` 和 `version2` 都是 **有效版本号**
+- `version1` 和 `version2` 的所有修订号都可以存储在 **32 位整数** 中
 
 **分割字符串**
 
@@ -54,9 +113,21 @@ class Solution {
 }
 ```
 
-[剑指 Offer 22. 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
+#### [剑指 Offer 22. 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
 
-[![hD8eh9.png](https://z3.ax1x.com/2021/09/02/hD8eh9.png)](https://imgtu.com/i/hD8eh9)
+输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。
+
+例如，一个链表有 `6` 个节点，从头节点开始，它们的值依次是 `1、2、3、4、5、6`。这个链表的倒数第 `3` 个节点是值为 `4` 的节点。
+
+ 
+
+**示例：**
+
+```
+给定一个链表: 1->2->3->4->5, 和 k = 2.
+
+返回链表 4->5.
+```
 
 **顺序查找法**
 
@@ -175,9 +246,40 @@ class Solution {
 }
 ```
 
-[剑指 Offer 10- I. 斐波那契数列 ](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/)
+#### [剑指 Offer 10- I. 斐波那契数列](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/)
 
-[![hchIlF.png](https://z3.ax1x.com/2021/09/04/hchIlF.png)](https://imgtu.com/i/hchIlF)
+写一个函数，输入 `n` ，求斐波那契（Fibonacci）数列的第 `n` 项（即 `F(N)`）。斐波那契数列的定义如下：
+
+```
+F(0) = 0,   F(1) = 1
+F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
+```
+
+斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。
+
+答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。
+
+ 
+
+**示例 1：**
+
+```
+输入：n = 2
+输出：1
+```
+
+**示例 2：**
+
+```
+输入：n = 5
+输出：5
+```
+
+ 
+
+**提示：**
+
+- `0 <= n <= 100`
 
 **两个动态规划方法，快速矩阵幂后续补上**
 
@@ -215,9 +317,34 @@ class Solution {
 }
 ```
 
-[704. 二分查找](https://leetcode-cn.com/problems/binary-search/)
+#### [704. 二分查找](https://leetcode-cn.com/problems/binary-search/)
 
-[![hfDvz4.png](https://z3.ax1x.com/2021/09/06/hfDvz4.png)](https://imgtu.com/i/hfDvz4)
+给定一个 `n` 个元素有序的（升序）整型数组 `nums` 和一个目标值 `target` ，写一个函数搜索 `nums` 中的 `target`，如果目标值存在返回下标，否则返回 `-1`。
+
+
+**示例 1:**
+
+```
+输入: nums = [-1,0,3,5,9,12], target = 9
+输出: 4
+解释: 9 出现在 nums 中并且下标为 4
+```
+
+**示例 2:**
+
+```
+输入: nums = [-1,0,3,5,9,12], target = 2
+输出: -1
+解释: 2 不存在 nums 中因此返回 -1
+```
+
+ 
+
+**提示：**
+
+1. 你可以假设 `nums` 中的所有元素是不重复的。
+2. `n` 将在 `[1, 10000]`之间。
+3. `nums` 的每个元素都将在 `[-9999, 9999]`之间。
 
 ```java
 class Solution {
@@ -242,9 +369,57 @@ class Solution {
 }
 ```
 
-[1221. 分割平衡字符串](https://leetcode-cn.com/problems/split-a-string-in-balanced-strings/)
+#### [1221. 分割平衡字符串](https://leetcode-cn.com/problems/split-a-string-in-balanced-strings/)
 
-[![h547VK.png](https://z3.ax1x.com/2021/09/07/h547VK.png)](https://imgtu.com/i/h547VK)
+在一个 **平衡字符串** 中，`'L'` 和 `'R'` 字符的数量是相同的。
+
+给你一个平衡字符串 `s`，请你将它分割成尽可能多的平衡字符串。
+
+**注意：**分割得到的每个字符串都必须是平衡字符串。
+
+返回可以通过分割得到的平衡字符串的 **最大数量** **。**
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "RLRRLLRLRL"
+输出：4
+解释：s 可以分割为 "RL"、"RRLL"、"RL"、"RL" ，每个子字符串中都包含相同数量的 'L' 和 'R' 。
+```
+
+**示例 2：**
+
+```
+输入：s = "RLLLLRRRLR"
+输出：3
+解释：s 可以分割为 "RL"、"LLLRRR"、"LR" ，每个子字符串中都包含相同数量的 'L' 和 'R' 。
+```
+
+**示例 3：**
+
+```
+输入：s = "LLLLRRRR"
+输出：1
+解释：s 只能保持原样 "LLLLRRRR".
+```
+
+**示例 4：**
+
+```
+输入：s = "RLRRRLLRLL"
+输出：2
+解释：s 可以分割为 "RL"、"RRRLLRLL" ，每个子字符串中都包含相同数量的 'L' 和 'R' 。
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 1000`
+- `s[i] = 'L' 或 'R'`
+- `s` 是一个 **平衡** 字符串
 
 **计数法**
 ```java
@@ -266,6 +441,7 @@ class Solution {
 }
 ```
 **栈方法**
+
 ```java
 class Solution {
     public int balancedStringSplit(String s) {
@@ -285,9 +461,57 @@ class Solution {
     }
 }
 ```
-[1894. 找到需要补充粉笔的学生编号](https://leetcode-cn.com/problems/find-the-student-that-will-replace-the-chalk/)
+#### [1894. 找到需要补充粉笔的学生编号](https://leetcode-cn.com/problems/find-the-student-that-will-replace-the-chalk/)
 
-[![hXkOhj.png](https://z3.ax1x.com/2021/09/10/hXkOhj.png)](https://imgtu.com/i/hXkOhj)
+一个班级里有 `n` 个学生，编号为 `0` 到 `n - 1` 。每个学生会依次回答问题，编号为 `0` 的学生先回答，然后是编号为 `1` 的学生，以此类推，直到编号为 `n - 1` 的学生，然后老师会重复这个过程，重新从编号为 `0` 的学生开始回答问题。
+
+给你一个长度为 `n` 且下标从 `0` 开始的整数数组 `chalk` 和一个整数 `k` 。一开始粉笔盒里总共有 `k` 支粉笔。当编号为 `i` 的学生回答问题时，他会消耗 `chalk[i]` 支粉笔。如果剩余粉笔数量 **严格小于** `chalk[i]` ，那么学生 `i` 需要 **补充** 粉笔。
+
+请你返回需要 **补充** 粉笔的学生 **编号** 。
+
+ 
+
+**示例 1：**
+
+```
+输入：chalk = [5,1,5], k = 22
+输出：0
+解释：学生消耗粉笔情况如下：
+- 编号为 0 的学生使用 5 支粉笔，然后 k = 17 。
+- 编号为 1 的学生使用 1 支粉笔，然后 k = 16 。
+- 编号为 2 的学生使用 5 支粉笔，然后 k = 11 。
+- 编号为 0 的学生使用 5 支粉笔，然后 k = 6 。
+- 编号为 1 的学生使用 1 支粉笔，然后 k = 5 。
+- 编号为 2 的学生使用 5 支粉笔，然后 k = 0 。
+编号为 0 的学生没有足够的粉笔，所以他需要补充粉笔。
+```
+
+**示例 2：**
+
+```
+输入：chalk = [3,4,1,2], k = 25
+输出：1
+解释：学生消耗粉笔情况如下：
+- 编号为 0 的学生使用 3 支粉笔，然后 k = 22 。
+- 编号为 1 的学生使用 4 支粉笔，然后 k = 18 。
+- 编号为 2 的学生使用 1 支粉笔，然后 k = 17 。
+- 编号为 3 的学生使用 2 支粉笔，然后 k = 15 。
+- 编号为 0 的学生使用 3 支粉笔，然后 k = 12 。
+- 编号为 1 的学生使用 4 支粉笔，然后 k = 8 。
+- 编号为 2 的学生使用 1 支粉笔，然后 k = 7 。
+- 编号为 3 的学生使用 2 支粉笔，然后 k = 5 。
+- 编号为 0 的学生使用 3 支粉笔，然后 k = 2 。
+编号为 1 的学生没有足够的粉笔，所以他需要补充粉笔。
+```
+
+ 
+
+**提示：**
+
+- `chalk.length == n`
+- `1 <= n <= 105`
+- `1 <= chalk[i] <= 105`
+- `1 <= k <= 109`
 
 **模拟**
 
@@ -315,11 +539,40 @@ class Solution {
 }
 ```
 
-[678. 有效的括号字符串](https://leetcode-cn.com/problems/valid-parenthesis-string/)
+#### [678. 有效的括号字符串](https://leetcode-cn.com/problems/valid-parenthesis-string/)
 
-[![4S4hv9.png](https://z3.ax1x.com/2021/09/12/4S4hv9.png)](https://imgtu.com/i/4S4hv9)
+给定一个只包含三种字符的字符串：`（ `，`）` 和 `*`，写一个函数来检验这个字符串是否为有效字符串。有效字符串具有如下规则：
 
+1. 任何左括号 `(` 必须有相应的右括号 `)`。
+2. 任何右括号 `)` 必须有相应的左括号 `(` 。
+3. 左括号 `(` 必须在对应的右括号之前 `)`。
+4. `*` 可以被视为单个右括号 `)` ，或单个左括号 `(` ，或一个空字符串。
+5. 一个空字符串也被视为有效字符串。
 
+**示例 1:**
+
+```
+输入: "()"
+输出: True
+```
+
+**示例 2:**
+
+```
+输入: "(*)"
+输出: True
+```
+
+**示例 3:**
+
+```
+输入: "(*))"
+输出: True
+```
+
+**注意:**
+
+1. 字符串大小将在 [1，100] 范围内。
 
 **栈方法**
 
@@ -393,11 +646,43 @@ class Solution {
 }
 ```
 
+#### [447. 回旋镖的数量](https://leetcode-cn.com/problems/number-of-boomerangs/)
 
+给定平面上 `n` 对 **互不相同** 的点 `points` ，其中 `points[i] = [xi, yi]` 。**回旋镖** 是由点 `(i, j, k)` 表示的元组 ，其中 `i` 和 `j` 之间的距离和 `i` 和 `k` 之间的欧式距离相等（**需要考虑元组的顺序**）。
 
-[447. 回旋镖的数量](https://leetcode-cn.com/problems/number-of-boomerangs/)
+返回平面上所有回旋镖的数量。
 
-[![4CVfbQ.png](https://z3.ax1x.com/2021/09/13/4CVfbQ.png)](https://imgtu.com/i/4CVfbQ)
+**示例 1：**
+
+```
+输入：points = [[0,0],[1,0],[2,0]]
+输出：2
+解释：两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]]
+```
+
+**示例 2：**
+
+```
+输入：points = [[1,1],[2,2],[3,3]]
+输出：2
+```
+
+**示例 3：**
+
+```
+输入：points = [[1,1]]
+输出：0
+```
+
+ 
+
+**提示：**
+
+- `n == points.length`
+- `1 <= n <= 500`
+- `points[i].length == 2`
+- `-104 <= xi, yi <= 104`
+- 所有点都 **互不相同**
 
 **哈希表**
 
@@ -424,9 +709,36 @@ class Solution {
 }
 ```
 
-[524. 通过删除字母匹配到字典里最长单词](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/)
+#### [524. 通过删除字母匹配到字典里最长单词](https://leetcode-cn.com/problems/longest-word-in-dictionary-through-deleting/)
 
-[![4FcwfU.png](https://z3.ax1x.com/2021/09/14/4FcwfU.png)](https://imgtu.com/i/4FcwfU)
+给你一个字符串 `s` 和一个字符串数组 `dictionary` ，找出并返回 `dictionary` 中最长的字符串，该字符串可以通过删除 `s` 中的某些字符得到。
+
+如果答案不止一个，返回长度最长且字母序最小的字符串。如果答案不存在，则返回空字符串。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "abpcplea", dictionary = ["ale","apple","monkey","plea"]
+输出："apple"
+```
+
+**示例 2：**
+
+```
+输入：s = "abpcplea", dictionary = ["a","b","c"]
+输出："a"
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 1000`
+- `1 <= dictionary.length <= 1000`
+- `1 <= dictionary[i].length <= 1000`
+- `s` 和 `dictionary[i]` 仅由小写英文字母组成
 
 **双指针**
 
@@ -851,9 +1163,48 @@ class Solution {
 
 # 未完成
 
-[470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
+#### [470. 用 Rand7() 实现 Rand10()](https://leetcode-cn.com/problems/implement-rand10-using-rand7/)
 
-[![hRwP4H.png](https://z3.ax1x.com/2021/09/05/hRwP4H.png)](https://imgtu.com/i/hRwP4H)
+已有方法 `rand7` 可生成 1 到 7 范围内的均匀随机整数，试写一个方法 `rand10` 生成 1 到 10 范围内的均匀随机整数。
+
+不要使用系统的 `Math.random()` 方法。
+
+
+
+**示例 1:**
+
+```
+输入: 1
+输出: [7]
+```
+
+**示例 2:**
+
+```
+输入: 2
+输出: [8,4]
+```
+
+**示例 3:**
+
+```
+输入: 3
+输出: [8,1,10]
+```
+
+ 
+
+**提示:**
+
+1. `rand7` 已定义。
+2. 传入参数: `n` 表示 `rand10` 的调用次数。
+
+ 
+
+**进阶:**
+
+1. `rand7()`调用次数的 [期望值](https://en.wikipedia.org/wiki/Expected_value) 是多少 ?
+2. 你能否尽量少调用 `rand7()` ?
 
 ```java
 /**
@@ -874,9 +1225,51 @@ class Solution extends SolBase {
 }
 ```
 
-[502. IPO](https://leetcode-cn.com/problems/ipo/)
+#### [502. IPO](https://leetcode-cn.com/problems/ipo/)
 
-[![hHmuDO.png](https://z3.ax1x.com/2021/09/08/hHmuDO.png)](https://imgtu.com/i/hHmuDO)
+假设 力扣（LeetCode）即将开始 **IPO** 。为了以更高的价格将股票卖给风险投资公司，力扣 希望在 IPO 之前开展一些项目以增加其资本。 由于资源有限，它只能在 IPO 之前完成最多 `k` 个不同的项目。帮助 力扣 设计完成最多 `k` 个不同项目后得到最大总资本的方式。
+
+给你 `n` 个项目。对于每个项目 `i` ，它都有一个纯利润 `profits[i]` ，和启动该项目需要的最小资本 `capital[i]` 。
+
+最初，你的资本为 `w` 。当你完成一个项目时，你将获得纯利润，且利润将被添加到你的总资本中。
+
+总而言之，从给定项目中选择 **最多** `k` 个不同项目的列表，以 **最大化最终资本** ，并输出最终可获得的最多资本。
+
+答案保证在 32 位有符号整数范围内。
+
+ 
+
+**示例 1：**
+
+```
+输入：k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]
+输出：4
+解释：
+由于你的初始资本为 0，你仅可以从 0 号项目开始。
+在完成后，你将获得 1 的利润，你的总资本将变为 1。
+此时你可以选择开始 1 号或 2 号项目。
+由于你最多可以选择两个项目，所以你需要完成 2 号项目以获得最大的资本。
+因此，输出最后最大化的资本，为 0 + 1 + 3 = 4。
+```
+
+**示例 2：**
+
+```
+输入：k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]
+输出：6
+```
+
+ 
+
+**提示：**
+
+- `1 <= k <= 105`
+- `0 <= w <= 109`
+- `n == profits.length`
+- `n == capital.length`
+- `1 <= n <= 105`
+- `0 <= profits[i] <= 104`
+- `0 <= capital[i] <= 109`
 
 ```java
 class Solution {
@@ -908,9 +1301,70 @@ class Solution {
 }
 ```
 
-[68. 文本左右对齐](https://leetcode-cn.com/problems/text-justification/)
+#### [68. 文本左右对齐](https://leetcode-cn.com/problems/text-justification/)
 
-[![hqt379.png](https://z3.ax1x.com/2021/09/09/hqt379.png)](https://imgtu.com/i/hqt379)
+给定一个单词数组和一个长度 *maxWidth*，重新排版单词，使其成为每行恰好有 *maxWidth* 个字符，且左右两端对齐的文本。
+
+你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格 `' '` 填充，使得每行恰好有 *maxWidth* 个字符。
+
+要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。
+
+文本的最后一行应为左对齐，且单词之间不插入**额外的**空格。
+
+**说明:**
+
+- 单词是指由非空格字符组成的字符序列。
+- 每个单词的长度大于 0，小于等于 *maxWidth*。
+- 输入单词数组 `words` 至少包含一个单词。
+
+**示例:**
+
+```
+输入:
+words = ["This", "is", "an", "example", "of", "text", "justification."]
+maxWidth = 16
+输出:
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+```
+
+**示例 2:**
+
+```
+输入:
+words = ["What","must","be","acknowledgment","shall","be"]
+maxWidth = 16
+输出:
+[
+  "What   must   be",
+  "acknowledgment  ",
+  "shall be        "
+]
+解释: 注意最后一行的格式应为 "shall be    " 而不是 "shall     be",
+     因为最后一行应为左对齐，而不是左右两端对齐。       
+     第二行同样为左对齐，这是因为这行只包含一个单词。
+```
+
+**示例 3:**
+
+```
+输入:
+words = ["Science","is","what","we","understand","well","enough","to","explain",
+         "to","a","computer.","Art","is","everything","else","we","do"]
+maxWidth = 20
+输出:
+[
+  "Science  is  what we",
+  "understand      well",
+  "enough to explain to",
+  "a  computer.  Art is",
+  "everything  else  we",
+  "do                  "
+]
+```
 
 ```java
 class Solution {
@@ -981,9 +1435,27 @@ class Solution {
 }
 ```
 
-[600. 不含连续1的非负整数](https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/)
+#### [600. 不含连续1的非负整数](https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/)
 
-[![hxAcmq.png](https://z3.ax1x.com/2021/09/11/hxAcmq.png)]()
+给定一个正整数 n，找出小于或等于 n 的非负整数中，其二进制表示不包含 **连续的1** 的个数。
+
+**示例 1:**
+
+```
+输入: 5
+输出: 5
+解释: 
+下面是带有相应二进制表示的非负整数<= 5：
+0 : 0
+1 : 1
+2 : 10
+3 : 11
+4 : 100
+5 : 101
+其中，只有整数3违反规则（有两个连续的1），其他5个满足规则。
+```
+
+**说明:** 1 <= n <= 109
 
 ```java
 class Solution {
@@ -1017,9 +1489,42 @@ class Solution {
 }
 ```
 
-[162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
+#### [162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
 
-[![4E2fDe.png](https://z3.ax1x.com/2021/09/15/4E2fDe.png)](https://imgtu.com/i/4E2fDe)
+峰值元素是指其值严格大于左右相邻值的元素。
+
+给你一个整数数组 `nums`，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 **任何一个峰值** 所在位置即可。
+
+你可以假设 `nums[-1] = nums[n] = -∞` 。
+
+你必须实现时间复杂度为 `O(log n)` 的算法来解决此问题。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,2,3,1]
+输出：2
+解释：3 是峰值元素，你的函数应该返回其索引 2。
+```
+
+**示例 2：**
+
+```
+输入：nums = [1,2,1,3,5,6,4]
+输出：1 或 5 
+解释：你的函数可以返回索引 1，其峰值元素为 2；
+     或者返回索引 5， 其峰值元素为 6。
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 1000`
+- `-231 <= nums[i] <= 231 - 1`
+- 对于所有有效的 `i` 都有 `nums[i] != nums[i + 1]`
 
 **二分法**
 
@@ -1841,6 +2346,78 @@ class Solution {
         res+=dfs(root.right,prefix,cur,targetSum);
         prefix.put(cur,prefix.getOrDefault(cur,0)-1);
         return res;
+    }
+}
+```
+
+#### [517. 超级洗衣机](https://leetcode-cn.com/problems/super-washing-machines/)
+
+难度困难93
+
+假设有 `n` 台超级洗衣机放在同一排上。开始的时候，每台洗衣机内可能有一定量的衣服，也可能是空的。
+
+在每一步操作中，你可以选择任意 `m` (`1 <= m <= n`) 台洗衣机，与此同时将每台洗衣机的一件衣服送到相邻的一台洗衣机。
+
+给定一个整数数组 `machines` 代表从左至右每台洗衣机中的衣物数量，请给出能让所有洗衣机中剩下的衣物的数量相等的 **最少的操作步数** 。如果不能使每台洗衣机中衣物的数量相等，则返回 `-1` 。
+
+ 
+
+**示例 1：**
+
+```
+输入：machines = [1,0,5]
+输出：3
+解释：
+第一步:    1     0 <-- 5    =>    1     1     4
+第二步:    1 <-- 1 <-- 4    =>    2     1     3    
+第三步:    2     1 <-- 3    =>    2     2     2   
+```
+
+**示例 2：**
+
+```
+输入：machines = [0,3,0]
+输出：2
+解释：
+第一步:    0 <-- 3     0    =>    1     2     0    
+第二步:    1     2 --> 0    =>    1     1     1     
+```
+
+**示例 3：**
+
+```
+输入：machines = [0,2,0]
+输出：-1
+解释：
+不可能让所有三个洗衣机同时剩下相同数量的衣物。
+```
+
+ 
+
+**提示：**
+
+- `n == machines.length`
+- `1 <= n <= 104`
+- `0 <= machines[i] <= 105`
+
+**贪心**
+
+```java
+class Solution {
+    public int findMinMoves(int[] machines) {
+        int tot = Arrays.stream(machines).sum();
+        int n = machines.length;
+        if (tot % n != 0) {
+            return -1;
+        }
+        int avg = tot / n;
+        int ans = 0, sum = 0;
+        for (int num : machines) {
+            num -= avg;
+            sum += num;
+            ans = Math.max(ans, Math.max(Math.abs(sum), num));
+        }
+        return ans;
     }
 }
 ```

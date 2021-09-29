@@ -1,5 +1,6 @@
 package com.zhuang.Daily.September;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -120,6 +121,7 @@ public class Solution004 {
      * https://leetcode-cn.com/problems/path-sum-iii/
      * 9.28
      * 深度优先搜索
+     *
      * @param root      根节点
      * @param targetSum 整数
      * @return 节点值之和等于targetSum的路径的数目
@@ -155,30 +157,51 @@ public class Solution004 {
 
     public static int pathSum2(TreeNode root, int targetSum) {
         HashMap<Integer, Integer> prefix = new HashMap<>();
-        prefix.put(0,1);
-        return dfs(root,prefix,0,targetSum);
+        prefix.put(0, 1);
+        return dfs(root, prefix, 0, targetSum);
     }
 
     /**
-     *
-     * @param root 根节点
-     * @param prefix 前缀和
-     * @param cur 当前的值
+     * @param root      根节点
+     * @param prefix    前缀和
+     * @param cur       当前的值
      * @param targetSum 目标值
      * @return 节点值之和等于targetSum的路径的数目
      */
     private static int dfs(TreeNode root, HashMap<Integer, Integer> prefix, int cur, int targetSum) {
-        if (root==null){
+        if (root == null) {
             return 0;
         }
-        int res=0;
-        cur+=root.val;
-        res=prefix.getOrDefault(cur-targetSum,0);
-        prefix.put(cur,prefix.getOrDefault(cur,0)+1);
-        res+=dfs(root.left,prefix,cur,targetSum);
-        res+=dfs(root.right,prefix,cur,targetSum);
-        prefix.put(cur,prefix.getOrDefault(cur,0)-1);
+        int res = 0;
+        cur += root.val;
+        res = prefix.getOrDefault(cur - targetSum, 0);
+        prefix.put(cur, prefix.getOrDefault(cur, 0) + 1);
+        res += dfs(root.left, prefix, cur, targetSum);
+        res += dfs(root.right, prefix, cur, targetSum);
+        prefix.put(cur, prefix.getOrDefault(cur, 0) - 1);
         return res;
     }
 
+    /**
+     * https://leetcode-cn.com/problems/super-washing-machines/
+     * 9.29
+     *
+     * @param machines 洗衣机数组
+     * @return 最少操作步骤
+     */
+    public int findMinMoves(int[] machines) {
+        int tot = Arrays.stream(machines).sum();
+        int n = machines.length;
+        if (tot % n != 0) {
+            return -1;
+        }
+        int avg = tot / n;
+        int ans = 0, sum = 0;
+        for (int num : machines) {
+            num -= avg;
+            sum += num;
+            ans = Math.max(ans, Math.max(Math.abs(sum), num));
+        }
+        return ans;
+    }
 }
