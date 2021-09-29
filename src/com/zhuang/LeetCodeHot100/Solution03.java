@@ -26,6 +26,13 @@ public class Solution03 {
         //maxSubArray2(nums);
         //int[] nums = {3, 2, 1, 0, 4};
         //canJump(nums);
+
+
+        //uniquePaths(3, 7);
+        //uniquePaths2(3, 7);
+
+        //int[][] intervals = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
+        //merge(intervals);
     }
 
 
@@ -250,5 +257,80 @@ public class Solution03 {
         }
         System.out.println(true);
         return true;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/unique-paths/
+     * 动态规划
+     *
+     * @param m 宽
+     * @param n 长
+     * @return 总共有多少条不同的路径
+     */
+    public static int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int j = 0; j < n; j++) {
+            dp[0][j] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        System.out.println(dp[m - 1][n - 1]);
+        return dp[m - 1][n - 1];
+    }
+
+    /**
+     * 动态规划+滚动数组
+     *
+     * @param m 宽
+     * @param n 长
+     * @return 总共有多少条不同的路径
+     */
+    public static int uniquePaths2(int m, int n) {
+        int[] dp = new int[n];
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+        }
+        for (int j = 1; j < m; j++) {
+            for (int i = 1; i < n; i++) {
+                dp[i] += dp[i - 1];
+            }
+        }
+        System.out.println(dp[n - 1]);
+        return dp[n - 1];
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/merge-intervals/
+     *
+     * @param intervals 若干区间的集合
+     * @return 一个不重叠的区间数组
+     */
+    public static int[][] merge(int[][] intervals) {
+        if (intervals.length == 0) {
+            return new int[0][2];
+        }
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] interval1, int[] interval2) {
+                return interval1[0] - interval2[0];
+            }
+        });
+        List<int[]> merged = new ArrayList<int[]>();
+        for (int i = 0; i < intervals.length; ++i) {
+            int L = intervals[i][0], R = intervals[i][1];
+            if (merged.size() == 0 || merged.get(merged.size() - 1)[1] < L) {
+                merged.add(new int[]{L, R});
+            } else {
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], R);
+            }
+        }
+        System.out.println(Arrays.deepToString(merged.toArray(new int[merged.size()][])));
+        return merged.toArray(new int[merged.size()][]);
     }
 }
