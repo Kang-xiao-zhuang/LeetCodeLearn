@@ -1013,8 +1013,6 @@ class Solution {
 
 #### [21. 合并两个有序链表](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 
-难度简单1926
-
 将两个升序链表合并为一个新的 **升序** 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
 
  
@@ -1798,8 +1796,6 @@ class Solution {
 
 #### [56. 合并区间](https://leetcode-cn.com/problems/merge-intervals/)
 
-难度中等1118
-
 以数组 `intervals` 表示若干个区间的集合，其中单个区间为 `intervals[i] = [starti, endi]` 。请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
 
  
@@ -1856,8 +1852,6 @@ class Solution {
 ```
 
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
-
-难度中等1125
 
 一个机器人位于一个 `m x n` 网格的左上角 （起始点在下图中标记为 “Start” ）。
 
@@ -1951,8 +1945,6 @@ class Solution {
 ```
 
 #### [64. 最小路径和](https://leetcode-cn.com/problems/minimum-path-sum/)
-
-难度中等1010
 
 给定一个包含非负整数的 `*m* x *n*` 网格 `grid` ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
 
