@@ -37,8 +37,11 @@ public class Solution03 {
         //int[][] grid = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
         //minPathSum(grid);
 
-        int[] nums = {2, 0, 2, 1, 1, 0};
-        sortColors(nums);
+        //int[] nums = {2, 0, 2, 1, 1, 0};
+        //sortColors(nums);
+
+        int[] nums = {1, 2, 4};
+        subsets(nums);
     }
 
 
@@ -484,4 +487,27 @@ public class Solution03 {
             }
         }
     }
+
+    /**
+     * https://leetcode-cn.com/problems/subsets/
+     * 第78题
+     *
+     * @param nums 数组
+     * @return 集合
+     */
+    public static List<List<Integer>> subsets(int[] nums) {
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        res.add(new ArrayList<>());
+        for (int i = 0; i < nums.length; i++) {
+            int size = res.size();
+            for (int j = 0; j < size; j++) {
+                ArrayList<Integer> tmp = new ArrayList<>(res.get(j));
+                tmp.add(nums[i]);
+                res.add(tmp);
+            }
+        }
+        System.out.println(res.toString());
+        return res;
+    }
+
 }
