@@ -33,6 +33,12 @@ public class Solution03 {
 
         //int[][] intervals = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
         //merge(intervals);
+
+        //int[][] grid = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
+        //minPathSum(grid);
+
+        int[] nums = {2, 0, 2, 1, 1, 0};
+        sortColors(nums);
     }
 
 
@@ -332,5 +338,150 @@ public class Solution03 {
         }
         System.out.println(Arrays.deepToString(merged.toArray(new int[merged.size()][])));
         return merged.toArray(new int[merged.size()][]);
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/minimum-path-sum/
+     * 第64题
+     *
+     * @param grid m x n 网格 grid
+     * @return 路径上的数字总和为最小
+     */
+    public static int minPathSum(int[][] grid) {
+        // 上来先判断
+        if (grid == null || grid[0].length == 0 || grid.length == 0) {
+            return 0;
+        }
+        int rows = grid.length, cols = grid[0].length;
+        // 二维动态数组
+        int[][] dp = new int[rows][cols];
+        // 初始化
+        dp[0][0] = grid[0][0];
+        // 行初始化
+        for (int i = 1; i < rows; i++) {
+            dp[i][0] = dp[i - 1][0] + grid[i][0];
+        }
+        // 列初始化
+        for (int j = 1; j < cols; j++) {
+            dp[0][j] = dp[0][j - 1] + grid[0][j];
+        }
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+            }
+        }
+        System.out.println(dp[rows - 1][cols - 1]);
+        return dp[rows - 1][cols - 1];
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/climbing-stairs/
+     * 第70题
+     *
+     * @param n n阶楼梯
+     * @return int 次数
+     */
+    public static int climbStairs(int n) {
+        int p = 0, q = 0, r = 1;
+        for (int i = 1; i <= n; i++) {
+            p = q;
+            q = r;
+            r = p + q;
+        }
+        System.out.println(r);
+        return r;
+    }
+
+    /**
+     * @param n n级台阶
+     * @return int
+     */
+    public static int climbStairs2(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        int[] dp = new int[n + 1];
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        System.out.println(dp[n]);
+        return dp[n];
+    }
+
+    /**
+     * 斐波那契数列 滚动数组
+     *
+     * @param n n阶楼梯
+     * @return int
+     */
+    public static int climbStairs3(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        int first = 1;
+        int second = 2;
+        for (int i = 3; i <= n; i++) {
+            int third = first + second;
+            first = second;
+            second = third;
+        }
+        System.out.println(second);
+        return second;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/sort-colors/
+     * 第75题
+     *
+     * @param nums 数组
+     */
+    public static void sortColors(int[] nums) {
+        int n = nums.length;
+        // 定义一个指针
+        int p = 0;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 0) {
+                int temp = nums[p];
+                nums[p] = nums[i];
+                nums[i] = temp;
+                p++;
+            }
+        }
+        for (int i = p; i < n; i++) {
+            if (nums[i] == 1) {
+                int temp = nums[p];
+                nums[p] = nums[i];
+                nums[i] = temp;
+                p++;
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+    }
+
+    /**
+     * @param nums 数组
+     */
+    public static void sortColors2(int[] nums) {
+        int n = nums.length;
+        int left = 0, right = n - 1;
+        int i = 0;
+        while (i <= right) {
+            if (nums[i] == 2) {
+                int temp = nums[right];
+                nums[right] = nums[i];
+                nums[i] = temp;
+                right--;
+            } else if (nums[i] == 0) {
+                int temp = nums[left];
+                nums[left] = nums[i];
+                nums[i] = temp;
+                left++;
+                i++;
+            } else {
+                i++;
+            }
+        }
     }
 }
