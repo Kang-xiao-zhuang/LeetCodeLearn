@@ -17,6 +17,8 @@ public class Solution004 {
         //minDistance(word1, word2);
 
         //getSum(1, 2);
+
+        //computeArea(-3, 0, 3, 4, 0, -1, 9, 2);
     }
 
     /**
@@ -203,5 +205,27 @@ public class Solution004 {
             ans = Math.max(ans, Math.max(Math.abs(sum), num));
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/rectangle-area/
+     * 9.30
+     *
+     * @param ax1 第一个矩形左下顶点横坐标
+     * @param ay1 第一个矩形左下坐标纵坐标
+     * @param ax2 第一个矩形右上顶点横坐标
+     * @param ay2 第一个矩形右上顶点纵坐标
+     * @param bx1 第二个矩形左下顶点横坐标
+     * @param by1 第二个矩形左下顶点纵坐标
+     * @param bx2 第二个矩形右上顶点横坐标
+     * @param by2 第二个矩形右上顶点纵坐标
+     * @return 两个矩形覆盖的总面积
+     */
+    public static int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {
+        int area1 = (ax2 - ax1) * (ay2 - ay1), area2 = (bx2 - bx1) * (by2 - by1);
+        int overlapWidth = Math.min(ax2, bx2) - Math.max(ax1, bx1), overlapHeight = Math.min(ay2, by2) - Math.max(ay1, by1);
+        int overlapArea = Math.max(overlapWidth, 0) * Math.max(overlapHeight, 0);
+        System.out.println(area1 + area2 - overlapArea);
+        return area1 + area2 - overlapArea;
     }
 }
