@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Solution001 {
     public static void main(String[] args) {
-
+        //toHex(26);
     }
 
     /**
@@ -31,5 +31,28 @@ public class Solution001 {
         }
         System.out.println(res);
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/convert-a-number-to-hexadecimal/
+     * 10.1
+     *
+     * @param num 数字
+     * @return 转换为16进制
+     */
+    public static String toHex(int num) {
+        if (num == 0) {
+            return "0";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 7; i >= 0; i--) {
+            int value = (num >> (4 * i) & 0xf);
+            if (sb.length() > 0 || value > 0) {
+                char c = value < 10 ? (char) ('0' + value) : (char) ('a' + value - 10);
+                sb.append(c);
+            }
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
     }
 }
