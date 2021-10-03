@@ -11,6 +11,7 @@ import java.util.*;
 public class Solution001 {
     public static void main(String[] args) {
         //toHex(26);
+        fractionToDecimal(1, 2);
     }
 
     /**
@@ -52,6 +53,53 @@ public class Solution001 {
                 sb.append(c);
             }
         }
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/fraction-to-recurring-decimal/
+     * 10.3
+     *
+     * @param numerator   分子
+     * @param denominator 分母
+     * @return 字符串形式返回小数
+     */
+    public static String fractionToDecimal(int numerator, int denominator) {
+        long n = numerator, d = denominator;
+        if (n % d == 0) {
+            return String.valueOf(n / d);
+        }
+        StringBuffer sb = new StringBuffer();
+        // 负数情况
+        if (n < 0 ^ d < 0) {
+            sb.append('-');
+        }
+        // 取绝对值 整数部分
+        n = Math.abs(n);
+        d = Math.abs(d);
+        long integerPart = n / d;
+        sb.append(integerPart);
+        sb.append('.');
+        // 小数部分
+        StringBuffer fractionPart = new StringBuffer();
+        HashMap<Long, Integer> reminderIndexMap = new HashMap<>();
+        long reminder = n % d;
+        int index = 0;
+        while (reminder != 0 && !reminderIndexMap.containsKey(reminder)) {
+            reminderIndexMap.put(reminder, index);
+            reminder *= 10;
+            fractionPart.append(reminder / d);
+            reminder %= d;
+            index++;
+        }
+        // 有循环节点
+        if (reminder != 0) {
+            int insertIndex = reminderIndexMap.get(reminder);
+            fractionPart.insert(insertIndex, '(');
+            fractionPart.append(')');
+        }
+        sb.append(fractionPart.toString());
         System.out.println(sb.toString());
         return sb.toString();
     }
