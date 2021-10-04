@@ -1,5 +1,7 @@
 package com.zhuang.Daily.October;
 
+import jdk.management.resource.internal.inst.FileOutputStreamRMHooks;
+
 import java.util.*;
 
 /**
@@ -11,7 +13,8 @@ import java.util.*;
 public class Solution001 {
     public static void main(String[] args) {
         //toHex(26);
-        fractionToDecimal(1, 2);
+        //fractionToDecimal(1, 2);
+        licenseKeyFormatting("5F3Z-2E9W", 4);
     }
 
     /**
@@ -102,5 +105,31 @@ public class Solution001 {
         sb.append(fractionPart.toString());
         System.out.println(sb.toString());
         return sb.toString();
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/license-key-formatting/
+     * 10.4
+     *
+     * @param s 字符串
+     * @param k 数字k
+     * @return 密钥格式化
+     */
+    public static String licenseKeyFormatting(String s, int k) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = s.length() - 1, cnt = 0; i >= 0; i--) {
+            if (s.charAt(i) != '-') {
+                cnt++;
+                sb.append(Character.toUpperCase(s.charAt(i)));
+                // 每k个部分分割
+                if (cnt % k == 0) {
+                    sb.append("-");
+                }
+            }
+        }
+        if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '-') {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.reverse().toString();
     }
 }
