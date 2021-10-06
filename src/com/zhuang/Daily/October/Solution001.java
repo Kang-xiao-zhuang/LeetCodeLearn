@@ -14,7 +14,12 @@ public class Solution001 {
     public static void main(String[] args) {
         //toHex(26);
         //fractionToDecimal(1, 2);
-        licenseKeyFormatting("5F3Z-2E9W", 4);
+        //licenseKeyFormatting("5F3Z-2E9W", 4);
+
+        int[] nums = {3, 2, 1};
+        //thirdMax(nums);
+        //thirdMax2(nums);
+        //thirdMax3(nums);
     }
 
     /**
@@ -134,4 +139,64 @@ public class Solution001 {
     }
 
     //10.5笔记里有
+
+    /**
+     * https://leetcode-cn.com/problems/third-maximum-number/
+     * 10.5
+     * 有序集合
+     *
+     * @param nums 数组
+     * @return 数组中第三大的数
+     */
+    public static int thirdMax(int[] nums) {
+        TreeSet<Integer> set = new TreeSet<>();
+        for (int num : nums) {
+            set.add(num);
+            if (set.size() > 3) {
+                set.remove(set.first());
+            }
+        }
+        System.out.println(set.size() == 3 ? set.first() : set.last());
+        return set.size() == 3 ? set.first() : set.last();
+    }
+
+    /**
+     * 排序
+     *
+     * @param nums 数组
+     * @return 数组中第三大的数
+     */
+    public static int thirdMax2(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+        ArrayList<Integer> list = new ArrayList<>(set);
+        Collections.sort(list);
+        System.out.println(list.size() < 3 ? list.get(list.size() - 1) : list.get(list.size() - 3));
+        return list.size() < 3 ? list.get(list.size() - 1) : list.get(list.size() - 3);
+    }
+
+    /**
+     * 一次遍历
+     *
+     * @param nums 数组
+     * @return 数组中第三大的数
+     */
+    public static int thirdMax3(int[] nums) {
+        long a = Long.MIN_VALUE, b = Long.MIN_VALUE, c = Long.MIN_VALUE;
+        for (long num : nums) {
+            if (num > a) {
+                c = b;
+                b = a;
+                a = num;
+            } else if (a > num && num > b) {
+                c = b;
+                b = num;
+            } else if (b > num && num > c) {
+                c = num;
+            }
+        }
+        return c == Long.MIN_VALUE ? (int) a : (int) c;
+    }
 }
