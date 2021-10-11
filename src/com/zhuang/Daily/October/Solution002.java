@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.zhuang.Daily.October.Solution002.toEnglish;
+
 /**
  * @Classname Solution002
  * @Description 2021.10.7-2021.10.14每日一题
@@ -20,6 +22,9 @@ public class Solution002 {
         //arrangeCoins(5);
         //arrangeCoins2(5);
         //arrangeCoins3(5);
+
+        //numberToWords(123);
+        //numberToWords(123);
     }
 
     /**
@@ -120,5 +125,106 @@ public class Solution002 {
      */
     public static int arrangeCoins3(int n) {
         return (int) ((Math.sqrt((long) 8 * n + 1) - 1) / 2);
+    }
+
+
+    static String[] singles = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+    static String[] teens = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+    static String[] tens = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+    static String[] thousands = {"", "Thousand", "Million", "Billion"};
+
+    /**
+     * https://leetcode-cn.com/problems/integer-to-english-words/
+     * 10.11
+     * 迭代法
+     *
+     * @param num 非负整数
+     * @return 对应的英文表示
+     */
+    public static String numberToWords(int num) {
+        if (num == 0) {
+            return "Zero";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 3, unit = 1000000000; i >= 0; i--, unit /= 1000) {
+            int curNum = num / unit;
+            if (curNum != 0) {
+                num -= curNum * unit;
+                sb.append(toEnglish(curNum)).append(thousands[i]).append(" ");
+            }
+        }
+        System.out.println(sb.toString().trim());
+        return sb.toString().trim();
+    }
+
+    /**
+     * @param num 非负整数
+     * @return 指定字符串
+     */
+    public static String toEnglish(int num) {
+        StringBuffer cur = new StringBuffer();
+        int hundred = num / 100;
+        num %= 100;
+        if (hundred != 0) {
+            cur.append(singles[hundred]).append(" Hundred ");
+        }
+        int ten = num / 10;
+        if (ten >= 2) {
+            cur.append(tens[ten]).append(" ");
+            num %= 10;
+        }
+        if (num > 0 && num < 10) {
+            cur.append(singles[num]).append(" ");
+        } else if (num >= 10) {
+            cur.append(teens[num - 10]).append(" ");
+        }
+        return cur.toString();
+    }
+
+    /**
+     * 递归法
+     *
+     * @param num 非负整数
+     * @return 对应的英文表示
+     */
+    public static String numberToWords2(int num) {
+        if (num == 0) {
+            return "Zero";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 3, unit = 1000000000; i >= 0; i--, unit /= 1000) {
+            int curNum = num / unit;
+            if (curNum != 0) {
+                num -= curNum * unit;
+                StringBuffer cur = new StringBuffer();
+                recursion(cur, curNum);
+                cur.append(thousands[i]).append(" ");
+                sb.append(cur);
+            }
+        }
+        System.out.println(sb.toString().trim());
+        return sb.toString().trim();
+    }
+
+    /**
+     * 递归的方法
+     *
+     * @param cur StringBuffer
+     * @param num 非负整数
+     */
+    private static void recursion(StringBuffer cur, int num) {
+        if (num == 0) {
+            return;
+        } else if (num < 10) {
+            cur.append(singles[num]).append(" ");
+        } else if (num < 20) {
+            cur.append(teens[num - 10]).append(" ");
+        } else if (num < 100) {
+            cur.append(tens[num / 10]).append(" ");
+            recursion(cur, num % 10);
+        } else {
+            cur.append(singles[num / 100]).append(" Hundred ");
+            recursion(cur, num % 100);
+        }
     }
 }

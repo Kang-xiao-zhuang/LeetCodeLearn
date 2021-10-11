@@ -733,3 +733,142 @@ class Solution {
 }
 ```
 
+#### [273. 整数转换英文表示](https://leetcode-cn.com/problems/integer-to-english-words/)
+
+将非负整数 `num` 转换为其对应的英文表示。
+
+ 
+
+**示例 1：**
+
+```
+输入：num = 123
+输出："One Hundred Twenty Three"
+```
+
+**示例 2：**
+
+```
+输入：num = 12345
+输出："Twelve Thousand Three Hundred Forty Five"
+```
+
+**示例 3：**
+
+```
+输入：num = 1234567
+输出："One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+```
+
+**示例 4：**
+
+```
+输入：num = 1234567891
+输出："One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
+```
+
+ 
+
+**提示：**
+
+- `0 <= num <= 231 - 1`
+
+**迭代法**
+
+```java
+class Solution {
+     String[] singles = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+     String[] teens = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+     String[] tens = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+     String[] thousands = {"", "Thousand", "Million", "Billion"};
+
+    public String numberToWords(int num) {
+         if (num == 0) {
+            return "Zero";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 3, unit = 1000000000; i >= 0; i--, unit /= 1000) {
+            int curNum = num / unit;
+            if (curNum != 0) {
+                num -= curNum * unit;
+                sb.append(toEnglish(curNum)).append(thousands[i]).append(" ");
+            }
+        }
+        return sb.toString().trim();
+    }
+
+    /**
+     * @param num 非负整数
+     * @return 指定字符串
+     */
+    public String toEnglish(int num) {
+        StringBuffer cur = new StringBuffer();
+        int hundred = num / 100;
+        num %= 100;
+        if (hundred != 0) {
+            cur.append(singles[hundred]).append(" Hundred ");
+        }
+        int ten = num / 10;
+        if (ten >= 2) {
+            cur.append(tens[ten]).append(" ");
+            num%=10;
+        }
+        if (num > 0 && num < 10) {
+            cur.append(singles[num]).append(" ");
+        } else if (num >= 10) {
+            cur.append(teens[num - 10]).append(" ");
+        }
+        return cur.toString();
+    }
+}
+```
+
+**递归法**
+
+```java
+class Solution {
+     String[] singles = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+     String[] teens = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+     String[] tens = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+     String[] thousands = {"", "Thousand", "Million", "Billion"};
+     String numberToWords(int num) {
+         if (num == 0) {
+            return "Zero";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 3, unit = 1000000000; i >= 0; i--, unit /= 1000) {
+            int curNum = num / unit;
+            if (curNum != 0) {
+                num -= curNum * unit;
+                StringBuffer cur = new StringBuffer();
+                recursion(cur, curNum);
+                cur.append(thousands[i]).append(" ");
+                sb.append(cur);
+            }
+        }
+        return sb.toString().trim();
+    }
+    /**
+     * 递归的方法
+     *
+     * @param cur StringBuffer
+     * @param num 非负整数
+     */
+    private void recursion(StringBuffer cur, int num) {
+        if (num == 0) {
+            return;
+        } else if (num < 10) {
+            cur.append(singles[num]).append(" ");
+        } else if (num < 20) {
+            cur.append(teens[num - 10]).append(" ");
+        } else if (num < 100) {
+            cur.append(tens[num / 10]).append(" ");
+            recursion(cur, num % 10);
+        } else {
+            cur.append(singles[num / 100]).append(" Hundred ");
+            recursion(cur, num % 100);
+        }
+    }
+}
+```
+
