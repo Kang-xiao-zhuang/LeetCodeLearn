@@ -1,5 +1,7 @@
 package com.zhuang.Daily.October;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,8 @@ public class Solution002 {
 
         //numberToWords(123);
         //numberToWords(123);
+
+        //divide(10, 3);
     }
 
     /**
@@ -226,5 +230,92 @@ public class Solution002 {
             cur.append(singles[num / 100]).append(" Hundred ");
             recursion(cur, num % 100);
         }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/divide-two-integers/
+     * 10.12
+     *
+     * @param dividend 被除数
+     * @param divisor  除数
+     * @return 被除数除以除数得到的商
+     */
+    public static int divide(int dividend, int divisor) {
+        // 考虑被除数为最小值的情况
+        if (dividend == Integer.MIN_VALUE) {
+            if (divisor == 1) {
+                return Integer.MIN_VALUE;
+            }
+            if (divisor == -1) {
+                return Integer.MAX_VALUE;
+            }
+        }
+        // 考虑除数最小值的情况
+        if (divisor == Integer.MIN_VALUE) {
+            return dividend == Integer.MIN_VALUE ? 1 : 0;
+        }
+        // 考虑被除数为0的情况
+        if (dividend == 0) {
+            return 0;
+        }
+        // 一般情况使用二分查找
+        boolean rev = false;
+        if (dividend > 0) {
+            dividend = -dividend;
+            rev = !rev;
+        }
+        if (divisor > 0) {
+            divisor = -divisor;
+            rev = !rev;
+        }
+        int left = 1, right = Integer.MAX_VALUE, ans = 0;
+        while (left <= right) {
+            // 注意溢出，并且不能使用除法
+            int mid = left + ((right - left) >> 1);
+            boolean check = quickAdd(divisor, mid, dividend);
+            if (check) {
+                ans = mid;
+                // 注意溢出
+                if (mid == Integer.MAX_VALUE) {
+                    break;
+                }
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        System.out.println(rev ? -ans : ans);
+        return rev ? -ans : ans;
+    }
+
+    /**
+     * @param y 数1
+     * @param z 数2
+     * @param x 数3
+     * @return 布尔值
+     */
+    private static boolean quickAdd(int y, int z, int x) {
+        // x和y是负数,z是正数
+        // 判断z*y>=x;
+        int result = 0, add = y;
+        while (z != 0) {
+            if ((z & 1) != 0) {
+                // 保证result + add >=x
+                if (result < x - add) {
+                    return false;
+                }
+                result += add;
+            }
+            if (z != 1) {
+                // 保证 add+add>=x
+                if (add < x - add) {
+                    return false;
+                }
+                add += add;
+            }
+            // 不能使用除法
+            z >>= 1;
+        }
+        return true;
     }
 }
