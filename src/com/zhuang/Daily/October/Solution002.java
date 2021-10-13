@@ -3,6 +3,7 @@ package com.zhuang.Daily.October;
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +30,9 @@ public class Solution002 {
         //numberToWords(123);
 
         //divide(10, 3);
+
+
+        //fizzBuzz(3);
     }
 
     /**
@@ -317,5 +321,31 @@ public class Solution002 {
             z >>= 1;
         }
         return true;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/fizz-buzz/
+     * 10.13
+     *
+     * @param n 数字
+     * @return 从 1 到 n 数字的字符串
+     */
+    public static List<String> fizzBuzz(int n) {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            StringBuffer sb = new StringBuffer();
+            if (i % 3 == 0) {
+                sb.append("Fizz");
+            }
+            if (i % 5 == 0) {
+                sb.append("Buzz");
+            }
+            if (sb.length() == 0) {
+                sb.append(i);
+            }
+            list.add(sb.toString());
+        }
+        System.out.println(list.toString());
+        return list;
     }
 }
