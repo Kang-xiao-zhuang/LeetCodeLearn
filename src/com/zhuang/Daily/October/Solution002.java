@@ -348,4 +348,46 @@ public class Solution002 {
         System.out.println(list.toString());
         return list;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/B1IidL/
+     * 10.14
+     * 模拟
+     *
+     * @param arr 数组
+     * @return 返回山峰顶部
+     */
+    public static int peakIndexInMountainArray(int[] arr) {
+        int n = arr.length;
+        int ans = -1;
+        for (int i = 1; i < n - 1; ++i) {
+            if (arr[i] > arr[i + 1]) {
+                ans = i;
+                break;
+            }
+        }
+        return ans;
+    }
+
+
+    /**
+     * 二分查找
+     *
+     * @param arr 数组
+     * @return 返回山峰顶部
+     */
+    public static int peakIndexInMountainArray2(int[] arr) {
+        int n = arr.length;
+        int left = 1, right = n - 2, ans = 0;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (arr[mid] > arr[mid + 1]) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
 }
