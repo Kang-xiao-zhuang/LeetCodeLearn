@@ -15,6 +15,8 @@ public class Solution04 {
     public static void main(String[] args) {
         char[][] board = {{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}};
         exist(board, "ABCCED");
+
+        numTrees(3);
     }
 
     /**
@@ -79,6 +81,7 @@ public class Solution04 {
      * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
      * 第94题
      * 递归
+     *
      * @param root 根节点
      * @return 中序遍历
      */
@@ -128,5 +131,26 @@ public class Solution04 {
             root = root.right;
         }
         return list;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/unique-binary-search-trees/
+     * 第96题
+     * 动态规划
+     *
+     * @param n 整数
+     * @return 二叉搜索树的种树
+     */
+    public static int numTrees(int n) {
+        int[] G = new int[n + 1];
+        G[0] = 1;
+        G[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j <= i; ++j) {
+                G[i] += G[j - 1] * G[i - j];
+            }
+        }
+        System.out.println(G[n]);
+        return G[n];
     }
 }
