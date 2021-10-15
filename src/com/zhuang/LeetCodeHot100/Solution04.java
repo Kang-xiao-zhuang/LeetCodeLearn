@@ -1,5 +1,9 @@
 package com.zhuang.LeetCodeHot100;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * @Classname Solution04
  * @Description LeetCode 热题 HOT
@@ -69,5 +73,60 @@ public class Solution04 {
         }
         visited[i][j] = false;
         return result;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
+     * 第94题
+     * 递归
+     * @param root 根节点
+     * @return 中序遍历
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        inorder(root, list);
+        return list;
+    }
+
+    private static void inorder(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left, list);
+        list.add(root.val);
+        inorder(root.right, list);
+    }
+
+    /**
+     * 二叉树的中序遍历
+     * 集合＋栈
+     *
+     * @param root 根节点
+     * @return List集合
+     */
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        // 栈 先进后出
+        // 前序遍历，出栈顺序：根左右; 入栈顺序：右左根
+        // 中序遍历，出栈顺序：左根右; 入栈顺序：右根左
+        // 后序遍历，出栈顺序：左右根; 入栈顺序：根右左
+        ArrayList<Integer> list = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        // root为空且stack为空，遍历结束
+        while (root != null || !stack.isEmpty()) {
+            // 先根后左入栈
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            // 此时root==null，说明上一步的root没有左子树
+            // 1. 执行左出栈。因为此时root==null，导致root.right一定为null
+            // 2. 执行下一次外层while代码块，根出栈。此时root.right可能存在
+            // 3a. 若root.right存在，右入栈，再出栈
+            // 3b. 若root.right不存在，重复步骤2
+            root = stack.pop();
+            list.add(root.val);
+            root = root.right;
+        }
+        return list;
     }
 }
