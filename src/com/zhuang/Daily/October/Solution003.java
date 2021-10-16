@@ -1,6 +1,8 @@
 package com.zhuang.Daily.October;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -132,5 +134,31 @@ public class Solution003 {
                 backtrack(num, target, res, path + "*" + cur, i + 1, value - pre + pre * cur, pre * cur);
             }
         }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/
+     * 10.17
+     * 中序遍历
+     *
+     * @param root 根节点
+     * @param k    倒数第k个
+     * @return 第 k 个最小元素
+     */
+    public int kthSmallest(TreeNode root, int k) {
+        Deque<TreeNode> stack = new ArrayDeque<TreeNode>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            k--;
+            if (k == 0) {
+                break;
+            }
+            root = root.right;
+        }
+        return root.val;
     }
 }
