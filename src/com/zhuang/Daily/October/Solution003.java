@@ -1,5 +1,8 @@
 package com.zhuang.Daily.October;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Classname Solution003
  * @Description 2021.10.14-2021.10.21每日一题
@@ -11,6 +14,8 @@ public class Solution003 {
     public static void main(String[] args) {
         //countAndSay(4);
         //countAndSay(4);
+
+        addOperators("123", 6);
     }
 
     /**
@@ -70,5 +75,62 @@ public class Solution003 {
         // 字符串最后一个数字
         result.append(s.length() - start).append(s.charAt(start));
         return result.toString();
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/expression-add-operators/
+     * 10.16
+     *
+     * @param num    数组
+     * @param target 目标整数
+     * @return 目标值表达式
+     */
+    public static List<String> addOperators(String num, int target) {
+        /**
+         * 这个方法有问题，不能通过所有测试用例，以后解决，做次记录 2021年10月16日08:44:43
+         */
+        List<String> res = new ArrayList<>();
+        backtrack(num, target, res, "", 0, 0, 0);
+        System.out.println(res.toString());
+        return res;
+    }
+
+    /**
+     * @param num    数组
+     * @param target 目标值
+     * @param res    集合
+     * @param path   路径
+     * @param start  开始索引
+     * @param value  当前的值
+     * @param pre    之前值
+     */
+    private static void backtrack(String num, int target, List<String> res, String path, int start, long value, long pre) {
+        if (start == num.length()) {
+            if (target == value) {
+                res.add(path);
+            }
+            return;
+        }
+        for (int i = start; i < num.length(); i++) {
+            // 数字不能以0开头
+            if (num.charAt(start) == '0' && i > start) {
+                break;
+            }
+            long cur = Long.parseLong(num.substring(start, i + 1));
+            // 选取第一个数不加符号
+            if (start == 0) {
+                backtrack(num, target, res, path + cur, i + 1, cur, cur);
+            } else {
+                // 加当前值
+                backtrack(num, target, res, path + "+" + cur, i + 1, value + cur, cur);
+                // 减当前值
+                backtrack(num, target, res, path + "-" + cur, i + 1, value - cur, cur);
+                /*
+                乘法不同，当前表达式的值就是先减去之前的值，然后加上，当前值和边上的操作数相乘   value-prev+prev*cur
+                传入参数 prev*cur
+                 */
+                backtrack(num, target, res, path + "*" + cur, i + 1, value - pre + pre * cur, pre * cur);
+            }
+        }
     }
 }
