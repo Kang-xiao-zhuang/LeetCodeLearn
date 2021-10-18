@@ -17,7 +17,8 @@ public class Solution003 {
         //countAndSay(4);
         //countAndSay(4);
 
-        addOperators("123", 6);
+        //addOperators("123", 6);
+        findComplement(5);
     }
 
     /**
@@ -160,5 +161,28 @@ public class Solution003 {
             root = root.right;
         }
         return root.val;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/number-complement/
+     * 10.18
+     * 位运算
+     *
+     * @param num 正整数
+     * @return 补数
+     */
+    public static int findComplement(int num) {
+        int highbit = 0;
+        for (int i = 1; i <= 30; i++) {
+            if (num >= 1 << i) {
+                highbit = i;
+            } else {
+                break;
+            }
+        }
+        int mask = highbit == 30 ? 0x7fffffff : (1 << (highbit + 1)) - 1;
+        System.out.println(mask);
+        System.out.println(num ^ mask);
+        return num ^ mask;
     }
 }
