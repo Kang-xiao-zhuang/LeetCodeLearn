@@ -1,9 +1,6 @@
 package com.zhuang.Daily.October;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Classname Solution003
@@ -18,7 +15,8 @@ public class Solution003 {
         //countAndSay(4);
 
         //addOperators("123", 6);
-        findComplement(5);
+        //findComplement(5);
+
     }
 
     /**
@@ -184,5 +182,58 @@ public class Solution003 {
         System.out.println(mask);
         System.out.println(num ^ mask);
         return num ^ mask;
+    }
+
+    /**
+     * WordDictionary类
+     * https://leetcode-cn.com/problems/design-add-and-search-words-data-structure/
+     * 10.19
+     */
+    static class WordDictionary {
+        Map<Integer, Set<String>> map;
+
+        public WordDictionary() {
+            map = new HashMap<>();
+        }
+
+        public void addWord(String word) {
+            Set<String> set = map.getOrDefault(word.length(), new HashSet<>());
+            set.add(word);
+            map.put(word.length(), set);
+        }
+
+        public boolean search(String word) {
+            Set<String> set = map.get(word.length());
+            if (set == null) {
+                return false;
+            }
+            if (set.contains(word)) {
+                return true;
+            }
+            ArrayList<Integer> list = new ArrayList<>();
+            // 找到所有不为.的字母下标
+            for (int i = 0; i < word.length(); i++) {
+                if (word.charAt(i) != '.') {
+                    list.add(i);
+                }
+            }
+            if (list.size() == 0) {
+                return true;
+            }
+            for (String s : set) {
+                boolean flag = true;
+                for (Integer index : list) {
+                    // 说明字符串不匹配
+                    if (s.charAt(index) != word.charAt(index)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
