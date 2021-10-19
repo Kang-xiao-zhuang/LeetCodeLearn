@@ -2533,3 +2533,125 @@ class Solution {
 }
 ```
 
+#### [98. 验证二叉搜索树](https://leetcode-cn.com/problems/validate-binary-search-tree/)
+
+
+
+给你一个二叉树的根节点 `root` ，判断其是否是一个有效的二叉搜索树。
+
+**有效** 二叉搜索树定义如下：
+
+- 节点的左子树只包含 **小于** 当前节点的数。
+- 节点的右子树只包含 **大于** 当前节点的数。
+- 所有左子树和右子树自身必须也是二叉搜索树。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/12/01/tree1.jpg)
+
+```
+输入：root = [2,1,3]
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2020/12/01/tree2.jpg)
+
+```
+输入：root = [5,1,4,null,null,3,6]
+输出：false
+解释：根节点的值是 5 ，但是右子节点的值是 4 。
+```
+
+ 
+
+**提示：**
+
+- 树中节点数目范围在`[1, 104]` 内
+- `-231 <= Node.val <= 231 - 1`
+
+**递归**
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return recurse(root, null, null);
+    }
+
+    public boolean recurse(TreeNode node, Integer lower, Integer upper) {
+        if (node == null) {
+            return true;
+        }
+        int val = node.val;
+        if (lower != null && val <= lower) return false;
+        if (upper != null && val >= upper) return false;
+
+        if (!recurse(node.right, val, upper)) return false;
+        if (!recurse(node.left, lower, val)) return false;
+
+        return true;
+    }
+}
+```
+
+**中序遍历**
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+       Stack<TreeNode> stack = new Stack<>();
+        // pre来存储上一个中序遍历的树节点的值
+        Integer pre = null;
+        while (!stack.isEmpty() || root != null) {
+            // 左子节点加入栈 直到没有左子节点
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            // 将当前子树最左边的节点从stack中取出 比较节点的值是否大于pre 如果小于 不是二叉搜索树
+            root = stack.pop();
+            if (pre!=null && root.val <= pre) {
+                return false;
+            }
+            // 将pre设为当前节点的值 将root设为当前节点的右子节点
+            pre = root.val;
+            root = root.right;
+        }
+        return true;
+    }
+}
+```
+

@@ -153,4 +153,68 @@ public class Solution04 {
         System.out.println(G[n]);
         return G[n];
     }
+
+    /**
+     * https://leetcode-cn.com/problems/validate-binary-search-tree/
+     * 第98题
+     * 递归法
+     *
+     * @param root 根节点
+     * @return 判断是否为二叉搜索树
+     */
+    public boolean isValidBST(TreeNode root) {
+        return recurse(root, null, null);
+    }
+
+    /**
+     * @param node  根节点
+     * @param lower 较小值 即根节点左边的值
+     * @param upper 较大值 即根节点右边的值
+     * @return 是否为二叉搜索树
+     */
+    private boolean recurse(TreeNode node, Integer lower, Integer upper) {
+        if (node == null) {
+            return true;
+        }
+        int val = node.val;
+        // 当前值大于较大值时，为false
+        if (lower != null && val <= lower) {
+            return false;
+        }
+        // 当前值小于较小值时，为false
+        if (upper != null && val >= upper) {
+            return false;
+        }
+        // 当前节点的右节点，值，右节点的值
+        if (!recurse(node.right, val, upper)) {
+            return false;
+        }
+        // 当前节点的左节点，左节点的值，值
+        if (!recurse(node.left, lower, val)) {
+            return true;
+        }
+        return true;
+    }
+
+    public boolean isValidBST2(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        // pre来存储上一个中序遍历的树节点的值
+        Integer pre = null;
+        while (!stack.isEmpty() || root != null) {
+            // 左子节点加入栈， 直到没有左子节点
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            // 将当前子树最左边的节点从stack中取出 比较节点的值是否大于pre 如果小于 不是二叉搜索树
+            root = stack.pop();
+            if (pre != null && root.val <= pre) {
+                return false;
+            }
+            // 将pre设为当前节点的值 将root设为当前节点的右子节点
+            pre = root.val;
+            root = root.right;
+        }
+        return true;
+    }
 }
