@@ -17,6 +17,8 @@ public class Solution003 {
         //addOperators("123", 6);
         //findComplement(5);
 
+        int[] nums = {1, 2, 3};
+        minMoves(nums);
     }
 
     /**
@@ -244,7 +246,7 @@ public class Solution003 {
      * @param nums 数组
      * @return
      */
-    public int minMoves(int[] nums) {
+    public static int minMoves(int[] nums) {
         if (nums.length == 1) {
             return 0;
         }
