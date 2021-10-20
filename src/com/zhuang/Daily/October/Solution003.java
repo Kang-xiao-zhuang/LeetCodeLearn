@@ -236,4 +236,24 @@ public class Solution003 {
             return false;
         }
     }
+
+    /**
+     * https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/
+     * 10.20
+     *
+     * @param nums 数组
+     * @return
+     */
+    public int minMoves(int[] nums) {
+        if (nums.length == 1) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            res += nums[i] - nums[0];
+        }
+        System.out.println(res);
+        return res;
+    }
 }
