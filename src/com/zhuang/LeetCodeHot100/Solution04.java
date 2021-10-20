@@ -1,8 +1,6 @@
 package com.zhuang.LeetCodeHot100;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @Classname Solution04
@@ -216,5 +214,62 @@ public class Solution04 {
             root = root.right;
         }
         return true;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/symmetric-tree/
+     * 第101题
+     * 迭代法
+     *
+     * @param root 根节点
+     * @return 是否镜像对称
+     */
+    public static boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return false;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root.left);
+        queue.offer(root.right);
+        while (!queue.isEmpty()) {
+            TreeNode node1 = queue.poll();
+            TreeNode node2 = queue.poll();
+            if (node1 == null && node2 == null) {
+                continue;
+            }
+            if (node1 == null || node2 == null || node1.val != node2.val) {
+                return false;
+            }
+            queue.offer(node1.left);
+            queue.offer(node2.right);
+            queue.offer(node2.left);
+            queue.offer(node1.right);
+        }
+        return true;
+    }
+
+    /**
+     * 递归法
+     *
+     * @param root 节点
+     * @return 布尔值
+     */
+    public static boolean isSymmetric2(TreeNode root) {
+        return isMirror(root, root);
+    }
+
+    /**
+     * @param node1 节点1
+     * @param node2 节点2
+     * @return 布尔
+     */
+    public static boolean isMirror(TreeNode node1, TreeNode node2) {
+        if (node1 == null && node2 == null) {
+            return true;
+        }
+        if (node1 == null || node2 == null) {
+            return false;
+        }
+        return (node1.val == node2.val) && isMirror(node1.right, node2.left) && isMirror(node1.left, node2.right);
     }
 }
