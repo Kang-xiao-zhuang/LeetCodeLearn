@@ -17,8 +17,12 @@ public class Solution003 {
         //addOperators("123", 6);
         //findComplement(5);
 
-        int[] nums = {1, 2, 3};
-        minMoves(nums);
+        //int[] nums = {1, 2, 3};
+        //minMoves(nums);
+
+        //int[] digits={1,2,3};
+        //plusOne(digits);
+        //plusOne2(digits);
     }
 
     /**
@@ -257,5 +261,43 @@ public class Solution003 {
         }
         System.out.println(res);
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/plus-one/
+     * 10.21
+     *
+     * @param digits 数组
+     * @return int数组
+     */
+    public static int[] plusOne(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            digits[i]++;
+            digits[i] %= 10;
+            if (digits[i] != 0) {
+                System.out.println(Arrays.toString(digits));
+                return digits;
+            }
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        System.out.println(Arrays.toString(digits));
+        return digits;
+    }
+
+    public static int[] plusOne2(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (digits[i] == 9) {
+                digits[i] = 0;
+            } else {
+                digits[i] += 1;
+                System.out.println(Arrays.toString(digits));
+                return digits;
+            }
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        System.out.println(Arrays.toString(digits));
+        return digits;
     }
 }
