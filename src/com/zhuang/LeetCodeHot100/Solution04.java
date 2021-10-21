@@ -272,4 +272,51 @@ public class Solution04 {
         }
         return (node1.val == node2.val) && isMirror(node1.right, node2.left) && isMirror(node1.left, node2.right);
     }
+
+    ArrayList<List<Integer>> resList = new ArrayList<List<Integer>>();
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        order(root, 0);
+        return resList;
+    }
+
+    public void order(TreeNode node, Integer deep) {
+        if (node == null) {
+            return;
+        }
+        deep++;
+        if (resList.size() < deep) {
+            // 当层级增加，list的Item也增加，利用list索引值进行层级界定
+            ArrayList<Integer> item = new ArrayList<>();
+            resList.add(item);
+        }
+        resList.get(deep - 1).add(node.val);
+        order(node.left, deep);
+        order(node.right, deep);
+    }
+
+    public List<List<Integer>> levelOrder2(TreeNode root) {
+        ArrayList<List<Integer>> list = new ArrayList<List<Integer>>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            ArrayList<Integer> level = new ArrayList<>();
+            int CurLevelSize = queue.size();
+            for (int i = 1; i <= CurLevelSize; i++) {
+                TreeNode node = queue.poll();
+                level.add(node.val);
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            list.add(level);
+        }
+        return list;
+    }
 }
