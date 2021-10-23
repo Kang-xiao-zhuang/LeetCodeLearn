@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Solution004 {
     public static void main(String[] args) {
-        int[] nums={3,2,3};
+        int[] nums = {3, 2, 3};
         majorityElement(nums);
         majorityElement2(nums);
     }
@@ -96,5 +96,21 @@ public class Solution004 {
         }
         System.out.println(res.toString());
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/construct-the-rectangle/
+     * 10.23
+     * 模拟
+     *
+     * @param area 面积
+     * @return 矩形的数组
+     */
+    public int[] constructRectangle(int area) {
+        int x = (int) Math.sqrt(area);
+        while (area % x != 0) {
+            x--;
+        }
+        return new int[]{area / x, x};
     }
 }
