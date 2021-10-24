@@ -1,8 +1,11 @@
 package com.zhuang.Daily.October;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname Solution004
@@ -12,9 +15,30 @@ import java.util.List;
  */
 public class Solution004 {
     public static void main(String[] args) {
-        int[] nums = {3, 2, 3};
-        majorityElement(nums);
-        majorityElement2(nums);
+        //int[] nums = {3, 2, 3};
+        //majorityElement(nums);
+        //majorityElement2(nums);
+
+        /*
+        List<Integer> price = new ArrayList<Integer>();
+        price.add(2);
+        price.add(5);
+        ArrayList<List<Integer>> special = new ArrayList<>();
+        ArrayList<Integer> special1 = new ArrayList<>();
+        ArrayList<Integer> special2 = new ArrayList<>();
+        special1.add(3);
+        special1.add(0);
+        special1.add(5);
+        special2.add(1);
+        special2.add(2);
+        special2.add(10);
+        special.add(special1);
+        special.add(special2);
+        List<Integer> needs = new ArrayList<Integer>();
+        needs.add(3);
+        needs.add(2);
+        shoppingOffers(price, special, needs);
+         */
     }
 
     /**
@@ -40,7 +64,6 @@ public class Solution004 {
                 res.add(integer);
             }
         }
-        System.out.println(res.toString());
         return res;
     }
 
@@ -112,5 +135,61 @@ public class Solution004 {
             x--;
         }
         return new int[]{area / x, x};
+    }
+
+
+    static Map<List<Integer>, Integer> map = new HashMap<List<Integer>, Integer>();
+
+    /**
+     * https://leetcode-cn.com/problems/shopping-offers/
+     * 10.24
+     *
+     * @param price   物品价格
+     * @param special 大礼包
+     * @param needs   购物清单
+     * @return 足购物清单所需花费的最低价格
+     */
+    public static int shoppingOffers(List<Integer> price, List<List<Integer>> special, List<Integer> needs) {
+        int n = price.size();
+
+        // 过滤不需要计算的大礼包，只保留需要计算的大礼包
+        List<List<Integer>> filterSpecial = new ArrayList<List<Integer>>();
+        for (List<Integer> sp : special) {
+            int totalCount = 0, totalPrice = 0;
+            for (int i = 0; i < n; ++i) {
+                totalCount += sp.get(i);
+                totalPrice += sp.get(i) * price.get(i);
+            }
+            if (totalCount > 0 && totalPrice > sp.get(n)) {
+                filterSpecial.add(sp);
+            }
+        }
+        return dfs(price, special, needs, filterSpecial, n);
+    }
+
+    // 记忆化搜索计算满足购物清单所需花费的最低价格
+    public static int dfs(List<Integer> price, List<List<Integer>> special, List<Integer> curNeeds, List<List<Integer>> filterSpecial, int n) {
+        if (!map.containsKey(curNeeds)) {
+            int minPrice = 0;
+            for (int i = 0; i < n; ++i) {
+                minPrice += curNeeds.get(i) * price.get(i); // 不购买任何大礼包，原价购买购物清单中的所有物品
+            }
+            for (List<Integer> curSpecial : filterSpecial) {
+                int specialPrice = curSpecial.get(n);
+                List<Integer> nxtNeeds = new ArrayList<Integer>();
+                for (int i = 0; i < n; ++i) {
+                    if (curSpecial.get(i) > curNeeds.get(i)) { // 不能购买超出购物清单指定数量的物品
+                        break;
+                    }
+                    nxtNeeds.add(curNeeds.get(i) - curSpecial.get(i));
+                }
+                if (nxtNeeds.size() == n) { // 大礼包可以购买
+                    minPrice = Math.min(minPrice, dfs(price, special, nxtNeeds, filterSpecial, n) + specialPrice);
+                }
+            }
+            map.put(curNeeds, minPrice);
+        }
+        System.out.println(map.get(curNeeds));
+        return map.get(curNeeds);
     }
 }
