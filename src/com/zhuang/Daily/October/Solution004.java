@@ -39,6 +39,9 @@ public class Solution004 {
         needs.add(2);
         shoppingOffers(price, special, needs);
          */
+
+        int[][] matrix = {{1, 4, 7, 11, 15}, {2, 5, 8, 12, 19}, {3, 6, 9, 16, 22}, {10, 13, 14, 17, 24}, {18, 21, 23, 26, 30}};
+        searchMatrix3(matrix, 5);
     }
 
     /**
@@ -172,18 +175,21 @@ public class Solution004 {
         if (!map.containsKey(curNeeds)) {
             int minPrice = 0;
             for (int i = 0; i < n; ++i) {
-                minPrice += curNeeds.get(i) * price.get(i); // 不购买任何大礼包，原价购买购物清单中的所有物品
+                // 不购买任何大礼包，原价购买购物清单中的所有物品
+                minPrice += curNeeds.get(i) * price.get(i);
             }
             for (List<Integer> curSpecial : filterSpecial) {
                 int specialPrice = curSpecial.get(n);
                 List<Integer> nxtNeeds = new ArrayList<Integer>();
                 for (int i = 0; i < n; ++i) {
-                    if (curSpecial.get(i) > curNeeds.get(i)) { // 不能购买超出购物清单指定数量的物品
+                    // 不能购买超出购物清单指定数量的物品
+                    if (curSpecial.get(i) > curNeeds.get(i)) {
                         break;
                     }
                     nxtNeeds.add(curNeeds.get(i) - curSpecial.get(i));
                 }
-                if (nxtNeeds.size() == n) { // 大礼包可以购买
+                // 大礼包可以购买
+                if (nxtNeeds.size() == n) {
                     minPrice = Math.min(minPrice, dfs(price, special, nxtNeeds, filterSpecial, n) + specialPrice);
                 }
             }
@@ -191,5 +197,82 @@ public class Solution004 {
         }
         System.out.println(map.get(curNeeds));
         return map.get(curNeeds);
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/search-a-2d-matrix-ii/
+     * 10.25
+     * 直接遍历
+     *
+     * @param matrix 矩阵
+     * @param target 目标
+     * @return 布尔
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+        for (int[] row : matrix) {
+            for (int element : row) {
+                if (element == target) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 二分查找
+     *
+     * @param matrix 矩阵
+     * @param target 目标
+     * @return 布尔
+     */
+    public boolean searchMatrix2(int[][] matrix, int target) {
+        for (int[] row : matrix) {
+            int index = binarySearch(row, target);
+            if (index >= 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int binarySearch(int[] nums, int target) {
+        int low = 0, high = nums.length - 1;
+        while (low <= high) {
+            int mid = (high - low) / 2 + low;
+            int num = nums[mid];
+            if (num == target) {
+                return mid;
+            } else if (num > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 抽象BST
+     *
+     * @param matrix 矩阵
+     * @param target 目标
+     * @return 布尔
+     */
+    public static boolean searchMatrix3(int[][] matrix, int target) {
+        int m = matrix.length, n = matrix[0].length;
+        int row = 0, col = n - 1;
+        while (row < m && col >= 0) {
+            if (matrix[row][col] < target) {
+                row++;
+            } else if (matrix[row][col] > target) {
+                col--;
+            } else {
+                System.out.println(true);
+                return true;
+            }
+        }
+        System.out.println(false);
+        return false;
     }
 }
