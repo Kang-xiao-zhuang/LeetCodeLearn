@@ -2,10 +2,7 @@ package com.zhuang.Daily.October;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Classname Solution004
@@ -274,5 +271,55 @@ public class Solution004 {
         }
         System.out.println(false);
         return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/next-greater-element-i/
+     * 10.26
+     *
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 数组
+     */
+    public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int[] res = new int[nums1.length];
+        for (int i = 0; i < nums2.length; i++) {
+            for (int j = 0; j < nums1.length; j++) {
+                if (nums2[i] == nums1[j]) {
+                    res[j] = -1;
+                    for (int k = i + 1; k < nums2.length; k++) {
+                        if (nums2[k] > nums1[j]) {
+                            res[j] = nums2[k];
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(Arrays.toString(res));
+        return res;
+    }
+
+    public static int[] nextGreaterElement2(int[] nums1, int[] nums2) {
+        int len1 = nums1.length;
+        int len2 = nums2.length;
+
+        Deque<Integer> stack = new ArrayDeque<>();
+        Map<Integer, Integer> map = new HashMap<>();
+        // 先处理 nums2，把对应关系存入哈希表
+        for (int i = 0; i < len2; i++) {
+            while (!stack.isEmpty() && stack.peekLast() < nums2[i]) {
+                map.put(stack.removeLast(), nums2[i]);
+            }
+            stack.addLast(nums2[i]);
+        }
+
+        // 遍历 nums1 得到结果集
+        int[] res = new int[len1];
+        for (int i = 0; i < len1; i++) {
+            res[i] = map.getOrDefault(nums1[i], -1);
+        }
+        System.out.println(Arrays.toString(res));
+        return res;
     }
 }
