@@ -37,8 +37,8 @@ public class Solution004 {
         shoppingOffers(price, special, needs);
          */
 
-        int[][] matrix = {{1, 4, 7, 11, 15}, {2, 5, 8, 12, 19}, {3, 6, 9, 16, 22}, {10, 13, 14, 17, 24}, {18, 21, 23, 26, 30}};
-        searchMatrix3(matrix, 5);
+        //int[][] matrix = {{1, 4, 7, 11, 15}, {2, 5, 8, 12, 19}, {3, 6, 9, 16, 22}, {10, 13, 14, 17, 24}, {18, 21, 23, 26, 30}};
+        //searchMatrix3(matrix, 5);
     }
 
     /**
@@ -321,5 +321,63 @@ public class Solution004 {
         }
         System.out.println(Arrays.toString(res));
         return res;
+    }
+
+
+    /**
+     * https://leetcode-cn.com/problems/remove-invalid-parentheses/
+     * 10.27
+     *
+     * @param s 字符串
+     * @return List集合
+     */
+    public List<String> removeInvalidParentheses(String s) {
+        ArrayList<String> ans = new ArrayList<>();
+        HashSet<String> curSet = new HashSet<>();
+        curSet.add(s);
+        while (true) {
+            for (String str : curSet) {
+                if (isValid(str)) {
+                    ans.add(str);
+                }
+            }
+            if (ans.size() > 0) {
+                return ans;
+            }
+            HashSet<String> nextSet = new HashSet<>();
+            for (String str : curSet) {
+                for (int i = 0; i < str.length(); i++) {
+                    if (i > 0 && str.charAt(i) == str.charAt(i - 1)) {
+                        continue;
+                    }
+                    if (str.charAt(i) == '(' || str.charAt(i) == ')') {
+                        nextSet.add(str.substring(0, i) + str.substring(i + 1));
+                    }
+                }
+            }
+            curSet = nextSet;
+        }
+    }
+
+    /**
+     * 判断是否为有效括号
+     *
+     * @param str 字符串
+     * @return 布尔值
+     */
+    public boolean isValid(String str) {
+        char[] chars = str.toCharArray();
+        int count = 0;
+        for (char c : chars) {
+            if (c == '(') {
+                count++;
+            } else if (c == ')') {
+                count--;
+                if (count < 0) {
+                    return false;
+                }
+            }
+        }
+        return count == 0;
     }
 }

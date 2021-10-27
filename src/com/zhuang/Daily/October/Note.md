@@ -2227,3 +2227,92 @@ class Solution {
 }
 ```
 
+#### [301. 删除无效的括号](https://leetcode-cn.com/problems/remove-invalid-parentheses/)
+
+
+
+给你一个由若干括号和字母组成的字符串 `s` ，删除最小数量的无效括号，使得输入的字符串有效。
+
+返回所有可能的结果。答案可以按 **任意顺序** 返回。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "()())()"
+输出：["(())()","()()()"]
+```
+
+**示例 2：**
+
+```
+输入：s = "(a)())()"
+输出：["(a())()","(a)()()"]
+```
+
+**示例 3：**
+
+```
+输入：s = ")("
+输出：[""]
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 25`
+- `s` 由小写英文字母以及括号 `'('` 和 `')'` 组成
+- `s` 中至多含 `20` 个括号
+
+**广度优先搜索**
+
+```java
+class Solution {
+    public List<String> removeInvalidParentheses(String s) {
+        ArrayList<String> ans = new ArrayList<>();
+        HashSet<String> curSet = new HashSet<>();
+        curSet.add(s);
+        while (true) {
+            for (String str : curSet) {
+                if (isValid(str)) {
+                    ans.add(str);
+                }
+            }
+            if (ans.size()>0){
+                return ans;
+            }
+            HashSet<String> nextSet = new HashSet<>();
+            for (String str : curSet) {
+                for (int i = 0; i < str.length(); i++) {
+                    if (i>0&&str.charAt(i)==str.charAt(i-1)){
+                        continue;
+                    }
+                    if (str.charAt(i)=='('||str.charAt(i)==')'){
+                        nextSet.add(str.substring(0,i)+str.substring(i+1));
+                    }
+                }
+            }
+            curSet=nextSet;
+        }
+    }
+
+    public boolean isValid(String str) {
+        char[] chars = str.toCharArray();
+        int count = 0;
+        for (char c : chars) {
+            if (c == '(') {
+                count++;
+            } else if (c == ')') {
+                count--;
+                if (count < 0) {
+                    return false;
+                }
+            }
+        }
+        return count == 0; 
+    }
+}
+```
+
