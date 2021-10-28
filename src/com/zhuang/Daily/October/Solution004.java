@@ -380,4 +380,27 @@ public class Solution004 {
         }
         return count == 0;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/reordered-power-of-2/
+     * 10.28
+     *
+     * @param n 正整数
+     * @return 是否为2的幂
+     */
+    public boolean reorderedPowerOf2(int n) {
+        // 从小到大排列
+        String s = String.valueOf(n);
+        char[] chars = s.toCharArray();
+        Arrays.sort(chars);
+        // 遍历
+        for (int i = 1; i <= 1e9; i *= 2) {
+            char[] temp = String.valueOf(i).toCharArray();
+            Arrays.sort(temp);
+            if (Arrays.equals(chars, temp)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
