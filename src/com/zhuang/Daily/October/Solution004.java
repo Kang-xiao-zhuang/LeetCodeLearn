@@ -39,6 +39,9 @@ public class Solution004 {
 
         //int[][] matrix = {{1, 4, 7, 11, 15}, {2, 5, 8, 12, 19}, {3, 6, 9, 16, 22}, {10, 13, 14, 17, 24}, {18, 21, 23, 26, 30}};
         //searchMatrix3(matrix, 5);
+
+        int[] nums = {1, 2, 1, 3, 2, 5};
+        singleNumber(nums);
     }
 
     /**
@@ -434,5 +437,30 @@ public class Solution004 {
             }
         }
         return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/single-number-iii/
+     * 10.30
+     *
+     * @param nums 数组
+     * @return 只出现一次的数字
+     */
+    public static int[] singleNumber(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            // 添加到Map中
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        int[] ans = new int[2];
+        int index = 0;
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            // 遍历 Map中的每队 K-V
+            if (entry.getValue() == 1) {
+                ans[index++] = entry.getKey();
+            }
+        }
+        System.out.println(Arrays.toString(ans));
+        return ans;
     }
 }
