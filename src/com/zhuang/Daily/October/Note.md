@@ -2529,3 +2529,110 @@ class Solution {
 }
 ```
 
+#### [500. 键盘行](https://leetcode-cn.com/problems/keyboard-row/)
+
+
+
+给你一个字符串数组 `words` ，只返回可以使用在 **美式键盘** 同一行的字母打印出来的单词。键盘如下图所示。
+
+**美式键盘** 中：
+
+- 第一行由字符 `"qwertyuiop"` 组成。
+- 第二行由字符 `"asdfghjkl"` 组成。
+- 第三行由字符 `"zxcvbnm"` 组成。
+
+![American keyboard](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/keyboard.png)
+
+ 
+
+**示例 1：**
+
+```
+输入：words = ["Hello","Alaska","Dad","Peace"]
+输出：["Alaska","Dad"]
+```
+
+**示例 2：**
+
+```
+输入：words = ["omk"]
+输出：[]
+```
+
+**示例 3：**
+
+```
+输入：words = ["adsdf","sfd"]
+输出：["adsdf","sfd"]
+```
+
+ 
+
+**提示：**
+
+- `1 <= words.length <= 20`
+- `1 <= words[i].length <= 100`
+- `words[i]` 由英文字母（小写和大写字母）组成
+
+**哈希表模拟**
+
+```java
+class Solution {
+    public String[] findWords(String[] words) {
+      // 新建Map集合
+        Map<String, Integer> map = new HashMap<>();
+        map.put("q", 1);
+        map.put("w", 1);
+        map.put("e", 1);
+        map.put("r", 1);
+        map.put("t", 1);
+        map.put("y", 1);
+        map.put("u", 1);
+        map.put("i", 1);
+        map.put("o", 1);
+        map.put("p", 1);
+
+        map.put("a", 2);
+        map.put("s", 2);
+        map.put("d", 2);
+        map.put("f", 2);
+        map.put("g", 2);
+        map.put("h", 2);
+        map.put("j", 2);
+        map.put("k", 2);
+        map.put("l", 2);
+
+        map.put("z", 3);
+        map.put("x", 3);
+        map.put("c", 3);
+        map.put("v", 3);
+        map.put("b", 3);
+        map.put("n", 3);
+        map.put("m", 3);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            boolean isContain = true;
+            String word = words[i];
+            // 获取行号
+            int row = map.get(String.valueOf(word.charAt(0)).toLowerCase());
+            for (int j = 0; j < word.length(); j++) {
+                String c = String.valueOf(word.charAt(j)).toLowerCase();
+                if (row != map.get(c)) {
+                    isContain = false;
+                    break;
+                }
+            }
+            if (isContain) {
+                sb.append(word).append(",");
+            }
+        }
+        if (sb.toString().isEmpty()) {
+            return new String[]{};
+        } else {
+            return sb.toString().split(",");
+        }
+    }
+}
+```
+
