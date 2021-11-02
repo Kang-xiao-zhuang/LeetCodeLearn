@@ -49,4 +49,15 @@ public class Solution001 {
         }
         return count;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/delete-node-in-a-linked-list/
+     * 11.2 =
+     *
+     * @param node 节点
+     */
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
 }
