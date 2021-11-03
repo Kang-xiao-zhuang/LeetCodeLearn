@@ -273,8 +273,15 @@ public class Solution04 {
         return (node1.val == node2.val) && isMirror(node1.right, node2.left) && isMirror(node1.left, node2.right);
     }
 
+
     ArrayList<List<Integer>> resList = new ArrayList<List<Integer>>();
 
+    /**
+     * 第101题
+     *
+     * @param root 根节点
+     * @return List集合
+     */
     public List<List<Integer>> levelOrder(TreeNode root) {
         order(root, 0);
         return resList;
@@ -318,5 +325,21 @@ public class Solution04 {
             list.add(level);
         }
         return list;
+    }
+
+    /**
+     * 第104题
+     *
+     * @param root 根节点
+     * @return 最大深度
+     */
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        } else {
+            int left_height = maxDepth(root.left);
+            int right_height = maxDepth(root.right);
+            return Math.max(left_height, right_height) + 1;
+        }
     }
 }
