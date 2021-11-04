@@ -118,4 +118,74 @@ public class Solution001 {
         }
         return res;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/valid-perfect-square/
+     * 11.4
+     *
+     * @param num 数
+     * @return 布尔
+     */
+    public static boolean isPerfectSquare(int num) {
+        long r = num;
+        while (r * r > num) {
+            r = (r + num / r) / 2;
+        }
+        System.out.println(r * r == num);
+        return r * r == num;
+    }
+
+    /**
+     * 二分查找
+     *
+     * @param num 数
+     * @return 布尔
+     */
+    public static boolean isPerfectSquare2(int num) {
+        int left = 1;
+        int right = num;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int temp = num / mid;
+            if (mid * mid == num) {
+                return true;
+            } else if (temp < mid) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        System.out.println(false);
+        return false;
+    }
+
+    /**
+     * 二分查找
+     *
+     * @param num 数
+     * @return 布尔
+     */
+    public static boolean isPerfectSquare3(int num) {
+        if (num < 2) {
+            return true;
+        }
+        long left = 2;
+        long right = num / 2;
+        long guess;
+        while (left <= right) {
+            long mid = left + (right - left) / 2;
+            guess = mid * mid;
+            if (guess == num) {
+                System.out.println(true);
+                return true;
+            }
+            if (guess < num) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        System.out.println(false);
+        return false;
+    }
 }
