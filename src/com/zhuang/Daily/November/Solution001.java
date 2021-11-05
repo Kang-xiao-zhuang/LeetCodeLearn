@@ -11,8 +11,10 @@ import java.util.*;
 
 public class Solution001 {
     public static void main(String[] args) {
-        int[] candyType = {1, 1, 2, 2, 3, 3};
-        distributeCandies(candyType);
+        //int[] candyType = {1, 1, 2, 2, 3, 3};
+        //distributeCandies(candyType);
+        int[] arr = {1, 2, 3, 4};
+        longestSubsequence(arr, 1);
     }
 
     /**
@@ -187,5 +189,24 @@ public class Solution001 {
         }
         System.out.println(false);
         return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/longest-arithmetic-subsequence-of-given-difference/
+     * 11.5
+     *
+     * @param arr        整数数组
+     * @param difference 整数
+     * @return 最长等差子序列长度
+     */
+    public static int longestSubsequence(int[] arr, int difference) {
+        int ans = 0;
+        HashMap<Integer, Integer> dp = new HashMap<>();
+        for (int i : arr) {
+            dp.put(i, dp.getOrDefault(i - difference, 0) + 1);
+            ans = Math.max(ans, dp.get(i));
+        }
+        System.out.println(ans);
+        return ans;
     }
 }
