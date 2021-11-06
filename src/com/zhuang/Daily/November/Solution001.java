@@ -209,4 +209,18 @@ public class Solution001 {
         System.out.println(ans);
         return ans;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/missing-number/
+     * 11.6
+     * @param nums 数组
+     * @return 丢失的数字
+     */
+    public int missingNumber(int[] nums) {
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i)  return i;
+        }
+        return nums.length;
+    }
 }
