@@ -14,7 +14,11 @@ public class Solution001 {
         //int[] candyType = {1, 1, 2, 2, 3, 3};
         //distributeCandies(candyType);
         int[] arr = {1, 2, 3, 4};
-        longestSubsequence(arr, 1);
+        //longestSubsequence(arr, 1);
+
+
+        int[][] ops = {{2, 2}, {3, 3}};
+        maxCount(3,3,ops);
     }
 
     /**
@@ -213,14 +217,33 @@ public class Solution001 {
     /**
      * https://leetcode-cn.com/problems/missing-number/
      * 11.6
+     *
      * @param nums 数组
      * @return 丢失的数字
      */
     public int missingNumber(int[] nums) {
         Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != i)  return i;
+            if (nums[i] != i) return i;
         }
         return nums.length;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/range-addition-ii/
+     * 11.7
+     *
+     * @param m   正整数
+     * @param n   正整数
+     * @param ops m*n 的矩阵
+     * @return 矩阵中含有最大整数的元素个数
+     */
+    public static int maxCount(int m, int n, int[][] ops) {
+        for (int[] op : ops) {
+            m = Math.min(m, op[0]);
+            n = Math.min(n, op[1]);
+        }
+        System.out.println(m * n);
+        return m * n;
     }
 }
