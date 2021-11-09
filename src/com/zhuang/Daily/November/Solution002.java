@@ -12,12 +12,22 @@ import java.util.Map;
 
 public class Solution002 {
     public static void main(String[] args) {
-        String secret = "1807";
-        String guess = "7810";
-        getHint(secret, guess);
+        //String secret = "1807";
+        //String guess = "7810";
+        //getHint(secret, guess);
+
+        int[] timeSeries = {1, 4};
+        findPoisonedDuration(timeSeries, 2);
     }
 
-
+    /**
+     * https://leetcode-cn.com/problems/bulls-and-cows/
+     * 11.8
+     *
+     * @param secret 秘密数字
+     * @param guess  猜测数字
+     * @return 猜测的提示
+     */
     public static String getHint(String secret, String guess) {
         int a = 0, b = 0;
         int[] arr = new int[10];
@@ -100,6 +110,30 @@ public class Solution002 {
             }
         }
         map.put(a, ans);
+        return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/teemo-attacking/
+     * 11.10
+     *
+     * @param timeSeries 整数数组
+     * @param duration   中毒持续时间的整数
+     * @return 处于中毒状态的总秒数
+     */
+    public static int findPoisonedDuration(int[] timeSeries, int duration) {
+        int ans = 0;
+        // 未中毒的起始时间
+        int expired = 0;
+        for (int i = 0; i < timeSeries.length; i++) {
+            if (timeSeries[i] >= expired) {
+                ans += duration;
+            } else {
+                ans += timeSeries[i] + duration - expired;
+            }
+            expired = timeSeries[i] + duration;
+        }
+        System.out.println(ans);
         return ans;
     }
 }
