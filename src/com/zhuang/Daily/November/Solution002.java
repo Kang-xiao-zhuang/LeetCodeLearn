@@ -184,4 +184,35 @@ public class Solution002 {
         }
         return f[1][n];
     }
+
+    /**
+     * https://leetcode-cn.com/problems/detect-capital/
+     * 11.13
+     *
+     * @param word 字母
+     * @return 单词大写用法是否正确
+     */
+    public boolean detectCapitalUse(String word) {
+        // 若第1个字母为小写，则需额外判断第2个字母是否为小写
+        if (word.length() >= 2 && Character.isLowerCase(word.charAt(0)) && Character.isUpperCase(word.charAt(1))) {
+            return false;
+        }
+        // 无论第1个字母是否大写，其他字母必须与第2个字母的大小写相同
+        for (int i = 2; i < word.length(); i++) {
+            if (Character.isLowerCase(word.charAt(i)) ^ Character.isLowerCase(word.charAt(1))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 正则表达式
+     *
+     * @param word 字母
+     * @return 单词大写用法是否正确
+     */
+    public boolean detectCapitalUse2(String word) {
+        return word.matches("[A-Z][a-z]*|[A-Z]*|[a-z]*");
+    }
 }
