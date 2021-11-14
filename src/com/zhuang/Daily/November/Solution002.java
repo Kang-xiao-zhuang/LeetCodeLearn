@@ -16,8 +16,14 @@ public class Solution002 {
         //String guess = "7810";
         //getHint(secret, guess);
 
-        int[] timeSeries = {1, 4};
-        findPoisonedDuration(timeSeries, 2);
+        //int[] timeSeries = {1, 4};
+        //findPoisonedDuration(timeSeries, 2);
+
+        MapSum mapSum = new MapSum();
+        mapSum.insert("apple", 3);
+        mapSum.sum("ap");
+        mapSum.insert("app", 2);
+        mapSum.sum("ap");
     }
 
     /**
@@ -214,5 +220,34 @@ public class Solution002 {
      */
     public boolean detectCapitalUse2(String word) {
         return word.matches("[A-Z][a-z]*|[A-Z]*|[a-z]*");
+    }
+
+
+    // 11.14 笔记里有
+
+    /**
+     * https://leetcode-cn.com/problems/map-sum-pairs/
+     */
+    static class MapSum {
+        private Map<String, Integer> map;
+        private Map<String, Integer> prefixmap;
+
+        public MapSum() {
+            map = new HashMap<String, Integer>();
+            prefixmap = new HashMap<String, Integer>();
+        }
+
+        public void insert(String key, int val) {
+            int diff = val - map.getOrDefault(key, 0);
+            map.put(key, val);
+            for (int i = 1; i <= key.length(); i++) {
+                String currprefix = key.substring(0, i);
+                prefixmap.put(currprefix, prefixmap.getOrDefault(currprefix, 0) + diff);
+            }
+        }
+
+        public int sum(String prefix) {
+            return prefixmap.getOrDefault(prefix, 0);
+        }
     }
 }
