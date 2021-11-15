@@ -250,4 +250,14 @@ public class Solution002 {
             return prefixmap.getOrDefault(prefix, 0);
         }
     }
+
+    /**
+     * https://leetcode-cn.com/problems/bulb-switcher/
+     *
+     * @param n n 个灯泡
+     * @return n 轮后有多少个亮着的灯泡
+     */
+    public int bulbSwitch(int n) {
+        return (int) Math.sqrt(n);
+    }
 }
