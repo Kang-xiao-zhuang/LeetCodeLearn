@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @Classname Solution002
  * @Description 2021.11.8-2021.11.15每日一题
- * @Date 2021/11/1 20:26
+ * @Date 2021/11/8 20:26
  * @Author by dell
  */
 
@@ -253,6 +253,7 @@ public class Solution002 {
 
     /**
      * https://leetcode-cn.com/problems/bulb-switcher/
+     * 11.16
      *
      * @param n n 个灯泡
      * @return n 轮后有多少个亮着的灯泡
