@@ -12,8 +12,11 @@ import java.util.List;
  */
 public class Solution003 {
     public static void main(String[] args) {
-        int[][] rectangles = {{1, 1, 3, 3}, {3, 1, 4, 2}, {3, 2, 4, 4}, {1, 3, 2, 4}, {2, 3, 3, 4}};
-        isRectangleCover(rectangles);
+        //int[][] rectangles = {{1, 1, 3, 3}, {3, 1, 4, 2}, {3, 2, 4, 4}, {1, 3, 2, 4}, {2, 3, 3, 4}};
+        //isRectangleCover(rectangles);
+
+        String[] words = {"abcw", "baz", "foo", "bar", "xtfn", "abcdef"};
+        maxProduct(words);
     }
 
     /**
@@ -85,5 +88,34 @@ public class Solution003 {
             l = r;
         }
         return true;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/maximum-product-of-word-lengths/
+     * 11.17
+     *
+     * @param words 字符串数组
+     * @return
+     */
+    public static int maxProduct(String[] words) {
+        int length = words.length;
+        int[] masks = new int[length];
+        for (int i = 0; i < length; i++) {
+            String word = words[i];
+            int wordLength = word.length();
+            for (int j = 0; j < wordLength; j++) {
+                masks[i] |= 1 << (word.charAt(j) - 'a');
+            }
+        }
+        int maxProd = 0;
+        for (int i = 0; i < length; i++) {
+            for (int j = i + 1; j < length; j++) {
+                if ((masks[i] & masks[j]) == 0) {
+                    maxProd = Math.max(maxProd, words[i].length() * words[j].length());
+                }
+            }
+        }
+        System.out.println(maxProd);
+        return maxProd;
     }
 }
