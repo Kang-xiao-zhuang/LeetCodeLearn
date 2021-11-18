@@ -118,4 +118,26 @@ public class Solution003 {
         System.out.println(maxProd);
         return maxProd;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/binary-tree-tilt/
+     *
+     * @param root 根节点
+     * @return 二叉树坡度
+     */
+    int ans = 0;
+
+    public int findTilt(TreeNode root) {
+        dfs(root);
+        return ans;
+    }
+
+    public int dfs(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int l = dfs(root.left), r = dfs(root.right);
+        ans += Math.abs(l - r);
+        return l + r + root.val;
+    }
 }
