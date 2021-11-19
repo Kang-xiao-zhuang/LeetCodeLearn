@@ -121,6 +121,7 @@ public class Solution003 {
 
     /**
      * https://leetcode-cn.com/problems/binary-tree-tilt/
+     * 11.18
      *
      * @param root 根节点
      * @return 二叉树坡度
@@ -139,5 +140,22 @@ public class Solution003 {
         int l = dfs(root.left), r = dfs(root.right);
         ans += Math.abs(l - r);
         return l + r + root.val;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/integer-replacement/
+     * 11.19
+     *
+     * @param n 正整数
+     * @return 最小替换次数
+     */
+    public int integerReplacement(int n) {
+        if (n == 1) {
+            return 0;
+        }
+        if (n % 2 == 0) {
+            return 1 + integerReplacement(n / 2);
+        }
+        return 2 + Math.min(integerReplacement((n / 2)), integerReplacement((n / 2) + 1));
     }
 }
