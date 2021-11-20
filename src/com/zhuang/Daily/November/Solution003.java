@@ -1,7 +1,9 @@
 package com.zhuang.Daily.November;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,8 +17,11 @@ public class Solution003 {
         //int[][] rectangles = {{1, 1, 3, 3}, {3, 1, 4, 2}, {3, 2, 4, 4}, {1, 3, 2, 4}, {2, 3, 3, 4}};
         //isRectangleCover(rectangles);
 
-        String[] words = {"abcw", "baz", "foo", "bar", "xtfn", "abcdef"};
-        maxProduct(words);
+        //String[] words = {"abcw", "baz", "foo", "bar", "xtfn", "abcdef"};
+        //maxProduct(words);
+        int[] nums = {1, 3, 2, 2, 5, 2, 3, 7};
+        //findLHS(nums);
+        findLHS2(nums);
     }
 
     /**
@@ -157,5 +162,44 @@ public class Solution003 {
             return 1 + integerReplacement(n / 2);
         }
         return 2 + Math.min(integerReplacement((n / 2)), integerReplacement((n / 2) + 1));
+    }
+
+
+    /**
+     * https://leetcode-cn.com/problems/longest-harmonious-subsequence/
+     * 11.20
+     *
+     * @param nums 数组
+     * @return 最长的和谐子序列
+     */
+    public static int findLHS(int[] nums) {
+        Arrays.sort(nums);
+        int begin = 0;
+        int res = 0;
+        for (int end = 0; end < nums.length; end++) {
+            while (nums[end] - nums[begin] > 1) {
+                begin++;
+            }
+            if (nums[end] - nums[begin] == 1) {
+                res = Math.max(res, end - begin + 1);
+            }
+        }
+        System.out.println(res);
+        return res;
+    }
+
+    public static int findLHS2(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        for (Integer key : map.keySet()) {
+            if (map.containsKey(key + 1)) {
+                res = Math.max(res, map.get(key) + map.get(key + 1));
+            }
+        }
+        System.out.println(res);
+        return res;
     }
 }
