@@ -1,10 +1,7 @@
 package com.zhuang.Daily.November;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Classname Solution003
@@ -202,4 +199,53 @@ public class Solution003 {
         System.out.println(res);
         return res;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/maximum-depth-of-n-ary-tree/
+     * 11.21
+     * 深度优先搜索
+     *
+     * @param root 根节点
+     * @return 最大深度
+     */
+    public int maxDepth(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int maxChildDepth = 0;
+        List<Node> children = root.children;
+        for (Node child : children) {
+            int childDepth = maxDepth(child);
+            maxChildDepth = Math.max(maxChildDepth, childDepth);
+        }
+        return maxChildDepth + 1;
+    }
+
+    /**
+     * 广度优先搜索
+     *
+     * @param root 根节点
+     * @return 最大深度
+     */
+    public int maxDepth2(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int ans = 0;
+        ArrayDeque<Node> deque = new ArrayDeque<>();
+        deque.addLast(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            while (size > 0) {
+                Node node = deque.pollFirst();
+                for (Node child : node.children) {
+                    deque.addLast(child);
+                }
+                size--;
+            }
+            ans++;
+        }
+        return ans;
+    }
+
 }
