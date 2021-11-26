@@ -396,4 +396,19 @@ public class Solution003 {
         }
         return 0;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/search-in-a-binary-search-tree/
+     * 11.26
+     *
+     * @param root 根节点
+     * @param val  值
+     * @return 树节点
+     */
+    public TreeNode searchBST(TreeNode root, int val) {
+        if (root == null || root.val == val) {
+            return root;
+        }
+        return root.val < val ? searchBST(root.right, val) : searchBST(root.left, val);
+    }
 }
