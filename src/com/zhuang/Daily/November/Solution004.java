@@ -2,6 +2,7 @@ package com.zhuang.Daily.November;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class Solution004 {
 
     /**
      * https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/
+     * 11.28
      *
      * @param s 字符串
      * @param p 字符串
@@ -49,5 +51,25 @@ public class Solution004 {
         }
         System.out.println(ans);
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/k-th-smallest-prime-fraction/
+     * 11.30
+     *
+     * @param arr 数组
+     * @param k   整数k
+     * @return 第K个最小的素数分数
+     */
+    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        int n = arr.length;
+        List<int[]> frac = new ArrayList<int[]>();
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                frac.add(new int[]{arr[i], arr[j]});
+            }
+        }
+        Collections.sort(frac, (x, y) -> x[0] * y[1] - y[0] * x[1]);
+        return frac.get(k - 1);
     }
 }
