@@ -55,7 +55,7 @@ public class Solution004 {
 
     /**
      * https://leetcode-cn.com/problems/k-th-smallest-prime-fraction/
-     * 11.30
+     * 11.29
      *
      * @param arr 数组
      * @param k   整数k
@@ -71,5 +71,24 @@ public class Solution004 {
         }
         Collections.sort(frac, (x, y) -> x[0] * y[1] - y[0] * x[1]);
         return frac.get(k - 1);
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/nth-digit/
+     * 11.30
+     *
+     * @param n 整数n
+     * @return 第N位数字
+     */
+    public int findNthDigit(int n) {
+        int len = 1;
+        while (len * 9 * Math.pow(10, len - 1) < n) {
+            n -= len * 9 * Math.pow(10, len - 1);
+            len++;
+        }
+        int s = (int) Math.pow(10, len - 1);
+        int x = n / len - 1 + s;
+        n -= (x - s + 1) * len;
+        return n == 0 ? x % 10 : (x + 1) / (int) (Math.pow(10, len - n)) % 10;
     }
 }
