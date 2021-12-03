@@ -1,6 +1,7 @@
 package com.zhuang.Daily.December;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * @Classname Solution001
@@ -62,5 +63,72 @@ public class Solution001 {
         }
         System.out.println(Arrays.toString(ans));
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/maximize-sum-of-array-after-k-negations/
+     * 12.3
+     *
+     * @param nums 数组
+     * @param k    整数k
+     * @return 可能的最大和
+     */
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        int count = 0;
+        for (int i = 0; i < k; i++) {
+            Arrays.sort(nums);
+            nums[0] = -nums[0];
+        }
+        for (int i : nums) {
+            count += i;
+        }
+        return count;
+    }
+
+    public int largestSumAfterKNegations2(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        int sum = Arrays.stream(nums).sum();
+        for (int i = -100; i < 0; ++i) {
+            if (map.containsKey(i)) {
+                int ops = Math.min(k, map.get(i));
+                sum += (-i) * ops * 2;
+                map.put(i, map.get(i) - ops);
+                map.put(-i, map.getOrDefault(-i, 0) + ops);
+                k -= ops;
+                if (k == 0) {
+                    break;
+                }
+            }
+        }
+        if (k > 0 && k % 2 == 1 && !map.containsKey(0)) {
+            for (int i = 1; i <= 100; ++i) {
+                if (map.containsKey(i)) {
+                    sum -= i * 2;
+                    break;
+                }
+            }
+        }
+        return sum;
+    }
+
+    public int largestSumAfterKNegations3(int[] nums, int k) {
+        while (k > 0) {
+            int index = 0;
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] < nums[index]) {
+                    index = i;
+                }
+            }
+            nums[index] = -nums[index];
+            k--;
+        }
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        return sum;
     }
 }
