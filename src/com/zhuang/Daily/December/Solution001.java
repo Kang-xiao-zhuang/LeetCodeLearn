@@ -131,4 +131,56 @@ public class Solution001 {
         }
         return sum;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/ransom-note/
+     * int数组
+     * 12.4
+     *
+     * @param ransomNote 数组1
+     * @param magazine   数组2
+     * @return 布尔值
+     */
+    public static boolean canConstruct(String ransomNote, String magazine) {
+        int[] arr = new int[26];
+        // 记录杂志出现的字符串次数
+        int temp;
+        for (int i = 0; i < magazine.length(); i++) {
+            temp = magazine.charAt(i) - 'a';
+            arr[temp]++;
+        }
+        for (int i = 0; i < ransomNote.length(); i++) {
+            temp = ransomNote.charAt(i) - 'a';
+            if (arr[temp] > 0) {
+                arr[temp]--;
+            } else {
+                System.out.println(false);
+                return false;
+            }
+        }
+        System.out.println(true);
+        return true;
+    }
+
+    /**
+     * char数组
+     *
+     * @param ransomNote 字符串1
+     * @param magazine   字符串2
+     * @return 布尔值
+     */
+    public static boolean canConstruct2(String ransomNote, String magazine) {
+        char[] chars = new char[26];
+        for (char c : magazine.toCharArray()) {
+            chars[c - 'a']++;
+        }
+        for (char c : ransomNote.toCharArray()) {
+            if (chars[c - 'a']-- == 0) {
+                System.out.println(false);
+                return false;
+            }
+        }
+        System.out.println(true);
+        return true;
+    }
 }
