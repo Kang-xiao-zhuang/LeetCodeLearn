@@ -183,4 +183,35 @@ public class Solution001 {
         System.out.println(true);
         return true;
     }
+
+
+    int MOD = 1337;
+
+    /**
+     * https://leetcode-cn.com/problems/super-pow/
+     * 12.5
+     *
+     * @param a 正整数
+     * @param b 非常大的正整数
+     * @return 取模
+     */
+    public int superPow(int a, int[] b) {
+        return dfs(a, b, b.length - 1);
+    }
+
+    public int dfs(int a, int[] b, int u) {
+        if (u == -1) return 1;
+        return qpow(dfs(a, b, u - 1), 10) * qpow(a, b[u]) % MOD;
+    }
+
+    public int qpow(int a, int b) {
+        int ans = 1;
+        a %= MOD;
+        while (b != 0) {
+            if ((b & 1) != 0) ans = ans * a % MOD;
+            a = a * a % MOD;
+            b >>= 1;
+        }
+        return ans;
+    }
 }
