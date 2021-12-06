@@ -12,8 +12,10 @@ import java.util.HashMap;
 public class Solution001 {
     public static void main(String[] args) {
         // maxPower("abbcccddddeeeeedcba");
-        int[] score = {5, 4, 3, 2, 1};
+        //int[] score = {5, 4, 3, 2, 1};
         //findRelativeRanks(score);
+
+        truncateSentence2("Hello how are you Contestant", 4);
     }
 
     /**
@@ -200,7 +202,9 @@ public class Solution001 {
     }
 
     public int dfs(int a, int[] b, int u) {
-        if (u == -1) return 1;
+        if (u == -1) {
+            return 1;
+        }
         return qpow(dfs(a, b, u - 1), 10) * qpow(a, b[u]) % MOD;
     }
 
@@ -208,10 +212,48 @@ public class Solution001 {
         int ans = 1;
         a %= MOD;
         while (b != 0) {
-            if ((b & 1) != 0) ans = ans * a % MOD;
+            if ((b & 1) != 0) {
+                ans = ans * a % MOD;
+            }
             a = a * a % MOD;
             b >>= 1;
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/truncate-sentence/
+     * 12.6
+     *
+     * @param s 字符串
+     * @param k 整数
+     * @return 截断后的句子
+     */
+    public static String truncateSentence(String s, int k) {
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ' ') {
+                count++;
+                if (count == k) {
+                    return s.substring(0, i);
+                }
+            }
+        }
+        return s;
+    }
+
+    public static String truncateSentence2(String s, int k) {
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for (int i = 0; i < s.length() && count < k; i++) {
+            if (s.charAt(i) == ' ') {
+                count++;
+            }
+            if (count < k) {
+                sb.append(s.charAt(i));
+            }
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
     }
 }
