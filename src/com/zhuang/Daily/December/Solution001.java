@@ -14,8 +14,10 @@ public class Solution001 {
         // maxPower("abbcccddddeeeeedcba");
         //int[] score = {5, 4, 3, 2, 1};
         //findRelativeRanks(score);
+        int[] nums = {2,-3,-1,5,-4};
+        largestSumAfterKNegations4(nums, 3);
 
-        truncateSentence2("Hello how are you Contestant", 4);
+        //truncateSentence2("Hello how are you Contestant", 4);
     }
 
     /**
@@ -75,7 +77,7 @@ public class Solution001 {
      * @param k    整数k
      * @return 可能的最大和
      */
-    public int largestSumAfterKNegations(int[] nums, int k) {
+    public static int largestSumAfterKNegations(int[] nums, int k) {
         int count = 0;
         for (int i = 0; i < k; i++) {
             Arrays.sort(nums);
@@ -87,7 +89,7 @@ public class Solution001 {
         return count;
     }
 
-    public int largestSumAfterKNegations2(int[] nums, int k) {
+    public static int largestSumAfterKNegations2(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int num : nums) {
             map.put(num, map.getOrDefault(num, 0) + 1);
@@ -116,7 +118,7 @@ public class Solution001 {
         return sum;
     }
 
-    public int largestSumAfterKNegations3(int[] nums, int k) {
+    public static int largestSumAfterKNegations3(int[] nums, int k) {
         while (k > 0) {
             int index = 0;
             for (int i = 0; i < nums.length; i++) {
@@ -132,6 +134,28 @@ public class Solution001 {
             sum += num;
         }
         return sum;
+    }
+
+    public static int largestSumAfterKNegations4(int[] nums, int k) {
+        // 排序数组
+        Arrays.sort(nums);
+        int sum = 0;
+        // 遍历数组
+        for (int i = 0; i < nums.length; i++) {
+            // 如果是负数并且k>0 置为负
+            if (nums[i] < 0 && k > 0) {
+                nums[i] = -nums[i];
+                k--;
+            }
+            // 求和
+            sum += nums[i];
+        }
+        // 再次排序 把负数放在数组第一位
+        Arrays.sort(nums);
+        // k==0 负数全部为正 已经是最大数
+        // k!=0 负数全部为正  如果k还剩偶数个就自己抵消掉，不用删减，如果k还剩奇数个就减掉2倍最小正数
+        System.out.println(sum - (k % 2 == 0 ? 0 : 2 * nums[0]));
+        return sum - (k % 2 == 0 ? 0 : 2 * nums[0]);
     }
 
     /**

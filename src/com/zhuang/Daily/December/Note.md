@@ -185,6 +185,68 @@ class Solution {
 - `-100 <= nums[i] <= 100`
 - `1 <= k <= 104`
 
+**哈希表**
+
+```java
+class Solution {
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        int sum = Arrays.stream(nums).sum();
+        for (int i = -100; i < 0; ++i) {
+            if (map.containsKey(i)) {
+                int ops = Math.min(k, map.get(i));
+                sum += (-i) * ops * 2;
+                map.put(i, map.get(i) - ops);
+                map.put(-i, map.getOrDefault(-i, 0) + ops);
+                k -= ops;
+                if (k == 0) {
+                    break;
+                }
+            }
+        }
+        if (k > 0 && k % 2 == 1 && !map.containsKey(0)) {
+            for (int i = 1; i <= 100; ++i) {
+                if (map.containsKey(i)) {
+                    sum -= i * 2;
+                    break;
+                }
+            }
+        }
+        return sum;
+    }
+}
+```
+
+**优化排序**
+
+```java
+class Solution {
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        // 排序数组
+        Arrays.sort(nums);
+        int sum = 0;
+        // 遍历数组
+        for (int i = 0; i < nums.length; i++) {
+            // 如果是负数并且k>0 置为负
+            if (nums[i] < 0 && k > 0) {
+                nums[i] = -nums[i];
+                k--;
+            }
+            // 求和
+            sum += nums[i];
+        }
+        // 再次排序 把负数放在数组第一位
+        Arrays.sort(nums);
+        // k==0 负数全部为正 已经是最大数
+        // k!=0 负数全部为正  如果k还剩偶数个就自己抵消掉，不用删减，如果k还剩奇数个就减掉2倍最小正数
+        return sum - (k % 2 == 0 ? 0 : 2 * nums[0]);
+    }
+}
+```
+
 **暴力解法**
 
 ```java
