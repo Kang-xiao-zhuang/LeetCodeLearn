@@ -1,6 +1,8 @@
 package com.zhuang.Daily.December;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 
 /**
@@ -14,7 +16,7 @@ public class Solution001 {
         // maxPower("abbcccddddeeeeedcba");
         //int[] score = {5, 4, 3, 2, 1};
         //findRelativeRanks(score);
-        int[] nums = {2,-3,-1,5,-4};
+        int[] nums = {2, -3, -1, 5, -4};
         largestSumAfterKNegations4(nums, 3);
 
         //truncateSentence2("Hello how are you Contestant", 4);
@@ -279,5 +281,41 @@ public class Solution001 {
         }
         System.out.println(sb.toString());
         return sb.toString();
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/coloring-a-border/
+     *
+     * @param grid  矩阵
+     * @param row   整数
+     * @param col   整数
+     * @param color 整数
+     * @return 网格
+     */
+    public int[][] colorBorder(int[][] grid, int row, int col, int color) {
+        int m = grid.length, n = grid[0].length;
+        int[][] ans = new int[m][n];
+        int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        Deque<int[]> d = new ArrayDeque<>();
+        d.addLast(new int[]{row, col});
+        while (!d.isEmpty()) {
+            int[] poll = d.pollFirst();
+            int x = poll[0], y = poll[1], cnt = 0;
+            for (int[] di : dirs) {
+                int nx = x + di[0], ny = y + di[1];
+                if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
+                if (grid[x][y] != grid[nx][ny]) continue;
+                else cnt++;
+                if (ans[nx][ny] != 0) continue;
+                d.addLast(new int[]{nx, ny});
+            }
+            ans[x][y] = cnt == 4 ? grid[x][y] : color;
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (ans[i][j] == 0) ans[i][j] = grid[i][j];
+            }
+        }
+        return ans;
     }
 }
