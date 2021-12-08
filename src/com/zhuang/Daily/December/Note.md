@@ -561,7 +561,7 @@ class Solution {
 ```java
 class Solution {
     public int[][] colorBorder(int[][] grid, int row, int col, int color) {
-      int m = grid.length, n = grid[0].length;
+        int m = grid.length, n = grid[0].length;
         int[][] ans = new int[m][n];
         int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         Deque<int[]> d = new ArrayDeque<>();
@@ -571,17 +571,26 @@ class Solution {
             int x = poll[0], y = poll[1], cnt = 0;
             for (int[] di : dirs) {
                 int nx = x + di[0], ny = y + di[1];
-                if (nx < 0 || nx >= m || ny < 0 || ny >= n) continue;
-                if (grid[x][y] != grid[nx][ny]) continue;
-                else cnt++;
-                if (ans[nx][ny] != 0) continue;
+                if (nx < 0 || nx >= m || ny < 0 || ny >= n) {
+                    continue;
+                }
+                if (grid[x][y] != grid[nx][ny]) {
+                    continue;
+                } else {
+                    cnt++;
+                }
+                if (ans[nx][ny] != 0) {
+                    continue;
+                }
                 d.addLast(new int[]{nx, ny});
             }
             ans[x][y] = cnt == 4 ? grid[x][y] : color;
         }
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (ans[i][j] == 0) ans[i][j] = grid[i][j];
+                if (ans[i][j] == 0) {
+                    ans[i][j] = grid[i][j];
+                }
             }
         }
         return ans;
@@ -589,3 +598,65 @@ class Solution {
 }
 ```
 
+#### [689. 三个无重叠子数组的最大和](https://leetcode-cn.com/problems/maximum-sum-of-3-non-overlapping-subarrays/)
+
+
+
+给你一个整数数组 `nums` 和一个整数 `k` ，找出三个长度为 `k` 、互不重叠、且 `3 * k` 项的和最大的子数组，并返回这三个子数组。
+
+以下标的数组形式返回结果，数组中的每一项分别指示每个子数组的起始位置（下标从 **0** 开始）。如果有多个结果，返回字典序最小的一个。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,2,1,2,6,7,5,1], k = 2
+输出：[0,3,5]
+解释：子数组 [1, 2], [2, 6], [7, 5] 对应的起始下标为 [0, 3, 5]。
+也可以取 [2, 1], 但是结果 [1, 3, 5] 在字典序上更大。
+```
+
+**示例 2：**
+
+```
+输入：nums = [1,2,1,2,1,2,1,2,1], k = 2
+输出：[0,2,4]
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 2 * 104`
+- `1 <= nums[i] < 216`
+- `1 <= k <= floor(nums.length / 3)`
+
+```java
+class Solution {
+    public int[] maxSumOfThreeSubarrays(int[] nums, int k) {
+        int n = nums.length;
+        long[] sum = new long[n + 1];
+        for (int i = 1; i <= n; i++) {
+            sum[i] = sum[i - 1] + nums[i - 1];
+        }
+        long[][] f = new long[n + 10][4];
+        for (int i = n - k + 1; i >= 1; i--) {
+            for (int j = 1; j < 4; j++) {
+                f[i][j] = Math.max(f[i + 1][j], f[i + k][j - 1] + sum[i + k - 1] - sum[i - 1]);
+            }
+        }
+        int[] ans = new int[3];
+        int i = 1, j = 3, idx = 0;
+        while (j > 0) {
+            if (f[i + 1][j] > f[i + k][j - 1] + sum[i + k - 1] - sum[i - 1]) {
+                i++;
+            } else {
+                ans[idx++] = i - 1;
+                i += k; j--;
+            }
+        }
+        return ans;
+    }
+}
+```
