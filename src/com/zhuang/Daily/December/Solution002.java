@@ -8,7 +8,8 @@ package com.zhuang.Daily.December;
  */
 public class Solution002 {
     public static void main(String[] args) {
-
+        String[] board = {"XOX", "O O", "XOX"};
+        validTicTacToe(board);
     }
 
     /**
@@ -16,7 +17,7 @@ public class Solution002 {
      * 12.8
      *
      * @param nums 整数数组
-     * @param k 整数
+     * @param k    整数
      * @return 数组
      */
     public int[] maxSumOfThreeSubarrays(int[] nums, int k) {
@@ -38,9 +39,55 @@ public class Solution002 {
                 i++;
             } else {
                 ans[idx++] = i - 1;
-                i += k; j--;
+                i += k;
+                j--;
             }
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/valid-tic-tac-toe-state/
+     * 12.9
+     *
+     * @param board 字符串数组
+     * @return 布尔
+     */
+    public static boolean validTicTacToe(String[] board) {
+        int xCount = 0, oCount = 0;
+        for (String row : board) {
+            for (char c : row.toCharArray()) {
+                xCount = (c == 'X') ? (xCount + 1) : xCount;
+                oCount = (c == 'O') ? (oCount + 1) : oCount;
+            }
+        }
+        if (oCount != xCount && oCount != xCount - 1) {
+            return false;
+        }
+        if (win(board, 'X') && oCount != xCount - 1) {
+            return false;
+        }
+        if (win(board, 'O') && oCount != xCount) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean win(String[] board, char p) {
+        for (int i = 0; i < 3; i++) {
+            if (p == board[0].charAt(i) && p == board[1].charAt(i) && p == board[2].charAt(i)) {
+                return true;
+            }
+            if (p == board[i].charAt(0) && p == board[i].charAt(1) && p == board[i].charAt(2)) {
+                return true;
+            }
+        }
+        if (p == board[0].charAt(0) && p == board[1].charAt(1) && p == board[2].charAt(2)) {
+            return true;
+        }
+        if (p == board[0].charAt(2) && p == board[1].charAt(1) && p == board[2].charAt(0)) {
+            return true;
+        }
+        return false;
     }
 }
