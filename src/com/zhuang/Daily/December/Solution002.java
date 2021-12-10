@@ -8,8 +8,11 @@ package com.zhuang.Daily.December;
  */
 public class Solution002 {
     public static void main(String[] args) {
-        String[] board = {"XOX", "O O", "XOX"};
-        validTicTacToe(board);
+        //String[] board = {"XOX", "O O", "XOX"};
+        //validTicTacToe(board);
+
+        String[] words = {"step", "steps", "stripe", "stepple"};
+        shortestCompletingWord("1s3 PSt", words);
     }
 
     /**
@@ -89,5 +92,48 @@ public class Solution002 {
             return true;
         }
         return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/shortest-completing-word/
+     * 12.10
+     *
+     * @param licensePlate 字符串
+     * @param words        字符串数组
+     * @return 最短补全词
+     */
+    public static String shortestCompletingWord(String licensePlate, String[] words) {
+        int[] count = getCount(licensePlate);
+        String ans = null;
+        for (String word : words) {
+            int[] cur = getCount(word);
+            boolean isOk = true;
+            for (int i = 0; i < 26 && isOk; i++) {
+                if (count[i] > cur[i]) {
+                    isOk = false;
+                }
+            }
+            if (isOk && (ans == null || ans.length() > word.length())) {
+                ans = word;
+            }
+        }
+        System.out.println(ans);
+        return ans;
+    }
+
+    /**
+     * 获取个数
+     *
+     * @param s 字符串
+     * @return 个数
+     */
+    public static int[] getCount(String s) {
+        int[] count = new int[26];
+        for (char c : s.toCharArray()) {
+            if (Character.isLetter(c)) {
+                count[Character.toLowerCase(c) - 'a']++;
+            }
+        }
+        return count;
     }
 }
