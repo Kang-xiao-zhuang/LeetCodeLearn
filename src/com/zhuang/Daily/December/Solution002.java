@@ -178,4 +178,15 @@ public class Solution002 {
             return list.get(r)[0] <= t ? list.get(r)[1] : 0;
         }
     }
+
+    /**
+     * https://leetcode-cn.com/problems/to-lower-case/
+     * 12.12
+     *
+     * @param s 字符串
+     * @return 新的字符串
+     */
+    public String toLowerCase(String s) {
+        return s.toLowerCase();
+    }
 }
