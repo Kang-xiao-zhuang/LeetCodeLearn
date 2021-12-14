@@ -1,9 +1,6 @@
 package com.zhuang.Daily.December;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Classname Solution002
@@ -18,7 +15,7 @@ public class Solution002 {
 
         //String[] words = {"step", "steps", "stripe", "stepple"};
         //shortestCompletingWord("1s3 PSt", words);
-        int[][] grid={{3,0,8,4},{2,4,5,7},{9,2,6,3},{0,3,1,0}};
+        int[][] grid = {{3, 0, 8, 4}, {2, 4, 5, 7}, {9, 2, 6, 3}, {0, 3, 1, 0}};
         maxIncreaseKeepingSkyline(grid);
     }
 
@@ -217,5 +214,27 @@ public class Solution002 {
         }
         System.out.println(res);
         return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/course-schedule-iii/
+     * 12.14
+     *
+     * @param courses 数组
+     * @return 最多可以修读的课程数目
+     */
+    public int scheduleCourse(int[][] courses) {
+        Arrays.sort(courses, (a, b) -> a[1] - b[1]);
+        PriorityQueue<Integer> q = new PriorityQueue<>((a, b) -> b - a);
+        int sum = 0;
+        for (int[] c : courses) {
+            int d = c[0], e = c[1];
+            sum += d;
+            q.add(d);
+            if (sum > e) {
+                sum -= q.poll();
+            }
+        }
+        return q.size();
     }
 }
