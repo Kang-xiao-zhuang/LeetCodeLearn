@@ -1,0 +1,56 @@
+package com.zhuang.Daily.December;
+
+import java.util.*;
+
+/**
+ * @Classname Solution003
+ * @Description 2021.12.15-2021.12.22每日一题
+ * @Date 2021/12/15 10:26
+ * @Author by dell
+ */
+public class Solution003 {
+    public static void main(String[] args) {
+
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/loud-and-rich/
+     * 12.15
+     *
+     * @param richer 数组
+     * @param quiet  安静值
+     * @return 整数数组
+     */
+    public int[] loudAndRich(int[][] richer, int[] quiet) {
+        int n = quiet.length;
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] in = new int[n];
+        for (int[] r : richer) {
+            int a = r[0], b = r[1];
+            List<Integer> list = map.getOrDefault(a, new ArrayList<>());
+            list.add(b);
+            map.put(a, list);
+            in[b]++;
+        }
+        Deque<Integer> d = new ArrayDeque<>();
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            ans[i] = i;
+            if (in[i] == 0) {
+                d.addLast(i);
+            }
+        }
+        while (!d.isEmpty()) {
+            int t = d.pollFirst();
+            for (int u : map.getOrDefault(t, new ArrayList<>())) {
+                if (quiet[ans[t]] < quiet[ans[u]]) {
+                    ans[u] = ans[t];
+                }
+                if (--in[u] == 0) {
+                    d.addLast(u);
+                }
+            }
+        }
+        return ans;
+    }
+}
