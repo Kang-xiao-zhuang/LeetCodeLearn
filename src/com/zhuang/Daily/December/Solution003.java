@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Solution003 {
     public static void main(String[] args) {
-
+        numWaterBottles(9,3);
     }
 
     /**
@@ -87,5 +87,24 @@ public class Solution003 {
             max = Math.max(max, j - i + 1);
         }
         return cnt + max;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/water-bottles/
+     * 12.17
+     *
+     * @param numBottles  酒瓶
+     * @param numExchange 空酒瓶
+     * @return 总数
+     */
+    public static int numWaterBottles(int numBottles, int numExchange) {
+        int bottle = numBottles, ans = numBottles;
+        while (bottle >= numExchange) {
+            bottle -= numExchange;
+            ++ans;
+            ++bottle;
+        }
+        System.out.println(ans);
+        return ans;
     }
 }
