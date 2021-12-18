@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Solution003 {
     public static void main(String[] args) {
-        numWaterBottles(9,3);
+        numWaterBottles(9, 3);
     }
 
     /**
@@ -105,6 +105,33 @@ public class Solution003 {
             ++bottle;
         }
         System.out.println(ans);
+        return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/battleships-in-a-board/
+     * 12.18
+     *
+     * @param board 矩阵
+     * @return  战舰 的数量
+     */
+    public int countBattleships(char[][] board) {
+        int row = board.length;
+        int col = board[0].length;
+        int ans = 0;
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < col; ++j) {
+                if (board[i][j] == 'X') {
+                    if (i > 0 && board[i - 1][j] == 'X') {
+                        continue;
+                    }
+                    if (j > 0 && board[i][j - 1] == 'X') {
+                        continue;
+                    }
+                    ans++;
+                }
+            }
+        }
         return ans;
     }
 }
