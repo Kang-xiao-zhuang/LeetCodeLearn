@@ -113,7 +113,7 @@ public class Solution003 {
      * 12.18
      *
      * @param board 矩阵
-     * @return  战舰 的数量
+     * @return 战舰 的数量
      */
     public int countBattleships(char[][] board) {
         int row = board.length;
@@ -133,5 +133,26 @@ public class Solution003 {
             }
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/find-the-town-judge/
+     * 12.19
+     *
+     * @param n     数量
+     * @param trust 数组
+     * @return 编号
+     */
+    public int findJudge(int n, int[][] trust) {
+        int[] in = new int[n + 1], out = new int[n + 1];
+        for (int[] t : trust) {
+            int a = t[0], b = t[1];
+            in[b]++;
+            out[a]++;
+        }
+        for (int i = 1; i <= n; i++) {
+            if (in[i] == n - 1 && out[i] == 0) return i;
+        }
+        return -1;
     }
 }
