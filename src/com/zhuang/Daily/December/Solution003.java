@@ -151,8 +151,55 @@ public class Solution003 {
             out[a]++;
         }
         for (int i = 1; i <= n; i++) {
-            if (in[i] == n - 1 && out[i] == 0) return i;
+            if (in[i] == n - 1 && out[i] == 0) {
+                return i;
+            }
         }
         return -1;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/heaters/
+     * 12.20
+     *
+     * @param houses  房屋
+     * @param heaters 供暖器
+     * @return
+     */
+    public int findRadius(int[] houses, int[] heaters) {
+        int ans = 0;
+        Arrays.sort(heaters);
+        for (int house : houses) {
+            int i = binarySearch(heaters, house);
+            int j = i + 1;
+            int leftDistance = i < 0 ? Integer.MAX_VALUE : house - heaters[i];
+            int rightDistance = j >= heaters.length ? Integer.MAX_VALUE : heaters[j] - house;
+            int curDistance = Math.min(leftDistance, rightDistance);
+            ans = Math.max(ans, curDistance);
+        }
+        return ans;
+    }
+
+    /**
+     * 二分法
+     *
+     * @param nums   数组
+     * @param target 目标值
+     * @return 二分后的值
+     */
+    public int binarySearch(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        if (nums[left] > target) {
+            return -1;
+        }
+        while (left < right) {
+            int mid = (right - left + 1) / 2 + left;
+            if (nums[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid;
+            }
+        }
+        return left;
     }
 }
