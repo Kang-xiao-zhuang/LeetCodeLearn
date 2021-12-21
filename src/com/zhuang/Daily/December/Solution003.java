@@ -1,5 +1,6 @@
 package com.zhuang.Daily.December;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -201,5 +202,29 @@ public class Solution003 {
             }
         }
         return left;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/day-of-the-year/
+     * 12.21
+     *
+     * @param date 字符串
+     * @return 该日期是当年的第几天
+     */
+    public int dayOfYear(String date) {
+        int year = Integer.parseInt(date.substring(0, 4));
+        int month = Integer.parseInt(date.substring(5, 7));
+        int day = Integer.parseInt(date.substring(8));
+
+        int[] amount = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+            ++amount[1];
+        }
+
+        int ans = 0;
+        for (int i = 0; i < month - 1; ++i) {
+            ans += amount[i];
+        }
+        return ans + day;
     }
 }
