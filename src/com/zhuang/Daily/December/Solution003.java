@@ -227,4 +227,26 @@ public class Solution003 {
         }
         return ans + day;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/repeated-string-match/
+     * 12.22
+     *
+     * @param a 字符串a
+     * @param b 字符串b
+     * @return 最小次数
+     */
+    public int repeatedStringMatch(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        int ans = 0;
+        while (sb.length() < b.length() && ++ans > 0) {
+            sb.append(a);
+        }
+        sb.append(a);
+        int index = sb.indexOf(b);
+        if (index == -1) {
+            return -1;
+        }
+        return index + b.length() > a.length() * ans ? ans + 1 : ans;
+    }
 }
