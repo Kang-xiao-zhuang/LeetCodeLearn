@@ -1,6 +1,8 @@
 package com.zhuang.Daily.December;
 
+import java.util.ArrayDeque;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * @Classname Solution004
@@ -33,5 +35,41 @@ public class Solution004 {
             time++;
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/even-odd-tree/
+     * 12.25
+     *
+     * @param root 根节点
+     * @return 判断是否奇偶树
+     */
+    public boolean isEvenOddTree(TreeNode root) {
+        Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
+        queue.offer(root);
+        int level = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            int prev = level % 2 == 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                int value = node.val;
+                if (level % 2 == value % 2) {
+                    return false;
+                }
+                if ((level % 2 == 0 && value <= prev) || (level % 2 == 1 && value >= prev)) {
+                    return false;
+                }
+                prev = value;
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            level++;
+        }
+        return true;
     }
 }
