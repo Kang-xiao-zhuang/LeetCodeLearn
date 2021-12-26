@@ -1,8 +1,6 @@
 package com.zhuang.Daily.December;
 
-import java.util.ArrayDeque;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @Classname Solution004
@@ -12,6 +10,9 @@ import java.util.Queue;
  */
 
 public class Solution004 {
+    public static void main(String[] args) {
+        findOcurrences("alice is a good girl she is a good student", "a", "good");
+    }
 
     /**
      * https://leetcode-cn.com/problems/maximum-number-of-eaten-apples/
@@ -71,5 +72,26 @@ public class Solution004 {
             level++;
         }
         return true;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/occurrences-after-bigram/
+     * 12.26
+     *
+     * @param text   字符串
+     * @param first  字符串
+     * @param second 字符串
+     * @return 数组
+     */
+    public static String[] findOcurrences(String text, String first, String second) {
+        String[] ss = text.split(" ");
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i + 2 < ss.length; i++) {
+            if (ss[i].equals(first) && ss[i + 1].equals(second)) {
+                list.add(ss[i + 2]);
+            }
+        }
+        System.out.println(Arrays.toString(list.toArray(new String[list.size()])));
+        return list.toArray(new String[list.size()]);
     }
 }
