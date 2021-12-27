@@ -26,11 +26,17 @@ public class Solution004 {
         PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[0] - b[0]);
         int n = apples.length, time = 0, ans = 0;
         while (time < n || !q.isEmpty()) {
-            if (time < n && apples[time] > 0) q.add(new int[]{time + days[time] - 1, apples[time]});
-            while (!q.isEmpty() && q.peek()[0] < time) q.poll();
+            if (time < n && apples[time] > 0) {
+                q.add(new int[]{time + days[time] - 1, apples[time]});
+            }
+            while (!q.isEmpty() && q.peek()[0] < time) {
+                q.poll();
+            }
             if (!q.isEmpty()) {
                 int[] cur = q.poll();
-                if (--cur[1] > 0 && cur[0] > time) q.add(cur);
+                if (--cur[1] > 0 && cur[0] > time) {
+                    q.add(cur);
+                }
                 ans++;
             }
             time++;
@@ -93,5 +99,30 @@ public class Solution004 {
         }
         System.out.println(Arrays.toString(list.toArray(new String[list.size()])));
         return list.toArray(new String[list.size()]);
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/friends-of-appropriate-ages/
+     * 12.27
+     *
+     * @param ages age数组
+     * @return 该社交媒体网站上产生的好友请求总数
+     */
+    public int numFriendRequests(int[] ages) {
+        Arrays.sort(ages);
+        int left = 0, right = 0, ans = 0;
+        for (int age : ages) {
+            if (age < 15) {
+                continue;
+            }
+            while (ages[left] <= 0.5 * age + 7) {
+                ++left;
+            }
+            while (right + 1 < ages.length && ages[right + 1] <= age) {
+                ++right;
+            }
+            ans += right - left;
+        }
+        return ans;
     }
 }
