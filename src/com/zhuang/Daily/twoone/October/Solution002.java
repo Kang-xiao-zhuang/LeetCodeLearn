@@ -1,13 +1,8 @@
-package com.zhuang.Daily.October;
-
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+package com.zhuang.Daily.twoone.October;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.zhuang.Daily.October.Solution002.toEnglish;
 
 /**
  * @Classname Solution002
