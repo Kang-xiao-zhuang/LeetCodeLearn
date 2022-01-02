@@ -39,4 +39,14 @@ public class Solution001 {
         System.out.println(Arrays.deepToString(ans));
         return ans;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/elimination-game/
+     *
+     * @param n 整数
+     * @return 最后剩下的数字
+     */
+    public int lastRemaining(int n) {
+        return n == 1 ? 1 : 2 * (n / 2 + 1 - lastRemaining(n / 2));
+    }
 }
