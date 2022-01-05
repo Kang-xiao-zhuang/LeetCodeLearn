@@ -135,4 +135,28 @@ public class Solution001 {
         f[k][a][b] = ans;
         return ans;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/
+     * 1.5每日一题
+     *
+     * @param s 英文字母
+     * @return 最终的字符串不包含任何 连续重复 的字符
+     */
+    public String modifyString(String s) {
+        int n = s.length();
+        char[] arr = s.toCharArray();
+        for (int i = 0; i < s.length(); i++) {
+            if (arr[i] == '?') {
+                for (char ch = 'a'; ch <= 'c'; ch++) {
+                    if ((i > 0 && arr[i - 1] == ch) || (i < n - 1 && arr[i + 1] == ch)) {
+                        continue;
+                    }
+                    arr[i] = ch;
+                    break;
+                }
+            }
+        }
+        return new String(arr);
+    }
 }
