@@ -1,6 +1,8 @@
 package com.zhuang.Daily.twotwo.January;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * @Classname Solution001
@@ -158,5 +160,35 @@ public class Solution001 {
             }
         }
         return new String(arr);
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/simplify-path/
+     *
+     * @param path 字符串
+     * @return 规范路径
+     */
+    public String simplifyPath(String path) {
+        String[] names = path.split("/");
+        Deque<String> stack = new ArrayDeque<>();
+        for (String name : names) {
+            if ("..".equals(name)) {
+                if (!stack.isEmpty()) {
+                    stack.pollLast();
+                }
+            } else if (name.length() > 0 && !".".equals(name)) {
+                stack.offerLast(name);
+            }
+        }
+        StringBuilder ans = new StringBuilder();
+        if (stack.isEmpty()) {
+            ans.append('/');
+        } else {
+            while (!stack.isEmpty()) {
+                ans.append('/');
+                ans.append(stack.pollFirst());
+            }
+        }
+        return ans.toString();
     }
 }
