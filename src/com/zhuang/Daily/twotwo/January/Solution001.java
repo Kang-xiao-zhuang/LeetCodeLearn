@@ -164,6 +164,7 @@ public class Solution001 {
 
     /**
      * https://leetcode-cn.com/problems/simplify-path/
+     * 1.6
      *
      * @param path 字符串
      * @return 规范路径
@@ -190,5 +191,26 @@ public class Solution001 {
             }
         }
         return ans.toString();
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/maximum-nesting-depth-of-the-parentheses/
+     * 1.7
+     *
+     * @param s 字符串
+     * @return 嵌套深度
+     */
+    public int maxDepth(String s) {
+        int ans = 0, size = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                size++;
+                ans = Math.max(ans, size);
+            } else if (c == ')') {
+                --size;
+            }
+        }
+        return ans;
     }
 }
