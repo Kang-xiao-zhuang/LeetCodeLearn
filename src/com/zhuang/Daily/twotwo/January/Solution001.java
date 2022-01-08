@@ -1,8 +1,6 @@
 package com.zhuang.Daily.twotwo.January;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
+import java.util.*;
 
 /**
  * @Classname Solution001
@@ -209,6 +207,19 @@ public class Solution001 {
                 ans = Math.max(ans, size);
             } else if (c == ')') {
                 --size;
+            }
+        }
+        return ans;
+    }
+
+    public List<Integer> grayCode(int n) {
+        List<Integer> ans = new ArrayList<>();
+        ans.add(0);
+        while (n-- > 0) {
+            int m = ans.size();
+            for (int i = m - 1; i >= 0; i--) {
+                ans.set(i, ans.get(i) << 1);
+                ans.add(ans.get(i) + 1);
             }
         }
         return ans;
