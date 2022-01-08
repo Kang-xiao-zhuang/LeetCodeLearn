@@ -231,4 +231,27 @@ public class Solution001 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/slowest-key/
+     * 1.9
+     *
+     * @param releaseTimes 升序排列的列表
+     * @param keysPressed  字符串
+     * @return 按字母顺序排列最大
+     */
+    public char slowestKey(int[] releaseTimes, String keysPressed) {
+        int n = releaseTimes.length;
+        char ans = keysPressed.charAt(0);
+        int maxTime = releaseTimes[0];
+        for (int i = 1; i < n; i++) {
+            char key = keysPressed.charAt(i);
+            int time = releaseTimes[i] - releaseTimes[i - 1];
+            if (time > maxTime || (time == maxTime && key > ans)) {
+                ans = key;
+                maxTime = time;
+            }
+        }
+        return ans;
+    }
 }
