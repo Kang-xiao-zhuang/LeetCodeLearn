@@ -212,6 +212,13 @@ public class Solution001 {
         return ans;
     }
 
+    /**
+     * https://leetcode-cn.com/problems/gray-code/
+     * 1.8
+     *
+     * @param n 格雷码
+     * @return n位格雷码序列
+     */
     public List<Integer> grayCode(int n) {
         List<Integer> ans = new ArrayList<>();
         ans.add(0);
