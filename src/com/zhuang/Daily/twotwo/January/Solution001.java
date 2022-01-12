@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * @Classname Solution001
- * @Description 用一句话描述类的作用
+ * @Description 2022.1.1-2022.1.11 每日一题
  * @Date 2022/1/1 6:54
  * @Author by dell
  */
@@ -348,7 +348,7 @@ public class Solution001 {
 
     /**
      * https://leetcode-cn.com/problems/escape-a-large-maze/
-     *
+     * 1.11
      * @param blocked 封锁列
      * @param source  源方格
      * @param target  目标方格
