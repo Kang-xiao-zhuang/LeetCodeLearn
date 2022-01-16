@@ -3,6 +3,7 @@ package com.zhuang.Daily.twotwo.January;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 /**
  * @Classname Solution002
@@ -119,5 +120,27 @@ public class Solution002 {
             }
         }
         return res;
+    }
+
+    List<Integer> list;
+    Random random;
+
+    /**
+     * https://leetcode-cn.com/problems/linked-list-random-node/
+     * 1.16
+     *
+     * @param head 头节点
+     */
+    public Solution002(ListNode head) {
+        list = new ArrayList<Integer>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+        random = new Random();
+    }
+
+    public int getRandom() {
+        return list.get(random.nextInt(list.size()));
     }
 }
