@@ -1,9 +1,6 @@
 package com.zhuang.Daily.twotwo.January;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @Classname Solution002
@@ -147,6 +144,7 @@ public class Solution002 {
 
     /**
      * https://leetcode-cn.com/problems/count-vowels-permutation/
+     * 1.17
      *
      * @param n 整数
      * @return 长度为N的字符串
@@ -176,5 +174,27 @@ public class Solution002 {
             ans = (ans + dp[i]) % mod;
         }
         return (int) ans;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/minimum-time-difference/
+     * 1.18
+     *
+     * @param timePoints 时间列表
+     * @return 最小时间差
+     */
+    public int findMinDifference(List<String> timePoints) {
+        int n = timePoints.size() * 2;
+        int[] nums = new int[n];
+        for (int i = 0, idx = 0; i < n / 2; i++, idx += 2) {
+            String[] ss = timePoints.get(i).split(":");
+            int h = Integer.parseInt(ss[0]), m = Integer.parseInt(ss[1]);
+            nums[idx] = h * 60 + m;
+            nums[idx + 1] = nums[idx] + 1440;
+        }
+        Arrays.sort(nums);
+        int ans = nums[1] - nums[0];
+        for (int i = 0; i < n - 1; i++) ans = Math.min(ans, nums[i + 1] - nums[i]);
+        return ans;
     }
 }
