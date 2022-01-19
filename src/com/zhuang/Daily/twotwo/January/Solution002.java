@@ -197,4 +197,26 @@ public class Solution002 {
         for (int i = 0; i < n - 1; i++) ans = Math.min(ans, nums[i + 1] - nums[i]);
         return ans;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/contains-duplicate-ii/
+     * 1.19
+     *
+     * @param nums 数组
+     * @param k    目标值
+     * @return 布尔值
+     */
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i])) {
+                Integer tmp = map.get(nums[i]);
+                if (i - tmp <= k) {
+                    return true;
+                }
+            }
+            map.put(nums[i], i);
+        }
+        return false;
+    }
 }
