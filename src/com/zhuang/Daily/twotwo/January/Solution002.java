@@ -244,4 +244,48 @@ public class Solution002 {
         }
         return cnt1 - cnt2 > 2 || cnt2 - cnt1 > 2;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/jump-game-iv/
+     * 1.21
+     *
+     * @param arr 数组
+     * @return 最少操作数
+     */
+    public int minJumps(int[] arr) {
+        Map<Integer, List<Integer>> idxSameValue = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            idxSameValue.putIfAbsent(arr[i], new ArrayList<>());
+            idxSameValue.get(arr[i]).add(i);
+        }
+        Set<Integer> visitedIndex = new HashSet<>();
+        Queue<int[]> queue = new ArrayDeque<>();
+        queue.offer(new int[]{0, 0});
+        visitedIndex.add(0);
+        while (!queue.isEmpty()) {
+            int[] idxStep = queue.poll();
+            int idx = idxStep[0];
+            int step = idxStep[1];
+            if (idx == arr.length - 1) {
+                return step;
+            }
+            int v = arr[idx];
+            step++;
+            if (idxSameValue.containsKey(v)) {
+                for (int i : idxSameValue.get(v)) {
+                    if (visitedIndex.add(i)) {
+                        queue.offer(new int[]{i, step});
+                    }
+                }
+                idxSameValue.remove(v);
+            }
+            if (idx + 1 < arr.length && visitedIndex.add(idx + 1)) {
+                queue.offer(new int[]{idx + 1, step});
+            }
+            if (idx - 1 >= 0 && visitedIndex.add(idx - 1)) {
+                queue.offer(new int[]{idx - 1, step});
+            }
+        }
+        return -1;
+    }
 }
