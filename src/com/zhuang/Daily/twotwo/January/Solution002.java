@@ -288,4 +288,22 @@ public class Solution002 {
         }
         return -1;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/remove-palindromic-subsequences/
+     * 1.22
+     *
+     * @param s 字符串
+     * @return 删除给定字符串中所有字符（字符串为空）的最小删除次数
+     */
+    public int removePalindromeSub(String s) {
+        int n = s.length();
+        int i = 0, j = n - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) return 2;
+            i++;
+            j--;
+        }
+        return 1;
+    }
 }
