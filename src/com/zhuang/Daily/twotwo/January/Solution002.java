@@ -357,4 +357,15 @@ public class Solution002 {
         }
         return ret;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/count-of-matches-in-tournament/
+     * 1.25
+     *
+     * @param n 整数
+     * @return 获胜队伍
+     */
+    public int numberOfMatches(int n) {
+        return n - 1;
+    }
 }
