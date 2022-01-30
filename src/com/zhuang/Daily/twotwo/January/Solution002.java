@@ -491,4 +491,24 @@ public class Solution002 {
         for (String s : map.keySet()) if (map.get(s) == 1) list.add(s);
         return list.toArray(new String[list.size()]);
     }
+
+    /**
+     * https://leetcode-cn.com/problems/number-of-steps-to-reduce-a-number-to-zero/
+     * 1.31
+     *
+     * @param num 非负整数
+     * @return 所需要的步数
+     */
+    public int numberOfSteps(int num) {
+        int count = 0;
+        while (num != 0) {
+            if (num % 2 == 0) {
+                num /= 2;
+            } else {
+                num -= 1;
+            }
+            count++;
+        }
+        return count;
+    }
 }
