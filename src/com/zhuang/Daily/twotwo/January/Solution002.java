@@ -473,4 +473,22 @@ public class Solution002 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/uncommon-words-from-two-sentences/
+     * 1.30
+     *
+     * @param s1 字符串1
+     * @param s2 字符串2
+     * @return 数组
+     */
+    public String[] uncommonFromSentences(String s1, String s2) {
+        Map<String, Integer> map = new HashMap<>();
+        String str = s1 + " " + s2;
+        String[] ss = str.split(" ");
+        for (String s : ss) map.put(s, map.getOrDefault(s, 0) + 1);
+        List<String> list = new ArrayList<>();
+        for (String s : map.keySet()) if (map.get(s) == 1) list.add(s);
+        return list.toArray(new String[list.size()]);
+    }
 }
