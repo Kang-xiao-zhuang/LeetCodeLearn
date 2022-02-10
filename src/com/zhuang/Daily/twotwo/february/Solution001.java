@@ -289,7 +289,7 @@ public class Solution001 {
      * 2.9
      *
      * @param nums 整数数组
-     * @param k 整数
+     * @param k    整数
      * @return 数目
      */
     public int countKDifference(int[] nums, int k) {
@@ -297,6 +297,27 @@ public class Solution001 {
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
                 if (Math.abs(nums[i] - nums[j]) == k) ans++;
+            }
+        }
+        return ans;
+    }
+
+    int gcd(int a, int b) { // 欧几里得算法
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/simplified-fractions/
+     * 2.10
+     *
+     * @param n int
+     * @return 集合
+     */
+    public List<String> simplifiedFractions(int n) {
+        List<String> ans = new ArrayList<>();
+        for (int i = 1; i < n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                if (gcd(i, j) == 1) ans.add(i + "/" + j);
             }
         }
         return ans;
