@@ -86,8 +86,8 @@ public class Solution010 {
     /**
      * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/
      *
-     * @param prices
-     * @return
+     * @param prices 整数数组
+     * @return 最大利润
      */
     public static int maxProfit(int[] prices) {
         int sum = 0;
