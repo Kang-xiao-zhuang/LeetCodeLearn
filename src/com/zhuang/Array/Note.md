@@ -167,3 +167,103 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/5d57d5d4d40c4c8289254e25f0592c52.png)
+
+#### [189. 轮转数组](https://leetcode.cn/problems/rotate-array/)
+
+给你一个数组，将数组中的元素向右轮转 `k` 个位置，其中 `k` 是非负数。
+
+ 
+
+**示例 1:**
+
+```
+输入: nums = [1,2,3,4,5,6,7], k = 3
+输出: [5,6,7,1,2,3,4]
+解释:
+向右轮转 1 步: [7,1,2,3,4,5,6]
+向右轮转 2 步: [6,7,1,2,3,4,5]
+向右轮转 3 步: [5,6,7,1,2,3,4]
+```
+
+**示例 2:**
+
+```
+输入：nums = [-1,-100,3,99], k = 2
+输出：[3,99,-1,-100]
+解释: 
+向右轮转 1 步: [99,-1,-100,3]
+向右轮转 2 步: [3,99,-1,-100]
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 105`
+- `-231 <= nums[i] <= 231 - 1`
+- `0 <= k <= 105`
+
+ 
+
+**进阶：**
+
+- 尽可能想出更多的解决方案，至少有 **三种** 不同的方法可以解决这个问题。
+- 你可以使用空间复杂度为 `O(1)` 的 **原地** 算法解决这个问题吗？
+
+
+
+使用额外的数组存放每个元素的位置，将原数组下标为 i 的元素放至新数组下标为` (i+k)%n`的位置，最后将新数组拷贝至原数组即可
+
+```java
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int len = nums.length;
+        int[] temp = new int[len];
+        for (int i = 0; i < len; i++) {
+            temp[(i + k) % len] = nums[i];
+        }
+        System.arraycopy(temp,0,nums,0,len);
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/070c580a80d245448a34a063a684b0b5.png)
+
+
+
+数组翻转
+
+将数组的元素向右移动k次后，尾部`k%n`个元素会移动到数组头部，其余元素向后移动`k%n`.
+
+先将所有的元素翻转，尾部`k%n`个元素会移动到数组头部，然后翻转[0,k%n-1]区间的元素和[k%n,n-1]区间的元素就能得到最后的答案。
+
+| 操作                          | 结果          |
+| ----------------------------- | ------------- |
+| 原始数组                      | 1 2 3 4 5 6 7 |
+| 翻转所有元素                  | 7 6 5 4 3 2 1 |
+| 翻转 [0, k% n - 1] 区间的元素 | 5 6 7 4 3 2 1 |
+| 翻转 [k%n,n-1]区间的元素      | 5 6 7 1 2 3 4 |
+
+
+
+```java
+class Solution {
+    public void rotate(int[] nums, int k) {
+         k%=nums.length;
+        reverse(nums,0,nums.length-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k,nums.length-1);
+    }
+    public void reverse(int[] nums,int start,int end){
+        while (start<end){
+            int temp=nums[start];
+            nums[start]=nums[end];
+            nums[end]=temp;
+            start+=1;
+            end-=1;
+        }
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/4c3e6cc33744475bbdae5ea8ec954872.png)
