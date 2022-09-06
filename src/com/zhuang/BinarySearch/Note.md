@@ -1,6 +1,5 @@
 #### [704. 二分查找](https://leetcode.cn/problems/binary-search/)
 
-难度简单971收藏分享切换为英文接收动态反馈
 
 给定一个 `n` 个元素有序的（升序）整型数组 `nums` 和一个目标值 `target` ，写一个函数搜索 `nums` 中的 `target`，如果目标值存在返回下标，否则返回 `-1`。
 
@@ -63,7 +62,6 @@ class Solution {
 
 #### [374. 猜数字大小](https://leetcode.cn/problems/guess-number-higher-or-lower/)
 
-难度简单247收藏分享切换为英文接收动态反馈
 
 猜数字游戏的规则如下：
 
