@@ -22,6 +22,7 @@ public class Solution010 {
 
         int[] nums = {1, 2, 3, 4, 5, 6, 7};
         //  rotate(nums, 3);
+        rotate2(nums, 3);
 
         int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         rotate(matrix);
@@ -109,14 +110,30 @@ public class Solution010 {
     public static void rotate(int[] nums, int k) {
         int len = nums.length;
         int[] temp = new int[len];
-        for (int i = 0; i < nums.length; i++) {
-            temp[i] = nums[i];
-        }
         for (int i = 0; i < len; i++) {
-            nums[(i + k) % len] = temp[i];
+            temp[(i + k) % len] = nums[i];
         }
-        System.out.println(Arrays.toString(nums));
+        System.arraycopy(temp, 0, nums, 0, len);
     }
+
+
+    public static void rotate2(int[] nums, int k) {
+        k %= nums.length;
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.length - 1);
+    }
+
+    public static void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start += 1;
+            end -= 1;
+        }
+    }
+
 
     /**
      * https://leetcode-cn.com/problems/contains-duplicate/
