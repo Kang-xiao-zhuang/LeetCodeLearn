@@ -149,3 +149,221 @@ public class Solution extends GuessGame {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/21bc91fc2b6841d5ba96d020d2bfc3a3.png)
+
+#### [35. 搜索插入位置](https://leetcode.cn/problems/search-insert-position/)
+
+给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+
+请必须使用时间复杂度为 `O(log n)` 的算法。
+
+ 
+
+**示例 1:**
+
+```
+输入: nums = [1,3,5,6], target = 5
+输出: 2
+```
+
+**示例 2:**
+
+```
+输入: nums = [1,3,5,6], target = 2
+输出: 1
+```
+
+**示例 3:**
+
+```
+输入: nums = [1,3,5,6], target = 7
+输出: 4
+```
+
+ 
+
+**提示:**
+
+- `1 <= nums.length <= 104`
+- `-104 <= nums[i] <= 104`
+- `nums` 为 **无重复元素** 的 **升序** 排列数组
+- `-104 <= target <= 104`
+
+枚举即可
+
+
+
+```java
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>=target){
+                return i;
+            }
+        }
+        return nums.length;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6fddf6aaaca54a66959b3488eb3ad270.png)
+
+双指针法
+
+```java
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        // 双指针
+        int low=0;
+        int high=nums.length-1;
+        while(low<=high){
+            int mid=(low+high)>>1;
+            if(nums[mid]==target){
+                return mid;
+            }else if(nums[mid]<target){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return low;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/255d69bbfc5b4d54adc8cd519ee7f8c5.png)
+
+#### [852. 山脉数组的峰顶索引](https://leetcode.cn/problems/peak-index-in-a-mountain-array/)
+
+符合下列属性的数组 `arr` 称为 **山脉数组** ：
+
+- `arr.length >= 3`
+- 存在`i`（`0 < i < arr.length - 1`）使得：
+  - `arr[0] < arr[1] < ... arr[i-1] < arr[i]`
+  - `arr[i] > arr[i+1] > ... > arr[arr.length - 1]`
+
+给你由整数组成的山脉数组 `arr` ，返回任何满足 `arr[0] < arr[1] < ... arr[i - 1] < arr[i] > arr[i + 1] > ... > arr[arr.length - 1]` 的下标 `i` 。
+
+ 
+
+**示例 1：**
+
+```
+输入：arr = [0,1,0]
+输出：1
+```
+
+**示例 2：**
+
+```
+输入：arr = [0,2,1,0]
+输出：1
+```
+
+**示例 3：**
+
+```
+输入：arr = [0,10,5,2]
+输出：1
+```
+
+**示例 4：**
+
+```
+输入：arr = [3,4,5,1]
+输出：2
+```
+
+**示例 5：**
+
+```
+输入：arr = [24,69,100,99,79,78,67,36,26,19]
+输出：2
+```
+
+ 
+
+**提示：**
+
+- `3 <= arr.length <= 104`
+- `0 <= arr[i] <= 106`
+- 题目数据保证 `arr` 是一个山脉数组
+
+ 
+
+**进阶：**很容易想到时间复杂度 `O(n)` 的解决方案，你可以设计一个 `O(log(n))` 的解决方案吗？
+
+
+
+枚举
+
+山峰的数组是这么定义的
+
+从小到大，大到一个峰值，开始慢慢减小，所以枚举前后的数值，不断维护`ans`的值即可
+
+
+
+```java
+class Solution {
+    public int peakIndexInMountainArray(int[] arr) {
+        int n=arr.length;
+        int ans=-1;
+        for(int i=1;i<n-1;i++){
+            if(arr[i]>arr[i+1]){
+                ans=i;
+                break;
+            }
+        }
+        return ans;
+    }
+}
+```
+
+**复杂度分析**
+
+时间复杂度：O(n)，其中 n是数组 arr 的长度。我们最多需要对数组 arr 进行一次遍历。
+
+空间复杂度：O(1)
+
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/cbec03c3c4cc4bbe882a1a7ec9710641.png)
+
+
+
+
+
+二分法
+
+```java
+class Solution {
+    public int peakIndexInMountainArray(int[] arr) {
+        int n = arr.length;
+        int left = 1, right = n - 2, ans = 0;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (arr[mid] > arr[mid + 1]) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+}
+```
+
+**复杂度分析**
+
+时间复杂度：O(logn)，其中 n 是数组 arr 的长度。我们需要进行二分查找的次数为 O(logn)
+
+空间复杂度：O(1)
+
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/08b3885a69ef4ba3bfb00aa765be0a3b.png)
+
+
+
+
+
