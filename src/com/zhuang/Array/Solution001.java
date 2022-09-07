@@ -23,13 +23,13 @@ public class Solution001 {
         //     generate(5);
         /*
         int[] nums={1,3,5,6};
-        searchInsert(nums,0);
          */
         getRow(0);
     }
 
     /**
      * https://leetcode-cn.com/problems/maximum-subarray/
+     *
      * @param nums 数组1
      * @return res
      */
@@ -51,7 +51,7 @@ public class Solution001 {
      * https://leetcode-cn.com/problems/remove-element/
      *
      * @param nums 数组
-     * @param val 值
+     * @param val  值
      * @return int
      */
     public static int removeElement(int[] nums, int val) {
@@ -89,24 +89,6 @@ public class Solution001 {
         }
         System.out.println(ret.toString());
         return ret;
-    }
-
-    /**
-     * https://leetcode-cn.com/problems/search-insert-position/
-     *
-     * @param nums 数组
-     * @param target 目标值
-     * @return int
-     */
-    public static int searchInsert(int[] nums, int target) {
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] >= target) {
-                System.out.println(i);
-                return i;
-            }
-        }
-        System.out.println(nums.length);
-        return nums.length;
     }
 
     /**

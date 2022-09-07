@@ -26,6 +26,8 @@ public class Solution002 {
 
         //divide(10, 3);
 
+        int[] arr={24,69,100,99,79,78,67,36,26,19};
+        peakIndexInMountainArray2(arr);
 
         //fizzBuzz(3);
     }
@@ -328,7 +330,7 @@ public class Solution002 {
     public static List<String> fizzBuzz(int n) {
         ArrayList<String> list = new ArrayList<>();
         for (int i = 1; i <= n; i++) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             if (i % 3 == 0) {
                 sb.append("Fizz");
             }
