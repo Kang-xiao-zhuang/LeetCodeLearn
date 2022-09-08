@@ -367,3 +367,225 @@ class Solution {
 
 
 
+#### [367. 有效的完全平方数](https://leetcode.cn/problems/valid-perfect-square/)
+
+给定一个 **正整数** `num` ，编写一个函数，如果 `num` 是一个完全平方数，则返回 `true` ，否则返回 `false` 。
+
+**进阶：不要** 使用任何内置的库函数，如 `sqrt` 。
+
+ 
+
+**示例 1：**
+
+```
+输入：num = 16
+输出：true
+```
+
+**示例 2：**
+
+```
+输入：num = 14
+输出：false
+```
+
+ 
+
+**提示：**
+
+- `1 <= num <= 2^31 - 1`
+
+
+
+```java
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        long res=num;
+        while(res*res>num){
+            res=(res+num/res)/2;
+        }
+        return res*res==num;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/80692fea9e2f494b9a13db414dd2469d.png)
+
+暴力
+
+```java
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        long x = 1, square = 1;
+        while (square <= num) {
+            if (square == num) {
+                return true;
+            }
+            ++x;
+            square = x * x;
+        }
+        return false;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8123c2c953ec4aa0b258e1fe51eec3aa.png)
+
+使用类库
+
+```java
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        int sqrt = (int) Math.sqrt(num);
+        return sqrt * sqrt == num;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/656751180c8241789470519682de6847.png)
+
+二分法
+
+```java
+class Solution {
+    public boolean isPerfectSquare(int num) {
+       int left = 1;
+        int right = num;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int temp = num / mid;
+            if (mid * mid == num) {
+                return true;
+            } else if (temp < mid) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return false;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/5c76ea420d2b482c9b59fd3c18ad4eb3.png)
+
+#### [1385. 两个数组间的距离值](https://leetcode.cn/problems/find-the-distance-value-between-two-arrays/)
+
+给你两个整数数组 `arr1` ， `arr2` 和一个整数 `d` ，请你返回两个数组之间的 **距离值** 。
+
+「**距离值**」 定义为符合此距离要求的元素数目：对于元素 `arr1[i]` ，不存在任何元素 `arr2[j]` 满足 `|arr1[i]-arr2[j]| <= d` 。
+
+ 
+
+**示例 1：**
+
+```
+输入：arr1 = [4,5,8], arr2 = [10,9,1,8], d = 2
+输出：2
+解释：
+对于 arr1[0]=4 我们有：
+|4-10|=6 > d=2 
+|4-9|=5 > d=2 
+|4-1|=3 > d=2 
+|4-8|=4 > d=2 
+所以 arr1[0]=4 符合距离要求
+
+对于 arr1[1]=5 我们有：
+|5-10|=5 > d=2 
+|5-9|=4 > d=2 
+|5-1|=4 > d=2 
+|5-8|=3 > d=2
+所以 arr1[1]=5 也符合距离要求
+
+对于 arr1[2]=8 我们有：
+|8-10|=2 <= d=2
+|8-9|=1 <= d=2
+|8-1|=7 > d=2
+|8-8|=0 <= d=2
+存在距离小于等于 2 的情况，不符合距离要求 
+
+故而只有 arr1[0]=4 和 arr1[1]=5 两个符合距离要求，距离值为 2
+```
+
+**示例 2：**
+
+```
+输入：arr1 = [1,4,2,3], arr2 = [-4,-3,6,10,20,30], d = 3
+输出：2
+```
+
+**示例 3：**
+
+```
+输入：arr1 = [2,1,100,3], arr2 = [-5,-2,10,-3,7], d = 6
+输出：1
+```
+
+ 
+
+**提示：**
+
+- `1 <= arr1.length, arr2.length <= 500`
+- `-10^3 <= arr1[i], arr2[j] <= 10^3`
+- `0 <= d <= 100`
+
+模拟
+
+```java
+class Solution {
+    public int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
+        int cnt = 0;
+        for (int i : arr1) {
+            boolean ok = true;
+            for (int j : arr2) {
+                ok &= Math.abs(i - j) > d;
+            }
+            cnt += ok ? 1 : 0;
+        }
+        return cnt;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/32a650bf155f4967af4da859891dfaf5.png)
+
+二分法
+
+```java
+class Solution {
+    public int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
+         Arrays.sort(arr2);
+        int cnt = 0;
+        for (int i : arr1) {
+            int p = binarySearch(arr2, i);
+            boolean ok = true;
+            if (p < arr2.length) {
+                ok &= arr2[p] - i > d;
+            }
+            if (p - 1 >= 0 && p - 1 <= arr2.length) {
+                ok &= i - arr2[p - 1] > d;
+            }
+            cnt += ok ? 1 : 0;
+        }
+        return cnt;
+    }
+
+    private int binarySearch(int[] arr, int target) {
+        int low = 0, high = arr.length - 1;
+        if (arr[high] < target) {
+            return high + 1;
+        }
+        while (low < high) {
+            int mid = (high - low) / 2 + low;
+            if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/a855e464c16a444d9b5727e35bd8b9cc.png)
