@@ -16,9 +16,12 @@ public class Solution004 {
         //    findMin2(nums);
 
         int[] nums = {1, 3, 4, 3, 2};
+        int[] arr1 = {4, 5, 8};
+        int[] arr2 = {10, 9, 1, 8};
         // findDuplicate(nums);
-        findDuplicate2(nums);
-        findDuplicate3(nums);
+        //findDuplicate2(nums);
+        //findDuplicate3(nums);
+        findTheDistanceValue(arr1, arr2, 2);
     }
 
     /**
@@ -119,5 +122,74 @@ public class Solution004 {
         }
         System.out.println(res);
         return res;
+    }
+
+    /**
+     * https://leetcode.cn/problems/find-the-distance-value-between-two-arrays/
+     *
+     * @param arr1 数组1
+     * @param arr2 数组2
+     * @param d    整数
+     * @return 距离值
+     */
+    public static int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
+
+        int cnt = 0;
+        for (int i : arr1) {
+            boolean ok = true;
+            for (int j : arr2) {
+                ok &= Math.abs(i - j) > d;
+            }
+            cnt += ok ? 1 : 0;
+        }
+        return cnt;
+    }
+
+    /**
+     * 二分法
+     *
+     * @param arr1 数组1
+     * @param arr2 数组2
+     * @param d    整数
+     * @return 距离值
+     */
+    public static int findTheDistanceValue2(int[] arr1, int[] arr2, int d) {
+        Arrays.sort(arr2);
+        int cnt = 0;
+        for (int i : arr1) {
+            int p = binarySearch(arr2, i);
+            boolean ok = true;
+            if (p < arr2.length) {
+                ok &= arr2[p] - i > d;
+            }
+            if (p - 1 >= 0 && p - 1 <= arr2.length) {
+                ok &= i - arr2[p - 1] > d;
+            }
+            cnt += ok ? 1 : 0;
+        }
+        return cnt;
+    }
+
+    /**
+     * 二分查找
+     *
+     * @param arr    数组
+     * @param target 目标值
+     * @return 索引
+     */
+    private static int binarySearch(int[] arr, int target) {
+        int low = 0, high = arr.length - 1;
+        if (arr[high] < target) {
+            return high + 1;
+        }
+        while (low < high) {
+            int mid = (high - low) / 2 + low;
+            if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
     }
 }

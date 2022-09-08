@@ -21,6 +21,7 @@ public class Solution003 {
         //  isPerfectSquare(15);
         // isPerfectSquare2(81);
         // isPerfectSquare3(16);
+        isPerfectSquare4(16);
         char[] letters = {'c', 'f', 'j'};
         nextGreatestLetter(letters, 'a');
         nextGreatestLetter2(letters, 'c');
@@ -160,6 +161,35 @@ public class Solution003 {
             }
         }
         System.out.println(false);
+        return false;
+    }
+
+    /**
+     * 类库
+     *
+     * @param num 数
+     * @return 布尔
+     */
+    public static boolean isPerfectSquare4(int num) {
+        int sqrt = (int) Math.sqrt(num);
+        return sqrt * sqrt == num;
+    }
+
+    /**
+     * 暴力
+     *
+     * @param num 数
+     * @return 布尔
+     */
+    public static boolean isPerfectSquare5(int num) {
+        long x = 1, square = 1;
+        while (square <= num) {
+            if (square == num) {
+                return true;
+            }
+            ++x;
+            square = x * x;
+        }
         return false;
     }
 
