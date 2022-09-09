@@ -21,11 +21,11 @@ public class Solution003 {
         //  isPerfectSquare(15);
         // isPerfectSquare2(81);
         // isPerfectSquare3(16);
-        isPerfectSquare4(16);
+        //isPerfectSquare4(16);
         char[] letters = {'c', 'f', 'j'};
         nextGreatestLetter(letters, 'a');
-        nextGreatestLetter2(letters, 'c');
-        nextGreatestLetter3(letters, 'c');
+        //nextGreatestLetter2(letters, 'c');
+        //nextGreatestLetter3(letters, 'c');
     }
 
     /**

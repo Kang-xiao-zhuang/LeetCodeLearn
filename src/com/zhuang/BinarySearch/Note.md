@@ -589,3 +589,171 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/a855e464c16a444d9b5727e35bd8b9cc.png)
+
+#### [69. x 的平方根 ](https://leetcode.cn/problems/sqrtx/)
+
+给你一个非负整数 `x` ，计算并返回 `x` 的 **算术平方根** 。
+
+由于返回类型是整数，结果只保留 **整数部分** ，小数部分将被 **舍去 。**
+
+**注意：**不允许使用任何内置指数函数和算符，例如 `pow(x, 0.5)` 或者 `x ** 0.5` 。
+
+ 
+
+**示例 1：**
+
+```
+输入：x = 4
+输出：2
+```
+
+**示例 2：**
+
+```
+输入：x = 8
+输出：2
+解释：8 的算术平方根是 2.82842..., 由于返回类型是整数，小数部分将被舍去。
+```
+
+ 
+
+**提示：**
+
+- `0 <= x <= 231 - 1`
+
+
+
+二分
+
+```java
+class Solution {
+    public int mySqrt(int x) {
+        int left=0;
+        int right=x;
+        int res=-1;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            if((long)mid*mid<=x){
+                res=mid;
+                left=mid+1;
+            }else{
+                right=mid-1;
+            }
+        }
+        return res;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f07ac269fdde416b8e5b4b08af7b0d1a.png)
+
+#### [744. 寻找比目标字母大的最小字母](https://leetcode.cn/problems/find-smallest-letter-greater-than-target/)
+
+给你一个排序后的字符列表 `letters` ，列表中只包含小写英文字母。另给出一个目标字母 `target`，请你寻找在这一有序列表里比目标字母大的最小字母。
+
+在比较时，字母是依序循环出现的。举个例子：
+
+- 如果目标字母 `target = 'z'` 并且字符列表为 `letters = ['a', 'b']`，则答案返回 `'a'`
+
+ 
+
+**示例 1：**
+
+```
+输入: letters = ["c", "f", "j"]，target = "a"
+输出: "c"
+```
+
+**示例 2:**
+
+```
+输入: letters = ["c","f","j"], target = "c"
+输出: "f"
+```
+
+**示例 3:**
+
+```
+输入: letters = ["c","f","j"], target = "d"
+输出: "f"
+```
+
+ 
+
+**提示：**
+
+- `2 <= letters.length <= 104`
+- `letters[i]` 是一个小写字母
+- `letters` 按非递减顺序排序
+- `letters` 最少包含两个不同的字母
+- `target` 是一个小写字母
+
+
+
+遍历即可，数组是排序过的，循环比较即可
+
+```java
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target) {
+        for (char letter : letters) {
+            if (letter > target) {
+                return letter;
+            }
+        }
+        return letters[0];
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c203307e3ba14001b4eaca64c10df6a7.png)
+
+
+
+记录出现的字符
+
+
+
+```java
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target) {
+         boolean[] seen = new boolean[26];
+        for (char c : letters) {
+            seen[c - 'a'] = true;
+        }
+        while (true) {
+            target++;
+            if (target > 'z') {
+                target = 'a';
+            }
+            if (seen[target - 'a']) {
+                return target;
+            }
+        }
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/7ffb9e4f16184d96b8c07d7a8ab967ce.png)
+
+二分法
+
+```java
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target) {
+         int left = 0;
+        int right = letters.length;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (letters[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        // 索引%数组长度可以得到索引值，可以通过索引获取到数组中的数
+        return letters[left % letters.length];
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/69de2ae08f57482792c3f8e29c3e238a.png)
