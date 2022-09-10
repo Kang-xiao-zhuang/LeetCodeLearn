@@ -185,4 +185,69 @@ public class Solution002 {
         System.out.println(Arrays.toString(ans));
         return ans;
     }
+
+    public static int[] searchRange2(int[] nums, int target) {
+        int leftIdx = binarySearch(nums, target, true);
+        int rigfhtIdx = binarySearch(nums, target, false) - 1;
+        if (leftIdx <= rigfhtIdx && rigfhtIdx < nums.length && nums[leftIdx] == target && nums[rigfhtIdx] == target) {
+            return new int[]{leftIdx, rigfhtIdx};
+        }
+        return new int[]{-1, -1};
+    }
+
+    /**
+     * @param nums   数组
+     * @param target 目标值
+     * @param lower  布尔
+     * @return int
+     */
+    public static int binarySearch(int[] nums, int target, boolean lower) {
+        int left = 0, right = nums.length - 1, ans = nums.length;
+        while (left <= right) {
+            int mid = (left + right) >> 1;
+            if (nums[mid] > target || (lower && nums[mid] >= target)) {
+                right = mid - 1;
+                ans = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    public static int[] searchRange3(int[] nums, int target) {
+        int[] res = new int[]{-1, -1};
+        res[0] = binarySearch(nums, target, true);
+        res[1] = binarySearch(nums, target, false);
+        return res;
+    }
+
+
+    /**
+     * @param nums        数组
+     * @param target      目标值
+     * @param leftOrRight 为true找左边界 false找右边界
+     * @return int
+     */
+    public static int binarySearch2(int[] nums, int target, boolean leftOrRight) {
+        int cnt = -1;
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right) >> 1;
+            if (target < nums[mid]) {
+                right = mid - 1;
+            } else if (target > nums[mid]) {
+                left = mid + 1;
+            } else {
+                cnt = mid;
+                //处理target == nums[mid]
+                if (leftOrRight) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+        }
+        return cnt;
+    }
 }
