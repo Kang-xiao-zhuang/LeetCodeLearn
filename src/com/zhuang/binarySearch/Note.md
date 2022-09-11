@@ -934,3 +934,160 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/cc5330344dd44cd9a9d7c0f63d8e098f.png)
+
+#### [441. 排列硬币](https://leetcode.cn/problems/arranging-coins/)
+
+你总共有 `n` 枚硬币，并计划将它们按阶梯状排列。对于一个由 `k` 行组成的阶梯，其第 `i` 行必须正好有 `i` 枚硬币。阶梯的最后一行 **可能** 是不完整的。
+
+给你一个数字 `n` ，计算并返回可形成 **完整阶梯行** 的总行数。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2021/04/09/arrangecoins1-grid.jpg)
+
+```
+输入：n = 5
+输出：2
+解释：因为第三行不完整，所以返回 2 。
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2021/04/09/arrangecoins2-grid.jpg)
+
+```
+输入：n = 8
+输出：3
+解释：因为第四行不完整，所以返回 3 。
+```
+
+ 
+
+**提示：**
+
+- `1 <= n <= 231 - 1`
+
+迭代
+
+```java
+class Solution {
+    public int arrangeCoins(int n) {
+        int i = 1;
+        while (n >= i) {
+            n -= i;
+            i++;
+        }
+        return i - 1;
+    }
+}
+```
+
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/1bc75823abab4b8aafb909c259fc3cc6.png)
+
+二分
+
+```java
+class Solution {
+    public int arrangeCoins(int n) {
+        long left = 1, right = n;
+        while (left < right) {
+            long mid = (left + right + 1) >> 1;
+            if (mid * (mid + 1) / 2 <= n) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return (int) left;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fe45f7f9db244f22b710c28aa2667d2b.png)
+
+#### [1539. 第 k 个缺失的正整数](https://leetcode.cn/problems/kth-missing-positive-number/)
+
+给你一个 **严格升序排列** 的正整数数组 `arr` 和一个整数 `k` 。
+
+请你找到这个数组里第 `k` 个缺失的正整数。
+
+ 
+
+**示例 1：**
+
+```
+输入：arr = [2,3,4,7,11], k = 5
+输出：9
+解释：缺失的正整数包括 [1,5,6,8,9,10,12,13,...] 。第 5 个缺失的正整数为 9 。
+```
+
+**示例 2：**
+
+```
+输入：arr = [1,2,3,4], k = 2
+输出：6
+解释：缺失的正整数包括 [5,6,7,...] 。第 2 个缺失的正整数为 6 。
+```
+
+ 
+
+**提示：**
+
+- `1 <= arr.length <= 1000`
+- `1 <= arr[i] <= 1000`
+- `1 <= k <= 1000`
+- 对于所有 `1 <= i < j <= arr.length` 的 `i` 和 `j` 满足 `arr[i] < arr[j]` 
+
+ 
+
+**进阶：**
+
+你可以设计一个时间复杂度小于 O(n) 的算法解决此问题吗？
+
+
+
+迭代
+
+```java
+class Solution {
+    public int findKthPositive(int[] arr, int k) {
+         for (int i : arr) {
+            if (i <= k) {
+                k++;
+            }
+        }
+        return k;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6c77784cefbf4c3dbfe5969d3ec4d6b9.png)
+
+```java
+class Solution {
+    public int findKthPositive(int[] arr, int k) {
+        if (arr[0] > k) {
+            return k;
+        }
+
+        int l = 0, r = arr.length;
+        while (l < r) {
+            int mid = (l + r) >> 1;
+            int x = mid < arr.length ? arr[mid] : Integer.MAX_VALUE;
+            if (x - mid - 1 >= k) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+
+        return k - (arr[l - 1] - (l - 1) - 1) + arr[l - 1];
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/d62017fee8d7436f9a6712bc43262ab3.png)

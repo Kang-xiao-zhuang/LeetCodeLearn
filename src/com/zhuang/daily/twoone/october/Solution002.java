@@ -18,7 +18,7 @@ public class Solution002 {
         //findRepeatedDnaSequences(s);
 
         //arrangeCoins(5);
-        //arrangeCoins2(5);
+        arrangeCoins2(5);
         //arrangeCoins3(5);
 
         //numberToWords(123);
@@ -26,8 +26,8 @@ public class Solution002 {
 
         //divide(10, 3);
 
-        int[] arr={24,69,100,99,79,78,67,36,26,19};
-        peakIndexInMountainArray2(arr);
+        //int[] arr={24,69,100,99,79,78,67,36,26,19};
+        //peakIndexInMountainArray2(arr);
 
         //fizzBuzz(3);
     }
