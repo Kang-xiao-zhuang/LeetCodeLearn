@@ -43,4 +43,26 @@ public class Solution005 {
         }
         return arr[left] - left - 1 >= k ? k : k + left + 1;
     }
+
+    /**
+     * https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/
+     *
+     * @param numbers 整数数组
+     * @param target  目标数
+     * @return 以长度为 2 的整数数组 [index1, index2] 的形式返回这两个整数的下标 index1 和 index2
+     */
+    public int[] twoSum(int[] numbers, int target) {
+        int l = 0;
+        int r = numbers.length - 1;
+        while (l <= r) {
+            if (numbers[l] + numbers[r] == target) {
+                return new int[]{l + 1, r + 1};
+            } else if (numbers[l] + numbers[r] > target) {
+                r--;
+            } else {
+                l++;
+            }
+        }
+        return new int[]{-1, -1};
+    }
 }
