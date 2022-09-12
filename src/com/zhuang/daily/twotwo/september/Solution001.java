@@ -5,8 +5,13 @@ import java.util.PriorityQueue;
 
 public class Solution001 {
     public static void main(String[] args) {
+        Solution001 solution001 = new Solution001();
         String[] logs = {"d1/", "d2/", "../", "d21/", "./"};
-        minOperations(logs);
+        solution001.minOperations(logs);
+        int[] nums = {0, 4, 3, 0, 4};
+        // solution001.specialArray(nums);
+        //solution001.specialArray2(nums);
+        solution001.specialArray3(nums);
     }
 
 
@@ -17,7 +22,7 @@ public class Solution001 {
      * @param logs 字符串列表
      * @return 返回主文件夹所需的最小步数
      */
-    public static int minOperations(String[] logs) {
+    public int minOperations(String[] logs) {
         int depth = 0;
         for (String log : logs) {
             if ("./".equals(log)) {
@@ -92,5 +97,58 @@ public class Solution001 {
             totalq -= pq.poll();
         }
         return res;
+    }
+
+    /**
+     * https://leetcode.cn/problems/special-array-with-x-elements-greater-than-or-equal-x/
+     * 9.12
+     *
+     * @param nums 数组
+     * @return 特征值
+     */
+    public int specialArray(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        for (int i = 0, j = n - 1; i < j; i++, j--) {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+        for (int i = 1; i <= n; ++i) {
+            if (nums[i - 1] >= i && (i == n || nums[i] < i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int specialArray2(int[] nums) {
+        int[] cnts = new int[1010];
+        for (int x : nums) {
+            cnts[x]++;
+        }
+        for (int i = 1009, tot = 0; i >= 0; i--) {
+            tot += cnts[i];
+            if (i == tot) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int specialArray3(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i <= n; i++) {
+            int cnt = 0;
+            for (int num : nums) {
+                if (num >= i) {
+                    cnt++;
+                }
+            }
+            if (cnt == i) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
