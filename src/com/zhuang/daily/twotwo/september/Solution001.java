@@ -12,6 +12,7 @@ public class Solution001 {
         // solution001.specialArray(nums);
         //solution001.specialArray2(nums);
         solution001.specialArray3(nums);
+        solution001.maximumSwap(2736);
     }
 
 
@@ -150,5 +151,32 @@ public class Solution001 {
             }
         }
         return -1;
+    }
+
+    /**
+     * https://leetcode.cn/problems/maximum-swap/
+     * 9.13
+     *
+     * @param num 非负整数
+     * @return 最大整数
+     */
+    public int maximumSwap(int num) {
+        char[] charArray = String.valueOf(num).toCharArray();
+        int n = charArray.length;
+        int maxNum = num;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                swap(charArray, i, j);
+                maxNum = Math.max(maxNum, Integer.parseInt(new String(charArray)));
+                swap(charArray, i, j);
+            }
+        }
+        return maxNum;
+    }
+
+    public void swap(char[] charArray, int i, int j) {
+        char temp = charArray[i];
+        charArray[i] = charArray[j];
+        charArray[j] = temp;
     }
 }

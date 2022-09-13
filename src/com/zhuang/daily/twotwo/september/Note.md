@@ -312,3 +312,58 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2d5f7c8496274e758a71b3bd28dc5c11.png)
+
+#### [670. 最大交换](https://leetcode.cn/problems/maximum-swap/)
+
+难度中等281收藏分享切换为英文接收动态反馈
+
+给定一个非负整数，你**至多**可以交换一次数字中的任意两位。返回你能得到的最大值。
+
+**示例 1 :**
+
+```
+输入: 2736
+输出: 7236
+解释: 交换数字2和数字7。
+```
+
+**示例 2 :**
+
+```
+输入: 9973
+输出: 9973
+解释: 不需要交换。
+```
+
+**注意:**
+
+1. 给定数字的范围是 [0, 10的8次方]
+
+
+
+```java
+class Solution {
+    public int maximumSwap(int num) {
+       char[] charArray = String.valueOf(num).toCharArray();
+        int n = charArray.length;
+        int maxNum = num;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                swap(charArray, i, j);
+                maxNum = Math.max(maxNum, Integer.parseInt(new String(charArray)));
+                swap(charArray, i, j);
+            }
+        }
+        return maxNum;
+    }
+
+    public void swap(char[] charArray, int i, int j) {
+        char temp = charArray[i];
+        charArray[i] = charArray[j];
+        charArray[j] = temp;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/543b103b3eec4ce3894e454f827a686e.png)
+
