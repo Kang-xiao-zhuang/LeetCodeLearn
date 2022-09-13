@@ -8,7 +8,9 @@ package com.zhuang.binarySearch;
  */
 public class Solution005 {
     public static void main(String[] args) {
-
+        Solution005 solution005 = new Solution005();
+        int[][] matrix = {{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}};
+        solution005.searchMatrix(matrix, 3);
     }
 
 
@@ -64,5 +66,39 @@ public class Solution005 {
             }
         }
         return new int[]{-1, -1};
+    }
+
+    /**
+     * https://leetcode.cn/problems/count-negative-numbers-in-a-sorted-matrix/
+     *
+     * @param grid 矩阵
+     * @return 负数 的数目
+     */
+    public int countNegatives(int[][] grid) {
+        int cnt = 0;
+        for (int[] x : grid) {
+            for (int y : x) {
+                if (y < 0) {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int left = 0;
+        int right = m * n - 1;
+        while (left < right) {
+            int mid = left + right + 1 >> 1;
+            if (matrix[mid / n][mid % n] <= target) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return matrix[left / n][right % n] == target;
     }
 }

@@ -1160,3 +1160,121 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/a855e766d6ce4d9fa5ed6226e93ac293.png)
+
+#### [1351. 统计有序矩阵中的负数](https://leetcode.cn/problems/count-negative-numbers-in-a-sorted-matrix/)
+
+给你一个 `m * n` 的矩阵 `grid`，矩阵中的元素无论是按行还是按列，都以非递增顺序排列。 请你统计并返回 `grid` 中 **负数** 的数目。
+
+ 
+
+**示例 1：**
+
+```
+输入：grid = [[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]]
+输出：8
+解释：矩阵中共有 8 个负数。
+```
+
+**示例 2：**
+
+```
+输入：grid = [[3,2],[1,0]]
+输出：0
+```
+
+ 
+
+**提示：**
+
+- `m == grid.length`
+- `n == grid[i].length`
+- `1 <= m, n <= 100`
+- `-100 <= grid[i][j] <= 100`
+
+ 
+
+**进阶：**你可以设计一个时间复杂度为 `O(n + m)` 的解决方案吗？
+
+
+
+**暴力**
+
+```java
+class Solution {
+    public int countNegatives(int[][] grid) {
+         int cnt = 0;
+        for (int[] x : grid) {
+            for (int y : x) {
+                if (y < 0) {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/0958231b7d364efc820eacd0a8a346c7.png)
+
+#### [74. 搜索二维矩阵](https://leetcode.cn/problems/search-a-2d-matrix/)
+
+编写一个高效的算法来判断 `m x n` 矩阵中，是否存在一个目标值。该矩阵具有如下特性：
+
+- 每行中的整数从左到右按升序排列。
+- 每行的第一个整数大于前一行的最后一个整数。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/10/05/mat.jpg)
+
+```
+输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/11/25/mat2.jpg)
+
+```
+输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13
+输出：false
+```
+
+ 
+
+**提示：**
+
+- `m == matrix.length`
+- `n == matrix[i].length`
+- `1 <= m, n <= 100`
+- `-104 <= matrix[i][j], target <= 104`
+
+
+
+**二分**
+
+```java
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int left = 0;
+        int right = m * n - 1;
+        while (left < right) {
+            int mid = left + right + 1 >> 1;
+            if (matrix[mid / n][mid % n] <= target) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return matrix[left / n][right % n] == target;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/5456819955b14bebba8b638f06d5ce27.png)
