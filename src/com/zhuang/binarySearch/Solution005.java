@@ -86,6 +86,13 @@ public class Solution005 {
         return cnt;
     }
 
+    /**
+     * https://leetcode.cn/problems/search-a-2d-matrix/
+     *
+     * @param matrix 矩阵
+     * @param target 值
+     * @return 布尔
+     */
     public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length;
         int n = matrix[0].length;
