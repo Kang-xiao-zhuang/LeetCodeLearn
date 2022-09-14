@@ -179,4 +179,21 @@ public class Solution001 {
         charArray[i] = charArray[j];
         charArray[j] = temp;
     }
+
+    /**
+     * https://leetcode.cn/problems/mean-of-array-after-removing-some-elements/
+     * 9.14
+     *
+     * @param arr 数组
+     * @return 剩余数字的平均值
+     */
+    public double trimMean(int[] arr) {
+        int n = arr.length;
+        Arrays.sort(arr);
+        int partialSum = 0;
+        for (int i = n / 20; i < 19 * n / 20; i++) {
+            partialSum += arr[i];
+        }
+        return partialSum / (n * 0.9);
+    }
 }
