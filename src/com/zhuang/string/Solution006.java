@@ -247,7 +247,7 @@ public class Solution006 {
         long b = (long) Math.sqrt(c);
 
         while (a <= b) {
-            long sum = a * a + b * b;
+            long sum = (long) a * a + b * b;
             if (sum == c) {
                 System.out.println(true);
                 return true;
