@@ -520,3 +520,113 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2fe390ffc34a4f4da84ef76d985a9c8c.png)
+
+#### [850. 矩形面积 II](https://leetcode.cn/problems/rectangle-area-ii/)
+
+我们给出了一个（轴对齐的）二维矩形列表 `rectangles` 。 对于 `rectangle[i] = [x1, y1, x2, y2]`，其中（x1，y1）是矩形 `i` 左下角的坐标， `(xi1, yi1)` 是该矩形 **左下角** 的坐标， `(xi2, yi2)` 是该矩形 **右上角** 的坐标。
+
+计算平面中所有 `rectangles` 所覆盖的 **总面积** 。任何被两个或多个矩形覆盖的区域应只计算 **一次** 。
+
+返回 ***总面积*** 。因为答案可能太大，返回 `109 + 7` 的 **模** 。
+
+ 
+
+**示例 1：**
+
+![img](https://s3-lc-upload.s3.amazonaws.com/uploads/2018/06/06/rectangle_area_ii_pic.png)
+
+```
+输入：rectangles = [[0,0,2,2],[1,0,2,3],[1,0,3,1]]
+输出：6
+解释：如图所示，三个矩形覆盖了总面积为6的区域。
+从(1,1)到(2,2)，绿色矩形和红色矩形重叠。
+从(1,0)到(2,3)，三个矩形都重叠。
+```
+
+**示例 2：**
+
+```
+输入：rectangles = [[0,0,1000000000,1000000000]]
+输出：49
+解释：答案是 1018 对 (109 + 7) 取模的结果， 即 49 。
+```
+
+ 
+
+**提示：**
+
+- `1 <= rectangles.length <= 200`
+- `rectanges[i].length = 4`
+- `0 <= xi1, yi1, xi2, yi2 <= 109`
+- 矩形叠加覆盖后的总面积不会超越 `2^63 - 1` ，这意味着可以用一个 64 位有符号整数来保存面积结果
+
+```java
+class Solution {
+    public int rectangleArea(int[][] rectangles) {
+        final int MOD = 1000000007;
+        int n = rectangles.length;
+        Set<Integer> set = new HashSet<Integer>();
+        for (int[] rect : rectangles) {
+            // 下边界
+            set.add(rect[1]);
+            // 上边界
+            set.add(rect[3]);
+        }
+        List<Integer> hbound = new ArrayList<Integer>(set);
+        Collections.sort(hbound);
+        int m = hbound.size();
+        // 「思路与算法部分」的 length 数组并不需要显式地存储下来
+        // length[i] 可以通过 hbound[i+1] - hbound[i] 得到
+        int[] seg = new int[m - 1];
+
+        List<int[]> sweep = new ArrayList<int[]>();
+        for (int i = 0; i < n; ++i) {
+            // 左边界
+            sweep.add(new int[]{rectangles[i][0], i, 1});
+            // 右边界
+            sweep.add(new int[]{rectangles[i][2], i, -1});
+        }
+        Collections.sort(sweep, (a, b) -> {
+            if (a[0] != b[0]) {
+                return a[0] - b[0];
+            } else if (a[1] != b[1]) {
+                return a[1] - b[1];
+            } else {
+                return a[2] - b[2];
+            }
+        });
+
+        long ans = 0;
+        for (int i = 0; i < sweep.size(); ++i) {
+            int j = i;
+            while (j + 1 < sweep.size() && sweep.get(i)[0] == sweep.get(j + 1)[0]) {
+                ++j;
+            }
+            if (j + 1 == sweep.size()) {
+                break;
+            }
+            // 一次性地处理掉一批横坐标相同的左右边界
+            for (int k = i; k <= j; ++k) {
+                int[] arr = sweep.get(k);
+                int idx = arr[1], diff = arr[2];
+                int left = rectangles[idx][1], right = rectangles[idx][3];
+                for (int x = 0; x < m - 1; ++x) {
+                    if (left <= hbound.get(x) && hbound.get(x + 1) <= right) {
+                        seg[x] += diff;
+                    }
+                }
+            }
+            int cover = 0;
+            for (int k = 0; k < m - 1; ++k) {
+                if (seg[k] > 0) {
+                    cover += (hbound.get(k + 1) - hbound.get(k));
+                }
+            }
+            ans += (long) cover * (sweep.get(j + 1)[0] - sweep.get(j)[0]);
+            i = j;
+        }
+        return (int) (ans % MOD);
+    }
+}
+```
+
