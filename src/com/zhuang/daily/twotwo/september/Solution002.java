@@ -11,7 +11,8 @@ import java.util.*;
 public class Solution002 {
 
     public static void main(String[] args) {
-
+        Solution002 solution002 = new Solution002();
+        solution002.maxLengthBetweenEqualCharacters("abca");
     }
 
 
@@ -86,5 +87,26 @@ public class Solution002 {
             i = j;
         }
         return (int) (ans % MOD);
+    }
+
+    /**
+     * https://leetcode.cn/problems/largest-substring-between-two-equal-characters/
+     * 9.17
+     *
+     * @param s 字符串
+     * @return 两个相同字符之间的最长子字符串的长度
+     */
+    public int maxLengthBetweenEqualCharacters(String s) {
+        int[] firestIndex = new int[26];
+        Arrays.fill(firestIndex, -1);
+        int maxLen = -1;
+        for (int i = 0; i < s.length(); i++) {
+            if (firestIndex[s.charAt(i) - 'a'] < 0) {
+                firestIndex[s.charAt(i) - 'a'] = i;
+            } else {
+                maxLen = Math.max(maxLen, i - firestIndex[s.charAt(i) - 'a'] - 1);
+            }
+        }
+        return maxLen;
     }
 }
