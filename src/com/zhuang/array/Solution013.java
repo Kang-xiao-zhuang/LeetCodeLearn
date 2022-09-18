@@ -11,10 +11,10 @@ import java.util.HashMap;
  */
 public class Solution013 {
     public static void main(String[] args) {
-        //int[] nums = {2, 2, 3, 4};
+        int[] nums = {2, 2, 3, 4};
         //triangleNumber(nums);
         //triangleNumber2(nums);
-        //triangleNumber3(nums);
+        triangleNumber3(nums);
 
 
         //int[][] images = {{1, 1, 0}, {1, 0, 1}, {0, 0, 0}};
@@ -24,8 +24,8 @@ public class Solution013 {
         //int[] nums = {1, 0, 1, 0, 1};
         //numSubarraysWithSum(nums, 2);
 
-        int[] customers = {1, 0, 1, 2, 1, 1, 7, 5}, grumpy = {0, 1, 0, 1, 0, 1, 0, 1};
-        maxSatisfied(customers, grumpy, 3);
+        //int[] customers = {1, 0, 1, 2, 1, 1, 7, 5}, grumpy = {0, 1, 0, 1, 0, 1, 0, 1};
+        //maxSatisfied(customers, grumpy, 3);
 
     }
 
@@ -57,8 +57,8 @@ public class Solution013 {
     /**
      * 排序+二分法
      *
-     * @param nums
-     * @return
+     * @param nums 非负整数数组
+     * @return 可以组成三角形的个数
      */
     public static int triangleNumber2(int[] nums) {
         Arrays.sort(nums);
@@ -89,8 +89,8 @@ public class Solution013 {
     /**
      * 排序+双指针
      *
-     * @param nums
-     * @return
+     * @param nums 非负整数数组
+     * @return 可以组成三角形的个数
      */
     public static int triangleNumber3(int[] nums) {
         Arrays.sort(nums);
