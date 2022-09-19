@@ -2108,3 +2108,145 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/b84c74ace1834b73bb57efb43d97bbff.png)
+
+#### [1894. 找到需要补充粉笔的学生编号](https://leetcode.cn/problems/find-the-student-that-will-replace-the-chalk/)
+
+一个班级里有 `n` 个学生，编号为 `0` 到 `n - 1` 。每个学生会依次回答问题，编号为 `0` 的学生先回答，然后是编号为 `1` 的学生，以此类推，直到编号为 `n - 1` 的学生，然后老师会重复这个过程，重新从编号为 `0` 的学生开始回答问题。
+
+给你一个长度为 `n` 且下标从 `0` 开始的整数数组 `chalk` 和一个整数 `k` 。一开始粉笔盒里总共有 `k` 支粉笔。当编号为 `i` 的学生回答问题时，他会消耗 `chalk[i]` 支粉笔。如果剩余粉笔数量 **严格小于** `chalk[i]` ，那么学生 `i` 需要 **补充** 粉笔。
+
+请你返回需要 **补充** 粉笔的学生 **编号** 。
+
+ 
+
+**示例 1：**
+
+```
+输入：chalk = [5,1,5], k = 22
+输出：0
+解释：学生消耗粉笔情况如下：
+- 编号为 0 的学生使用 5 支粉笔，然后 k = 17 。
+- 编号为 1 的学生使用 1 支粉笔，然后 k = 16 。
+- 编号为 2 的学生使用 5 支粉笔，然后 k = 11 。
+- 编号为 0 的学生使用 5 支粉笔，然后 k = 6 。
+- 编号为 1 的学生使用 1 支粉笔，然后 k = 5 。
+- 编号为 2 的学生使用 5 支粉笔，然后 k = 0 。
+编号为 0 的学生没有足够的粉笔，所以他需要补充粉笔。
+```
+
+**示例 2：**
+
+```
+输入：chalk = [3,4,1,2], k = 25
+输出：1
+解释：学生消耗粉笔情况如下：
+- 编号为 0 的学生使用 3 支粉笔，然后 k = 22 。
+- 编号为 1 的学生使用 4 支粉笔，然后 k = 18 。
+- 编号为 2 的学生使用 1 支粉笔，然后 k = 17 。
+- 编号为 3 的学生使用 2 支粉笔，然后 k = 15 。
+- 编号为 0 的学生使用 3 支粉笔，然后 k = 12 。
+- 编号为 1 的学生使用 4 支粉笔，然后 k = 8 。
+- 编号为 2 的学生使用 1 支粉笔，然后 k = 7 。
+- 编号为 3 的学生使用 2 支粉笔，然后 k = 5 。
+- 编号为 0 的学生使用 3 支粉笔，然后 k = 2 。
+编号为 1 的学生没有足够的粉笔，所以他需要补充粉笔。
+```
+
+ 
+
+**提示：**
+
+- `chalk.length == n`
+- `1 <= n <= 105`
+- `1 <= chalk[i] <= 105`
+- `1 <= k <= 109`
+
+```java
+class Solution {
+    public int chalkReplacer(int[] chalk, int k) {
+        int len = chalk.length;
+        // 注意溢出
+        long sum = 0;
+        for (int num : chalk) {
+            // 计算数组中的粉笔总和
+            sum += num;
+        }
+        // 对k取模
+        k %= sum;
+        int res = -1;
+        for (int i = 0; i < len; i++) {
+            if (chalk[i] > k) {
+                res = i;
+                break;
+            }
+            k -= chalk[i];
+        }
+        System.out.println(res);
+        return res;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/31466899c3a1434fa3f6896a569d1f97.png)
+
+#### [658. 找到 K 个最接近的元素](https://leetcode.cn/problems/find-k-closest-elements/)
+
+给定一个 **排序好** 的数组 `arr` ，两个整数 `k` 和 `x` ，从数组中找到最靠近 `x`（两数之差最小）的 `k` 个数。返回的结果必须要是按升序排好的。
+
+整数 `a` 比整数 `b` 更接近 `x` 需要满足：
+
+- `|a - x| < |b - x|` 或者
+- `|a - x| == |b - x|` 且 `a < b`
+
+ 
+
+**示例 1：**
+
+```
+输入：arr = [1,2,3,4,5], k = 4, x = 3
+输出：[1,2,3,4]
+```
+
+**示例 2：**
+
+```
+输入：arr = [1,2,3,4,5], k = 4, x = -1
+输出：[1,2,3,4]
+```
+
+ 
+
+**提示：**
+
+- `1 <= k <= arr.length`
+- `1 <= arr.length <= 104`
+- `arr` 按 **升序** 排列
+- `-104 <= arr[i], x <= 104`
+
+```java
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        int len = arr.length;
+        int left = 0;
+        int right = len - 1;
+
+        int removeNums = len - k;
+        while (removeNums > 0) {
+            if (x - arr[left] <= arr[right] - x) {
+                right--;
+            } else {
+                left++;
+            }
+            removeNums--;
+        }
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = left; i < left + k; i++) {
+            res.add(arr[i]);
+        }
+        System.out.println(res.toString());
+        return res;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/125b439ae4d74c7c94d2bf56ebb9854a.png)
