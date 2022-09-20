@@ -2250,3 +2250,180 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/125b439ae4d74c7c94d2bf56ebb9854a.png)
+
+#### [300. 最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/)
+
+给你一个整数数组 `nums` ，找到其中最长严格递增子序列的长度。
+
+**子序列** 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，`[3,6,2,7]` 是数组 `[0,3,1,6,2,2,7]` 的子序列。
+
+**示例 1：**
+
+```
+输入：nums = [10,9,2,5,3,7,101,18]
+输出：4
+解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。
+```
+
+**示例 2：**
+
+```
+输入：nums = [0,1,0,3,2,3]
+输出：4
+```
+
+**示例 3：**
+
+```
+输入：nums = [7,7,7,7,7,7,7]
+输出：1
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 2500`
+- `-104 <= nums[i] <= 104`
+
+ 
+
+**进阶：**
+
+- 你能将算法的时间复杂度降低到 `O(n log(n))` 吗?
+
+**双栈**
+
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+       // 定义两个栈
+        Stack<Integer> s1 = new Stack<>();
+        Stack<Integer> s2 = new Stack<>();
+        // 栈1加入数组首元素
+        s1.add(nums[0]);
+        // 遍历数组
+        for (int i = 1; i < nums.length; i++) {
+            // 栈顶元素小于数组值，加加入到栈1
+            if (s1.peek() < nums[i]) {
+                s1.add(nums[i]);
+                // 栈顶元素大于数组值，且栈不包含数组值
+            } else if (s1.peek() > nums[i] && !s1.contains(nums[i])) {
+                // 栈1弹出数组值
+                while (!s1.isEmpty() && s1.peek() >= nums[i]) {
+                    // 将栈1弹出的值加入到栈2
+                    s2.add(s1.pop());
+                }
+                // 栈2弹出值
+                s2.pop();
+                // 继续添加下一个数组值
+                s1.add(nums[i]);
+                while (!s2.isEmpty()) {
+                  // 栈1加入栈2弹出的值
+                    s1.add(s2.pop());
+                }
+            }
+        }
+        return s1.size();
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8ef1209e94574df08ca83b34eb077b5e.png)
+
+#### [1760. 袋子里最少数目的球](https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/)
+
+给你一个整数数组 `nums` ，其中 `nums[i]` 表示第 `i` 个袋子里球的数目。同时给你一个整数 `maxOperations` 。
+
+你可以进行如下操作至多 `maxOperations` 次：
+
+- 选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有
+
+   
+
+  正整数
+
+   个球。
+
+  - 比方说，一个袋子里有 `5` 个球，你可以把它们分到两个新袋子里，分别有 `1` 个和 `4` 个球，或者分别有 `2` 个和 `3` 个球。
+
+你的开销是单个袋子里球数目的 **最大值** ，你想要 **最小化** 开销。
+
+请你返回进行上述操作后的最小开销。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [9], maxOperations = 2
+输出：3
+解释：
+- 将装有 9 个球的袋子分成装有 6 个和 3 个球的袋子。[9] -> [6,3] 。
+- 将装有 6 个球的袋子分成装有 3 个和 3 个球的袋子。[6,3] -> [3,3,3] 。
+装有最多球的袋子里装有 3 个球，所以开销为 3 并返回 3 。
+```
+
+**示例 2：**
+
+```
+输入：nums = [2,4,8,2], maxOperations = 4
+输出：2
+解释：
+- 将装有 8 个球的袋子分成装有 4 个和 4 个球的袋子。[2,4,8,2] -> [2,4,4,4,2] 。
+- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,4,4,4,2] -> [2,2,2,4,4,2] 。
+- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,2,2,4,4,2] -> [2,2,2,2,2,4,2] 。
+- 将装有 4 个球的袋子分成装有 2 个和 2 个球的袋子。[2,2,2,2,2,4,2] -> [2,2,2,2,2,2,2,2] 。
+装有最多球的袋子里装有 2 个球，所以开销为 2 并返回 2 。
+```
+
+**示例 3：**
+
+```
+输入：nums = [7,17], maxOperations = 2
+输出：7
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 105`
+- `1 <= maxOperations, nums[i] <= 109`
+
+
+
+**二分**
+
+```java
+class Solution {
+    public int minimumSize(int[] nums, int maxOperations) {
+        int ans = 0;
+        int left = 1, right = 1000000000;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            int cnt = 0;
+            for (int num : nums) {
+                if (num > mid) {
+                    cnt += num / mid;
+                    if (num % mid == 0) {
+                        cnt -= 1;
+                    }
+                    if (cnt > maxOperations) {
+                        break;
+                    }
+                }
+            }
+            if (cnt > maxOperations) {
+                left = mid + 1;
+            } else {
+                ans = mid;
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fd8a0c3480b34d42895f2aadd7d6decb.png)

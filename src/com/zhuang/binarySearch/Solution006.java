@@ -11,8 +11,10 @@ public class Solution006 {
         Solution006 solution006 = new Solution006();
         int[] nums1 = {55, 30, 5, 4, 2};
         int[] nums2 = {100, 20, 10, 10, 5};
+        int[] nums = {9};
         solution006.maxDistance(nums1, nums2);
         solution006.maxDistance2(nums1, nums2);
+        solution006.minimumSize(nums, 2);
     }
 
     /**
@@ -54,5 +56,39 @@ public class Solution006 {
             }
         }
         return res;
+    }
+
+    /**
+     * https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/
+     *
+     * @param nums          整数数组
+     * @param maxOperations 整数
+     * @return 最小开销
+     */
+    public int minimumSize(int[] nums, int maxOperations) {
+        int ans = 0;
+        int left = 1, right = 1000000000;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            int cnt = 0;
+            for (int num : nums) {
+                if (num > mid) {
+                    cnt += num / mid;
+                    if (num % mid == 0) {
+                        cnt -= 1;
+                    }
+                    if (cnt > maxOperations) {
+                        break;
+                    }
+                }
+            }
+            if (cnt > maxOperations) {
+                left = mid + 1;
+            } else {
+                ans = mid;
+                right = mid - 1;
+            }
+        }
+        return ans;
     }
 }
