@@ -193,4 +193,32 @@ public class Solution002 {
         return nums;
     }
 
+    /**
+     * https://leetcode.cn/problems/partition-to-k-equal-sum-subsets/
+     * 9.20
+     *
+     * @param nums 数组
+     * @param k    正整数
+     * @return 是否有可能把这个数组分成 k 个非空子集，其总和都相等
+     */
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int n = nums.length;
+        if (n < k) return false;
+        int sum = Arrays.stream(nums).sum();
+        if (sum % k != 0) return false;
+        Arrays.sort(nums);
+        int[] dp = new int[1 << n], curSum = new int[1 << n];
+        dp[0] = 1;
+        for (int i = 0; i < 1 << n; i++) {
+            if (dp[i] == 0) continue;
+            for (int j = 0; j < n; j++) {
+                if (curSum[i] + nums[j] > sum / k) break;
+                if (((i >> j) & 1) == 0 && dp[i | (1 << j)] == 0) {
+                    curSum[i | (1 << j)] = (curSum[i] + nums[j]) % (sum / k);
+                    dp[i | (1 << j)] = 1;
+                }
+            }
+        }
+        return dp[(1 << n) - 1] == 1;
+    }
 }
