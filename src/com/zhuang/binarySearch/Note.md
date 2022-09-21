@@ -2427,3 +2427,150 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/fd8a0c3480b34d42895f2aadd7d6decb.png)
+
+#### [875. 爱吃香蕉的珂珂](https://leetcode.cn/problems/koko-eating-bananas/)
+
+珂珂喜欢吃香蕉。这里有 `n` 堆香蕉，第 `i` 堆中有 `piles[i]` 根香蕉。警卫已经离开了，将在 `h` 小时后回来。
+
+珂珂可以决定她吃香蕉的速度 `k` （单位：根/小时）。每个小时，她将会选择一堆香蕉，从中吃掉 `k` 根。如果这堆香蕉少于 `k` 根，她将吃掉这堆的所有香蕉，然后这一小时内不会再吃更多的香蕉。 
+
+珂珂喜欢慢慢吃，但仍然想在警卫回来前吃掉所有的香蕉。
+
+返回她可以在 `h` 小时内吃掉所有香蕉的最小速度 `k`（`k` 为整数）。
+
+ 
+
+
+
+**示例 1：**
+
+```
+输入：piles = [3,6,7,11], h = 8
+输出：4
+```
+
+**示例 2：**
+
+```
+输入：piles = [30,11,23,4,20], h = 5
+输出：30
+```
+
+**示例 3：**
+
+```
+输入：piles = [30,11,23,4,20], h = 6
+输出：23
+```
+
+ 
+
+**提示：**
+
+- `1 <= piles.length <= 104`
+- `piles.length <= h <= 109`
+- `1 <= piles[i] <= 109`
+
+```java
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int low = 1;
+        int high = 0;
+        for (int pile : piles) {
+            high = Math.max(high, pile);
+        }
+        int k = high;
+        while (low < high) {
+            int speed = (high - low) / 2 + low;
+            long time = getTime(piles, speed);
+            if (time <= h) {
+                k = speed;
+                high = speed;
+            } else {
+                low = speed + 1;
+            }
+        }
+        return k;
+    }
+
+    public long getTime(int[] piles, int speed) {
+        long time = 0;
+        for (int pile : piles) {
+            int curTime = (pile + speed - 1) / speed;
+            time += curTime;
+        }
+        return time;
+    }
+}
+```
+
+#### [1552. 两球之间的磁力](https://leetcode.cn/problems/magnetic-force-between-two-balls/)
+
+在代号为 C-137 的地球上，Rick 发现如果他将两个球放在他新发明的篮子里，它们之间会形成特殊形式的磁力。Rick 有 `n` 个空的篮子，第 `i` 个篮子的位置在 `position[i]` ，Morty 想把 `m` 个球放到这些篮子里，使得任意两球间 **最小磁力** 最大。
+
+已知两个球如果分别位于 `x` 和 `y` ，那么它们之间的磁力为 `|x - y|` 。
+
+给你一个整数数组 `position` 和一个整数 `m` ，请你返回最大化的最小磁力。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/08/16/q3v1.jpg)
+
+```
+输入：position = [1,2,3,4,7], m = 3
+输出：3
+解释：将 3 个球分别放入位于 1，4 和 7 的三个篮子，两球间的磁力分别为 [3, 3, 6]。最小磁力为 3 。我们没办法让最小磁力大于 3 。
+```
+
+**示例 2：**
+
+```
+输入：position = [5,4,3,2,1,1000000000], m = 2
+输出：999999999
+解释：我们使用位于 1 和 1000000000 的篮子时最小磁力最大。
+```
+
+ 
+
+**提示：**
+
+- `n == position.length`
+- `2 <= n <= 10^5`
+- `1 <= position[i] <= 10^9`
+- 所有 `position` 中的整数 **互不相同** 。
+- `2 <= m <= position.length`
+
+**二分**
+
+```java
+class Solution {
+    public int maxDistance(int[] position, int m) {
+        Arrays.sort(position);
+        int left = 1, right = position[position.length - 1] - position[0], ans = -1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (check(mid, position, m)) {
+                ans = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+    public boolean check(int x, int[] position, int m) {
+        int pre = position[0], cnt = 1;
+        for (int i = 1; i < position.length; ++i) {
+            if (position[i] - pre >= x) {
+                pre = position[i];
+                cnt += 1;
+            }
+        }
+        return cnt >= m;
+    }
+}
+```
+

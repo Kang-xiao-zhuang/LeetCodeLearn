@@ -1,5 +1,7 @@
 package com.zhuang.binarySearch;
 
+import java.util.Arrays;
+
 /**
  * description: Solution006
  * date: 2022/9/16 8:39
@@ -12,9 +14,11 @@ public class Solution006 {
         int[] nums1 = {55, 30, 5, 4, 2};
         int[] nums2 = {100, 20, 10, 10, 5};
         int[] nums = {9};
+        int[] piles={30,11,23,4,20};
         solution006.maxDistance(nums1, nums2);
         solution006.maxDistance2(nums1, nums2);
         solution006.minimumSize(nums, 2);
+        solution006.minEatingSpeed(piles,5);
     }
 
     /**
@@ -90,5 +94,74 @@ public class Solution006 {
             }
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode.cn/problems/koko-eating-bananas/
+     * 9.21
+     *
+     * @param piles 香蕉
+     * @param h     小时
+     * @return 她可以在 h 小时内吃掉所有香蕉的最小速度 k（k 为整数）
+     */
+    public int minEatingSpeed(int[] piles, int h) {
+        int low = 1;
+        int high = 0;
+        for (int pile : piles) {
+            high = Math.max(high, pile);
+        }
+        int k = high;
+        while (low < high) {
+            int speed = (high - low) / 2 + low;
+            long time = getTime(piles, speed);
+            if (time <= h) {
+                k = speed;
+                high = speed;
+            } else {
+                low = speed + 1;
+            }
+        }
+        return k;
+    }
+
+    public long getTime(int[] piles, int speed) {
+        long time = 0;
+        for (int pile : piles) {
+            int curTime = (pile + speed - 1) / speed;
+            time += curTime;
+        }
+        return time;
+    }
+
+    /**
+     * https://leetcode.cn/problems/magnetic-force-between-two-balls/
+     * @param position 整数数组
+     * @param m 整数
+     * @return 最大化的最小磁力
+     */
+    public int maxDistance(int[] position, int m) {
+        Arrays.sort(position);
+        int left = 1, right = position[position.length - 1] - position[0], ans = -1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (check(mid, position, m)) {
+                ans = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+    public boolean check(int x, int[] position, int m) {
+        int pre = position[0], cnt = 1;
+        for (int i = 1; i < position.length; ++i) {
+            if (position[i] - pre >= x) {
+                pre = position[i];
+                cnt += 1;
+            }
+        }
+        return cnt >= m;
     }
 }
