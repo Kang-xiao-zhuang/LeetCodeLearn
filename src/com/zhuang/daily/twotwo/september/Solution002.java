@@ -276,4 +276,33 @@ public class Solution002 {
         arr[j] = c;
         return new String(arr);
     }
+
+    /**
+     * https://leetcode.cn/problems/check-array-formation-through-concatenation/
+     * 9.22
+     *
+     * @param arr    整数数组
+     * @param pieces 整数数组
+     * @return 布尔
+     */
+    public boolean canFormArray(int[] arr, int[][] pieces) {
+        int[] map = new int[101];
+        for (int i = 0; i < pieces.length; i++) {
+            map[pieces[i][0]] = i;
+        }
+        int p = 0;
+        while (p < arr.length) {
+            int num = arr[p];
+            int[] piece = pieces[map[num]];
+            int j = 0;
+            while (j < piece.length) {
+                if (piece[j] != arr[p]) {
+                    return false;
+                }
+                j++;
+                p++;
+            }
+        }
+        return true;
+    }
 }
