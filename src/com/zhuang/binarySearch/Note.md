@@ -2574,3 +2574,215 @@ class Solution {
 }
 ```
 
+#### [287. 寻找重复数](https://leetcode.cn/problems/find-the-duplicate-number/)4
+
+给定一个包含 `n + 1` 个整数的数组 `nums` ，其数字都在 `[1, n]` 范围内（包括 `1` 和 `n`），可知至少存在一个重复的整数。
+
+假设 `nums` 只有 **一个重复的整数** ，返回 **这个重复的数** 。
+
+你设计的解决方案必须 **不修改** 数组 `nums` 且只用常量级 `O(1)` 的额外空间。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,3,4,2,2]
+输出：2
+```
+
+**示例 2：**
+
+```
+输入：nums = [3,1,3,4,2]
+输出：3
+```
+
+ 
+
+**提示：**
+
+- `1 <= n <= 105`
+- `nums.length == n + 1`
+- `1 <= nums[i] <= n`
+- `nums` 中 **只有一个整数** 出现 **两次或多次** ，其余整数均只出现 **一次**
+
+ 
+
+**进阶：**
+
+- 如何证明 `nums` 中至少存在一个重复的数字?
+- 你可以设计一个线性级时间复杂度 `O(n)` 的解决方案吗？
+
+**计数**
+
+```java
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int[] counter = new int[nums.length + 1];
+        int res = 0;
+        for (int num : nums) {
+            counter[num]++;
+        }
+        for (int i = 0; i < counter.length; i++) {
+            if (counter[i] >= 2) {
+                res = i;
+            }
+        }
+        return res;
+    }   
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ee26992d63d74e78ae64d3bd7af99530.png)
+
+**哈希**
+
+```java
+class Solution {
+    public int findDuplicate(int[] nums) {
+         HashSet<Integer> set = new HashSet<>();
+        int res = 0;
+        for (int num : nums) {
+            if (set.add(num)) {
+                set.add(num);
+            } else {
+                res = num;
+            }
+        }
+        return res;
+    }   
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/d2c2be26026f4b21870d83d68c780d53.png)
+
+**二分**
+
+```java
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+        int left = 0;
+        int right = n - 1;
+        int res = -1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            int count = 0;
+            for (int i = 0; i < n; i++) {
+                if (nums[i] <= mid) {
+                    count++;
+                }
+            }
+            if (count <= mid) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+                res = mid;
+            }
+        }
+        return res;
+    }   
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/de9ff7f0bed449dbb8670dc3076f78c5.png)
+
+**map**
+
+```java
+class Solution {
+    public int findDuplicate(int[] nums) {
+         HashMap<Integer, Integer> map = new HashMap<>();
+        int res=0;
+        for (int num : nums) {
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+        for (Integer integer : map.keySet()) {
+            Integer integer1 = map.get(integer);
+            if (integer1>=2){
+                res=integer;
+            }
+        }
+        return res;
+    }   
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/d22d47459c484c508dd85ea1dc8c3164.png)
+
+#### [1283. 使结果不超过阈值的最小除数](https://leetcode.cn/problems/find-the-smallest-divisor-given-a-threshold/)
+
+
+
+给你一个整数数组 `nums` 和一个正整数 `threshold` ，你需要选择一个正整数作为除数，然后将数组里每个数都除以它，并对除法结果求和。
+
+请你找出能够使上述结果小于等于阈值 `threshold` 的除数中 **最小** 的那个。
+
+每个数除以除数后都向上取整，比方说 7/3 = 3 ， 10/2 = 5 。
+
+题目保证一定有解。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,2,5,9], threshold = 6
+输出：5
+解释：如果除数为 1 ，我们可以得到和为 17 （1+2+5+9）。
+如果除数为 4 ，我们可以得到和为 7 (1+1+2+3) 。如果除数为 5 ，和为 5 (1+1+1+2)。
+```
+
+**示例 2：**
+
+```
+输入：nums = [2,3,5,7,11], threshold = 11
+输出：3
+```
+
+**示例 3：**
+
+```
+输入：nums = [19], threshold = 5
+输出：4
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 5 * 10^4`
+- `1 <= nums[i] <= 10^6`
+- `nums.length <= threshold <= 10^6`
+
+**二分**
+
+```java
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+        int left = 1;
+        int right = Arrays.stream(nums).max().getAsInt();
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            int num = sum(nums, mid);
+            if (num > threshold) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+
+    private int sum(int[] nums, int mid) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += (num + mid - 1) / mid;
+        }
+        return sum;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20eb73516c3143629224ef21763000ef.png)

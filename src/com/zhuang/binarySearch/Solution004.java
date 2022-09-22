@@ -1,6 +1,7 @@
 package com.zhuang.binarySearch;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -21,7 +22,8 @@ public class Solution004 {
         // findDuplicate(nums);
         //findDuplicate2(nums);
         //findDuplicate3(nums);
-        findTheDistanceValue(arr1, arr2, 2);
+        findDuplicate4(nums);
+        //findTheDistanceValue(arr1, arr2, 2);
     }
 
     /**
@@ -121,6 +123,21 @@ public class Solution004 {
             }
         }
         System.out.println(res);
+        return res;
+    }
+
+    public static int findDuplicate4(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int res=0;
+        for (int num : nums) {
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+        for (Integer integer : map.keySet()) {
+            Integer integer1 = map.get(integer);
+            if (integer1>=2){
+                res=integer;
+            }
+        }
         return res;
     }
 

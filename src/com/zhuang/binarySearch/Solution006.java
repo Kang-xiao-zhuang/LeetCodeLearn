@@ -14,11 +14,11 @@ public class Solution006 {
         int[] nums1 = {55, 30, 5, 4, 2};
         int[] nums2 = {100, 20, 10, 10, 5};
         int[] nums = {9};
-        int[] piles={30,11,23,4,20};
+        int[] piles = {30, 11, 23, 4, 20};
         solution006.maxDistance(nums1, nums2);
         solution006.maxDistance2(nums1, nums2);
         solution006.minimumSize(nums, 2);
-        solution006.minEatingSpeed(piles,5);
+        solution006.minEatingSpeed(piles, 5);
     }
 
     /**
@@ -135,8 +135,9 @@ public class Solution006 {
 
     /**
      * https://leetcode.cn/problems/magnetic-force-between-two-balls/
+     *
      * @param position 整数数组
-     * @param m 整数
+     * @param m        整数
      * @return 最大化的最小磁力
      */
     public int maxDistance(int[] position, int m) {
@@ -163,5 +164,33 @@ public class Solution006 {
             }
         }
         return cnt >= m;
+    }
+
+    /**
+     * @param nums      整数数组
+     * @param threshold 正整数
+     * @return 小于等于阈值 threshold 的除数中 最小 的那个
+     */
+    public int smallestDivisor(int[] nums, int threshold) {
+        int left = 1;
+        int right = Arrays.stream(nums).max().getAsInt();
+        while (left < right) {
+            int mid = left + (right - left) /2;
+            int num = sum(nums, mid);
+            if (num > threshold) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+
+    private int sum(int[] nums, int mid) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += (num + mid - 1) / mid;
+        }
+        return sum;
     }
 }
