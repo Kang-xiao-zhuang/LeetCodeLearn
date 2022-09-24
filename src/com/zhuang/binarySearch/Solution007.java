@@ -147,7 +147,13 @@ public class Solution007 {
     }
 
 
-
+    /**
+     * https://leetcode.cn/problems/minimum-absolute-sum-difference/
+     *
+     * @param nums1 正整数数组
+     * @param nums2 正整数数组
+     * @return 最小绝对差值和
+     */
     public int minAbsoluteSumDiff(int[] nums1, int[] nums2) {
         final int MOD = 1000000007;
         int n = nums1.length;
