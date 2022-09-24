@@ -14,7 +14,9 @@ public class Solution002 {
 
     public static void main(String[] args) {
         Solution002 solution002 = new Solution002();
-        solution002.maxLengthBetweenEqualCharacters("abca");
+//        solution002.maxLengthBetweenEqualCharacters("abca");
+        int[] code = {2, 4, 9, 3};
+        solution002.decrypt(code, -2);
     }
 
 
@@ -304,5 +306,38 @@ public class Solution002 {
             }
         }
         return true;
+    }
+
+
+    /**
+     * https://leetcode.cn/problems/defuse-the-bomb/
+     *
+     * @param code 数组
+     * @param k    密钥
+     * @return 解密后的结果
+     */
+    public int[] decrypt(int[] code, int k) {
+        int n = code.length;
+        int[] ans = new int[n];
+        if (k == 0) {
+            return ans;
+        }
+        if (k > 0) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 1; j <= k; j++) {
+                    int index = (i + j) % n;
+                    ans[i] += code[index];
+                }
+            }
+        }
+        if (k < 0) {
+            for (int i = 0; i < n; i++) {
+                for (int j = -1; j >= k; j--) {
+                    int index = (i + j + n) % n;
+                    ans[i] += code[index];
+                }
+            }
+        }
+        return ans;
     }
 }
