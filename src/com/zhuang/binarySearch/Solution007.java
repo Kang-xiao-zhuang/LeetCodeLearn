@@ -17,6 +17,8 @@ public class Solution007 {
         String p = "abcd";
         int[] removable = {3, 2, 1, 4, 5, 6};
         solution007.maximumRemovals(s, p, removable);
+        int[] citations = {0, 1, 3, 5, 6};
+        solution007.hIndex(citations);
     }
 
 
@@ -189,5 +191,26 @@ public class Solution007 {
             }
         }
         return low;
+    }
+
+    /**
+     * https://leetcode.cn/problems/h-index-ii/
+     *
+     * @param citations 整数数组
+     * @return 该研究者的 h 指数
+     */
+    public int hIndex(int[] citations) {
+        int n = citations.length;
+        int left = 0;
+        int right = n - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (citations[mid] >= n - mid) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return n - left;
     }
 }

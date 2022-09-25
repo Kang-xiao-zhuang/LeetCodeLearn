@@ -3185,3 +3185,171 @@ class Solution {
 }
 ```
 
+#### [275. H 指数 II](https://leetcode.cn/problems/h-index-ii/)
+
+给你一个整数数组 `citations` ，其中 `citations[i]` 表示研究者的第 `i` 篇论文被引用的次数，`citations` 已经按照 **升序排列** 。计算并返回该研究者的 **`h` 指数**。
+
+[h 指数的定义](https://baike.baidu.com/item/h-index/3991452?fr=aladdin)：h 代表“高引用次数”（high citations），一名科研人员的 h 指数是指他（她）的 （`n` 篇论文中）**总共**有 `h` 篇论文分别被引用了**至少** `h` 次。且其余的 *`n - h`* 篇论文每篇被引用次数 **不超过** *`h`* 次。
+
+**提示：**如果 `h` 有多种可能的值，**`h` 指数** 是其中最大的那个。
+
+请你设计并实现对数时间复杂度的算法解决此问题。
+
+ 
+
+**示例 1：**
+
+```
+输入：citations = [0,1,3,5,6]
+输出：3 
+解释：给定数组表示研究者总共有 5 篇论文，每篇论文相应的被引用了 0, 1, 3, 5, 6 次。
+     由于研究者有 3 篇论文每篇 至少 被引用了 3 次，其余两篇论文每篇被引用 不多于 3 次，所以她的 h 指数是 3 。
+```
+
+**示例 2：**
+
+```
+输入：citations = [1,2,100]
+输出：2
+```
+
+ 
+
+**提示：**
+
+- `n == citations.length`
+- `1 <= n <= 105`
+- `0 <= citations[i] <= 1000`
+- `citations` 按 **升序排列**
+
+**二分**
+
+```java
+class Solution {
+    public int hIndex(int[] citations) {
+        int n = citations.length;
+        int left = 0, right = n - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (citations[mid] >= n - mid) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return n - left;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/4ceaf0fc8eef44f3890b759a1f7e5667.png)
+
+#### [240. 搜索二维矩阵 II](https://leetcode.cn/problems/search-a-2d-matrix-ii/)
+
+编写一个高效的算法来搜索 `*m* x *n*` 矩阵 `matrix` 中的一个目标值 `target` 。该矩阵具有以下特性：
+
+- 每行的元素从左到右升序排列。
+- 每列的元素从上到下升序排列。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/11/25/searchgrid2.jpg)
+
+```
+输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 5
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/11/25/searchgrid.jpg)
+
+```
+输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20
+输出：false
+```
+
+ 
+
+**提示：**
+
+- `m == matrix.length`
+- `n == matrix[i].length`
+- `1 <= n, m <= 300`
+- `-109 <= matrix[i][j] <= 109`
+- 每行的所有元素从左到右升序排列
+- 每列的所有元素从上到下升序排列
+- `-109 <= target <= 109`
+
+```java
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        for (int[] row : matrix) {
+            for (int element : row) {
+                if (element == target) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/1718b1d264754d29b5128d6fe4b1890c.png)
+
+**二分**
+
+```java
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        for (int[] row : matrix) {
+            int index = binarySearch(row, target);
+            if (index >= 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int binarySearch(int[] nums, int target) {
+        int low = 0, high = nums.length - 1;
+        while (low <= high) {
+            int mid = (high - low) / 2 + low;
+            int num = nums[mid];
+            if (num == target) {
+                return mid;
+            } else if (num > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
+    }
+}
+```
+
+**BST**
+
+```java
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length, n = matrix[0].length;
+        int r = 0, c = n - 1;
+        while (r < m && c >= 0) {
+            if (matrix[r][c] < target) {
+                r++;
+            } else if (matrix[r][c] > target) {
+                c--;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+```
+
