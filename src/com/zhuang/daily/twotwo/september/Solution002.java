@@ -17,6 +17,7 @@ public class Solution002 {
 //        solution002.maxLengthBetweenEqualCharacters("abca");
         int[] code = {2, 4, 9, 3};
         solution002.decrypt(code, -2);
+        solution002.rotatedDigits(10);
     }
 
 
@@ -336,6 +337,38 @@ public class Solution002 {
                     int index = (i + j + n) % n;
                     ans[i] += code[index];
                 }
+            }
+        }
+        return ans;
+    }
+
+    static int[] check = {0, 0, 1, -1, -1, 1, 1, -1, 0, 1};
+
+    /**
+     * https://leetcode.cn/problems/rotated-digits/
+     * 数组中没有出现 3 4 7
+     * 数组至少出现一次 2 5 6 9
+     * 对于0 1 8 没有要求
+     *
+     * @param n 整数
+     * @return 从 1 到 N 中有多少个数 X 是好数
+     */
+    public int rotatedDigits(int n) {
+        int ans = 0;
+        for (int i = 0; i <= n; i++) {
+            String s = String.valueOf(i);
+            boolean valid = true;
+            boolean diff = false;
+            for (int j = 0; j < s.length(); j++) {
+                char c = s.charAt(j);
+                if (check[c - '0'] == -1) {
+                    valid = false;
+                } else if (check[c - '0'] == 1) {
+                    diff = true;
+                }
+            }
+            if (valid && diff) {
+                ++ans;
             }
         }
         return ans;
