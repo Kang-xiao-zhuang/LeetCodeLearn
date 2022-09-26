@@ -1,6 +1,8 @@
 package com.zhuang.binarySearch;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * description: Solution007
@@ -19,6 +21,10 @@ public class Solution007 {
         solution007.maximumRemovals(s, p, removable);
         int[] citations = {0, 1, 3, 5, 6};
         solution007.hIndex(citations);
+        int[] nums = {1, 1, 2, 3, 3, 4, 4, 8, 8};
+        solution007.singleNonDuplicate(nums);
+        solution007.singleNonDuplicate2(nums);
+        solution007.singleNonDuplicate3(nums);
     }
 
 
@@ -212,5 +218,71 @@ public class Solution007 {
             }
         }
         return n - left;
+    }
+
+    /**
+     * https://leetcode.cn/problems/frequency-of-the-most-frequent-element/
+     *
+     * @param nums 整数数组
+     * @param k    整数k
+     * @return 数组中最高频元素的 最大可能频数
+     */
+    public int maxFrequency(int[] nums, int k) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        long total = 0;
+        int l = 0, res = 1;
+        for (int r = 1; r < n; ++r) {
+            total += (long) (nums[r] - nums[r - 1]) * (r - l);
+            while (total > k) {
+                total -= nums[r] - nums[l];
+                ++l;
+            }
+            res = Math.max(res, r - l + 1);
+        }
+        return res;
+    }
+
+
+    /**
+     * https://leetcode.cn/problems/single-element-in-a-sorted-array/
+     *
+     * @param nums 数组
+     * @return 整数
+     */
+    public int singleNonDuplicate(int[] nums) {
+        int ans = 0;
+        for (int num : nums) {
+            ans = ans ^ num;
+        }
+        return ans;
+    }
+
+    public int singleNonDuplicate2(int[] nums) {
+        int low = 0;
+        int high = nums.length - 1;
+        while (low < high) {
+            int mid = (high - low) / 2 + low;
+            if (nums[mid] == nums[mid ^ 1]) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return nums[low];
+    }
+
+
+    public int singleNonDuplicate3(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                return entry.getKey();
+            }
+        }
+        return -1;
     }
 }
