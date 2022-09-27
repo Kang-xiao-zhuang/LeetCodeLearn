@@ -412,6 +412,9 @@ public class Solution002 {
     }
 
     /**
+     * https://leetcode.cn/problems/check-permutation-lcci/
+     * 9.27
+     *
      * @param s1 字符串
      * @param s2 字符串
      * @return 布尔
