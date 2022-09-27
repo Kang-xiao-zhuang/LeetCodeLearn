@@ -410,4 +410,38 @@ public class Solution002 {
         }
         return new int[]{type1, type2};
     }
+
+    /**
+     * @param s1 字符串
+     * @param s2 字符串
+     * @return 布尔
+     */
+    public boolean CheckPermutation(String s1, String s2) {
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+        char[] char1 = s1.toCharArray();
+        char[] char2 = s2.toCharArray();
+        Arrays.sort(char1);
+        Arrays.sort(char2);
+        return Arrays.equals(char1, char2);
+    }
+
+    public boolean CheckPermutation2(String s1, String s2) {
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+        int[] cnts = new int[256];
+        int total = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            if (++cnts[s1.charAt(i)] == 1) {
+                total++;
+            }
+            if (--cnts[s2.charAt(i)] == 0) {
+                total--;
+            }
+        }
+        return total == 0;
+    }
+
 }

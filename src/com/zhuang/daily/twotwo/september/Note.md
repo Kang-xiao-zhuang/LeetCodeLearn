@@ -1417,3 +1417,69 @@ class Solution {
 }
 ```
 
+#### [面试题 01.02. 判定是否互为字符重排](https://leetcode.cn/problems/check-permutation-lcci/)
+
+给定两个字符串 `s1` 和 `s2`，请编写一个程序，确定其中一个字符串的字符重新排列后，能否变成另一个字符串。
+
+**示例 1：**
+
+```
+输入: s1 = "abc", s2 = "bca"
+输出: true 
+```
+
+**示例 2：**
+
+```
+输入: s1 = "abc", s2 = "bad"
+输出: false
+```
+
+**说明：**
+
+- `0 <= len(s1) <= 100`
+- `0 <= len(s2) <= 100`
+
+**模拟**
+
+```java
+class Solution {
+    public boolean CheckPermutation(String s1, String s2) {
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+        char[] char1 = s1.toCharArray();
+        char[] char2 = s2.toCharArray();
+        Arrays.sort(char1);
+        Arrays.sort(char2);
+        return Arrays.equals(char1, char2);
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6fc86ade1df941e3a03601aea006dddc.png)
+
+**计数模拟**
+
+```java
+class Solution {
+    public boolean CheckPermutation(String s1, String s2) {
+         if (s1.length() != s2.length()) {
+            return false;
+        }
+        int[] cnts = new int[256];
+        int total = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            if (++cnts[s1.charAt(i)] == 1) {
+                total++;
+            }
+            if (--cnts[s2.charAt(i)] == 0) {
+                total--;
+            }
+        }
+        return total == 0;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6e804b6ffafa420a822a53d82db052b0.png)
