@@ -1,5 +1,6 @@
 package com.zhuang.binarySearch;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -327,5 +328,31 @@ public class Solution007 {
             bits >>= 1;
         }
         return node != null;
+    }
+
+    /**
+     * https://leetcode.cn/problems/most-profit-assigning-work/
+     *
+     * @param difficulty 工作的难度
+     * @param profit     工作的收益
+     * @param worker     工人的能力
+     * @return 最大利润
+     */
+    public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
+        ArrayList<Integer> list = new ArrayList<>();
+        int result = 0;
+        for (int k : worker) {
+            int maxSale = 0;
+            for (int j = 0; j < difficulty.length; j++) {
+                if (k >= difficulty[j] && profit[j] >= maxSale) {
+                    maxSale = profit[j];
+                }
+            }
+            list.add(maxSale);
+        }
+        for (Integer integer : list) {
+            result += integer;
+        }
+        return result;
     }
 }
