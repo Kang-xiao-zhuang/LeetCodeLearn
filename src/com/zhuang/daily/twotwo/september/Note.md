@@ -1483,3 +1483,46 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/6e804b6ffafa420a822a53d82db052b0.png)
+
+#### [面试题 17.09. 第 k 个数](https://leetcode.cn/problems/get-kth-magic-number-lcci/)
+
+有些数的素因子只有 3，5，7，请设计一个算法找出第 k 个数。注意，不是必须有这些素因子，而是必须不包含其他的素因子。例如，前几个数按顺序应该是 1，3，5，7，9，15，21。
+
+**示例 1:**
+
+```
+输入: k = 5
+
+输出: 9
+```
+
+```java
+class Solution {
+    public int getKthMagicNumber(int k) {
+        int[] nums = {3, 5, 7};
+        // 是否访问 相同算一次
+        HashSet<Long> visited = new HashSet<>();
+        PriorityQueue<Long> queue = new PriorityQueue<>();
+        // 初始值为1
+        visited.add(1L);
+        queue.offer(1L);
+        // 第k个元素
+        int target = 0;
+        for (int i = 0; i < k; i++) {
+            // 弹出堆顶元素
+            long poll = queue.poll();
+            target = (int) poll;
+            for (int num : nums) {
+                long cur = poll * num;
+                if (!visited.contains(cur)) {
+                    visited.add(cur);
+                    queue.offer(cur);
+                }
+            }
+        }
+        return target;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/5f498e52ebdc4569a47d63892aa8f28d.png)

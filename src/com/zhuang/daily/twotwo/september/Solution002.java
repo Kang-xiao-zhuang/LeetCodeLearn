@@ -447,4 +447,35 @@ public class Solution002 {
         return total == 0;
     }
 
+    /**
+     * https://leetcode.cn/problems/get-kth-magic-number-lcci/
+     * 9.28
+     *
+     * @param k 整数
+     * @return 第 k 个数
+     */
+    public int getKthMagicNumber(int k) {
+        int[] nums = {3, 5, 7};
+        // 是否访问 相同算一次
+        HashSet<Long> visited = new HashSet<>();
+        PriorityQueue<Long> queue = new PriorityQueue<>();
+        // 初始值为1
+        visited.add(1L);
+        queue.offer(1L);
+        // 第k个元素
+        int target = 0;
+        for (int i = 0; i < k; i++) {
+            // 弹出堆顶元素
+            long poll = queue.poll();
+            target = (int) poll;
+            for (int num : nums) {
+                long cur = poll * num;
+                if (!visited.contains(cur)) {
+                    visited.add(cur);
+                    queue.offer(cur);
+                }
+            }
+        }
+        return target;
+    }
 }
