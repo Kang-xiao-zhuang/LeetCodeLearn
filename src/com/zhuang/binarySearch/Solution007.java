@@ -26,6 +26,9 @@ public class Solution007 {
         solution007.singleNonDuplicate(nums);
         solution007.singleNonDuplicate2(nums);
         solution007.singleNonDuplicate3(nums);
+
+        int[] numbers = {2, 5, 6, 0, 0, 1, 2};
+        solution007.search(numbers, 3);
     }
 
 
