@@ -483,11 +483,12 @@ public class Solution002 {
      * https://leetcode.cn/problems/string-rotation-lcci/
      *
      * @param s1 字符串
-     * @param s2 在春风吹
+     * @param s2 字符串
      * @return 布尔
      */
     public boolean isFlipedString(String s1, String s2) {
-        int m = s1.length(), n = s2.length();
+        int m = s1.length();
+        int n = s2.length();
         if (m != n) {
             return false;
         }
