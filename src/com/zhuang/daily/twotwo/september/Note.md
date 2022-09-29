@@ -1526,3 +1526,72 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/5f498e52ebdc4569a47d63892aa8f28d.png)
+
+#### [面试题 01.09. 字符串轮转](https://leetcode.cn/problems/string-rotation-lcci/)
+
+字符串轮转。给定两个字符串`s1`和`s2`，请编写代码检查`s2`是否为`s1`旋转而成（比如，`waterbottle`是`erbottlewat`旋转后的字符串）。
+
+**示例1:**
+
+```
+ 输入：s1 = "waterbottle", s2 = "erbottlewat"
+ 输出：True
+```
+
+**示例2:**
+
+```
+ 输入：s1 = "aa", s2 = "aba"
+ 输出：False
+```
+
+
+
+**提示：**
+
+1. 字符串长度在[0, 100000]范围内。
+
+**说明:**
+
+1. 你能只调用一次检查子串的方法吗？
+
+**模拟**
+
+```java
+class Solution {
+    public boolean isFlipedString(String s1, String s2) {
+        int m = s1.length(), n = s2.length();
+        if (m != n) {
+            return false;
+        }
+        if (n == 0) {
+            return true;
+        }
+        for (int i = 0; i < n; i++) {
+            boolean flag = true;
+            for (int j = 0; j < n; j++) {
+                if (s1.charAt((i + j) % n) != s2.charAt(j)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8d7aadd5cba34046875b185dad5f3c00.png)
+
+```java
+class Solution {
+    public boolean isFlipedString(String s1, String s2) {
+        return s1.length() == s2.length() && (s1 + s1).contains(s2);
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/da09b8fcd4dd4da48defafe1f0f6fd61.png)

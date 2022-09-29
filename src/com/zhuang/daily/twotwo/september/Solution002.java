@@ -478,4 +478,38 @@ public class Solution002 {
         }
         return target;
     }
+
+    /**
+     * https://leetcode.cn/problems/string-rotation-lcci/
+     *
+     * @param s1 字符串
+     * @param s2 在春风吹
+     * @return 布尔
+     */
+    public boolean isFlipedString(String s1, String s2) {
+        int m = s1.length(), n = s2.length();
+        if (m != n) {
+            return false;
+        }
+        if (n == 0) {
+            return true;
+        }
+        for (int i = 0; i < n; i++) {
+            boolean flag = true;
+            for (int j = 0; j < n; j++) {
+                if (s1.charAt((i + j) % n) != s2.charAt(j)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isFlipedString2(String s1, String s2) {
+        return s1.length() == s2.length() && (s1 + s1).contains(s2);
+    }
 }
