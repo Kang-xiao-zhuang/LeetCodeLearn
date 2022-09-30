@@ -513,4 +513,33 @@ public class Solution002 {
     public boolean isFlipedString2(String s1, String s2) {
         return s1.length() == s2.length() && (s1 + s1).contains(s2);
     }
+
+    /**
+     * https://leetcode.cn/problems/zero-matrix-lcci/
+     * 9.30
+     *
+     * @param matrix 二维数组
+     */
+    public void setZeroes(int[][] matrix) {
+        //用2个标记数组 记录每一行和每一列是否有0出现 出现就标记数组的位置为true
+        int m = matrix.length, n = matrix[0].length;
+        boolean[] row = new boolean[m];
+        boolean[] col = new boolean[n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    row[i] = col[j] = true;
+                }
+            }
+        }
+        // 最后更新原数组
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (row[i] || col[j]) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
 }
