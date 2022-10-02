@@ -47,4 +47,51 @@ public class Solution001 {
         System.out.println("ans = " + ans.toString());
         return ans.toString();
     }
+
+    /**
+     * https://leetcode.cn/problems/swap-adjacent-in-lr-string/
+     * 10.2
+     *
+     * @param start String
+     * @param end   String
+     * @return boolean
+     */
+    public boolean canTransform(String start, String end) {
+        int n = start.length();
+        // 双指针
+        int i = 0;
+        int j = 0;
+        while (i < n && j < n) {
+            while (i < n && start.charAt(i) == 'X') {
+                i++;
+            }
+            while (j < n && end.charAt(j) == 'X') {
+                j++;
+            }
+            if (i < n && j < n) {
+                if (start.charAt(i) != end.charAt(j)) {
+                    return false;
+                }
+                char c = start.charAt(i);
+                if ((c == 'L' && i < j) || (c == 'R' && i > j)) {
+                    return false;
+                }
+                i++;
+                j++;
+            }
+        }
+        while (i < n) {
+            if (start.charAt(i) != 'X') {
+                return false;
+            }
+            i++;
+        }
+        while (j < n) {
+            if (end.charAt(j) != 'X') {
+                return false;
+            }
+            j++;
+        }
+        return true;
+    }
 }
