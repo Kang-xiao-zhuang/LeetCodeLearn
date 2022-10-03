@@ -94,4 +94,27 @@ public class Solution001 {
         }
         return true;
     }
+
+    /**
+     * https://leetcode.cn/problems/check-if-binary-string-has-at-most-one-segment-of-ones/
+     * 10.3
+     *
+     * @param s 二进制字符串
+     * @return boolean
+     */
+    public boolean checkOnesSegment(String s) {
+        return !s.contains("01");
+    }
+
+    public boolean checkOnesSegment2(String s) {
+        for (int i = 0; i < s.length() - 1; i++) {
+            char a = s.charAt(i);
+            char b = s.charAt(i + 1);
+            //直接记录是否出现0 然后检查出现0是否还有1出现有就直接false
+            if (a == '0' && b == '1') {
+                return false;
+            }
+        }
+        return true;
+    }
 }

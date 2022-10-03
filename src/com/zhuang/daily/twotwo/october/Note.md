@@ -1,7 +1,5 @@
 #### [1694. 重新格式化电话号码](https://leetcode.cn/problems/reformat-phone-number/)
 
-难度简单21收藏分享切换为英文接收动态反馈
-
 给你一个字符串形式的电话号码 `number` 。`number` 由数字、空格 `' '`、和破折号 `'-'` 组成。
 
 请你按下述方式重新格式化电话号码。
@@ -126,8 +124,6 @@ class Solution {
 
 #### [777. 在LR字符串中交换相邻字符](https://leetcode.cn/problems/swap-adjacent-in-lr-string/)
 
-难度中等167
-
 在一个由 `'L'` , `'R'` 和 `'X'` 三个字符组成的字符串（例如`"RXXLRXRXL"`）中进行移动操作。一次移动操作指用一个`"LX"`替换一个`"XL"`，或者用一个`"XR"`替换一个`"RX"`。现给定起始字符串`start`和结束字符串`end`，请编写代码，当且仅当存在一系列移动操作使得`start`可以转换成`end`时， 返回`True`。
 
  
@@ -199,3 +195,54 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/3cb7bd2a696347d286f8aa0fe16fc2c5.png)
+
+#### [1784. 检查二进制字符串字段](https://leetcode.cn/problems/check-if-binary-string-has-at-most-one-segment-of-ones/)
+
+给你一个二进制字符串 `s` ，该字符串 **不含前导零** 。
+
+如果 `s` 包含 **零个或一个由连续的 `'1'` 组成的字段** ，返回 `true` 。否则，返回 `false` 。
+
+如果 `s` 中 **由连续若干个 `'1'` 组成的字段** 数量不超过 `1`，返回 `true` 。否则，返回 `false` 。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "1001"
+输出：false
+解释：由连续若干个 '1' 组成的字段数量为 2，返回 false
+```
+
+**示例 2：**
+
+```
+输入：s = "110"
+输出：true
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 100`
+- `s[i]` 为 `'0'` 或 `'1'`
+- `s[0]` 为 `'1'`
+
+```java
+class Solution {
+    public boolean checkOnesSegment(String s) {
+        for (int i = 0; i < s.length() - 1; i++) {
+            char a = s.charAt(i);
+            char b = s.charAt(i + 1);
+            //直接记录是否出现0 然后检查出现0是否还有1出现有就直接false
+            if (a == '0' && b == '1') {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c8c0065a82404262af37dd4e02c41406.png)
