@@ -1,5 +1,7 @@
 package com.zhuang.daily.twotwo.october;
 
+import java.util.ArrayDeque;
+
 /**
  * description: Solution001
  * date: 2022/10/1 8:05
@@ -117,4 +119,37 @@ public class Solution001 {
         }
         return true;
     }
+
+    /**
+     * https://leetcode.cn/problems/minimum-add-to-make-parentheses-valid/
+     * 10.4
+     *
+     * @param s 字符串
+     * @return int
+     */
+    public int minAddToMakeValid(String s) {
+        int score = 0;
+        int ans = 0;
+        for (char c : s.toCharArray()) {
+            score += c == '(' ? 1 : -1;
+            if (score < 0) {
+                score = 0;
+                ans++;
+            }
+        }
+        return ans + score;
+    }
+
+    public int minAddToMakeValid2(String s) {
+        ArrayDeque<Character> deque = new ArrayDeque<>();
+        for (char c : s.toCharArray()) {
+            if (c == ')' && !deque.isEmpty() && deque.peek() == '(') {
+                deque.pop();
+            } else {
+                deque.push(c);
+            }
+        }
+        return deque.size();
+    }
+
 }
