@@ -26,6 +26,9 @@ public class Solution007 {
 
         int[] numbers = {2, 5, 6, 0, 0, 1, 2};
         solution007.search(numbers, 3);
+
+        int[] rains = {1, 2, 0, 0, 2, 1};
+        solution007.avoidFlood(rains);
     }
 
 
@@ -397,6 +400,12 @@ public class Solution007 {
         return false;
     }
 
+    /**
+     * https://leetcode.cn/problems/avoid-flood-in-the-city/
+     *
+     * @param rains 整数数组
+     * @return 数组
+     */
     public int[] avoidFlood(int[] rains) {
         int[] ans = new int[rains.length];
         Arrays.fill(ans, 1);
