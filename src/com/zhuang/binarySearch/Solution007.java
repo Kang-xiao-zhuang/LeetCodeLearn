@@ -1,9 +1,6 @@
 package com.zhuang.binarySearch;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * description: Solution007
@@ -398,5 +395,40 @@ public class Solution007 {
             }
         }
         return false;
+    }
+
+    public int[] avoidFlood(int[] rains) {
+        int[] ans = new int[rains.length];
+        Arrays.fill(ans, 1);
+        // 雨水
+        HashMap<Integer, Integer> waterMap = new HashMap<>();
+        // 晴天
+        TreeSet<Integer> zero = new TreeSet<>();
+        for (int i = 0; i < rains.length; i++) {
+
+            int rain = rains[i];
+            if (rain == 0) {
+                // 晴天 存下标
+                zero.add(i);
+                continue;
+            }
+            if (waterMap.containsKey(rain)) {
+                // 下雨 之前这个湖泊下过雨
+                // 找到之前最近的下雨的下标
+                Integer higher = zero.higher(waterMap.get(rain));
+                if (higher == null) {
+                    return new int[]{};
+                }
+                // 清空下标
+                ans[higher] = rain;
+                // 移除使用过的晴天
+                zero.remove(higher);
+            }
+            // 存放下雨的湖泊
+            waterMap.put(rain, i);
+            // 下雨不操作
+            ans[i] = -1;
+        }
+        return ans;
     }
 }
