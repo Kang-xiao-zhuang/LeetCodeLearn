@@ -1,6 +1,6 @@
 package com.zhuang.daily.twotwo.october;
 
-import java.util.ArrayDeque;
+import java.util.*;
 
 /**
  * description: Solution001
@@ -12,6 +12,9 @@ public class Solution001 {
     public static void main(String[] args) {
         Solution001 solution001 = new Solution001();
         solution001.reformatNumber("123 4-567");
+
+        String[] cpdomains = {"9001 discuss.leetcode.com"};
+        solution001.subdomainVisits(cpdomains);
     }
 
     /**
@@ -152,4 +155,32 @@ public class Solution001 {
         return deque.size();
     }
 
+    /**
+     * https://leetcode.cn/problems/subdomain-visit-count/
+     * 10.5
+     *
+     * @param cpdomains 计数配对域名
+     * @return 数组
+     */
+    public List<String> subdomainVisits(String[] cpdomains) {
+        HashMap<String, Integer> map = new HashMap<>();
+        ArrayList<String> list = new ArrayList<>();
+        for (String cpdomain : cpdomains) {
+            Integer count = Integer.valueOf(Arrays.asList(cpdomain.split(" ")).get(0));
+            String[] split = Arrays.asList(cpdomain.split(" ")).get(1).split("\\.");
+            for (int i = 0; i < split.length; i++) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(split[i]);
+                for (int j = i + 1; j < split.length; j++) {
+                    sb.append(".").append(split[j]);
+                }
+                String s = sb.toString();
+                map.put( s, map.getOrDefault( s, 0) + count);
+            }
+        }
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            list.add(String.valueOf(entry.getValue()) + " " + entry.getKey());
+        }
+        return list;
+    }
 }
