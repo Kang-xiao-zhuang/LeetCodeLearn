@@ -29,6 +29,9 @@ public class Solution007 {
 
         int[] rains = {1, 2, 0, 0, 2, 1};
         solution007.avoidFlood(rains);
+
+        int[] arr={3,5,1,2,4};
+        solution007.findLatestStep(arr,1);
     }
 
 
@@ -439,5 +442,32 @@ public class Solution007 {
             ans[i] = -1;
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode.cn/problems/find-latest-group-of-size-m/
+     *
+     * @param arr 数组
+     * @param m   整数
+     * @return 存在长度 恰好 为 m 的 一组 1  的最后步骤
+     */
+    public int findLatestStep(int[] arr, int m) {
+        TreeSet<Integer> set = new TreeSet<>();
+        set.add(0);
+        set.add(arr.length + 1);
+        if (arr.length == m) return arr.length;
+        int n = arr.length;
+        for (int i = n - 1; i >= 0; i--) {
+            int index = arr[i];
+            // 找出大于index的值
+            int a = set.lower(index);
+            // 找出小于index的值
+            int b = set.higher(index);
+            if (index - a - 1 == m || b - index - 1 == m) {
+                return i;
+            }
+            set.add(index);
+        }
+        return -1;
     }
 }
