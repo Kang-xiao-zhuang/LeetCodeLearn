@@ -228,4 +228,25 @@ public class Solution001 {
         }
         return new int[]{-1, -1};
     }
+
+    /**
+     * https://leetcode.cn/problems/maximum-ascending-subarray-sum/
+     * 10.7
+     *
+     * @param nums 数组
+     * @return nums 中一个升序子数组的最大可能元素和
+     */
+    public int maxAscendingSum(int[] nums) {
+        int sum = 0;
+        int temp = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i == 0 || nums[i] > nums[i-1]) {
+                temp += nums[i];
+                sum = Math.max(sum, temp);
+            } else {
+                temp = nums[i];
+            }
+        }
+        return sum;
+    }
 }
