@@ -555,3 +555,129 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/37378c95b9ee4e8ba415dadba997b06a.png)
+
+#### [870. 优势洗牌](https://leetcode.cn/problems/advantage-shuffle/)
+
+给定两个大小相等的数组 `nums1` 和 `nums2`，`nums1` 相对于 `nums` 的*优势*可以用满足 `nums1[i] > nums2[i]` 的索引 `i` 的数目来描述。
+
+返回 nums1 的**任意**排列，使其相对于 `nums2` 的优势最大化。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums1 = [2,7,11,15], nums2 = [1,10,4,11]
+输出：[2,11,7,15]
+```
+
+**示例 2：**
+
+```
+输入：nums1 = [12,24,8,32], nums2 = [13,25,32,11]
+输出：[24,32,8,12]
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums1.length <= 105`
+- `nums2.length == nums1.length`
+- `0 <= nums1[i], nums2[i] <= 109`
+
+
+
+**贪心**
+
+```java
+class Solution {
+    public int[] advantageCount(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        Integer[] idx1 = new Integer[n];
+        Integer[] idx2 = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            idx1[i] = i;
+            idx2[i] = i;
+        }
+        Arrays.sort(idx1, (i, j) -> nums1[i] - nums1[j]);
+        Arrays.sort(idx2, (i, j) -> nums2[i] - nums2[j]);
+        int[] ans = new int[n];
+        int left = 0;
+        int right = n - 1;
+        for (int i = 0; i < n; i++) {
+            if (nums1[idx1[i]] > nums2[idx2[left]]) {
+                ans[idx2[left]] = nums1[idx1[i]];
+                ++left;
+            } else {
+                ans[idx2[right]] = nums1[idx1[i]];
+                --right;
+            }
+        }
+        return ans;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fcf1384bbd924c0ca34aef45d6bffdad.png)
+
+**TreeSet**
+
+```java
+class Solution {
+    public int[] advantageCount(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i : nums1) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+            if (map.get(i) == 1) {
+                treeSet.add(i);
+            }
+        }
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            Integer cur = treeSet.ceiling(nums2[i] + 1);
+            if (cur == null) {
+                cur = treeSet.ceiling(-1);
+            }
+            ans[i] = cur;
+            map.put(cur, map.get(cur) - 1);
+            if (map.get(cur) == 0) {
+                treeSet.remove(cur);
+            }
+        }
+        return ans;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6fa5a301ee5342ceb7de8651c9258196.png)
+
+**参考链接  https://leetcode.cn/problems/advantage-shuffle/solution/-by-muse-77-ajqp/**
+
+```java
+class Solution {
+    public int[] advantageCount(int[] nums1, int[] nums2) {
+         // 索引位置
+        Integer[] orderPos = new Integer[nums2.length];
+        for (int i = 0; i < nums2.length; i++) {
+            orderPos[i] = i;
+        }
+        Arrays.sort(orderPos, Comparator.comparingInt(i -> nums2[i]));
+        Arrays.sort(nums1);
+        int head = 0;
+        int tail = nums1.length - 1;
+        for (int i = orderPos.length-1; i >= 0; i--) {
+            if (nums1[tail] > nums2[orderPos[i]]) {
+                nums2[orderPos[i]] = nums1[tail--];
+            } else {
+                nums2[orderPos[i]] = nums1[head++];
+            }
+        }
+        return nums2;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/5c544ec900b34168bb07115f18cd59e7.png)

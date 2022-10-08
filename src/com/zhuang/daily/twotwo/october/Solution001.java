@@ -15,6 +15,11 @@ public class Solution001 {
 
         String[] cpdomains = {"9001 discuss.leetcode.com"};
         solution001.subdomainVisits(cpdomains);
+        int[] nums1 = {2, 7, 11, 15};
+        int[] nums2 = {1, 10, 4, 11};
+        solution001.advantageCount(nums1, nums2);
+        solution001.advantageCount2(nums1, nums2);
+        solution001.advantageCount3(nums1, nums2);
     }
 
     /**
@@ -240,7 +245,7 @@ public class Solution001 {
         int sum = 0;
         int temp = 0;
         for (int i = 0; i < nums.length; i++) {
-            if (i == 0 || nums[i] > nums[i-1]) {
+            if (i == 0 || nums[i] > nums[i - 1]) {
                 temp += nums[i];
                 sum = Math.max(sum, temp);
             } else {
@@ -249,4 +254,85 @@ public class Solution001 {
         }
         return sum;
     }
+
+    /**
+     * https://leetcode.cn/problems/advantage-shuffle/
+     * 10.8
+     *
+     * @param nums1 数组
+     * @param nums2 数组
+     * @return nums1 的任意排列，使其相对于 nums2 的优势最大化
+     */
+    public int[] advantageCount(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        Integer[] idx1 = new Integer[n];
+        Integer[] idx2 = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            idx1[i] = i;
+            idx2[i] = i;
+        }
+        Arrays.sort(idx1, (i, j) -> nums1[i] - nums1[j]);
+        Arrays.sort(idx2, (i, j) -> nums2[i] - nums2[j]);
+        int[] ans = new int[n];
+        int left = 0;
+        int right = n - 1;
+        for (int i = 0; i < n; i++) {
+            if (nums1[idx1[i]] > nums2[idx2[left]]) {
+                ans[idx2[left]] = nums1[idx1[i]];
+                ++left;
+            } else {
+                ans[idx2[right]] = nums1[idx1[i]];
+                --right;
+            }
+        }
+        return ans;
+    }
+
+    public int[] advantageCount2(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i : nums1) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+            if (map.get(i) == 1) {
+                treeSet.add(i);
+            }
+        }
+        int[] ans = new int[n];
+        for (int i = 0; i < n; i++) {
+            // 找出最近大于的数
+            Integer cur = treeSet.ceiling(nums2[i] + 1);
+            if (cur == null) {
+                cur = treeSet.ceiling(-1);
+            }
+            ans[i] = cur;
+            map.put(cur, map.get(cur) - 1);
+            if (map.get(cur) == 0) {
+                treeSet.remove(cur);
+            }
+        }
+        return ans;
+    }
+
+    // 参考链接  https://leetcode.cn/problems/advantage-shuffle/solution/-by-muse-77-ajqp/
+    public int[] advantageCount3(int[] nums1, int[] nums2) {
+        // 索引位置
+        Integer[] orderPos = new Integer[nums2.length];
+        for (int i = 0; i < nums2.length; i++) {
+            orderPos[i] = i;
+        }
+        Arrays.sort(orderPos, Comparator.comparingInt(i -> nums2[i]));
+        Arrays.sort(nums1);
+        int head = 0;
+        int tail = nums1.length - 1;
+        for (int i = orderPos.length-1; i >= 0; i--) {
+            if (nums1[tail] > nums2[orderPos[i]]) {
+                nums2[orderPos[i]] = nums1[tail--];
+            } else {
+                nums2[orderPos[i]] = nums1[head++];
+            }
+        }
+        return nums2;
+    }
 }
+
