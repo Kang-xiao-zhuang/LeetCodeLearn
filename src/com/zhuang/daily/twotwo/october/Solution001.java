@@ -20,6 +20,9 @@ public class Solution001 {
         solution001.advantageCount(nums1, nums2);
         solution001.advantageCount2(nums1, nums2);
         solution001.advantageCount3(nums1, nums2);
+
+        solution001.scoreOfParentheses("(())");
+        solution001.scoreOfParentheses2("(()(()))");
     }
 
     /**
@@ -325,7 +328,7 @@ public class Solution001 {
         Arrays.sort(nums1);
         int head = 0;
         int tail = nums1.length - 1;
-        for (int i = orderPos.length-1; i >= 0; i--) {
+        for (int i = orderPos.length - 1; i >= 0; i--) {
             if (nums1[tail] > nums2[orderPos[i]]) {
                 nums2[orderPos[i]] = nums1[tail--];
             } else {
@@ -333,6 +336,51 @@ public class Solution001 {
             }
         }
         return nums2;
+    }
+
+    /**
+     * https://leetcode.cn/problems/score-of-parentheses/
+     * 10.9
+     *
+     * @param s String
+     * @return int
+     */
+    public int scoreOfParentheses(String s) {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.push(0);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                deque.push(0);
+            } else {
+                Integer val = deque.pop();
+                int top = deque.pop() + Math.max(2 * val, 1);
+                deque.push(top);
+            }
+        }
+        return deque.peek();
+    }
+
+    public int scoreOfParentheses2(String s) {
+        if (s.length() == 2) {
+            return 1;
+        }
+        int balance = 0;
+        int n = s.length();
+        int len = 0;
+        for (int i = 0; i < n; i++) {
+            balance += (s.charAt(i) == '(' ? 1 : -1);
+            if (balance == 0) {
+                len = i + 1;
+                break;
+            }
+        }
+        if (len == n) {
+            return 2 * scoreOfParentheses2(s.substring(1, n - 1));
+        } else {
+            int a = scoreOfParentheses2(s.substring(0, len));
+            int b = scoreOfParentheses2(s.substring(len));
+            return a + b;
+        }
     }
 }
 

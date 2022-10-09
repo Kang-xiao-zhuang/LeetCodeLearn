@@ -681,3 +681,100 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/5c544ec900b34168bb07115f18cd59e7.png)
+
+#### [856. 括号的分数](https://leetcode.cn/problems/score-of-parentheses/)
+
+给定一个平衡括号字符串 `S`，按下述规则计算该字符串的分数：
+
+- `()` 得 1 分。
+- `AB` 得 `A + B` 分，其中 A 和 B 是平衡括号字符串。
+- `(A)` 得 `2 * A` 分，其中 A 是平衡括号字符串。
+
+ 
+
+**示例 1：**
+
+```
+输入： "()"
+输出： 1
+```
+
+**示例 2：**
+
+```
+输入： "(())"
+输出： 2
+```
+
+**示例 3：**
+
+```
+输入： "()()"
+输出： 2
+```
+
+**示例 4：**
+
+```
+输入： "(()(()))"
+输出： 6
+```
+
+ 
+
+**提示：**
+
+1. `S` 是平衡括号字符串，且只含有 `(` 和 `)` 。
+2. `2 <= S.length <= 50`
+
+**栈**
+
+```java
+class Solution {
+    public int scoreOfParentheses(String s) {
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.push(0);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                deque.push(0);
+            } else {
+                Integer val = deque.pop();
+                int top = deque.pop() + Math.max(2 * val, +1);
+                deque.push(top);
+            }
+        }
+        return deque.peek();
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/d9ffeab3f27e42dda6b8ccf422b1ded6.png)
+
+**分治递归**
+
+```java
+class Solution {
+    public int scoreOfParentheses(String s) {
+        if (s.length() == 2) {
+            return 1;
+        }
+        int balance = 0;
+        int n = s.length();
+        int len = 0;
+        for (int i = 0; i < n; i++) {
+            balance += (s.charAt(i) == '(' ? 1 : -1);
+            if (balance == 0) {
+                len = i + 1;
+                break;
+            }
+        }
+        if (len == n) {
+            return 2 * scoreOfParentheses(s.substring(1, n - 1));
+        } else {
+            return scoreOfParentheses(s.substring(0, len)) + scoreOfParentheses(s.substring(len));
+        }
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/0dd16746ee234e8faf0d8670bd8c6ee4.png)
