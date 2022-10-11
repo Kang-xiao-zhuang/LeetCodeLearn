@@ -1,5 +1,8 @@
 package com.zhuang.daily.twotwo.october;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * description: Solution002
  * date: 2022/10/10 8:30
@@ -35,5 +38,49 @@ public class Solution002 {
             }
         }
         return Math.min(a, b);
+    }
+
+
+    /**
+     * https://leetcode.cn/problems/check-if-one-string-swap-can-make-strings-equal/
+     * 2022.10.11
+     *
+     * @param s1 字符串
+     * @param s2 字符串
+     * @return 布尔
+     */
+    public boolean areAlmostEqual(String s1, String s2) {
+        char[] c1 = new char[2];
+        char[] c2 = new char[2];
+        int k = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                if (k > 1) return false;
+                c1[k] = s1.charAt(i);
+                c2[k] = s2.charAt(i);
+                k++;
+            }
+        }
+        return c1[0] == c2[1] && c1[1] == c2[0];
+    }
+
+    public boolean areAlmostEqual2(String s1, String s2) {
+        int n = s1.length();
+        List<Integer> diff = new ArrayList<>();
+        for (int i = 0; i < n; ++i) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                if (diff.size() >= 2) {
+                    return false;
+                }
+                diff.add(i);
+            }
+        }
+        if (diff.isEmpty()) {
+            return true;
+        }
+        if (diff.size() != 2) {
+            return false;
+        }
+        return s1.charAt(diff.get(0)) == s2.charAt(diff.get(1)) && s1.charAt(diff.get(1)) == s2.charAt(diff.get(0));
     }
 }
