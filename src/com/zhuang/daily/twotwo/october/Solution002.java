@@ -131,4 +131,22 @@ public class Solution002 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode.cn/problems/max-chunks-to-make-sorted/
+     * 2022.10.13
+     *
+     * @param arr 数组
+     * @return 数组能分成的最多块数量
+     */
+    public int maxChunksToSorted(int[] arr) {
+        int m = 0, res = 0;
+        for (int i = 0; i < arr.length; i++) {
+            m = Math.max(m, arr[i]);
+            if (m == i) {
+                res++;
+            }
+        }
+        return res;
+    }
 }
