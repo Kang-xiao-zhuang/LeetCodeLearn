@@ -845,3 +845,114 @@ class Solution {
 }
 ```
 
+#### [22. 括号生成](https://leetcode.cn/problems/generate-parentheses/)
+
+数字 `n` 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 **有效的** 括号组合。
+
+ 
+
+**示例 1：**
+
+```
+输入：n = 3
+输出：["((()))","(()())","(())()","()(())","()()()"]
+```
+
+**示例 2：**
+
+```
+输入：n = 1
+输出：["()"]
+```
+
+ 
+
+**提示：**
+
+- `1 <= n <= 8`
+
+```java
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        ArrayList<String> list = new ArrayList<>();
+        // 特值判定
+        if (n == 0) {
+            return list;
+        }
+        dfs("", n, n, list);
+        System.out.println(list.toString());
+        return list;
+    }
+
+    /**
+     * @param str   递归得到的拼接字符串
+     * @param left  左括号的数量
+     * @param right 右括号的数量
+     * @param list  结果list
+     */
+    private void dfs(String str, int left, int right, ArrayList<String> list) {
+        if (left == 0 && right == 0) {
+            list.add(str);
+            return;
+        }
+        // 剪枝（如图，左括号可以使用的个数严格大于右括号可以使用的个数，才剪枝，注意这个细节）
+        if (left > right) {
+            return;
+        }
+
+        // 左括号-1
+        if (left > 0) {
+            dfs(str + "(", left - 1, right, list);
+        }
+        // 右括号-1
+        if (right > 0) {
+            dfs(str + ")", left, right - 1, list);
+        }
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c1d545842d4140618bacc528ee48acc3.png)
+
+```java
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        ArrayList<String> list = new ArrayList<>();
+        // 特值判定
+        if (n == 0) {
+            return list;
+        }
+        dfs2("", 0, 0, n, list);
+        System.out.println(list.toString());
+        return list;
+    }
+
+    /**
+     * @param curStr 当前递归得到的结果
+     * @param left   左括号已经用了几个
+     * @param right  右括号已经用了几个
+     * @param n      左括号、右括号一共得用几个
+     * @param res    结果集
+     */
+    private void dfs2(String curStr, int left, int right, int n, List<String> res) {
+        if (left == n && right == n) {
+            res.add(curStr);
+            return;
+        }
+
+        // 剪枝
+        if (left < right) {
+            return;
+        }
+
+        if (left < n) {
+            dfs2(curStr + "(", left + 1, right, n, res);
+        }
+        if (right < n) {
+            dfs2(curStr + ")", left, right + 1, n, res);
+        }
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8882dfe13cae489488cfe2edbd865107.png)

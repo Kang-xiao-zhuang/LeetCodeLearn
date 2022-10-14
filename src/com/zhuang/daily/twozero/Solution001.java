@@ -1,8 +1,6 @@
 package com.zhuang.daily.twozero;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * description: Solution001
@@ -14,10 +12,12 @@ public class Solution001 {
 
     public static void main(String[] args) {
         Solution001 solution001 = new Solution001();
-        int[][] boards = {{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}};
+        //int[][] boards = {{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}};
         //solution001.gameOfLife(boards);
         //solution001.gameOfLife2(boards);
-        solution001.movingCount(16, 16, 3);
+        //solution001.movingCount(16, 16, 3);
+        solution001.generateParenthesis(3);
+        solution001.generateParenthesis2(3);
     }
 
     /**
@@ -383,5 +383,86 @@ public class Solution001 {
             x /= 10;
         }
         return res;
+    }
+
+    /**
+     * https://leetcode.cn/problems/generate-parentheses/
+     * 2020.4.9
+     *
+     * @param n 生成括号的对数
+     * @return 用于能够生成所有可能的并且 有效的 括号组合
+     */
+    public List<String> generateParenthesis(int n) {
+        ArrayList<String> list = new ArrayList<>();
+        // 特值判定
+        if (n == 0) {
+            return list;
+        }
+        dfs("", n, n, list);
+        System.out.println(list.toString());
+        return list;
+    }
+
+    /**
+     * @param str   递归得到的拼接字符串
+     * @param left  左括号的数量
+     * @param right 右括号的数量
+     * @param list  结果list
+     */
+    private void dfs(String str, int left, int right, ArrayList<String> list) {
+        if (left == 0 && right == 0) {
+            list.add(str);
+            return;
+        }
+        // 剪枝（如图，左括号可以使用的个数严格大于右括号可以使用的个数，才剪枝，注意这个细节）
+        if (left > right) {
+            return;
+        }
+
+        // 左括号-1
+        if (left > 0) {
+            dfs(str + "(", left - 1, right, list);
+        }
+        // 右括号-1
+        if (right > 0) {
+            dfs(str + ")", left, right - 1, list);
+        }
+    }
+
+    public List<String> generateParenthesis2(int n) {
+        ArrayList<String> list = new ArrayList<>();
+        // 特值判定
+        if (n == 0) {
+            return list;
+        }
+        dfs2("", 0, 0, n, list);
+        System.out.println(list.toString());
+        return list;
+    }
+
+    /**
+     * @param curStr 当前递归得到的结果
+     * @param left   左括号已经用了几个
+     * @param right  右括号已经用了几个
+     * @param n      左括号、右括号一共得用几个
+     * @param res    结果集
+     */
+    private void dfs2(String curStr, int left, int right, int n, List<String> res) {
+        if (left == n && right == n) {
+            res.add(curStr);
+            return;
+        }
+
+        // 剪枝
+        if (left < right) {
+            return;
+        }
+
+        if (left < n) {
+            dfs2(curStr + "(", left + 1, right, n, res);
+        }
+        if (right < n) {
+            dfs2(curStr + ")", left, right + 1, n, res);
+        }
     }
 }
