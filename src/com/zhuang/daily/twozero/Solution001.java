@@ -16,8 +16,12 @@ public class Solution001 {
         //solution001.gameOfLife(boards);
         //solution001.gameOfLife2(boards);
         //solution001.movingCount(16, 16, 3);
-        solution001.generateParenthesis(3);
-        solution001.generateParenthesis2(3);
+        //solution001.generateParenthesis(3);
+        //solution001.generateParenthesis2(3);
+
+        //solution001.reverseWords("a good   example");
+        //solution001.reverseWords2("a good   example");
+        //solution001.reverseWords3("a good   example");
     }
 
     /**
@@ -464,5 +468,82 @@ public class Solution001 {
         if (right < n) {
             dfs2(curStr + ")", left, right + 1, n, res);
         }
+    }
+
+    /**
+     * https://leetcode.cn/problems/reverse-words-in-a-string/
+     * 2020.4.10
+     *
+     * @param s 字符串
+     * @return 单词 顺序颠倒且 单词 之间用单个空格连接的结果字符串
+     */
+    public String reverseWords(String s) {
+        // 去除空格
+        String trim = s.trim();
+        String[] s1 = trim.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = s1.length - 1; i >= 0; i--) {
+            if (!s1[i].equals("")) {
+                sb.append(s1[i]).append(" ");
+            }
+        }
+        System.out.println(sb.toString().trim());
+        return sb.toString().trim();
+    }
+
+    public String reverseWords2(String s) {
+        // 思路先用栈的方法
+        Deque<String> stack = new ArrayDeque<>();
+        // 去除空格
+        String trim = s.trim();
+        String[] s1 = trim.split(" ");
+
+        for (String num : s1) {
+            if (!num.equals("")) {
+                stack.push(num);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop()).append(" ");
+        }
+        return sb.toString().trim();
+    }
+
+    public String reverseWords3(String s) {
+        char[] charArray = s.toCharArray();
+        int left = 0;
+        int right = s.length() - 1;
+        // 清楚左右两边的空格
+        while (charArray[left] == ' ') {
+            left++;
+        }
+        while (charArray[right] == ' ') {
+            right--;
+        }
+        StringBuilder sb = new StringBuilder();
+        while (left <= right) {
+            // 开始遍历拼接单词
+            int index = right;
+            while (index >= left && charArray[index] != ' ') {
+                // 左移索引
+                index--;
+            }
+            // 现在index已经找到第一个空格， index+1后移到出现字符串的位置
+            for (int i = index + 1; i <= right; i++) {
+                sb.append(charArray[i]);
+            }
+            // 如果不是最后一个单词,就添加空格
+            if (index > left) {
+                sb.append(' ');
+            }
+            // 跳过可能出现的空格
+            while (index >= left && charArray[index] == ' ') {
+                index--;
+            }
+            right = index;
+        }
+        System.out.println(sb.toString());
+        return sb.toString();
     }
 }
