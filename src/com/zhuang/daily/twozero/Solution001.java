@@ -1,6 +1,8 @@
 package com.zhuang.daily.twozero;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * description: Solution001
@@ -13,8 +15,9 @@ public class Solution001 {
     public static void main(String[] args) {
         Solution001 solution001 = new Solution001();
         int[][] boards = {{0, 1, 0}, {0, 0, 1}, {1, 1, 1}, {0, 0, 0}};
-        solution001.gameOfLife(boards);
-        solution001.gameOfLife2(boards);
+        //solution001.gameOfLife(boards);
+        //solution001.gameOfLife2(boards);
+        solution001.movingCount(16, 16, 3);
     }
 
     /**
@@ -325,5 +328,60 @@ public class Solution001 {
                 matrix[i][j] = matrix_new[i][j];
             }
         }
+    }
+
+    /**
+     * https://leetcode.cn/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/
+     * 2020.4.8
+     *
+     * @param m m行
+     * @param n n列
+     * @param k int
+     * @return 机器人能够到达多少个格子
+     */
+    public int movingCount(int m, int n, int k) {
+        if (k == 0) {
+            return 1;
+        }
+        Queue<int[]> queue = new LinkedList<>();
+        // 向右和向下的方向数组
+        int[] dx = {0, 1};
+        int[] dy = {1, 0};
+        boolean[][] vis = new boolean[m][n];
+        queue.offer(new int[]{0, 0});
+        vis[0][0] = true;
+        int ans = 1;
+        while (!queue.isEmpty()) {
+            // 上一次已访问过的位置
+            int[] cell = queue.poll();
+            // 横坐标
+            int x = cell[0];
+            // 纵坐标
+            int y = cell[1];
+            for (int i = 0; i < 2; ++i) {
+                // 向右走
+                int tx = dx[i] + x;
+                // 向下走
+                int ty = dy[i] + y;
+                if (tx < 0 || tx >= m || ty < 0 || ty >= n || vis[tx][ty] || get(tx) + get(ty) > k) {
+                    continue;
+                }
+                // 入队列
+                queue.offer(new int[]{tx, ty});
+                // 此位置设为 访问过
+                vis[tx][ty] = true;
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    private int get(int x) {
+        int res = 0;
+        while (x != 0) {
+            res += x % 10;
+            x /= 10;
+        }
+        return res;
     }
 }
