@@ -1,9 +1,6 @@
 package com.zhuang.daily.twotwo.october;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * description: Solution002
@@ -13,7 +10,9 @@ import java.util.List;
  */
 public class Solution002 {
     public static void main(String[] args) {
-
+        int[] target = {1, 2};
+        Solution002 solution002 = new Solution002();
+        solution002.buildArray(target, 4);
     }
 
     /**
@@ -182,5 +181,28 @@ public class Solution002 {
             }
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode.cn/problems/build-an-array-with-stack-operations/
+     * 2022.10.15
+     *
+     * @param target 目标数组
+     * @param n      包含 1 到 n 之间的数字
+     * @return 构建目标数组所用的操作序列
+     */
+    public List<String> buildArray(int[] target, int n) {
+        ArrayList<String> list = new ArrayList<>();
+        int index=1;
+        for (int num : target) {
+            while (num!=index){
+                list.add("Push");
+                list.add("Pop");
+                index++;
+            }
+            list.add("Push");
+            index++;
+        }
+        return list;
     }
 }
