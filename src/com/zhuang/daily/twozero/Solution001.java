@@ -651,4 +651,22 @@ public class Solution001 {
         System.out.println(Arrays.deepToString(merged.toArray(new int[merged.size()][])));
         return merged.toArray(new int[merged.size()][]);
     }
+
+    /**
+     * https://leetcode.cn/problems/jump-game/
+     * 2020.4.17
+     *
+     * @param nums 数组
+     * @return 布尔
+     */
+    public boolean canJump(int[] nums) {
+        int reach = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > reach) {
+                return false;
+            }
+            reach = Math.max(i + nums[i], reach);
+        }
+        return true;
+    }
 }
