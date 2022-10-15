@@ -1297,3 +1297,85 @@ twitter.getNewsFeed(1);  // 用户 1 获取推文应当返回一个列表，其�
 - `0 <= tweetId <= 104`
 - 所有推特的 ID 都互不相同
 - `postTweet`、`getNewsFeed`、`follow` 和 `unfollow` 方法最多调用 `3 * 104` 次
+
+#### [445. 两数相加 II](https://leetcode.cn/problems/add-two-numbers-ii/)
+
+给你两个 **非空** 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。
+
+你可以假设除了数字 0 之外，这两个数字都不会以零开头。
+
+ 
+
+**示例1：**
+
+![img](https://pic.leetcode-cn.com/1626420025-fZfzMX-image.png)
+
+```
+输入：l1 = [7,2,4,3], l2 = [5,6,4]
+输出：[7,8,0,7]
+```
+
+**示例2：**
+
+```
+输入：l1 = [2,4,3], l2 = [5,6,4]
+输出：[8,0,7]
+```
+
+**示例3：**
+
+```
+输入：l1 = [0], l2 = [0]
+输出：[0]
+```
+
+ 
+
+**提示：**
+
+- 链表的长度范围为` [1, 100]`
+- `0 <= node.val <= 9`
+- 输入数据保证链表代表的数字无前导 0
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Deque<Integer> stack1 = new ArrayDeque<>();
+        Deque<Integer> stack2 = new ArrayDeque<>();
+        while (l1 != null) {
+            stack1.push(l1.val);
+            l1 = l1.next;
+        }
+
+        while (l2 != null) {
+            stack2.push(l2.val);
+            l2 = l2.next;
+        }
+        ListNode ans = null;
+        int carry = 0;
+        while (!stack1.isEmpty() || !stack2.isEmpty() || carry != 0) {
+            int a = stack1.isEmpty() ? 0 : stack1.pop();
+            int b = stack2.isEmpty() ? 0 : stack2.pop();
+            int cur = a + b + carry;
+            carry = cur / 10;
+            cur %= 10;
+            ListNode node = new ListNode(cur);
+            node.next = ans;
+            ans = node;
+        }
+        return ans;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/88dec8888a8546f99f164ae0f7aa494d.png)
