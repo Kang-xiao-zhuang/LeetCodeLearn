@@ -582,4 +582,48 @@ public class Solution001 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode.cn/problems/01-matrix/
+     * 2020.10.15
+     *
+     * @param mat 矩阵
+     * @return 二维矩阵
+     */
+    public int[][] updateMatrix(int[][] mat) {
+        Queue<int[]> queue = new LinkedList<>();
+        int row = mat.length;
+        int col = mat[0].length;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (mat[i][j] == 0) {
+                    queue.offer(new int[]{i, j});
+                } else {
+                    // 设置为访问的 -1
+                    mat[i][j] = -1;
+                }
+            }
+        }
+        // 遍历x的方向
+        int[] dx = {-1, 1, 0, 0};
+        // 遍历y的方向
+        int[] dy = {0, 0, -1, 1};
+        while (!queue.isEmpty()) {
+            // 出列
+            int[] point = queue.poll();
+            int x = point[0];
+            int y = point[1];
+            for (int i = 0; i < 4; i++) {
+                // 邻居坐标
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if (nx < row && ny < col && nx >= 0 && ny >= 0 && mat[nx][ny] == -1) {
+                    // 邻居最短距离+1
+                    mat[nx][ny] = mat[x][y] + 1;
+                    queue.offer(new int[]{nx, ny});
+                }
+            }
+        }
+        return mat;
+    }
 }

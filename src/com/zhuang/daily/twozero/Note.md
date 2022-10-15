@@ -1379,3 +1379,85 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/88dec8888a8546f99f164ae0f7aa494d.png)
+
+#### [542. 01 矩阵](https://leetcode.cn/problems/01-matrix/)
+
+给定一个由 `0` 和 `1` 组成的矩阵 `mat` ，请输出一个大小相同的矩阵，其中每一个格子是 `mat` 中对应位置元素到最近的 `0` 的距离。
+
+两个相邻元素间的距离为 `1` 。
+
+ 
+
+**示例 1：**
+
+![img](https://pic.leetcode-cn.com/1626667201-NCWmuP-image.png)
+
+```
+输入：mat = [[0,0,0],[0,1,0],[0,0,0]]
+输出：[[0,0,0],[0,1,0],[0,0,0]]
+```
+
+**示例 2：**
+
+![img](https://pic.leetcode-cn.com/1626667205-xFxIeK-image.png)
+
+```
+输入：mat = [[0,0,0],[0,1,0],[1,1,1]]
+输出：[[0,0,0],[0,1,0],[1,2,1]]
+```
+
+ 
+
+**提示：**
+
+- `m == mat.length`
+- `n == mat[i].length`
+- `1 <= m, n <= 104`
+- `1 <= m * n <= 104`
+- `mat[i][j] is either 0 or 1.`
+- `mat` 中至少有一个 `0 `
+
+**BFS**
+
+```java
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        Queue<int[]> queue = new LinkedList<>();
+        int row = mat.length;
+        int col = mat[0].length;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (mat[i][j] == 0) {
+                    queue.offer(new int[]{i, j});
+                } else {
+                    // 设置为访问的 -1
+                    mat[i][j] = -1;
+                }
+            }
+        }
+        // 遍历x的方向
+        int[] dx = {-1, 1, 0, 0};
+        // 遍历y的方向
+        int[] dy = {0, 0, -1, 1};
+        while (!queue.isEmpty()) {
+            // 出列
+            int[] point = queue.poll();
+            int x = point[0];
+            int y = point[1];
+            for (int i = 0; i < 4; i++) {
+                // 邻居坐标
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if (nx < row && ny < col && nx >= 0 && ny >= 0 && mat[nx][ny] == -1) {
+                    // 邻居最短距离+1
+                    mat[nx][ny] = mat[x][y] + 1;
+                    queue.offer(new int[]{nx, ny});
+                }
+            }
+        }
+        return mat;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c97a2d8ba96048b68563f2af89dd5d9d.png)
