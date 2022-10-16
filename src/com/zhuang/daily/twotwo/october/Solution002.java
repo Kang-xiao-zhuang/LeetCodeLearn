@@ -193,9 +193,9 @@ public class Solution002 {
      */
     public List<String> buildArray(int[] target, int n) {
         ArrayList<String> list = new ArrayList<>();
-        int index=1;
+        int index = 1;
         for (int num : target) {
-            while (num!=index){
+            while (num != index) {
                 list.add("Push");
                 list.add("Pop");
                 index++;
@@ -204,5 +204,45 @@ public class Solution002 {
             index++;
         }
         return list;
+    }
+
+    /**
+     * https://leetcode.cn/problems/possible-bipartition/
+     * 2022.10.16
+     *
+     * @param n        整数
+     * @param dislikes 数组
+     * @return 可以用这种方法将所有人分进两组时
+     */
+    public boolean possibleBipartition(int n, int[][] dislikes) {
+        int[] color = new int[n + 1];
+        List<Integer>[] g = new List[n + 1];
+        for (int i = 0; i <= n; ++i) {
+            g[i] = new ArrayList<Integer>();
+        }
+        for (int[] p : dislikes) {
+            g[p[0]].add(p[1]);
+            g[p[1]].add(p[0]);
+        }
+        for (int i = 1; i <= n; ++i) {
+            if (color[i] == 0) {
+                Queue<Integer> queue = new ArrayDeque<>();
+                queue.offer(i);
+                color[i] = 1;
+                while (!queue.isEmpty()) {
+                    int t = queue.poll();
+                    for (int next : g[t]) {
+                        if (color[next] > 0 && color[next] == color[t]) {
+                            return false;
+                        }
+                        if (color[next] == 0) {
+                            color[next] = 3 ^ color[t];
+                            queue.offer(next);
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
