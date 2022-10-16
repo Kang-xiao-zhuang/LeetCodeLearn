@@ -1628,9 +1628,7 @@ class Solution {
 
 #### [466. 统计重复个数](https://leetcode.cn/problems/count-the-repetitions/)
 
-难度困难169
-
-定义 `str = [s, n]` 表示 `str` 由 `n` 个字符串 `s` 连接构成。
+定义 `str = [s, n]` 表示 `str` 由 `n` 个字符串 `s` 连接构成
 
 - 例如，`str == ["abc", 3] =="abcabcabc"` 。
 
@@ -1665,3 +1663,97 @@ class Solution {
 - `1 <= s1.length, s2.length <= 100`
 - `s1` 和 `s2` 由小写英文字母组成
 - `1 <= n1, n2 <= 106`
+
+#### [200. 岛屿数量](https://leetcode.cn/problems/number-of-islands/)
+
+给你一个由 `'1'`（陆地）和 `'0'`（水）组成的的二维网格，请你计算网格中岛屿的数量。
+
+岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。
+
+此外，你可以假设该网格的四条边均被水包围。
+
+ 
+
+**示例 1：**
+
+```
+输入：grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
+输出：1
+```
+
+**示例 2：**
+
+```
+输入：grid = [
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]
+输出：3
+```
+
+ 
+
+**提示：**
+
+- `m == grid.length`
+- `n == grid[i].length`
+- `1 <= m, n <= 300`
+- `grid[i][j]` 的值为 `'0'` 或 `'1'`
+
+
+
+```java
+class Solution {
+    public int numIslands(char[][] grid) {
+        // 定义岛屿数量的变量
+        int count = 0;
+        // 遍历二维表的所有陆地
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                // 找出所有的陆地
+                if (grid[i][j] == '1') {
+                    // 深度递归，遍历所有陆地
+                    dfs(grid, i, j);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * @param grid 二维表
+     * @param i    边界
+     * @param j    边界
+     */
+    private void dfs(char[][] grid, int i, int j) {
+        // 如果超出边界和遍历到海洋的时候返回
+        if (i < 0 ||
+                j < 0 ||
+                i >= grid.length ||
+                j >= grid[0].length ||
+                grid[i][j] == '0') {
+            return;
+        }
+        // 遍历过的海洋变为陆地
+        grid[i][j] = '0';
+        // 上
+        dfs(grid, i - 1, j);
+        // 下
+        dfs(grid, i + 1, j);
+        // 右
+        dfs(grid, i, j + 1);
+        // 左
+        dfs(grid, i, j - 1);
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2e6f82dcdce44315a533043c56208b2d.png)

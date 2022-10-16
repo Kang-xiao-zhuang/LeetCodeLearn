@@ -692,4 +692,54 @@ public class Solution001 {
         }
         return res;
     }
+
+    /**
+     * https://leetcode.cn/problems/number-of-islands/
+     * 2020.4.20
+     *
+     * @param grid 二维网格
+     * @return 计算网格中岛屿的数量
+     */
+    public int numIslands(char[][] grid) {
+        // 定义岛屿数量的变量
+        int count = 0;
+        // 遍历二维表的所有陆地
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                // 找出所有的陆地
+                if (grid[i][j] == '1') {
+                    // 深度递归，遍历所有陆地
+                    dfs(grid, i, j);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * @param grid 二维表
+     * @param i    边界
+     * @param j    边界
+     */
+    private void dfs(char[][] grid, int i, int j) {
+        // 如果超出边界和遍历到海洋的时候返回
+        if (i < 0 ||
+                j < 0 ||
+                i >= grid.length ||
+                j >= grid[0].length ||
+                grid[i][j] == '0') {
+            return;
+        }
+        // 遍历过的海洋变为陆地
+        grid[i][j] = '0';
+        // 上
+        dfs(grid, i - 1, j);
+        // 下
+        dfs(grid, i + 1, j);
+        // 右
+        dfs(grid, i, j + 1);
+        // 左
+        dfs(grid, i, j - 1);
+    }
 }
