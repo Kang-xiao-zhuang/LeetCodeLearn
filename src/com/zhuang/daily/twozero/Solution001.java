@@ -669,4 +669,27 @@ public class Solution001 {
         }
         return true;
     }
+
+    /**
+     * https://leetcode.cn/problems/container-with-most-water/
+     * 2020.4.18
+     *
+     * @param height 整数数组
+     * @return 容器可以储存的最大水量
+     */
+    public int maxArea(int[] height) {
+        int res = 0;
+        int left = 0;
+        int right = height.length - 1;
+        while (left < right) {
+            int area = (right - left) * Math.min(height[left], height[right]);
+            res = Math.max(res, area);
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return res;
+    }
 }
