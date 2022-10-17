@@ -1,4 +1,4 @@
-package com.zhuang.daily.twozero;
+package com.zhuang.daily.twozero.april;
 
 import java.util.*;
 
@@ -22,6 +22,8 @@ public class Solution001 {
         //solution001.reverseWords("a good   example");
         //solution001.reverseWords2("a good   example");
         //solution001.reverseWords3("a good   example");
+        int[] nums = {1, 1, 2, 1, 1};
+        solution001.numberOfSubarrays(nums, 3);
     }
 
     /**
@@ -741,5 +743,52 @@ public class Solution001 {
         dfs(grid, i, j + 1);
         // 左
         dfs(grid, i, j - 1);
+    }
+
+    /**
+     * https://leetcode.cn/problems/count-number-of-nice-subarrays/
+     * 2020.4.21
+     *
+     * @param nums 整数数组
+     * @param k    奇数数量
+     * @return 这个数组中 「优美子数组」 的数目
+     */
+    public int numberOfSubarrays(int[] nums, int k) {
+        // k-v k:前缀和(有N个奇数)  v:有N个奇数的情况有几种
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        int count = 0;
+        int preSum = 0;
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                preSum++;
+            }
+            if (map.containsKey(preSum - k)) {
+                count += map.get(preSum - k);
+            }
+            if (map.containsKey(preSum)) {
+                map.put(preSum, map.get(preSum) + 1);
+            } else {
+                map.put(preSum, 1);
+            }
+        }
+        return count;
+    }
+
+    public int numberOfSubarrays2(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        int pre = 0;
+        map.put(0, 1);
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                pre++;
+            }
+            if (map.containsKey(pre - k)) {
+                res += map.get(pre - k);
+            }
+            map.put(pre, map.getOrDefault(pre, 0) + 1);
+        }
+        return res;
     }
 }
