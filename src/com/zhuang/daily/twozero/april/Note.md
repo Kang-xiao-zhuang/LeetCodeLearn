@@ -2004,8 +2004,6 @@ class Solution {
 
 #### [剑指 Offer 51. 数组中的逆序对](https://leetcode.cn/problems/shu-zu-zhong-de-ni-xu-dui-lcof/)
 
-难度困难868
-
 在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组，求出这个数组中的逆序对的总数。
 
  
@@ -2024,3 +2022,65 @@ class Solution {
 ```
 0 <= 数组长度 <= 50000
 ```
+
+#### [46. 全排列](https://leetcode.cn/problems/permutations/)
+
+给定一个不含重复数字的数组 `nums` ，返回其 *所有可能的全排列* 。你可以 **按任意顺序** 返回答案。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+```
+
+**示例 2：**
+
+```
+输入：nums = [0,1]
+输出：[[0,1],[1,0]]
+```
+
+**示例 3：**
+
+```
+输入：nums = [1]
+输出：[[1]]
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 6`
+- `-10 <= nums[i] <= 10`
+- `nums` 中的所有整数 **互不相同**
+
+```java
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        backtrack(res, list, nums);
+        return res;
+    }
+
+    public void backtrack(List<List<Integer>> res, List<Integer> list, int[] nums) {
+        if (list.size() == nums.length) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        for (int num : nums) {
+            if (!list.contains(num)) {
+                list.add(num);
+                backtrack(res, list, nums);
+                list.remove(list.size() - 1);
+            }
+        }
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/65ba2375af644f95a53aa4470fcfc8af.png)
