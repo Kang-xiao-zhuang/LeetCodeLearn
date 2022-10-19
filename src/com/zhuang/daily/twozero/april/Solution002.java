@@ -1,9 +1,6 @@
 package com.zhuang.daily.twozero.april;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * description: Solution002
@@ -16,7 +13,9 @@ public class Solution002 {
     public static void main(String[] args) {
         Solution002 solution002 = new Solution002();
         int[] nums = {1, 2, 3};
-        solution002.permute(nums);
+        //solution002.permute(nums);
+        int[] nums2 = {4,1,4,6};
+        solution002.singleNumbers(nums2);
     }
 
     /**
@@ -96,5 +95,31 @@ public class Solution002 {
                 list.remove(list.size() - 1);
             }
         }
+    }
+
+    /**
+     * https://leetcode.cn/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/
+     * 2020.4.28
+     *
+     * @param nums 整型数组
+     * @return 这两个只出现一次的数字
+     */
+    public int[] singleNumbers(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] ans = new int[2];
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        int index=0;
+        while (index<2){
+            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                if (entry.getValue() == 1) {
+                    ans[index] = entry.getKey();
+                    index++;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(ans));
+        return ans;
     }
 }
