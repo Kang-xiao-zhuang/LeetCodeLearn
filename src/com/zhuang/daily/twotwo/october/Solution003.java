@@ -110,4 +110,16 @@ public class Solution003 {
         }
         return 0;
     }
+
+    /**
+     * https://leetcode.cn/problems/k-th-symbol-in-grammar/
+     * 2022.10.20
+     *
+     * @param n n 行
+     * @param k 第 k 个字符
+     * @return 返回第 n 行中第 k 个字符
+     */
+    public int kthGrammar(int n, int k) {
+        return Integer.bitCount(k - 1) & 1;
+    }
 }
