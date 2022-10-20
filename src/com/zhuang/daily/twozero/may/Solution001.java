@@ -1,5 +1,8 @@
 package com.zhuang.daily.twozero.may;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  * description: Solution001
  * date: 2022/10/9 9:26
@@ -10,7 +13,7 @@ public class Solution001 {
 
     public static void main(String[] args) {
         Solution001 solution001 = new Solution001();
-
+        solution001.lengthOfLongestSubstring("abcabcbb");
     }
 
     /**
@@ -40,5 +43,51 @@ public class Solution001 {
         }
         prev.next = list1 == null ? list2 : list1;
         return prehead.next;
+    }
+
+    /**
+     * https://leetcode.cn/problems/longest-substring-without-repeating-characters/
+     * 2020.5.1
+     *
+     * @param s 字符串
+     * @return 找出其中不含有重复字符的 最长子串 的长度
+     */
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+        HashMap<Character, Integer> map = new HashMap<>();
+        int max = 0;
+        int left = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                left = Math.max(left, map.get(s.charAt(i)) + 1);
+            }
+            map.put(s.charAt(i), i);
+            max = Math.max(max, i - left + 1);
+        }
+        return max;
+    }
+
+
+    public int lengthOfLongestSubstring2(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+        int left = 0;
+        int right = 0;
+        int max = 0;
+        HashSet<Character> set = new HashSet<>();
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            while (set.contains(c)) {
+                set.remove(s.charAt(left));
+                left++;
+            }
+            set.add(c);
+            max = Math.max(max, right - left + 1);
+            right++;
+        }
+        return max;
     }
 }
