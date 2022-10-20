@@ -192,3 +192,90 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/e9bdd9a5d57a41959afe9b8af99140ce.png)
+
+#### [53. 最大子数组和](https://leetcode.cn/problems/maximum-subarray/)
+
+给你一个整数数组 `nums` ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+
+**子数组** 是数组中的一个连续部分。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出：6
+解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+```
+
+**示例 2：**
+
+```
+输入：nums = [1]
+输出：1
+```
+
+**示例 3：**
+
+```
+输入：nums = [5,4,-1,7,8]
+输出：23
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 105`
+- `-104 <= nums[i] <= 104`
+
+ 
+
+**进阶：**如果你已经实现复杂度为 `O(n)` 的解法，尝试使用更为精妙的 **分治法** 求解。
+
+**模拟**
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        // 全局最优解
+        int result = nums[0];
+        // 局部最优解
+        int temp = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            // 已经连续遍历子数组的和 + 当前元素值>= 当前元素值
+            if (temp + nums[i] >= nums[i]) {
+                // temp=已遍历连续子数组的和+当前元素值
+                temp = temp + nums[i];
+            } else {
+                // 小于就不要加
+                temp = nums[i];
+            }
+            // 对比谁更大
+            if (temp > result) {
+                result = temp;
+            }
+        }
+        return result;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/62a6721b00434a719e52fc7b2bce036e.png)
+
+**动态规划**
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int pre = 0, maxSum = nums[0];
+        for (int num : nums) {
+            pre = Math.max(pre + num, num);
+            maxSum = Math.max(maxSum, pre);
+        }
+        return maxSum;
+    }
+}
+```
+

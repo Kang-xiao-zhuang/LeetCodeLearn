@@ -14,6 +14,8 @@ public class Solution001 {
     public static void main(String[] args) {
         Solution001 solution001 = new Solution001();
         solution001.lengthOfLongestSubstring("abcabcbb");
+        int[] num = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        solution001.maxSubArray(num);
     }
 
     /**
@@ -89,5 +91,34 @@ public class Solution001 {
             right++;
         }
         return max;
+    }
+
+    /**
+     * https://leetcode.cn/problems/maximum-subarray/
+     * 2020.5.2
+     *
+     * @param nums 数组
+     * @return 最大值
+     */
+    public int maxSubArray(int[] nums) {
+        // 全局最优解
+        int result = nums[0];
+        // 局部最优解
+        int temp = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            // 已经连续遍历子数组的和 + 当前元素值>= 当前元素值
+            if (temp + nums[i] >= nums[i]) {
+                // temp=已遍历连续子数组的和+当前元素值
+                temp = temp + nums[i];
+            } else {
+                // 小于就不要加
+                temp = nums[i];
+            }
+            // 对比谁更大
+            if (temp > result) {
+                result = temp;
+            }
+        }
+        return result;
     }
 }
