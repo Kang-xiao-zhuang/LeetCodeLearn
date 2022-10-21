@@ -1678,3 +1678,102 @@ class Solution {
 }
 ```
 
+#### [901. 股票价格跨度](https://leetcode.cn/problems/online-stock-span/)
+
+难度中等199收藏分享切换为英文接收动态反馈
+
+编写一个 `StockSpanner` 类，它收集某些股票的每日报价，并返回该股票当日价格的跨度。
+
+今天股票价格的跨度被定义为股票价格小于或等于今天价格的最大连续日数（从今天开始往回数，包括今天）。
+
+例如，如果未来7天股票的价格是 `[100, 80, 60, 70, 60, 75, 85]`，那么股票跨度将是 `[1, 1, 1, 2, 1, 4, 6]`。
+
+ 
+
+**示例：**
+
+```
+输入：["StockSpanner","next","next","next","next","next","next","next"], [[],[100],[80],[60],[70],[60],[75],[85]]
+输出：[null,1,1,1,2,1,4,6]
+解释：
+首先，初始化 S = StockSpanner()，然后：
+S.next(100) 被调用并返回 1，
+S.next(80) 被调用并返回 1，
+S.next(60) 被调用并返回 1，
+S.next(70) 被调用并返回 2，
+S.next(60) 被调用并返回 1，
+S.next(75) 被调用并返回 4，
+S.next(85) 被调用并返回 6。
+
+注意 (例如) S.next(75) 返回 4，因为截至今天的最后 4 个价格
+(包括今天的价格 75) 小于或等于今天的价格。
+```
+
+ 
+
+**提示：**
+
+1. 调用 `StockSpanner.next(int price)` 时，将有 `1 <= price <= 10^5`。
+2. 每个测试用例最多可以调用 `10000` 次 `StockSpanner.next`。
+3. 在所有测试用例中，最多调用 `150000` 次 `StockSpanner.next`。
+4. 此问题的总时间限制减少了 50%。
+
+```java
+class StockSpanner {
+
+    List<Integer> list;
+    public StockSpanner() {
+        list=new ArrayList<>();
+    }
+    
+    public int next(int price) {
+        list.add(price);
+        for(int i=list.size()-1;i>=0;i--){
+            if(list.get(i)>price){
+                return list.size()-i-1;
+            }
+        }
+        return list.size();
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6034bf9447944a07b4d62bb1edf8e3f9.png)
+
+```java
+class StockSpanner {
+	Stack<Integer> days;
+	Stack<Integer> prices;
+
+	public StockSpanner() {
+		days = new Stack<>();
+		prices = new Stack<>();
+	}
+
+	public int next(int price) {
+		// 每次pop出来的都是想左递增的连续天数
+		int d = 1;// 表示就算只有今天算进去了的话，也有一天
+		while (!prices.isEmpty() && prices.peek() <= price) {
+			d += days.pop();
+			prices.pop();
+		}
+		days.push(d);
+		prices.push(price);
+		return d;
+	}
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
+```
+
+![](https://img-blog.csdnimg.cn/31b7c75de35240dfb3b038db566ba8b6.png)
