@@ -49,7 +49,7 @@ public class Solution001 {
 
     /**
      * https://leetcode.cn/problems/longest-substring-without-repeating-characters/
-     * 2020.5.1
+     * 2020.5.2
      *
      * @param s 字符串
      * @return 找出其中不含有重复字符的 最长子串 的长度
@@ -95,7 +95,7 @@ public class Solution001 {
 
     /**
      * https://leetcode.cn/problems/maximum-subarray/
-     * 2020.5.2
+     * 2020.5.3
      *
      * @param nums 数组
      * @return 最大值
@@ -120,5 +120,54 @@ public class Solution001 {
             }
         }
         return result;
+    }
+
+    /**
+     * https://leetcode.cn/problems/jump-game-ii/
+     * 2020.5.4
+     *
+     * @param nums 非负整数数组
+     * @return 使用最少的跳跃次数到达数组的最后一个位置
+     */
+    public int jump(int[] nums) {
+        int position = nums.length - 1;
+        int step = 0;
+        while (position > 0) {
+            for (int i = 0; i < position; i++) {
+                if (nums[i] + i >= position) {
+                    position = i;
+                    step++;
+                    break;
+                }
+            }
+        }
+        return step;
+    }
+
+    public int jump2(int[] nums) {
+        // 跳跃次数
+        int step = 0;
+        // 局部最优解
+        int curDistance = 0;
+        // 全局最优解
+        int maxDistance = 0;
+        if (nums == null || nums.length == 0 || nums.length == 1) {
+            return 0;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            //在可覆盖区域内更新最大的覆盖区域
+            maxDistance=Math.max(maxDistance,i+nums[i]);
+            //说明当前一步，再跳一步就到达了末尾
+            if (maxDistance>=nums.length-1){
+                step++;
+                break;
+            }
+            //走到当前覆盖的最大区域时，更新下一步可达的最大区域
+            if (i==curDistance){
+                curDistance=maxDistance;
+                step++;
+            }
+        }
+        return step;
     }
 }
