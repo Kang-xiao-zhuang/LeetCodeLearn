@@ -422,6 +422,7 @@ public class Solution001 {
 
     /**
      * https://leetcode-cn.com/problems/invert-binary-tree/
+     * 后序遍历
      *
      * @param root 节点
      * @return TreeNode
@@ -435,6 +436,52 @@ public class Solution001 {
         swap(root);
         return root;
     }
+
+    // 中序遍历
+    public TreeNode invertTree2(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        invertTree(root.left);
+        swap(root);
+        invertTree(root.left);
+        return root;
+    }
+
+    // 先序遍历
+    public TreeNode invertTree3(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        swap(root);
+        invertTree(root.left);
+        invertTree(root.right);
+        return root;
+    }
+
+    // 层序遍历
+    public TreeNode invertTree4(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            swap(node);
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+        return root;
+    }
+
 
     public void swap(TreeNode root) {
         TreeNode tmp = root.left;
