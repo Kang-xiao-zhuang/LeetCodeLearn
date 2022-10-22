@@ -190,4 +190,25 @@ public class Solution003 {
         return res;
     }
 
+    /**
+     * https://leetcode.cn/problems/n-ary-tree-postorder-traversal/
+     *
+     * @param root 根节点
+     * @return List<Integer>
+     */
+    public List<Integer> postorder(Node root) {
+        List<Integer> res = new ArrayList<>();
+        helperPostOrder(root, res);
+        return res;
+    }
+
+    public void helperPostOrder(Node root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+        for (Node ch : root.children) {
+            helper(ch, res);
+        }
+        res.add(root.val);
+    }
 }
