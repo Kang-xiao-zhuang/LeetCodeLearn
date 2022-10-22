@@ -123,3 +123,181 @@ class Solution {
 }
 ```
 
+#### [589. N 叉树的前序遍历](https://leetcode.cn/problems/n-ary-tree-preorder-traversal/)
+
+给定一个 n 叉树的根节点  `root` ，返回 *其节点值的 **前序遍历*** 。
+
+n 叉树 在输入中按层序遍历进行序列化表示，每组子节点由空值 `null` 分隔（请参见示例）。
+
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png)
+
+```
+输入：root = [1,null,3,2,4,null,5,6]
+输出：[1,3,5,6,2,4]
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png)
+
+```
+输入：root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
+输出：[1,2,3,6,7,11,14,4,8,12,5,9,13,10]
+```
+
+ 
+
+**提示：**
+
+- 节点总数在范围 `[0, 104]`内
+- `0 <= Node.val <= 104`
+- n 叉树的高度小于或等于 `1000`
+
+ 
+
+**进阶：**递归法很简单，你可以使用迭代法完成此题吗?
+
+**递归 **
+
+```java
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+    public List<Integer> preorder(Node root) {
+        List<Integer> res = new ArrayList<>();
+        helper(root, res);
+        return res;
+    }
+
+    public void helper(Node root, List<Integer> res) {
+        if (root == null) {
+            return;
+        }
+        res.add(root.val);
+        for (Node ch : root.children) {
+            helper(ch, res);
+        }
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/7a78868a51f941f09cb2b74609d60ec7.png)
+
+**迭代**
+
+```java
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+    public List<Integer> preorder(Node root) {
+       List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Deque<Node> deque = new LinkedList<>();
+        deque.push(root);
+        // 前序遍历  根左右  入栈顺序   右左根
+        while (!deque.isEmpty()) {
+            Node node = deque.pop();
+            if (node != null) {
+                // node节点只要有孩子节点
+                if (node.children != null) {
+                    // 翻转子链表
+                    Collections.reverse(node.children);
+                    for (Node child : node.children) {
+                        deque.push(child);
+                    }
+                }
+                deque.push(node);
+                deque.push(null);
+            } else {
+                node = deque.pop();
+                res.add(node.val);
+            }
+        }
+        return res;
+       }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/4c729a3de370410290f0b6a1b6b02e61.png)
+
+```java
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> children;
+
+    public Node() {}
+
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, List<Node> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+    public List<Integer> preorder(Node root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+
+        Deque<Node> stack = new ArrayDeque<Node>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+            res.add(node.val);
+            for (int i = node.children.size() - 1; i >= 0; --i) {
+                stack.push(node.children.get(i));
+            }
+        }
+        return res;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/978984dd4c6d4a2ba9f19ee9934c6f96.png)
