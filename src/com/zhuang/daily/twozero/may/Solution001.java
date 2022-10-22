@@ -1,7 +1,9 @@
 package com.zhuang.daily.twozero.may;
 
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  * description: Solution001
@@ -156,18 +158,82 @@ public class Solution001 {
         }
         for (int i = 0; i < nums.length; i++) {
             //在可覆盖区域内更新最大的覆盖区域
-            maxDistance=Math.max(maxDistance,i+nums[i]);
+            maxDistance = Math.max(maxDistance, i + nums[i]);
             //说明当前一步，再跳一步就到达了末尾
-            if (maxDistance>=nums.length-1){
+            if (maxDistance >= nums.length - 1) {
                 step++;
                 break;
             }
             //走到当前覆盖的最大区域时，更新下一步可达的最大区域
-            if (i==curDistance){
-                curDistance=maxDistance;
+            if (i == curDistance) {
+                curDistance = maxDistance;
                 step++;
             }
         }
         return step;
+    }
+
+    /**
+     * https://leetcode.cn/problems/subtree-of-another-tree/
+     * 2020.5.7
+     *
+     * @param root    二叉树
+     * @param subRoot 二叉树
+     * @return 检验 root 中是否包含和 subRoot 具有相同结构和节点值的子树
+     */
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        return dfs(root, subRoot);
+    }
+
+    public boolean dfs(TreeNode root, TreeNode subRoot) {
+        if (root == null) {
+            return false;
+        }
+        return check(root, subRoot) || dfs(root.left, subRoot) || dfs(root.right, subRoot);
+    }
+
+    private boolean check(TreeNode root, TreeNode subRoot) {
+        if (root == null && subRoot == null) {
+            return true;
+        }
+        if (root == null || subRoot == null || root.val != subRoot.val) {
+            return false;
+        }
+        return check(root.left, subRoot.left) && check(root.right, subRoot.right);
+    }
+
+
+    public boolean isSubtree2(TreeNode root, TreeNode subRoot) {
+        if (root == null) {
+            return subRoot == null;
+        }
+        if (subRoot == null) {
+            return true;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.addLast(root);
+        while (!deque.isEmpty()) {
+            TreeNode node = deque.removeFirst();
+            if (dfs2(node, subRoot)) {
+                return true;
+            }
+            if (node.left != null) {
+                deque.addLast(node.left);
+            }
+            if (node.right != null) {
+                deque.addLast(node.right);
+            }
+        }
+        return false;
+    }
+
+    public boolean dfs2(TreeNode root, TreeNode subRoot) {
+        if (root == null && subRoot == null) {
+            return true;
+        }
+        if (root == null || subRoot == null || root.val != subRoot.val) {
+            return false;
+        }
+        return dfs2(root.left, subRoot.left) && dfs2(root.right, subRoot.right);
     }
 }

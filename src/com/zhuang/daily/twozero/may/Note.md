@@ -501,3 +501,137 @@ class Solution {
 - `days` 按顺序严格递增
 - `costs.length == 3`
 - `1 <= costs[i] <= 1000`
+
+#### [572. 另一棵树的子树](https://leetcode.cn/problems/subtree-of-another-tree/)
+
+难度简单836收藏分享切换为英文接收动态反馈
+
+给你两棵二叉树 `root` 和 `subRoot` 。检验 `root` 中是否包含和 `subRoot` 具有相同结构和节点值的子树。如果存在，返回 `true` ；否则，返回 `false` 。
+
+二叉树 `tree` 的一棵子树包括 `tree` 的某个节点和这个节点的所有后代节点。`tree` 也可以看做它自身的一棵子树。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2021/04/28/subtree1-tree.jpg)
+
+```
+输入：root = [3,4,5,1,2], subRoot = [4,1,2]
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2021/04/28/subtree2-tree.jpg)
+
+```
+输入：root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
+输出：false
+```
+
+ 
+
+**提示：**
+
+- `root` 树上的节点数量范围是 `[1, 2000]`
+- `subRoot` 树上的节点数量范围是 `[1, 1000]`
+- `-104 <= root.val <= 104`
+- `-104 <= subRoot.val <= 104`
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        return dfs(root, subRoot);
+    }
+
+    public boolean dfs(TreeNode root, TreeNode subRoot) {
+        if (root == null) {
+            return false;
+        }
+        return check(root, subRoot) || dfs(root.left, subRoot) || dfs(root.right, subRoot);
+    }
+
+    private boolean check(TreeNode root, TreeNode subRoot) {
+        if (root == null && subRoot == null) {
+            return true;
+        }
+        if (root == null || subRoot == null || root.val != subRoot.val) {
+            return false;
+        }
+        return check(root.left, subRoot.left) && check(root.right, subRoot.right);
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/b9b598c8651d4c169b97249f0a446e38.png)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (root == null) {
+            return subRoot == null;
+        }
+        if (subRoot == null) {
+            return true;
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.addLast(root);
+        while (!deque.isEmpty()) {
+            TreeNode node = deque.removeFirst();
+            if (dfs(node, subRoot)) {
+                return true;
+            }
+            if (node.left != null) {
+                deque.addLast(node.left);
+            }
+            if (node.right != null) {
+                deque.addLast(node.right);
+            }
+        }
+        return false;
+    }
+
+    public boolean dfs(TreeNode root, TreeNode subRoot) {
+        if (root == null && subRoot == null) {
+            return true;
+        }
+        if (root == null || subRoot == null || root.val != subRoot.val) {
+            return false;
+        }
+        return dfs(root.left, subRoot.left) && dfs(root.right, subRoot.right);
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/46ac4fc2c62a4ec99721c86d8c02a09a.png)
