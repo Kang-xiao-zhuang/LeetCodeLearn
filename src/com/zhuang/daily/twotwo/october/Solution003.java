@@ -16,6 +16,8 @@ public class Solution003 {
         int[] students = {1, 1, 0, 0};
         int[] sandwiches = {0, 1, 0, 1};
         solution003.countStudents2(students, sandwiches);
+
+        solution003.mergeAlternately("abc", "pqr");
     }
 
     /**
@@ -121,5 +123,30 @@ public class Solution003 {
      */
     public int kthGrammar(int n, int k) {
         return Integer.bitCount(k - 1) & 1;
+    }
+
+    /**
+     * https://leetcode.cn/problems/merge-strings-alternately/
+     * 2022.10.23
+     *
+     * @param word1 字符串
+     * @param word2 字符串
+     * @return 合并后的字符串
+     */
+    public String mergeAlternately(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        int i = 0;
+        int j = 0;
+        StringBuilder sb = new StringBuilder();
+        while (i < m || j < n) {
+            if (i < m) {
+                sb.append(word1.charAt(i++));
+            }
+            if (j < n) {
+                sb.append(word2.charAt(j++));
+            }
+        }
+        return sb.toString();
     }
 }
