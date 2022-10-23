@@ -251,6 +251,15 @@ public class Solution003 {
         }
     }
 
+    /**
+     * https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/
+     * 2020 5.10
+     *
+     * @param root 根节点
+     * @param p    节点
+     * @param q    节点
+     * @return 找到该树中两个指定节点的最近公共祖先
+     */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
             return root;
