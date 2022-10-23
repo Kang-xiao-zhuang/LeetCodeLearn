@@ -568,3 +568,126 @@ class Solution {
 ```
 
 ![image-20221023140236801](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20221023140236801.png)
+
+#### [100. 相同的树](https://leetcode.cn/problems/same-tree/)
+
+给你两棵二叉树的根节点 `p` 和 `q` ，编写一个函数来检验这两棵树是否相同。
+
+如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2020/12/20/ex1.jpg)
+
+```
+输入：p = [1,2,3], q = [1,2,3]
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2020/12/20/ex2.jpg)
+
+```
+输入：p = [1,2], q = [1,null,2]
+输出：false
+```
+
+**示例 3：**
+
+![img](https://assets.leetcode.com/uploads/2020/12/20/ex3.jpg)
+
+```
+输入：p = [1,2,1], q = [1,1,2]
+输出：false
+```
+
+ 
+
+**提示：**
+
+- 两棵树上的节点数目都在范围 `[0, 100]` 内
+- `-104 <= Node.val <= 104`
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null || q == null) {
+            return p==q;
+        }
+        if (p.val != q.val) {
+            return false;
+        }
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/65f6961206ba4b3f9f8b6735d56b8109.png)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(p);
+        queue.offer(q);
+        while (!queue.isEmpty()) {
+            // 弹出节点比较
+            TreeNode node1 = queue.poll();
+            TreeNode node2 = queue.poll();
+            if (node1 == null && node2 == null) {
+                continue;
+            }
+            // 判断值为空 相等
+            if (node1 == null || node2 == null || node1.val != node2.val) {
+                return false;
+            }
+            // 节点入队
+            queue.offer(node1.left);
+            queue.offer(node2.left);
+
+            queue.offer(node1.right);
+            queue.offer(node2.right);
+        }
+
+        return true;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/b6e754a5d9c84e24aa6420fa45c44434.png)

@@ -281,4 +281,50 @@ public class Solution003 {
         }
         return null;
     }
+
+    /**
+     * https://leetcode.cn/problems/same-tree/
+     *
+     * @param p 根节点
+     * @param q 根节点
+     * @return 检验这两棵树是否相同
+     */
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null || q == null) {
+            return p == q;
+        }
+        if (p.val != q.val) {
+            return false;
+        }
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    public boolean isSameTree2(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(p);
+        queue.offer(q);
+        while (!queue.isEmpty()) {
+            // 弹出节点比较
+            TreeNode node1 = queue.poll();
+            TreeNode node2 = queue.poll();
+            if (node1 == null && node2 == null) {
+                continue;
+            }
+            // 判断值为空 相等
+            if (node1 == null || node2 == null || node1.val != node2.val) {
+                return false;
+            }
+            // 节点入队
+            queue.offer(node1.left);
+            queue.offer(node2.left);
+
+            queue.offer(node1.right);
+            queue.offer(node2.right);
+        }
+
+        return true;
+    }
 }
