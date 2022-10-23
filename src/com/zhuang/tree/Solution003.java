@@ -250,4 +250,26 @@ public class Solution003 {
             return Math.max(leftHeight, rightHeight) + 1;
         }
     }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return root;
+        }
+        if (root == p || root == q) {
+            // 直接返回公共祖先
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right != null) {
+            // 左右都存在  返回公共祖先
+            return root;
+        } else if (left != null) {
+            // 返回到这个值一路返回到最底层
+            return left;
+        } else if (right != null) {
+            return right;
+        }
+        return null;
+    }
 }
