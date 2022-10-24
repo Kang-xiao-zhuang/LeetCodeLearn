@@ -327,4 +327,53 @@ public class Solution003 {
 
         return true;
     }
+
+
+    /**
+     * https://leetcode.cn/problems/sum-of-left-leaves/
+     *
+     * @param root 根节点
+     * @return 左子节点的和
+     */
+    public int sumOfLeftLeaves(TreeNode root) {
+        int sum = 0;
+        if (root == null) {
+            return 0;
+        }
+        if (root.left != null && isLeaf(root.left)) {
+            sum += root.left.val;
+        }
+        return sum + sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
+    }
+
+    public int sumOfLeftLeaves2(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int sum = 0;
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (node.left != null) {
+                // 为叶子节点
+                if (isLeaf(node.left)) {
+                    sum += node.left.val;
+                } else {
+                    // 不为叶子节点都入队
+                    queue.offer(node.left);
+                }
+            }
+            // 不为叶子节点都入队
+            if (node.right != null && !isLeaf(node.right)) {
+                queue.offer(node.right);
+            }
+        }
+        return sum;
+    }
+
+    public boolean isLeaf(TreeNode node) {
+        return node.left == null && node.right == null;
+    }
 }

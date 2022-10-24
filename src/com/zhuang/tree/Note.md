@@ -691,3 +691,120 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/b6e754a5d9c84e24aa6420fa45c44434.png)
+
+#### [404. 左叶子之和](https://leetcode.cn/problems/sum-of-left-leaves/)
+
+给定二叉树的根节点 `root` ，返回所有左叶子之和。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2021/04/08/leftsum-tree.jpg)
+
+```
+输入: root = [3,9,20,null,null,15,7] 
+输出: 24 
+解释: 在这个二叉树中，有两个左叶子，分别是 9 和 15，所以返回 24
+```
+
+**示例 2:**
+
+```
+输入: root = [1]
+输出: 0
+```
+
+ 
+
+**提示:**
+
+- 节点数在 `[1, 1000]` 范围内
+- `-1000 <= Node.val <= 1000`
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        int sum = 0;
+        if (root == null) {
+            return 0;
+        }
+        if (root.left != null && isLeaf(root.left)) {
+            sum += root.left.val;
+        }
+        return sum + sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
+    }
+
+    public boolean isLeaf(TreeNode node) {
+        return node.left == null && node.right == null;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/66565ffbcf0e49658e7825957cd94fbf.png)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int sum = 0;
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (node.left != null) {
+                // 为叶子节点
+                if (isLeaf(node.left)) {
+                    sum += node.left.val;
+                } else {
+                    // 不为叶子节点都入队
+                    queue.offer(node.left);
+                }
+            }
+            // 不为叶子节点都入队
+            if (node.right != null && !isLeaf(node.right)) {
+                queue.offer(node.right);
+            }
+        }
+        return sum;
+    }
+        public boolean isLeaf(TreeNode node) {
+        return node.left == null && node.right == null;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/d895964c3555449f881685577bf42f5c.png)
