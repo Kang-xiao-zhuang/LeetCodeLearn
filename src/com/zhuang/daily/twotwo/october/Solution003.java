@@ -149,4 +149,45 @@ public class Solution003 {
         }
         return sb.toString();
     }
+
+    /**
+     * https://leetcode.cn/problems/partition-array-into-disjoint-intervals/
+     * 2022.10.24
+     * @param nums 数组
+     * @return left 的 长度
+     */
+    public int partitionDisjoint(int[] nums) {
+        int n = nums.length;
+        // 全局最大值
+        int leftMax = nums[0];
+        // 局部最大值
+        int curMax = nums[0];
+        int leftPos = 0;
+        for (int i = 1; i < n - 1; i++) {
+            curMax = Math.max(curMax, nums[i]);
+            if (nums[i] < leftMax) {
+                leftMax = curMax;
+                leftPos = i;
+            }
+        }
+        return leftPos + 1;
+    }
+
+    public int partitionDisjoint2(int[] nums) {
+        int n = nums.length;
+        int[] minRight = new int[n];
+        minRight[n - 1] = nums[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            minRight[i] = Math.min(nums[i], minRight[i + 1]);
+        }
+
+        int maxLeft = 0;
+        for (int i = 0; i < n - 1; i++) {
+            maxLeft = Math.max(maxLeft, nums[i]);
+            if (maxLeft <= minRight[i + 1]) {
+                return i + 1;
+            }
+        }
+        return n - 1;
+    }
 }

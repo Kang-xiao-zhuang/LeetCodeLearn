@@ -1937,3 +1937,88 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/014c487f9a0f4cd8a57ebd47c4990e64.png)
+
+#### [915. 分割数组](https://leetcode.cn/problems/partition-array-into-disjoint-intervals/)
+
+给定一个数组 `nums` ，将其划分为两个连续子数组 `left` 和 `right`， 使得：
+
+- `left` 中的每个元素都小于或等于 `right` 中的每个元素。
+- `left` 和 `right` 都是非空的。
+- `left` 的长度要尽可能小。
+
+*在完成这样的分组后返回 `left` 的 **长度*** 。
+
+用例可以保证存在这样的划分方法。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [5,0,3,8,6]
+输出：3
+解释：left = [5,0,3]，right = [8,6]
+```
+
+**示例 2：**
+
+```
+输入：nums = [1,1,1,0,6,12]
+输出：4
+解释：left = [1,1,1,0]，right = [6,12]
+```
+
+ 
+
+**提示：**
+
+- `2 <= nums.length <= 105`
+- `0 <= nums[i] <= 106`
+- 可以保证至少有一种方法能够按题目所描述的那样对 `nums` 进行划分。
+
+```java
+class Solution {
+    public int partitionDisjoint(int[] nums) {
+        int n = nums.length;
+        // 全局最大值
+        int leftMax = nums[0];
+        // 局部最大值
+        int curMax = nums[0];
+        int leftPos = 0;
+        for (int i = 1; i < n - 1; i++) {
+            curMax = Math.max(curMax, nums[i]);
+            if (nums[i] < leftMax) {
+                leftMax = curMax;
+                leftPos = i;
+            }
+        }
+        return leftPos + 1;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/3668fc7326ee4ab3a6f553be4464ce17.png)
+
+```java
+class Solution {
+    public int partitionDisjoint(int[] nums) {
+        int n = nums.length;
+        int[] minRight = new int[n];
+        minRight[n - 1] = nums[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            minRight[i] = Math.min(nums[i], minRight[i + 1]);
+        }
+
+        int maxLeft = 0;
+        for (int i = 0; i < n - 1; i++) {
+            maxLeft = Math.max(maxLeft, nums[i]);
+            if (maxLeft <= minRight[i + 1]) {
+                return i + 1;
+            }
+        }
+        return n - 1;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/3bb25fc8e93f4aa1948805c73e594fae.png)
