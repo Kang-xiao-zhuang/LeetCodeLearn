@@ -253,4 +253,38 @@ public class Solution001 {
         }
         return 0;
     }
+
+    /**
+     * https://leetcode.cn/problems/subarray-sum-equals-k/
+     * 2020.5.15
+     *
+     * @param nums 数组
+     * @param k    int
+     * @return 统计并返回 该数组中和为 k 的连续子数组的个数
+     */
+    public int subarraySum(int[] nums, int k) {
+        int count = 0;
+        for (int start = 0; start < nums.length; ++start) {
+            int sum = 0;
+            for (int end = start; end >= 0; --end) {
+                sum += nums[end];
+                if (sum == k) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public int subarraySum2(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1); // 匹配整个从下标 0 开始的前缀
+        int n = nums.length, preSum = 0, ans = 0;
+        for (int num : nums) {
+            preSum += num;
+            ans += map.getOrDefault(preSum - k, 0);
+            map.put(preSum, map.getOrDefault(preSum, 0) + 1);
+        }
+        return ans;
+    }
 }

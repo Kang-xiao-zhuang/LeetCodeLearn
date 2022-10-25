@@ -1108,3 +1108,68 @@ class Solution {
 }
 ```
 
+#### [560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k/)
+
+给你一个整数数组 `nums` 和一个整数 `k` ，请你统计并返回 *该数组中和为 `k` 的连续子数组的个数* 。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,1,1], k = 2
+输出：2
+```
+
+**示例 2：**
+
+```
+输入：nums = [1,2,3], k = 3
+输出：2
+```
+
+ 
+
+**提示：**
+
+- `1 <= nums.length <= 2 * 104`
+- `-1000 <= nums[i] <= 1000`
+- `-107 <= k <= 107`
+
+```java
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int count = 0;
+        for (int start = 0; start < nums.length; ++start) {
+            int sum = 0;
+            for (int end = start; end >= 0; --end) {
+                sum += nums[end];
+                if (sum == k) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/dc0f43f99ac047aa8ebf952f3567bb63.png)
+
+```java
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1); // 匹配整个从下标 0 开始的前缀
+        int n = nums.length, preSum = 0, ans = 0;
+        for (int num : nums) {
+            preSum += num;
+            ans += map.getOrDefault(preSum - k, 0);
+            map.put(preSum, map.getOrDefault(preSum, 0) + 1);
+        }
+        return ans;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ffa267e9d93442c1aaded32940d7236d.png)
