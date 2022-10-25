@@ -1053,3 +1053,58 @@ class Solution {
 }
 ```
 
+#### [136. 只出现一次的数字](https://leetcode.cn/problems/single-number/)
+
+给定一个**非空**整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+
+**说明：**
+
+你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+
+**示例 1:**
+
+```
+输入: [2,2,1]
+输出: 1
+```
+
+**示例 2:**
+
+```
+输入: [4,1,2,1,2]
+输出: 4
+```
+
+```java
+class Solution {
+    public int singleNumber(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                return entry.getKey();
+            }
+        }
+        return 0;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/4c2299761ba740ba99536b8e42173141.png)
+
+**异或方法**
+
+```java
+class Solution {
+    public int singleNumber(int[] nums) {
+        int single=0;
+        for(int num:nums){
+            single^=num;
+        }
+        return single;
+    }
+}
+```
+

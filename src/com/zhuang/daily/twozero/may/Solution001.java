@@ -1,9 +1,6 @@
 package com.zhuang.daily.twozero.may;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * description: Solution001
@@ -235,5 +232,25 @@ public class Solution001 {
             return false;
         }
         return dfs2(root.left, subRoot.left) && dfs2(root.right, subRoot.right);
+    }
+
+    /**
+     * https://leetcode.cn/problems/single-number/
+     * 2020.5.14
+     *
+     * @param nums 非空整数数组
+     * @return 找出那个只出现了一次的元素
+     */
+    public int singleNumber(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                return entry.getKey();
+            }
+        }
+        return 0;
     }
 }
