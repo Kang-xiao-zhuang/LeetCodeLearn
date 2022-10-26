@@ -16,7 +16,7 @@ public class Solution001 {
         int[] num = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
         solution001.maxSubArray(num);
         int[][] prerequisites = {{1, 0}, {2, 0}, {3, 1}, {3, 2}};
-        solution001.findOrder(4, prerequisites);
+        solution001.findOrder2(4, prerequisites);
     }
 
     /**
@@ -306,6 +306,15 @@ public class Solution001 {
         int[] inDegrees = new int[numCourses];
         for (int[] prerequisite : prerequisites) {
             // 对于有先修课的课程，计算有几门先修课
+            // {{a,b},{c,d}}  a c为先修课
+            // {{1, 0}, {2, 0}, {3, 1}, {3, 2}}
+            // 0->1 0->2  1->3  2->3
+            /* 在有向图中，箭头是具有方向的,从一个顶点指向另一个顶点,每个顶点被指向的箭头个数，就是它的入度。从这个顶点指出去的箭头个数，就是它的出度
+            0 入度 0
+            1 入度 1
+            2 入度 1
+            3 入度 2
+             */
             inDegrees[prerequisite[0]]++;
         }
         // 入度为0的节点
@@ -316,7 +325,7 @@ public class Solution001 {
                 queue.offer(i);
             }
         }
-        // 记录可以学完的课程
+        // 记录可以学完的课程数量
         int count = 0;
         // 可以学完的课程
         int[] res = new int[numCourses];
@@ -334,6 +343,7 @@ public class Solution001 {
                 }
             }
         }
+        // 如果结果集中的数量不等于结点的数量，就不能完成课程任务，这一点是拓扑排序的结论
         if (count == numCourses) {
             return res;
         }
@@ -419,5 +429,55 @@ public class Solution001 {
         mark[i] = -1;
         stack.push(i);
         return true;
+    }
+
+    public int[] findOrder4(int numCourses, int[][] prerequisites) {
+        if (numCourses <= 0) {
+            return new int[0];
+        }
+
+        HashSet<Integer>[] set = new HashSet[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            set[i] = new HashSet<>();
+        }
+
+        // [1,0] 0 -> 1 指向问题
+        int[] inDegree = new int[numCourses];
+        for (int[] p : prerequisites) {
+            set[p[1]].add(p[0]);
+            inDegree[p[0]]++;
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                // 入度为0入队列
+                queue.offer(i);
+            }
+        }
+
+        int[] res = new int[numCourses];
+        // 当前结果集列表里的元素个数，正好可以作为下标
+        int count = 0;
+
+        while (!queue.isEmpty()) {
+            // 当前入度为 0 的结点
+            Integer head = queue.poll();
+            res[count] = head;
+            count++;
+            Set<Integer> successors = set[head];
+            for (Integer nextCourse : successors) {
+                inDegree[nextCourse]--;
+                // 马上检测该结点的入度是否为 0，如果为 0，马上加入队列
+                if (inDegree[nextCourse] == 0) {
+                    queue.offer(nextCourse);
+                }
+            }
+        }
+        // 如果结果集中的数量不等于结点的数量，就不能完成课程任务，这一点是拓扑排序的结论
+        if (count == numCourses) {
+            return res;
+        }
+        return new int[0];
     }
 }
