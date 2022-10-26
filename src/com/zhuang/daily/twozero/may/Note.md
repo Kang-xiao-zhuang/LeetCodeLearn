@@ -1213,3 +1213,193 @@ class Solution {
  
 
 **进阶：**你可以设计一个只用 `O(1)` 额外内存空间的算法解决此问题吗？
+
+#### [210. 课程表 II](https://leetcode.cn/problems/course-schedule-ii/)
+
+现在你总共有 `numCourses` 门课需要选，记为 `0` 到 `numCourses - 1`。给你一个数组 `prerequisites` ，其中 `prerequisites[i] = [ai, bi]` ，表示在选修课程 `ai` 前 **必须** 先选修 `bi` 。
+
+- 例如，想要学习课程 `0` ，你需要先完成课程 `1` ，我们用一个匹配来表示：`[0,1]` 。
+
+返回你为了学完所有课程所安排的学习顺序。可能会有多个正确的顺序，你只要返回 **任意一种** 就可以了。如果不可能完成所有课程，返回 **一个空数组** 。
+
+ 
+
+**示例 1：**
+
+```
+输入：numCourses = 2, prerequisites = [[1,0]]
+输出：[0,1]
+解释：总共有 2 门课程。要学习课程 1，你需要先完成课程 0。因此，正确的课程顺序为 [0,1] 。
+```
+
+**示例 2：**
+
+```
+输入：numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+输出：[0,2,1,3]
+解释：总共有 4 门课程。要学习课程 3，你应该先完成课程 1 和课程 2。并且课程 1 和课程 2 都应该排在课程 0 之后。
+因此，一个正确的课程顺序是 [0,1,2,3] 。另一个正确的排序是 [0,2,1,3] 。
+```
+
+**示例 3：**
+
+```
+输入：numCourses = 1, prerequisites = []
+输出：[0]
+```
+
+ 
+
+**提示：**
+
+- `1 <= numCourses <= 2000`
+- `0 <= prerequisites.length <= numCourses * (numCourses - 1)`
+- `prerequisites[i].length == 2`
+- `0 <= ai, bi < numCourses`
+- `ai != bi`
+- 所有`[ai, bi]` **互不相同**
+
+**广度优先遍历**
+
+```java
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0) {
+            return new int[0];
+        }
+        // 入度表
+        int[] inDegrees = new int[numCourses];
+        for (int[] prerequisite : prerequisites) {
+            // 对于有先修课的课程，计算有几门先修课
+            inDegrees[prerequisite[0]]++;
+        }
+        // 入度为0的节点
+        Queue<Integer> queue = new LinkedList<>();
+        // 入度为0就入队
+        for (int i = 0; i < inDegrees.length; i++) {
+            if (inDegrees[i] == 0) {
+                queue.offer(i);
+            }
+        }
+        // 记录可以学完的课程
+        int count = 0;
+        // 可以学完的课程
+        int[] res = new int[numCourses];
+        // 删除入度为0的节点
+        while (!queue.isEmpty()) {
+            int temp = queue.poll();
+            res[count] = temp;
+            count++;
+            for (int[] prerequisite : prerequisites) {
+                if (prerequisite[1] == temp) {
+                    inDegrees[prerequisite[0]]--;
+                    if (inDegrees[prerequisite[0]] == 0) {
+                        queue.offer(prerequisite[0]);
+                    }
+                }
+            }
+        }
+        if (count == numCourses) {
+            return res;
+        }
+        return new int[0];
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f641affc89df44a9ac3e486389d3a270.png)
+
+**深度优先遍历**
+
+```java
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+if (numCourses == 0) {
+            return new int[0];
+        }
+        // 建立邻接矩阵
+        int[][] graph = new int[numCourses][numCourses];
+        for (int[] p : prerequisites) {
+            graph[p[1]][p[0]] = 1;
+        }
+        // 记录访问状态的数组， 访问过设为-1 正在访问设为1 为未访问设为0
+        int[] status = new int[numCourses];
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (!dfs(graph, status, i, stack)) {
+                // 只要存在环就返回
+                return new int[0];
+            }
+        }
+        int[] res = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            res[i] = stack.pop();
+        }
+        return res;
+    }
+
+    private boolean dfs(int[][] graph, int[] status, int i, Deque<Integer> stack) {
+        if (status[i] == 1) {
+            // 当前节点在此次 dfs 中正在访问，说明存在环
+            return false;
+        }
+        if (status[i] == -1) {
+            return true;
+        }
+        status[i] = 1;
+        for (int j = 0; j < graph.length; j++) {
+            // dfs 访问当前课程的后续课程，看是否存在环
+            if (graph[i][j] == 1 && !dfs(graph, status, j, stack)){
+                return false;
+            }
+        }
+        // 标记为已访问
+        status[i] = -1;
+        stack.push(i);
+        return true;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/66e6b9e6b40d4130806c4fb1086e394a.png)
+
+```java
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0) return new int[0];
+        // HashSet 作为邻接矩阵
+        HashSet<Integer>[] graph = new HashSet[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            graph[i] = new HashSet<>();
+        }
+        for (int[] p : prerequisites) {
+            graph[p[1]].add(p[0]);
+        }
+        int[] mark = new int[numCourses]; // 标记数组
+        Deque<Integer> stack = new ArrayDeque<>(); // 结果栈
+        for (int i = 0; i < numCourses; i++) {
+            if (!isCycle(graph, mark, i, stack)) return new int[0];
+        }
+        int[] res = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            res[i] = stack.pop();
+        }
+        return res;
+    }
+
+    private boolean isCycle(HashSet<Integer>[] graph, int[] mark, int i, Deque<Integer> stack) {
+        if (mark[i] == -1) return true;
+        if (mark[i] == 1) return false;
+
+        mark[i] = 1;
+        for (int neighbor : graph[i]) {
+            if (!isCycle(graph, mark, neighbor, stack)) return false;
+        }
+        mark[i] = -1;
+        stack.push(i);
+        return true;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/1af45d0997a942beaa47ca169492bfb0.png)
