@@ -153,6 +153,7 @@ public class Solution003 {
     /**
      * https://leetcode.cn/problems/partition-array-into-disjoint-intervals/
      * 2022.10.24
+     *
      * @param nums 数组
      * @return left 的 长度
      */
@@ -189,5 +190,37 @@ public class Solution003 {
             }
         }
         return n - 1;
+    }
+
+    /**
+     * https://leetcode.cn/problems/sign-of-the-product-of-an-array/
+     * 2022.10.27
+     *
+     * @param nums 整数数组
+     * @return signFunc(product)
+     */
+    public int arraySign(int[] nums) {
+        boolean negative = false;
+        for (int x : nums) {
+            if (x == 0) {
+                return 0;
+            }
+            if (x < 0) {
+                negative = !negative;
+            }
+        }
+        return negative ? -1 : 1;
+    }
+
+    public int arraySign2(int[] nums) {
+        int count = 0;
+        for (int num : nums) {
+            if (num == 0) {
+                return 0;
+            } else if (num < 0) {
+                count++;
+            }
+        }
+        return count % 2 == 0 ? 1 : -1;
     }
 }
