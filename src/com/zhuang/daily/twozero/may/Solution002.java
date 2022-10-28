@@ -39,4 +39,36 @@ public class Solution002 {
         }
         return max;
     }
+
+    /**
+     * https://leetcode.cn/problems/valid-palindrome-ii/
+     * 2020.5.19
+     *
+     * @param s 字符串
+     * @return 判断 s 是否能成为回文字符串
+     */
+    public boolean validPalindrome(String s) {
+        int low = 0;
+        int high = s.length() - 1;
+        while (low < high) {
+            if (s.charAt(low) == s.charAt(high)) {
+                low++;
+                high--;
+            } else {
+                return validPalindrome(s, low, high - 1) || validPalindrome(s, low + 1, high);
+            }
+        }
+        return true;
+    }
+
+    public boolean validPalindrome(String s, int low, int high) {
+        while (low < high) {
+            if (s.charAt(low) != s.charAt(high)) {
+                return false;
+            }
+            low++;
+            high--;
+        }
+        return true;
+    }
 }
