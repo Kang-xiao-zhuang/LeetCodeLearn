@@ -1459,3 +1459,65 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/57d175b9256a4b5e9590847f8cf5a03c.png)
+
+#### [152. 乘积最大子数组](https://leetcode.cn/problems/maximum-product-subarray/)
+
+给你一个整数数组 `nums` ，请你找出数组中乘积最大的非空连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+
+测试用例的答案是一个 **32-位** 整数。
+
+**子数组** 是数组的连续子序列。
+
+ 
+
+**示例 1:**
+
+```
+输入: nums = [2,3,-2,4]
+输出: 6
+解释: 子数组 [2,3] 有最大乘积 6。
+```
+
+**示例 2:**
+
+```
+输入: nums = [-2,0,-1]
+输出: 0
+解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
+```
+
+ 
+
+**提示:**
+
+- `1 <= nums.length <= 2 * 104`
+- `-10 <= nums[i] <= 10`
+- `nums` 的任何前缀或后缀的乘积都 **保证** 是一个 **32-位** 整数
+
+```java
+class Solution {
+    public int maxProduct(int[] nums) {
+        // 全局最大值
+        int max = Integer.MIN_VALUE;
+        // 局部最大值
+        int curmax = 1;
+        // 局部最小值
+        int curmin = 1;
+        for (int num : nums) {
+            // 小于0 最大直接变最小
+            if (num < 0) {
+                int temp = curmax;
+                curmax = curmin;
+                curmin = temp;
+            }
+            curmax = Math.max(curmax * num, num);
+            curmin = Math.min(curmin * num, num);
+
+            max = Math.max(max, curmax);
+        }
+        return max;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c2fa7f406c254284b3e8d8f0d2bf8490.png)
