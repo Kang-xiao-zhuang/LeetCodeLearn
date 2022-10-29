@@ -1,7 +1,6 @@
 package com.zhuang.daily.twotwo.october;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 /**
  * description: Solution004
@@ -47,5 +46,29 @@ public class Solution004 {
             ans = (ans + (long) left[i] * right[i] * arr[i]) % MOD;
         }
         return (int) ans;
+    }
+
+    /**
+     * https://leetcode.cn/problems/count-items-matching-a-rule/
+     * <p>
+     * 2022.10.29
+     *
+     * @param items     类型 颜色 名称
+     * @param ruleKey   字符串
+     * @param ruleValue 字符串
+     * @return 匹配检索规则的物品数量
+     */
+    public int countMatches(List<List<String>> items, String ruleKey, String ruleValue) {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("type", 0);
+        map.put("color", 1);
+        map.put("name", 2);
+        int count = 0;
+        for (List<String> item : items) {
+            if (item.get(map.get(ruleKey)).equals(ruleValue)) {
+                count++;
+            }
+        }
+        return count;
     }
 }
