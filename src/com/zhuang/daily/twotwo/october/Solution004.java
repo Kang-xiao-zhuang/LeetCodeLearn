@@ -10,7 +10,8 @@ import java.util.*;
  */
 public class Solution004 {
     public static void main(String[] args) {
-
+        Solution004 solution004 = new Solution004();
+        solution004.letterCasePermutation("a1b2");
     }
 
     /**
@@ -70,5 +71,55 @@ public class Solution004 {
             }
         }
         return count;
+    }
+
+    /**
+     * https://leetcode.cn/problems/letter-case-permutation/
+     * 2022.10.30
+     *
+     * @param s 字符串
+     * @return 所有可能得到的字符串集合
+     */
+    public List<String> letterCasePermutation(String s) {
+        ArrayList<String> list = new ArrayList<>();
+        dfs(s.toCharArray(), 0, list);
+        return list;
+    }
+
+    private void dfs(char[] arr, int pos, ArrayList<String> list) {
+        while (pos < arr.length && Character.isDigit(arr[pos])) {
+            pos++;
+        }
+        if (pos == arr.length) {
+            list.add(new String(arr));
+            return;
+        }
+
+        arr[pos] ^= 32;
+        dfs(arr, pos + 1, list);
+        arr[pos] ^= 32;
+        dfs(arr, pos + 1, list);
+    }
+
+    public List<String> letterCasePermutation2(String s) {
+        ArrayList<String> list = new ArrayList<>();
+        Queue<StringBuilder> queue = new ArrayDeque<>();
+        queue.offer(new StringBuilder());
+        while (!queue.isEmpty()) {
+            StringBuilder temp = queue.peek();
+            if (temp.length() == s.length()) {
+                list.add(temp.toString());
+                queue.poll();
+            } else {
+                int pos = temp.length();
+                if (Character.isLetter(s.charAt(pos))) {
+                    StringBuilder sb = new StringBuilder(temp);
+                    sb.append((char) (s.charAt(pos) ^ 32));
+                    queue.offer(sb);
+                }
+                temp.append(s.charAt(pos));
+            }
+        }
+        return list;
     }
 }

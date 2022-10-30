@@ -2386,3 +2386,89 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/b2aff820bb174e2c962df2a359822735.png)
+
+#### [784. 字母大小写全排列](https://leetcode.cn/problems/letter-case-permutation/)
+
+给定一个字符串 `s` ，通过将字符串 `s` 中的每个字母转变大小写，我们可以获得一个新的字符串。
+
+返回 *所有可能得到的字符串集合* 。以 **任意顺序** 返回输出。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "a1b2"
+输出：["a1b2", "a1B2", "A1b2", "A1B2"]
+```
+
+**示例 2:**
+
+```
+输入: s = "3z4"
+输出: ["3z4","3Z4"]
+```
+
+ 
+
+**提示:**
+
+- `1 <= s.length <= 12`
+- `s` 由小写英文字母、大写英文字母和数字组成
+
+**深度优先搜索**
+
+```java
+class Solution {
+    public List<String> letterCasePermutation(String s) {
+        ArrayList<String> list = new ArrayList<>();
+        dfs(s.toCharArray(), 0, list);
+        return list;
+    }
+
+    private void dfs(char[] arr, int pos, ArrayList<String> list) {
+        while (pos < arr.length && Character.isDigit(arr[pos])) {
+            pos++;
+        }
+        if (pos == arr.length) {
+            list.add(new String(arr));
+            return;
+        }
+
+        arr[pos] ^= 32;
+        dfs(arr, pos + 1, list);
+        arr[pos] ^= 32;
+        dfs(arr, pos + 1, list);
+    }
+}
+```
+
+**广度优先搜索**
+
+```java
+class Solution {
+    public List<String> letterCasePermutation(String s) {
+        ArrayList<String> list = new ArrayList<>();
+        Queue<StringBuilder> queue = new ArrayDeque<>();
+        queue.offer(new StringBuilder());
+        while (!queue.isEmpty()) {
+            StringBuilder temp = queue.peek();
+            if (temp.length() == s.length()) {
+                list.add(temp.toString());
+                queue.poll();
+            } else {
+                int pos = temp.length();
+                if (Character.isLetter(s.charAt(pos))) {
+                    StringBuilder sb = new StringBuilder(temp);
+                    sb.append((char) (s.charAt(pos) ^ 32));
+                    queue.offer(sb);
+                }
+                temp.append(s.charAt(pos));
+            }
+        }
+        return list;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/b16625f900214d1fb227c35f407a9e4c.png)
