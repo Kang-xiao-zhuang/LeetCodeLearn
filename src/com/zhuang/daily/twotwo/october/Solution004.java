@@ -12,6 +12,8 @@ public class Solution004 {
     public static void main(String[] args) {
         Solution004 solution004 = new Solution004();
         solution004.letterCasePermutation("a1b2");
+
+        solution004.magicalString(6);
     }
 
     /**
@@ -121,5 +123,29 @@ public class Solution004 {
             }
         }
         return list;
+    }
+
+    /**
+     * https://leetcode.cn/problems/magical-string/
+     * 2022.10.31
+     *
+     * @param n 整数
+     * @return 在神奇字符串 s 的前 n 个数字中 1 的数目
+     */
+    public int magicalString(int n) {
+        StringBuilder sb = new StringBuilder("122");
+        for (int i = 2; sb.length() < n; ) {
+            for (int j = sb.charAt(i++) - '0'; j-- > 0; ) {
+                sb.append('1');
+            }
+            for (int j = sb.charAt(i++) - '0'; j-- > 0; ) {
+                sb.append('2');
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            if (sb.charAt(i) == '1') res++;
+        }
+        return res;
     }
 }
