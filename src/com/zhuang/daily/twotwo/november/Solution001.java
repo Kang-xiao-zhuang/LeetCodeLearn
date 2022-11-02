@@ -74,4 +74,22 @@ public class Solution001 {
         }
         return new int[]{x, y};
     }
+
+    /**
+     * https://leetcode.cn/problems/maximum-repeating-substring/
+     * 2022/11/3
+     *
+     * @param sequence 字符串
+     * @param word 子字符串
+     * @return 返回 最大重复值 k
+     */
+    public int maxRepeating(String sequence, String word) {
+        int count = 0;
+        String tmp = word;
+        while (sequence.contains(word)) {
+            word += tmp;
+            count++;
+        }
+        return count;
+    }
 }
