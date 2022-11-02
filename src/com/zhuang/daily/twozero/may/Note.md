@@ -1993,3 +1993,91 @@ class Solution {
 - `s` 由小写英文字母、数字和方括号 `'[]'` 组成
 - `s` 保证是一个 **有效** 的输入。
 - `s` 中所有整数的取值范围为 `[1, 300]` 
+
+```java
+class Solution {
+    public String decodeString(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for (char c : s.toCharArray()) {
+            if (c != ']') {
+                stack.push(c); // 把所有的字母push进去，除了]
+            } else {
+                //step 1: 取出[] 内的字符串
+                StringBuilder sb = new StringBuilder();
+                while (!stack.isEmpty() && Character.isLetter(stack.peek())) {
+                    sb.insert(0, stack.pop());
+                }
+                String sub = sb.toString(); //[ ]内的字符串
+                stack.pop(); // 去除[
+
+                //step 2: 获取倍数数字
+                sb = new StringBuilder();
+                while (!stack.isEmpty() && Character.isDigit(stack.peek())) {
+                    sb.insert(0, stack.pop());
+                }
+                int count = Integer.parseInt(sb.toString()); //倍数
+
+                //step 3: 根据倍数把字母再push回去
+                while (count > 0) {
+                    for (char ch : sub.toCharArray()) {
+                        stack.push(ch);
+                    }
+                    count--;
+                }
+            }
+        }
+
+        //把栈里面所有的字母取出来
+        StringBuilder res = new StringBuilder();
+        while (!stack.isEmpty()) {
+            res.insert(0, stack.pop());
+        }
+        return res.toString();
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ccb64a5d53814dd4a5840a47777be6bc.png)
+
+```java
+/**
+     * 双栈解法：
+     * 准备两个栈，一个存放数字，一个存放字符串
+     * 遍历字符串分4中情况
+     * 一、如果是数字 将字符转成整型数字 注意数字不一定是个位 有可能是十位，百位等 所以digit = digit*10 + ch - '0';
+     * 二、如果是字符 直接将字符放在临时字符串中
+     * 三、如果是"[" 将临时数字和临时字符串入栈
+     * 四、如果是"]" 将数字和字符串出栈 此时临时字符串res = 出栈字符串 + 出栈数字*res
+     */
+    public String decodeString2(String s) {
+        Deque<Integer> dequeDigit = new ArrayDeque<>();
+        Deque<StringBuilder> dequeString = new ArrayDeque<>();
+        int digit = 0;
+        StringBuilder sb = new StringBuilder();
+        // 遍历分为四种情况
+        for (char ch : s.toCharArray()) {
+            if (Character.isDigit(ch)) {
+                digit = digit * 10 + ch - '0';
+            } else if (ch == '[') {
+                dequeDigit.push(digit);
+                dequeString.push(sb);
+                digit = 0;
+                sb = new StringBuilder();
+            } else if (ch == ']') {
+                StringBuilder temp = dequeString.poll();
+                int count = dequeDigit.pop();
+                for (int i = 0; i < count; i++) {
+                    temp.append(sb.toString());
+                }
+                sb = temp;
+            } else {
+                // else if (Character.isLetter(ch))
+                sb.append(ch);
+            }
+        }
+        return sb.toString();
+    }
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/235bfef9b1f44b7294c379737b48bb8b.png)
