@@ -80,7 +80,7 @@ public class Solution001 {
      * 2022/11/3
      *
      * @param sequence 字符串
-     * @param word 子字符串
+     * @param word     子字符串
      * @return 返回 最大重复值 k
      */
     public int maxRepeating(String sequence, String word) {
@@ -91,5 +91,22 @@ public class Solution001 {
             count++;
         }
         return count;
+    }
+
+    /**
+     * https://leetcode.cn/problems/reach-a-number/
+     * 2022.11.4
+     *
+     * @param target 终点
+     * @return 整数
+     */
+    public int reachNumber(int target) {
+        target = Math.abs(target);
+        int k = 0;
+        while (target > 0) {
+            k++;
+            target -= k;
+        }
+        return target % 2 == 0 ? k : k + 1 + k % 2;
     }
 }
