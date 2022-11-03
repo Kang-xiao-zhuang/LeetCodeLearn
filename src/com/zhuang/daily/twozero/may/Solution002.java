@@ -224,4 +224,54 @@ public class Solution002 {
         }
         return dp[n - 1];
     }
+
+    /**
+     * https://leetcode.cn/problems/symmetric-tree/
+     * 2020.5.31
+     *
+     * @param root 根节点
+     * @return 检查它是否轴对称
+     */
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return compare(root.right, root.left);
+    }
+
+    public boolean compare(TreeNode node1, TreeNode node2) {
+        if (node1 == null && node2 == null) {
+            return true;
+        }
+        if (node1 == null || node2 == null || node1.val != node2.val) {
+            return false;
+        }
+        return compare(node1.left, node2.right) && compare(node2.left, node1.right);
+    }
+
+
+    public boolean isSymmetric2(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root.left);
+        queue.offer(root.right);
+        while (!queue.isEmpty()) {
+            // 比较弹出队列的两个值
+            TreeNode node1 = queue.poll();
+            TreeNode node2 = queue.poll();
+            if (node1 == null && node2 == null) {
+                continue;
+            }
+            if (node1 == null || node2 == null || node1.val != node2.val) {
+                return false;
+            }
+            queue.offer(node1.left);
+            queue.offer(node2.right);
+            queue.offer(node2.left);
+            queue.offer(node1.right);
+        }
+        return true;
+    }
 }

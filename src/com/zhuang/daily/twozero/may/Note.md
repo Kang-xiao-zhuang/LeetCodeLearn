@@ -2173,3 +2173,122 @@ class Solution {
 
 - `1 <= heights.length <=105`
 - `0 <= heights[i] <= 104`
+
+#### [101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/)
+
+给你一个二叉树的根节点 `root` ， 检查它是否轴对称。
+
+ 
+
+**示例 1：**
+
+![img](https://assets.leetcode.com/uploads/2021/02/19/symtree1.jpg)
+
+```
+输入：root = [1,2,2,3,4,4,3]
+输出：true
+```
+
+**示例 2：**
+
+![img](https://assets.leetcode.com/uploads/2021/02/19/symtree2.jpg)
+
+```
+输入：root = [1,2,2,null,3,null,3]
+输出：false
+```
+
+ 
+
+**提示：**
+
+- 树中节点数目在范围 `[1, 1000]` 内
+- `-100 <= Node.val <= 100`
+
+ 
+
+**进阶：**你可以运用递归和迭代两种方法解决这个问题吗？
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+     public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return compare(root.right, root.left);
+    }
+
+    public boolean compare(TreeNode node1, TreeNode node2) {
+        if (node1 == null && node2 == null) {
+            return true;
+        }
+        if (node1 == null || node2 == null || node1.val != node2.val) {
+            return false;
+        }
+        return compare(node1.left, node2.right) && compare(node2.left, node1.right);
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/4d98ed4483fa47f7a3c07ca84eafb600.png)
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root.left);
+        queue.offer(root.right);
+        while (!queue.isEmpty()) {
+            // 比较弹出队列的两个值
+            TreeNode node1 = queue.poll();
+            TreeNode node2 = queue.poll();
+            if (node1 == null && node2 == null) {
+                continue;
+            }
+            if (node1 == null || node2 == null || node1.val != node2.val) {
+                return false;
+            }
+            queue.offer(node1.left);
+            queue.offer(node2.right);
+            queue.offer(node2.left);
+            queue.offer(node1.right);
+        }
+        return true;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/82dfad2e60be475b81ceb6958692e36b.png)
