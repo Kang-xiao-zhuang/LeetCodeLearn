@@ -14,6 +14,9 @@ public class Solution002 {
         solution002.findTheLongestSubstring("eleetminicoworoep");
 
         solution002.decodeString2("3[a2[c]]");
+
+        int[] nums = {2, 7, 9, 3, 1};
+        solution002.rob(nums);
     }
 
     /**
@@ -195,5 +198,30 @@ public class Solution002 {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * https://leetcode.cn/problems/house-robber/solution/da-jia-jie-she-by-leetcode-solution/
+     * 2020.5.29
+     *
+     * @param nums 数组
+     * @return 一夜之内能够偷窃到的最高金额
+     */
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
+        } else if (n == 1) {
+            return nums[0];
+        }
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        // 最大的金额
+        dp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < n; i++) {
+            // 前2个与当前金额相加和前一个的金额比较较大值
+            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+        }
+        return dp[n - 1];
     }
 }
