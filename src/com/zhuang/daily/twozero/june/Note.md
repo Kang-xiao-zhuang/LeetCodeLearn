@@ -59,3 +59,40 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/c8b0cf641b99452b9828e28a5c4a0738.png)
+
+#### [剑指 Offer 64. 求1+2+…+n](https://leetcode.cn/problems/qiu-12n-lcof/)
+
+求 `1+2+...+n` ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+
+ 
+
+**示例 1：**
+
+```
+输入: n = 3
+输出: 6
+```
+
+**示例 2：**
+
+```
+输入: n = 9
+输出: 45
+```
+
+ 
+
+**限制：**
+
+- `1 <= n <= 10000`
+
+```java
+class Solution {
+    public int sumNums(int n) {
+       boolean x = n > 1 && (n += sumNums(n - 1)) > 0;
+       return n;    
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/176fcd6350874c2797c57d96ade715a1.png)

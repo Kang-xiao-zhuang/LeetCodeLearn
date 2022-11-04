@@ -39,4 +39,16 @@ public class Solution001 {
         }
         return res;
     }
+
+    /**
+     * https://leetcode.cn/problems/qiu-12n-lcof/
+     * 2020.6.2
+     *
+     * @param n 数
+     * @return 结果
+     */
+    public int sumNums(int n) {
+        boolean x = n > 1 && (n += sumNums(n - 1)) > 0;
+        return n;
+    }
 }
