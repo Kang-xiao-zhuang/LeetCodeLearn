@@ -1,5 +1,8 @@
 package com.zhuang.daily.twotwo.november;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * description: Solution001
  * date: 2022/11/1 15:08
@@ -8,7 +11,8 @@ package com.zhuang.daily.twotwo.november;
  */
 public class Solution001 {
     public static void main(String[] args) {
-
+        Solution001 solution001 = new Solution001();
+        solution001.parseBoolExpr("|(&(t,f,t),!(t))");
     }
 
     /**
@@ -108,5 +112,52 @@ public class Solution001 {
             target -= k;
         }
         return target % 2 == 0 ? k : k + 1 + k % 2;
+    }
+
+    /**
+     * https://leetcode.cn/problems/parsing-a-boolean-expression/
+     * 2022.11.5
+     *
+     * @param expression 布尔表达式
+     * @return 该式的运算结果
+     */
+    public boolean parseBoolExpr(String expression) {
+        Deque<Character> stack = new ArrayDeque<>();
+        int n = expression.length();
+        for (int i = 0; i < n; i++) {
+            char c = expression.charAt(i);
+            if (c == ',') {
+                continue;
+            } else if (c != ')') {
+                stack.push(c);
+            } else {
+                // 遇到')'开始执行下列代码
+                int t = 0, f = 0;
+                while (stack.peek() != '(') {
+                    char val = stack.pop();
+                    if (val == 't') {
+                        t++;
+                    } else {
+                        f++;
+                    }
+                }
+                // 弹出'('
+                stack.pop();
+                char op = stack.pop();
+                switch (op) {
+                    case '!':
+                        stack.push(f == 1 ? 't' : 'f');
+                        break;
+                    case '&':
+                        stack.push(f == 0 ? 't' : 'f');
+                        break;
+                    case '|':
+                        stack.push(t > 0 ? 't' : 'f');
+                        break;
+                    default:
+                }
+            }
+        }
+        return stack.pop() == 't';
     }
 }
