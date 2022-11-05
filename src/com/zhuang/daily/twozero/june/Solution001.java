@@ -51,4 +51,51 @@ public class Solution001 {
         boolean x = n > 1 && (n += sumNums(n - 1)) > 0;
         return n;
     }
+
+    /**
+     * https://leetcode.cn/problems/product-of-array-except-self/
+     * 2022.6.4
+     *
+     * @param nums 数组
+     * @return 数组 answer ，其中 answer[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积
+     */
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        // L 和 R 分别表示左右两侧的乘积列表
+        int[] L = new int[n];
+        int[] R = new int[n];
+        L[0] = 1;
+        // L[i] 为索引 i 左侧所有元素的乘积
+        // 对于索引为 '0' 的元素，因为左侧没有元素，所以 L[0] = 1
+        for (int i = 1; i < n; i++) {
+            L[i] = nums[i - 1] * L[i - 1];
+        }
+        R[n - 1] = 1;
+        // R[i] 为索引 i 右侧所有元素的乘积
+        // 对于索引为 'length-1' 的元素，因为右侧没有元素，所以 R[length-1] = 1
+        for (int i = n - 2; i >= 0; i--) {
+            R[i] = nums[i + 1] * R[i + 1];
+        }
+        // 对于索引 i，除 nums[i] 之外其余各元素的乘积就是左侧所有元素的乘积乘以右侧所有元素的乘积
+        for (int i = 0; i < n; i++) {
+            ans[i] = L[i] * R[i];
+        }
+        return ans;
+    }
+
+    public int[] productExceptSelf2(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        ans[0] = 1;
+        for (int i = 1; i < n; i++) {
+            ans[i] = nums[i - 1] * ans[i - 1];
+        }
+        int R = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            ans[i] = ans[i] * R;
+            R *= nums[i];
+        }
+        return ans;
+    }
 }
