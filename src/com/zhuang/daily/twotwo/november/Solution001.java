@@ -160,4 +160,49 @@ public class Solution001 {
         }
         return stack.pop() == 't';
     }
+
+    /**
+     * https://leetcode.cn/problems/goal-parser-interpretation/
+     * 2022.11.6
+     *
+     * @param command 解释字符串
+     * @return Goal 解析器 对 command 的解释结果
+     */
+    public String interpret(String command) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < command.length(); i++) {
+            if (command.charAt(i) == 'G') {
+                sb.append("G");
+            } else if (command.charAt(i) == '(') {
+                if (command.charAt(i + 1) == ')') {
+                    sb.append("o");
+                } else {
+                    sb.append("al");
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+
+    public String interpret2(String command) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < command.length(); i++) {
+            switch (command.charAt(i)) {
+                case 'G':
+                    sb.append("G");
+                    break;
+                case '(':
+                    if (command.charAt(i + 1) == ')') {
+                        sb.append("o");
+                    } else {
+                        i += 2;
+                        sb.append("al");
+                    }
+                    break;
+                default:
+            }
+        }
+        return sb.toString();
+    }
 }

@@ -392,3 +392,95 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/5903b563745f4ad28c7c972a8c1d3928.png)
+
+#### [1678. 设计 Goal 解析器](https://leetcode.cn/problems/goal-parser-interpretation/)
+
+请你设计一个可以解释字符串 `command` 的 **Goal 解析器** 。`command` 由 `"G"`、`"()"` 和/或 `"(al)"` 按某种顺序组成。Goal 解析器会将 `"G"` 解释为字符串 `"G"`、`"()"` 解释为字符串 `"o"` ，`"(al)"` 解释为字符串 `"al"` 。然后，按原顺序将经解释得到的字符串连接成一个字符串。
+
+给你字符串 `command` ，返回 **Goal 解析器** 对 `command` 的解释结果。
+
+ 
+
+**示例 1：**
+
+```
+输入：command = "G()(al)"
+输出："Goal"
+解释：Goal 解析器解释命令的步骤如下所示：
+G -> G
+() -> o
+(al) -> al
+最后连接得到的结果是 "Goal"
+```
+
+**示例 2：**
+
+```
+输入：command = "G()()()()(al)"
+输出："Gooooal"
+```
+
+**示例 3：**
+
+```
+输入：command = "(al)G(al)()()G"
+输出："alGalooG"
+```
+
+ 
+
+**提示：**
+
+- `1 <= command.length <= 100`
+- `command` 由 `"G"`、`"()"` 和/或 `"(al)"` 按某种顺序组成
+
+**模拟**
+
+```java
+class Solution {
+    public String interpret(String command) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < command.length(); i++) {
+            if (command.charAt(i) == 'G') {
+                sb.append("G");
+            } else if (command.charAt(i) == '(') {
+                if (command.charAt(i + 1) == ')') {
+                    sb.append("o");
+                } else {
+                    sb.append("al");
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/15dc3c01917f465eaf6aae3ddba61ea1.png)
+
+```java
+class Solution {
+    public String interpret(String command) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < command.length(); i++) {
+            switch (command.charAt(i)) {
+                case 'G':
+                    sb.append("G");
+                    break;
+                case '(':
+                    if (command.charAt(i + 1) == ')') {
+                        sb.append("o");
+                    } else {
+                        i += 2;
+                        sb.append("al");
+                    }
+                    break;
+                default:
+            }
+        }
+        return sb.toString();
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/79278537d1ce4c12993c36ca29f4c834.png)
