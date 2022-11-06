@@ -15,6 +15,8 @@ public class Solution001 {
         Solution001 solution001 = new Solution001();
         int[] candies = {2, 3, 5, 1, 3};
         solution001.kidsWithCandies(candies, 3);
+        int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+        solution001.spiralOrder(matrix);
     }
 
     /**
@@ -97,5 +99,51 @@ public class Solution001 {
             R *= nums[i];
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode.cn/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/
+     * 2022.6.5
+     *
+     * @param matrix 矩阵
+     * @return 按照从外向里以顺时针的顺序依次打印出每一个数字
+     */
+    public int[] spiralOrder(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return new int[0];
+        }
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int[] order = new int[rows * cols];
+        int index = 0;
+        int left = 0;
+        int right = cols - 1;
+        int top = 0;
+        int bottom = rows - 1;
+        while (left <= right && top <= bottom) {
+            for (int i = left; i <= right; i++) {
+                order[index] = matrix[top][i];
+                index++;
+            }
+            for (int j = top + 1; j <= bottom; j++) {
+                order[index] = matrix[j][right];
+                index++;
+            }
+            if (left < right && top < bottom) {
+                for (int i = right - 1; i > left; i--) {
+                    order[index] = matrix[bottom][i];
+                    index++;
+                }
+                for (int j = bottom; j > top; j--) {
+                    order[index] = matrix[j][left];
+                    index++;
+                }
+            }
+            left++;
+            right--;
+            top++;
+            bottom--;
+        }
+        return order;
     }
 }
