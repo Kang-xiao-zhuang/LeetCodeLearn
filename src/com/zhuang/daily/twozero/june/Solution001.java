@@ -1,8 +1,6 @@
 package com.zhuang.daily.twozero.june;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * description: Solution001
@@ -188,5 +186,36 @@ public class Solution001 {
             pos.add(s.substring(0, p) + "." + s.substring(p));
         }
         return pos;
+    }
+
+    /**
+     * https://leetcode.cn/problems/longest-consecutive-sequence/
+     * 2020.6.6
+     *
+     * @param nums 整数数组
+     * @return 找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度
+     */
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+
+        int longestStreak = 0;
+
+        for (int num : set) {
+            if (!set.contains(num - 1)) {
+                int currentNum = num;
+                int currentStreak = 1;
+
+                while (set.contains(currentNum + 1)) {
+                    currentNum += 1;
+                    currentStreak += 1;
+                }
+                longestStreak = Math.max(longestStreak, currentStreak);
+            }
+        }
+
+        return longestStreak;
     }
 }
