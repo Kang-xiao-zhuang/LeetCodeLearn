@@ -1,9 +1,6 @@
 package com.zhuang.daily.twotwo.november;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * description: Solution001
@@ -249,5 +246,30 @@ public class Solution001 {
             pos.add(s.substring(0, p) + "." + s.substring(p));
         }
         return pos;
+    }
+
+    /**
+     * https://leetcode.cn/problems/count-the-number-of-consistent-strings/
+     * 2022.11.8
+     *
+     * @param allowed 字符串
+     * @param words   字符串数组
+     * @return words 数组中 一致字符串 的数目
+     */
+    public int countConsistentStrings(String allowed, String[] words) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int len = words.length;
+        for (int i = 0; i < allowed.length(); i++) {
+            map.put(allowed.charAt(i), 1);
+        }
+        for (String word : words) {
+            for (int i = 0; i < word.length(); i++) {
+                if (!map.containsKey(word.charAt(i))) {
+                    len--;
+                    break;
+                }
+            }
+        }
+        return len;
     }
 }
