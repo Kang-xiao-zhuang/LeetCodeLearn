@@ -582,3 +582,104 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/5d709e35013648c9bb2fa3f703b112f4.png)
+
+#### [15. 三数之和](https://leetcode.cn/problems/3sum/)
+
+给你一个整数数组 `nums` ，判断是否存在三元组 `[nums[i], nums[j], nums[k]]` 满足 `i != j`、`i != k` 且 `j != k` ，同时还满足 `nums[i] + nums[j] + nums[k] == 0` 。请
+
+你返回所有和为 `0` 且不重复的三元组。
+
+**注意：**答案中不可以包含重复的三元组。
+
+ 
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+解释：
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+注意，输出的顺序和三元组的顺序并不重要。
+```
+
+**示例 2：**
+
+```
+输入：nums = [0,1,1]
+输出：[]
+解释：唯一可能的三元组和不为 0 。
+```
+
+**示例 3：**
+
+```
+输入：nums = [0,0,0]
+输出：[[0,0,0]]
+解释：唯一可能的三元组和为 0 。
+```
+
+ 
+
+**提示：**
+
+- `3 <= nums.length <= 3000`
+- `-105 <= nums[i] <= 105`
+
+**双指针法**
+
+```java
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length <= 2) {
+            return res;
+        }
+        // 数组先排序
+        Arrays.sort(nums);
+
+        // 循环遍历数组
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (nums[i] > 0) {
+                break;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int target = -nums[i];
+            // 定义双指针
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                // 如果等于目标值，那么就加入到集合中
+                if (nums[left] + nums[right] == target) {
+                    res.add(new ArrayList<>(Arrays.asList(nums[i], nums[left], nums[right])));
+                    left++;
+                    right--;
+                    // nums[left] == nums[left - 1]时，左指针后移
+                    while (left < right && nums[left] == nums[left - 1]) {
+                        left++;
+                    }
+                    // nums[right] == nums[right + 1]时，右指针前移
+                    while (left < right && nums[right] == nums[right + 1]) {
+                        right--;
+                    }
+                    // 和小于目标值，左指针后移
+                } else if (nums[left] + nums[right] < target) {
+                    left++;
+                    // 和大于目标值，右指针前移
+                } else {
+                    right--;
+                }
+            }
+        }
+        return res;
+    }
+}
+```
+
