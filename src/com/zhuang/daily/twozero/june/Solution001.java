@@ -14,7 +14,10 @@ public class Solution001 {
         int[] candies = {2, 3, 5, 1, 3};
         solution001.kidsWithCandies(candies, 3);
         int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+
+        int[] temperatures = {73, 74, 75, 71, 69, 72, 76, 73};
         solution001.spiralOrder(matrix);
+        solution001.dailyTemperatures(temperatures);
     }
 
     /**
@@ -174,5 +177,26 @@ public class Solution001 {
         }
 
         return longestStreak;
+    }
+
+    /**
+     * https://leetcode.cn/problems/daily-temperatures/
+     * 2020.6.11
+     *
+     * @param temperatures 整数数组
+     * @return 每日温度
+     */
+    public int[] dailyTemperatures(int[] temperatures) {
+        Stack<Integer> stack = new Stack<>();
+        int len = temperatures.length;
+        int[] ans = new int[len];
+        for (int i = 0; i < len; i++) {
+            while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+                int temp = stack.pop();
+                ans[temp] = i - temp;
+            }
+            stack.add(i);
+        }
+        return ans;
     }
 }
