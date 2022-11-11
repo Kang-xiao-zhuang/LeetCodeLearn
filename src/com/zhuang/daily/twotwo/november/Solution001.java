@@ -272,4 +272,59 @@ public class Solution001 {
         }
         return len;
     }
+
+    /**
+     * https://leetcode.cn/problems/determine-if-string-halves-are-alike/
+     * 2022.11.11
+     *
+     * @param s 字符串
+     * @return 两个字符串 相似 的前提是它们都含有相同数目的元音
+     */
+    public boolean halvesAreAlike(String s) {
+        String a = s.substring(0, s.length() / 2);
+        String b = s.substring(s.length() / 2);
+        ArrayList<Character> list = new ArrayList<>();
+        list.add('a');
+        list.add('e');
+        list.add('i');
+        list.add('o');
+        list.add('u');
+        list.add('A');
+        list.add('E');
+        list.add('I');
+        list.add('I');
+        list.add('O');
+        list.add('U');
+        int sum1 = 0;
+        int sum2 = 0;
+        for (int i = 0; i < a.length(); i++) {
+            if (list.contains(a.charAt(i))) {
+                sum1++;
+            }
+        }
+        for (int i = 0; i < a.length(); i++) {
+            if (list.contains(b.charAt(i))) {
+                sum2++;
+            }
+        }
+        return sum1 == sum2;
+    }
+
+    public boolean halvesAreAlike2(String s) {
+        String a = s.substring(0, s.length() / 2);
+        String b = s.substring(s.length() / 2);
+        String h = "aeiouAEIOU";
+        int sum1 = 0, sum2 = 0;
+        for (int i = 0; i < a.length(); i++) {
+            if (h.indexOf(a.charAt(i)) >= 0) {
+                sum1++;
+            }
+        }
+        for (int i = 0; i < b.length(); i++) {
+            if (h.indexOf(b.charAt(i)) >= 0) {
+                sum2++;
+            }
+        }
+        return sum1 == sum2;
+    }
 }
