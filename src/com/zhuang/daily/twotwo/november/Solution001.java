@@ -12,6 +12,7 @@ public class Solution001 {
     public static void main(String[] args) {
         Solution001 solution001 = new Solution001();
         solution001.parseBoolExpr("|(&(t,f,t),!(t))");
+        solution001.customSortString("cba", "abcd");
     }
 
     /**
@@ -326,5 +327,30 @@ public class Solution001 {
             }
         }
         return sum1 == sum2;
+    }
+
+    /**
+     * https://leetcode.cn/problems/custom-sort-string/
+     * 2022.11.13
+     *
+     * @param order 字符串
+     * @param s     字符串
+     * @return 满足这个性质的 s 的任意排列
+     */
+    public String customSortString(String order, String s) {
+        int[] val = new int[26];
+        for (int i = 0; i < order.length(); i++) {
+            val[order.charAt(i) - 'a'] = i + 1;
+        }
+        Character[] arr = new Character[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            arr[i] = s.charAt(i);
+        }
+        Arrays.sort(arr, (c0, c1) -> val[c0 - 'a'] - val[c1 - 'a']);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            sb.append(arr[i]);
+        }
+        return sb.toString();
     }
 }
