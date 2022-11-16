@@ -1148,8 +1148,6 @@ class Solution {
 
 #### [1710. 卡车上的最大单元数](https://leetcode.cn/problems/maximum-units-on-a-truck/)
 
-难度简单76
-
 请你将一些箱子装在 **一辆卡车** 上。给你一个二维数组 `boxTypes` ，其中 `boxTypes[i] = [numberOfBoxesi, numberOfUnitsPerBoxi]` ：
 
 - `numberOfBoxesi` 是类型 `i` 的箱子的数量。
@@ -1211,3 +1209,59 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/12880cb48e3748f4937eb2444727f760.png)
+
+#### [775. 全局倒置与局部倒置](https://leetcode.cn/problems/global-and-local-inversions/)
+
+给你一个长度为 `n` 的整数数组 `nums` ，表示由范围 `[0, n - 1]` 内所有整数组成的一个排列。
+
+**全局倒置** 的数目等于满足下述条件不同下标对 `(i, j)` 的数目：
+
+- `0 <= i < j < n`
+- `nums[i] > nums[j]`
+
+**局部倒置** 的数目等于满足下述条件的下标 `i` 的数目：
+
+- `0 <= i < n - 1`
+- `nums[i] > nums[i + 1]`
+
+当数组 `nums` 中 **全局倒置** 的数量等于 **局部倒置** 的数量时，返回 `true` ；否则，返回 `false` 。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [1,0,2]
+输出：true
+解释：有 1 个全局倒置，和 1 个局部倒置。
+```
+
+**示例 2：**
+
+```
+输入：nums = [1,2,0]
+输出：false
+解释：有 2 个全局倒置，和 1 个局部倒置。
+```
+
+**提示：**
+
+- `n == nums.length`
+- `1 <= n <= 105`
+- `0 <= nums[i] < n`
+- `nums` 中的所有整数 **互不相同**
+- `nums` 是范围 `[0, n - 1]` 内所有数字组成的一个排列
+
+```java
+class Solution {
+    public boolean isIdealPermutation(int[] nums) {
+        int max = nums[0];
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] < max) return false;
+            max = Math.max(max, nums[i - 1]);
+        }
+        return true;
+    }
+}
+```
+
