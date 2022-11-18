@@ -936,3 +936,19 @@ class Solution {
 
 - `2 <= values.length <= 5 * 104`
 - `1 <= values[i] <= 1000`
+
+```java
+class Solution {
+    public int maxScoreSightseeingPair(int[] values) {
+        int ans = 0;
+        int mx = values[0] + 0;
+        for (int j = 1; j < values.length; j++) {
+            ans = Math.max(ans, mx + values[j] - j);
+            mx = Math.max(mx, values[j] + j);
+        }
+        return ans;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/a2fca0751d87457e9984eba633b42095.png)

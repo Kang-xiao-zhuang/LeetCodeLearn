@@ -199,4 +199,21 @@ public class Solution001 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode.cn/problems/best-sightseeing-pair/
+     * 2020.6.17
+     *
+     * @param values 正整数数组
+     * @return 一对观光景点能取得的最高分
+     */
+    public int maxScoreSightseeingPair(int[] values) {
+        int ans = 0;
+        int mx = values[0] + 0;
+        for (int j = 1; j < values.length; j++) {
+            ans = Math.max(ans, mx + values[j] - j);
+            mx = Math.max(mx, values[j] + j);
+        }
+        return ans;
+    }
 }
