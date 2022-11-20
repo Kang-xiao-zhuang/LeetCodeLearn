@@ -15,6 +15,8 @@ public class Solution002 {
         String s = "abcde";
         String[] words = {"a", "bb", "acd", "ace"};
         solution002.numMatchingSubseq(s, words);
+
+        solution002.champagneTower(100000009, 33, 17);
     }
 
     /**
@@ -81,5 +83,30 @@ public class Solution002 {
             max = Math.max(max, sum);
         }
         return max;
+    }
+
+    /**
+     * https://leetcode.cn/problems/champagne-tower/
+     * 2022.11.20
+     *
+     * @param poured      倾倒香槟总杯数
+     * @param query_row   行数
+     * @param query_glass 杯子的位置数
+     * @return 第 i 行 j 个玻璃杯所盛放的香槟占玻璃杯容积的比例（ i 和 j 都从0开始
+     */
+    public double champagneTower(int poured, int query_row, int query_glass) {
+        double[] row = {poured};
+        for (int i = 1; i <= query_row; i++) {
+            double[] nextRow = new double[i + 1];
+            for (int j = 0; j < i; j++) {
+                double volume = row[j];
+                if (volume > 1) {
+                    nextRow[j] += (volume - 1) / 2;
+                    nextRow[j + 1] += (volume - 1) / 2;
+                }
+            }
+            row = nextRow;
+        }
+        return Math.min(1, row[query_glass]);
     }
 }
