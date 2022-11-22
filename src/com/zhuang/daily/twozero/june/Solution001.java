@@ -18,6 +18,8 @@ public class Solution001 {
         int[] temperatures = {73, 74, 75, 71, 69, 72, 76, 73};
         solution001.spiralOrder(matrix);
         solution001.dailyTemperatures(temperatures);
+
+        solution001.isPalindrome4("A man, a plan, a canal: Panama");
     }
 
     /**
@@ -215,5 +217,100 @@ public class Solution001 {
             mx = Math.max(mx, values[j] + j);
         }
         return ans;
+    }
+
+    /**
+     * https://leetcode.cn/problems/valid-palindrome/
+     * 2020.6.19
+     *
+     * @param s 字符串
+     * @return 是否为回文串
+     */
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (isValid(Character.toLowerCase(ch))) {
+                sb.append(Character.toLowerCase(ch));
+            }
+        }
+        StringBuilder res = new StringBuilder(sb).reverse();
+        return res.toString().equals(sb.toString());
+    }
+
+    // 判断是否为数字或字母
+    private boolean isValid(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
+    }
+
+    // 双指针
+    public boolean isPalindrome2(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (isValid(Character.toLowerCase(ch))) {
+                sb.append(Character.toLowerCase(ch));
+            }
+        }
+        int left = 0;
+        int right = sb.length() - 1;
+        while (left < right) {
+            if (Character.toLowerCase(sb.charAt(left)) != Character.toLowerCase(sb.charAt(right))) {
+                return false;
+            }
+            ++left;
+            --right;
+        }
+        return true;
+    }
+
+    // 正则
+    public boolean isPalindrome3(String s) {
+        String str = s.replaceAll("[^A-Za-z0-9]", "").toLowerCase();
+        StringBuilder sb = new StringBuilder(str);
+        if (s == "") {
+            return true;
+        } else {
+            return str.equals(sb.reverse().toString());
+        }
+    }
+
+    // 栈
+    public boolean isPalindrome4(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                stack.push(Character.toLowerCase(ch));
+            }
+        }
+        int i = 0;
+        char[] charArray = s.replaceAll("[^A-Za-z0-9]", "").toLowerCase().toCharArray();
+        while (!stack.isEmpty()) {
+            if (stack.pop() != charArray[i]) {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+
+    // 栈和队列
+    public boolean isPalindrome5(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+        Queue<Character> queue = new LinkedList<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                stack.push(Character.toLowerCase(ch));
+                queue.offer(Character.toLowerCase(ch));
+            }
+        }
+        while (!stack.isEmpty() && !queue.isEmpty()) {
+            if (!stack.pop().equals(queue.poll())) {
+                return false;
+            }
+        }
+        return true;
     }
 }

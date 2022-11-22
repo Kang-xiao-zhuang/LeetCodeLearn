@@ -998,3 +998,164 @@ class Solution {
 
 - 原始树中的节点数介于 `1` 和 `1000` 之间。
 - 每个节点的值介于 `1` 和 `10 ^ 9` 之间。
+
+#### [125. 验证回文串](https://leetcode.cn/problems/valid-palindrome/)
+
+如果在将所有大写字符转换为小写字符、并移除所有非字母数字字符之后，短语正着读和反着读都一样。则可以认为该短语是一个 **回文串** 。
+
+字母和数字都属于字母数字字符。
+
+给你一个字符串 `s`，如果它是 **回文串** ，返回 `true` ；否则，返回 `false` 。
+
+ 
+
+**示例 1：**
+
+```
+输入: s = "A man, a plan, a canal: Panama"
+输出：true
+解释："amanaplanacanalpanama" 是回文串。
+```
+
+**示例 2：**
+
+```
+输入：s = "race a car"
+输出：false
+解释："raceacar" 不是回文串。
+```
+
+**示例 3：**
+
+```
+输入：s = " "
+输出：true
+解释：在移除非字母数字字符之后，s 是一个空字符串 "" 。
+由于空字符串正着反着读都一样，所以是回文串。
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 2 * 105`
+- `s` 仅由可打印的 ASCII 字符组成
+
+```
+class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (isValid(Character.toLowerCase(ch))){
+                sb.append(Character.toLowerCase(ch));
+            }
+        }
+        StringBuilder res = new StringBuilder(sb).reverse();
+        return  res.toString().equals(sb.toString());
+    }
+
+    // 判断是否为数字或字母
+    private boolean isValid(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f2740bf68f7640fea44daca64968cafe.png)
+
+```
+class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (isValid(Character.toLowerCase(ch))) {
+                sb.append(Character.toLowerCase(ch));
+            }
+        }
+        int left = 0;
+        int right = sb.length() - 1;
+        while (left < right) {
+            if (Character.toLowerCase(sb.charAt(left)) != Character.toLowerCase(sb.charAt(right))) {
+                return false;
+            }
+            ++left;
+            --right;
+        }
+        return true;
+    }
+
+    // 判断是否为数字或字母
+    private boolean isValid(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/7cd60bab034f4f0780833149990c45cb.png)
+
+```java
+class Solution {
+    public boolean isPalindrome(String s) {
+       String str = s.replaceAll("[^A-Za-z0-9]", "").toLowerCase();
+        StringBuilder sb = new StringBuilder(str);
+        if (s == "") {
+            return true;
+        } else {
+            return str.equals(sb.reverse().toString());
+        }
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f852c29802e440d09a64851c8de039ef.png)
+
+```java
+class Solution {
+    public boolean isPalindrome(String s) {
+       Deque<Character> stack = new ArrayDeque<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                stack.push(Character.toLowerCase(ch));
+            }
+        }
+        int i = 0;
+        char[] charArray = s.replaceAll("[^A-Za-z0-9]", "").toLowerCase().toCharArray();
+        while (!stack.isEmpty()) {
+            if (stack.pop() != charArray[i]) {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6d6147cf7414420f983437b43e817af0.png)
+
+```java
+class Solution {
+    public boolean isPalindrome(String s) {
+       Deque<Character> stack = new ArrayDeque<>();
+        Queue<Character> queue = new LinkedList<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                stack.push(Character.toLowerCase(ch));
+                queue.offer(Character.toLowerCase(ch));
+            }
+        }
+        while (!stack.isEmpty() && !queue.isEmpty()) {
+            if (!stack.pop().equals(queue.poll())) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/5c42a9006bab4ac6a92162544da32d2b.png)
