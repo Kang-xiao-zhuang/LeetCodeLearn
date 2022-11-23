@@ -109,4 +109,28 @@ public class Solution002 {
         }
         return Math.min(1, row[query_glass]);
     }
+
+    /**
+     * https://leetcode.cn/problems/maximum-number-of-balls-in-a-box/
+     * 2022.11.23
+     *
+     * @param lowLimit  整数
+     * @param highLimit 整数
+     * @return 返回其中任一盒子的小球数量
+     */
+    public int countBalls(int lowLimit, int highLimit) {
+        int result = 0;
+        int[] resultMap = new int[46];
+        for (int i = lowLimit; i <= highLimit; i++) {
+            int num = i;
+            int index = 0;
+            while (num > 0) {
+                index += num % 10;
+                num = num / 10;
+            }
+            resultMap[index] += 1;
+        }
+        for (int r : resultMap) result = Math.max(result, r);
+        return result;
+    }
 }
