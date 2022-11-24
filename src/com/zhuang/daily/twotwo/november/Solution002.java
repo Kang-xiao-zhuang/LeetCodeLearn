@@ -17,6 +17,8 @@ public class Solution002 {
         solution002.numMatchingSubseq(s, words);
 
         solution002.champagneTower(100000009, 33, 17);
+        int[] nums = {2, 1, 4, 3};
+        solution002.numSubarrayBoundedMax(nums, 2, 3);
     }
 
     /**
@@ -132,5 +134,32 @@ public class Solution002 {
         }
         for (int r : resultMap) result = Math.max(result, r);
         return result;
+    }
+
+    /**
+     * https://leetcode.cn/problems/number-of-subarrays-with-bounded-maximum/
+     * 2022.11.24
+     *
+     * @param nums  整数数组
+     * @param left  整数
+     * @param right 整数
+     * @return 返回满足条件的子数组的个数
+     */
+    public int numSubarrayBoundedMax(int[] nums, int left, int right) {
+        int res = 0;
+        int last2 = -1;
+        int last1 = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= left && nums[i] <= right) {
+                last1 = i;
+            } else if (nums[i] > right) {
+                last2 = i;
+                last1 = -1;
+            }
+            if (last1 != -1) {
+                res += last1 - last2;
+            }
+        }
+        return res;
     }
 }
