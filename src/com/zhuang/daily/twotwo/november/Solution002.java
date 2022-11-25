@@ -162,4 +162,87 @@ public class Solution002 {
         }
         return res;
     }
+
+    /**
+     * https://leetcode.cn/problems/expressive-words/
+     * 2022.11.25
+     *
+     * @param s     字符串
+     * @param words 扩张数组
+     * @return 输出其中可扩张的单词数量
+     */
+    public int expressiveWords(String s, String[] words) {
+        int ans = 0;
+        for (String word : words) {
+            if (expand(s, word)) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    private boolean expand(String s, String word) {
+        int i = 0;
+        int j = 0;
+        while (i < s.length() && j < word.length()) {
+            if (s.charAt(i) != word.charAt(j)) {
+                return false;
+            }
+            char ch = s.charAt(i);
+            int cnti = 0;
+            while (i < s.length() && s.charAt(i) == ch) {
+                cnti++;
+                ++i;
+            }
+            int cntj = 0;
+            while (j < word.length() && word.charAt(j) == ch) {
+                ++cntj;
+                ++j;
+            }
+            if (cnti < cntj) {
+                return false;
+            }
+            if (cnti != cntj && cnti < 3) {
+                return false;
+            }
+        }
+        return i == s.length() && j == word.length();
+    }
+
+    public int expressiveWords2(String s, String[] words) {
+        int ans = 0;
+        char[] sc = s.toCharArray();
+        for (String word : words) {
+            ans += expand(sc, word.toCharArray()) ? 1 : 0;
+        }
+        return ans;
+    }
+
+    private boolean expand(char[] sc, char[] wc) {
+        if (sc.length < wc.length) {
+            return false;
+        }
+        int cp = 0;
+        int i = 0;
+        int j = i;
+        while ((cp = i) < sc.length && j < wc.length) {
+            int c1 = 0;
+            int c2 = 0;
+            while (i < sc.length && sc[i] == sc[cp]) {
+                // 在字符串s中，遍历连续的字符sc[cp]的数量
+                c1++;
+                i++;
+            }
+            while (j < wc.length && wc[j] == sc[cp]) {
+                // 在字符串word中，遍历连续的的字符sc[cp]的数量
+                c2++;
+                j++;
+            }
+            if ((c1 != c2 && c1 < 3) || (c1 < c2 && c1 >= 3)) {
+                return false;
+            }
+        }
+        // 只有sc和wc都被遍历完毕，才返回true
+        return i == sc.length && j == wc.length;
+    }
 }
