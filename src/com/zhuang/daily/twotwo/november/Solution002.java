@@ -245,4 +245,30 @@ public class Solution002 {
         // 只有sc和wc都被遍历完毕，才返回true
         return i == sc.length && j == wc.length;
     }
+
+    /**
+     * https://leetcode.cn/problems/check-if-array-is-sorted-and-rotated/
+     * 2022.11.27
+     *
+     * @param nums 数组
+     * @return 如果 nums 能够由源数组轮转若干位置（包括 0 个位置）得到，则返回 true ；否则，返回 false
+     */
+    public boolean check(int[] nums) {
+        int n = nums.length, x = 0;
+        for (int i = 1; i < n; ++i) {
+            if (nums[i] < nums[i - 1]) {
+                x = i;
+                break;
+            }
+        }
+        if (x == 0) {
+            return true;
+        }
+        for (int i = x + 1; i < n; ++i) {
+            if (nums[i] < nums[i - 1]) {
+                return false;
+            }
+        }
+        return nums[0] >= nums[n - 1];
+    }
 }
