@@ -19,6 +19,8 @@ public class Solution002 {
         solution002.champagneTower(100000009, 33, 17);
         int[] nums = {2, 1, 4, 3};
         solution002.numSubarrayBoundedMax(nums, 2, 3);
+
+        solution002.minOperations("1111");
     }
 
     /**
@@ -277,7 +279,7 @@ public class Solution002 {
      * 2022.11.28
      *
      * @param nums 数组
-     * @param k 整数
+     * @param k    整数
      * @return 我们所能得到的最大 分数 是多少
      */
     public double largestSumOfAverages(int[] nums, int k) {
@@ -298,5 +300,27 @@ public class Solution002 {
             }
         }
         return dp[n][k];
+    }
+
+    /**
+     * https://leetcode.cn/problems/minimum-changes-to-make-alternating-binary-string/
+     * 2022.11.29
+     *
+     * @param s 字符串
+     * @return 使 s 变成 交替字符串 所需的 最少 操作数
+     */
+    public int minOperations(String s) {
+        int res = 0;
+        char[] sc = s.toCharArray();
+        char per = sc[0];
+        for (int i = 1; i < sc.length; i++) {
+            if (per == sc[i]) {
+                res++;
+                per = (char) (per ^ 1);
+            } else {
+                per = sc[i];
+            }
+        }
+        return Math.min(res, s.length() - res);
     }
 }
