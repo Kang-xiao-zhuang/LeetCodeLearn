@@ -36,4 +36,26 @@ public class Solution001 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode.cn/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/
+     * 2022.12.2
+     *
+     * @param boxes 二进制字符串
+     * @return 返回一个长度为 n 的数组 answer ，其中 answer[i] 是将所有小球移动到第 i 个盒子所需的 最小 操作数
+     */
+    public int[] minOperations(String boxes) {
+        int n = boxes.length();
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            int sm = 0;
+            for (int j = 0; j < n; j++) {
+                if (boxes.charAt(j) == '1') {
+                    sm += Math.abs(j - i);
+                }
+            }
+            res[i] = sm;
+        }
+        return res;
+    }
 }
