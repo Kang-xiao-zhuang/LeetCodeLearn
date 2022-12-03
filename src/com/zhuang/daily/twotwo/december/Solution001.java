@@ -1,5 +1,7 @@
 package com.zhuang.daily.twotwo.december;
 
+import java.util.*;
+
 /**
  * description: Solution001
  * date: 2022/12/1 19:16
@@ -57,5 +59,45 @@ public class Solution001 {
             res[i] = sm;
         }
         return res;
+    }
+
+    /**
+     * https://leetcode.cn/problems/second-largest-digit-in-a-string/
+     * 2022.12.3
+     *
+     * @param s 混合字符串
+     * @return 返回 s 中 第二大 的数字，如果不存在第二大的数字，请你返回 -1
+     */
+    public int secondHighest(String s) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isDigit(ch) && !list.contains(ch - '0')) {
+                list.add(ch - '0');
+            }
+        }
+        if (list.isEmpty() || list.size() == 1) {
+            return -1;
+        }
+        Collections.sort(list);
+        return list.get(list.size() - 2);
+    }
+
+    public int secondHighest2(String s) {
+        int first = -1;
+        int second = -1;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                int num = c - '0';
+                if (num > first) {
+                    second = first;
+                    first = num;
+                } else if (num < first && num > second) {
+                    second = num;
+                }
+            }
+        }
+        return second;
     }
 }
