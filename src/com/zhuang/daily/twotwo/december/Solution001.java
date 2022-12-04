@@ -100,4 +100,43 @@ public class Solution001 {
         }
         return second;
     }
+
+
+    int res;
+
+    /**
+     * https://leetcode.cn/problems/closest-dessert-cost/
+     * 2022.12.4
+     *
+     * @param baseCosts    整数数组
+     * @param toppingCosts 整数数组
+     * @param target       整数
+     * @return 返回最接近 target 的甜点成本。如果有多种方案，返回 成本相对较低 的一种
+     */
+    public int closestCost(int[] baseCosts, int[] toppingCosts, int target) {
+        res = Arrays.stream(baseCosts).min().getAsInt();
+        for (int b : baseCosts) {
+            dfs(toppingCosts, 0, b, target);
+        }
+        return res;
+    }
+
+    public void dfs(int[] toppingCosts, int p, int curCost, int target) {
+        if (Math.abs(res - target) < curCost - target) {
+            return;
+        } else if (Math.abs(res - target) >= Math.abs(curCost - target)) {
+            if (Math.abs(res - target) > Math.abs(curCost - target)) {
+                res = curCost;
+            } else {
+                res = Math.min(res, curCost);
+            }
+        }
+        if (p == toppingCosts.length) {
+            return;
+        }
+        dfs(toppingCosts, p + 1, curCost + toppingCosts[p] * 2, target);
+        dfs(toppingCosts, p + 1, curCost + toppingCosts[p], target);
+        dfs(toppingCosts, p + 1, curCost, target);
+    }
+
 }
