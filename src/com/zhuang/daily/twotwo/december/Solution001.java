@@ -10,7 +10,8 @@ import java.util.*;
  */
 public class Solution001 {
     public static void main(String[] args) {
-
+        Solution001 solution001 = new Solution001();
+        solution001.numDifferentIntegers("leet1234code234");
     }
 
     /**
@@ -187,4 +188,38 @@ public class Solution001 {
         return f[n];
     }
 
+    /**
+     * https://leetcode.cn/problems/number-of-different-integers-in-a-string/
+     * 2022.12.6
+     * @param word 字符串
+     * @return 返回对 word 完成替换后形成的 不同 整数的数目
+     */
+    public int numDifferentIntegers(String word) {
+        HashSet<String> set = new HashSet<>();
+        String[] split = word.split("[a-z]+");
+        for (String s : split) {
+            if(s.length()>0){
+                set.add(s.replaceAll("^0+",""));
+            }
+        }
+        return set.size();
+    }
+
+    public int numDifferentIntegers2(String word) {
+        HashSet<String> set = new HashSet<>();
+        for (int i = 0; i < word.length(); i++) {
+            if(Character.isDigit(word.charAt(i))){
+                while (i<word.length()&& word.charAt(i)=='0'){
+                    ++i;
+                }
+                int j=i;
+                while (j<word.length()&&Character.isDigit(word.charAt(j))){
+                    ++j;
+                }
+                set.add(word.substring(i,j));
+                i=j;
+            }
+        }
+        return set.size();
+    }
 }
