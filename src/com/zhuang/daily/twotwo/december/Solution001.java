@@ -143,10 +143,11 @@ public class Solution001 {
     /**
      * https://leetcode.cn/problems/delivering-boxes-from-storage-to-ports/
      * 2022.12.5
-     * @param boxes 箱子数组
+     *
+     * @param boxes      箱子数组
      * @param portsCount 整数
-     * @param maxBoxes 整数
-     * @param maxWeight 整数
+     * @param maxBoxes   整数
+     * @param maxWeight  整数
      * @return 返回将所有箱子送到相应码头的 最少行程 次数
      */
     public int boxDelivering(int[][] boxes, int portsCount, int maxBoxes, int maxWeight) {
@@ -191,6 +192,7 @@ public class Solution001 {
     /**
      * https://leetcode.cn/problems/number-of-different-integers-in-a-string/
      * 2022.12.6
+     *
      * @param word 字符串
      * @return 返回对 word 完成替换后形成的 不同 整数的数目
      */
@@ -198,8 +200,8 @@ public class Solution001 {
         HashSet<String> set = new HashSet<>();
         String[] split = word.split("[a-z]+");
         for (String s : split) {
-            if(s.length()>0){
-                set.add(s.replaceAll("^0+",""));
+            if (s.length() > 0) {
+                set.add(s.replaceAll("^0+", ""));
             }
         }
         return set.size();
@@ -208,18 +210,66 @@ public class Solution001 {
     public int numDifferentIntegers2(String word) {
         HashSet<String> set = new HashSet<>();
         for (int i = 0; i < word.length(); i++) {
-            if(Character.isDigit(word.charAt(i))){
-                while (i<word.length()&& word.charAt(i)=='0'){
+            if (Character.isDigit(word.charAt(i))) {
+                while (i < word.length() && word.charAt(i) == '0') {
                     ++i;
                 }
-                int j=i;
-                while (j<word.length()&&Character.isDigit(word.charAt(j))){
+                int j = i;
+                while (j < word.length() && Character.isDigit(word.charAt(j))) {
                     ++j;
                 }
-                set.add(word.substring(i,j));
-                i=j;
+                set.add(word.substring(i, j));
+                i = j;
             }
         }
         return set.size();
     }
+
+    /**
+     * https://leetcode.cn/problems/equal-sum-arrays-with-minimum-number-of-operations/
+     *
+     * @param nums1 整数数组
+     * @param nums2 整数数组
+     * @return 返回使 nums1 中所有数的和与 nums2 中所有数的和相等的最少操作次数
+     */
+    public int minOperations(int[] nums1, int[] nums2) {
+        int n = nums1.length, m = nums2.length;
+        if (6 * n < m || 6 * m < n) {
+            return -1;
+        }
+        int[] cnt1 = new int[7];
+        int[] cnt2 = new int[7];
+        int diff = 0;
+        for (int i : nums1) {
+            ++cnt1[i];
+            diff += i;
+        }
+        for (int i : nums2) {
+            ++cnt2[i];
+            diff -= i;
+        }
+        if (diff == 0) {
+            return 0;
+        }
+        if (diff > 0) {
+            return help(cnt2, cnt1, diff);
+        }
+        return help(cnt1, cnt2, -diff);
+    }
+
+    public int help(int[] h1, int[] h2, int diff) {
+        int[] h = new int[7];
+        for (int i = 1; i < 7; ++i) {
+            h[6 - i] += h1[i];
+            h[i - 1] += h2[i];
+        }
+        int res = 0;
+        for (int i = 5; i > 0 && diff > 0; --i) {
+            int t = Math.min((diff + i - 1) / i, h[i]);
+            res += t;
+            diff -= t * i;
+        }
+        return res;
+    }
+
 }
