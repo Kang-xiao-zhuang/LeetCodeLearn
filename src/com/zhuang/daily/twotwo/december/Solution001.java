@@ -272,4 +272,14 @@ public class Solution001 {
         return res;
     }
 
+    /**
+     * https://leetcode.cn/problems/determine-color-of-a-chessboard-square/
+     * 2022.12.8
+     *
+     * @param coordinates 坐标
+     * @return 判断国际象棋棋盘中一个格子的颜色
+     */
+    public boolean squareIsWhite(String coordinates) {
+        return ((coordinates.charAt(0) - 'a' + 1) + (coordinates.charAt(1) - '0')) % 2 == 1;
+    }
 }
