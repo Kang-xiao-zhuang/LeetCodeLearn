@@ -282,4 +282,19 @@ public class Solution001 {
     public boolean squareIsWhite(String coordinates) {
         return ((coordinates.charAt(0) - 'a' + 1) + (coordinates.charAt(1) - '0')) % 2 == 1;
     }
+
+    /**
+     * https://leetcode.cn/problems/check-if-number-is-a-sum-of-powers-of-three/
+     * 2022.12.9
+     *
+     * @param n 整数
+     * @return 整数
+     */
+    public boolean checkPowersOfThree(int n) {
+        while (n != 0) {
+            if (n % 3 == 0 || n % 3 == 1) n = n / 3; // 满足三进制
+            else return false; // 不满足三进制，返回false
+        }
+        return true;
+    }
 }
