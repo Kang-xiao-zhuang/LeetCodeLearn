@@ -297,4 +297,20 @@ public class Solution001 {
         }
         return true;
     }
+
+    /**
+     * https://leetcode.cn/problems/minimum-operations-to-make-the-array-increasing/
+     * 2022.12.11
+     *
+     * @param nums 整数数组
+     * @return 返回使 nums 严格递增 的 最少 操作次数
+     */
+    public int minOperations(int[] nums) {
+        int pre = nums[0] - 1, res = 0;
+        for (int num : nums) {
+            pre = Math.max(pre + 1, num);
+            res += pre - num;
+        }
+        return res;
+    }
 }
