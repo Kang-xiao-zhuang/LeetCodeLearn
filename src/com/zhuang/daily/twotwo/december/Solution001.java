@@ -342,4 +342,25 @@ public class Solution001 {
         return res;
     }
 
+
+    /**
+     * https://leetcode.cn/problems/check-if-the-sentence-is-pangram/
+     * 2022.12.13
+     * @param sentence 字符串
+     * @return 判断 sentence 是否为 全字母句
+     */
+    public boolean checkIfPangram(String sentence) {
+        boolean[] exist = new boolean[26];
+        for (int i = 0; i < sentence.length(); i++) {
+            char c = sentence.charAt(i);
+            exist[c - 'a'] = true;
+        }
+        for (boolean x : exist) {
+            if (!x) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
