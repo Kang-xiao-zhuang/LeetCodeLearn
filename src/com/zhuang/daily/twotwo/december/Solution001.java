@@ -11,7 +11,7 @@ import java.util.*;
 public class Solution001 {
     public static void main(String[] args) {
         Solution001 solution001 = new Solution001();
-       // solution001.numDifferentIntegers("leet1234code234");
+        // solution001.numDifferentIntegers("leet1234code234");
         solution001.beautySum("aabcb");
     }
 
@@ -346,6 +346,7 @@ public class Solution001 {
     /**
      * https://leetcode.cn/problems/check-if-the-sentence-is-pangram/
      * 2022.12.13
+     *
      * @param sentence 字符串
      * @return 判断 sentence 是否为 全字母句
      */
@@ -363,4 +364,50 @@ public class Solution001 {
         return true;
     }
 
+    /**
+     * https://leetcode.cn/problems/checking-existence-of-edge-length-limited-paths/
+     * 2022.12.14
+     *
+     * @param n        n 个点
+     * @param edgeList 无向图边集
+     * @param queries  查询数组
+     * @return 判断是否存在从 pj 到 qj 的路径，且这条路径上的每一条边都 严格小于 limitj
+     */
+    public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+        Arrays.sort(edgeList, (a, b) -> a[2] - b[2]);
+
+        Integer[] index = new Integer[queries.length];
+        for (int i = 0; i < queries.length; i++) {
+            index[i] = i;
+        }
+        Arrays.sort(index, (a, b) -> queries[a][2] - queries[b][2]);
+
+        int[] uf = new int[n];
+        for (int i = 0; i < n; i++) {
+            uf[i] = i;
+        }
+        boolean[] res = new boolean[queries.length];
+        int k = 0;
+        for (int i : index) {
+            while (k < edgeList.length && edgeList[k][2] < queries[i][2]) {
+                merge(uf, edgeList[k][0], edgeList[k][1]);
+                k++;
+            }
+            res[i] = find(uf, queries[i][0]) == find(uf, queries[i][1]);
+        }
+        return res;
+    }
+
+    public int find(int[] uf, int x) {
+        if (uf[x] == x) {
+            return x;
+        }
+        return uf[x] = find(uf, uf[x]);
+    }
+
+    public void merge(int[] uf, int x, int y) {
+        x = find(uf, x);
+        y = find(uf, y);
+        uf[y] = x;
+    }
 }
