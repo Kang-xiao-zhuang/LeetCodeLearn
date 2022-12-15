@@ -410,4 +410,31 @@ public class Solution001 {
         y = find(uf, y);
         uf[y] = x;
     }
+
+    /**
+     * https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/
+     * 2022.12.15
+     *
+     * @param s 字符串
+     * @param k 整数
+     * @return 上述操作后得到的结果整数
+     */
+    public int getLucky(String s, int k) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); ++i) {
+            char ch = s.charAt(i);
+            sb.append(ch - 'a' + 1);
+        }
+        String digits = sb.toString();
+        for (int i = 1; i <= k && digits.length() > 1; ++i) {
+            int sum = 0;
+            for (int j = 0; j < digits.length(); ++j) {
+                char ch = digits.charAt(j);
+                sum += ch - '0';
+            }
+            digits = Integer.toString(sum);
+        }
+
+        return Integer.parseInt(digits);
+    }
 }
