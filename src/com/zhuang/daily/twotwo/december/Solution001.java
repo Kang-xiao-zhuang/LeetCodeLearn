@@ -437,4 +437,23 @@ public class Solution001 {
 
         return Integer.parseInt(digits);
     }
+
+    /**
+     * https://leetcode.cn/problems/minimum-elements-to-add-to-form-a-given-sum/
+     * 2022.12.16
+     *
+     * @param nums  整数数组
+     * @param limit 整数
+     * @param goal  整数
+     * @return 使数组元素总和等于 goal 所需要向数组中添加的 最少元素数量
+     */
+    public int minElements(int[] nums, int limit, int goal) {
+        long sum = 0;
+        for (int x : nums) {
+            sum += x;
+        }
+        long diff = Math.abs(sum - goal);
+        return (int) ((diff + limit - 1) / limit);
+    }
+
 }
