@@ -456,4 +456,37 @@ public class Solution001 {
         return (int) ((diff + limit - 1) / limit);
     }
 
+    /**
+     * https://leetcode.cn/problems/form-array-by-concatenating-subarrays-of-another-array/
+     * 2022.12.17
+     *
+     * @param groups 二维整数数组
+     * @param nums   整数数组
+     * @return 如果你可以找出这样的 n 个子数组，请你返回 true ，否则返回 false
+     */
+    public boolean canChoose(int[][] groups, int[] nums) {
+        int i = 0;
+        for (int k = 0; k < nums.length && i < groups.length; ) {
+            if (check(groups[i], nums, k)) {
+                k += groups[i].length;
+                i++;
+            } else {
+                k++;
+            }
+        }
+        return i == groups.length;
+    }
+
+    public boolean check(int[] g, int[] nums, int k) {
+        if (k + g.length > nums.length) {
+            return false;
+        }
+        for (int j = 0; j < g.length; j++) {
+            if (g[j] != nums[k + j]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
