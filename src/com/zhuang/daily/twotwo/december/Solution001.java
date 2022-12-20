@@ -528,4 +528,38 @@ public class Solution001 {
         return visited[destination];
     }
 
+    /**
+     * https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/
+     * 2022.12.30
+     *
+     * @param nums          整数数组
+     * @param maxOperations 整数
+     * @return 进行上述操作后的最小开销
+     */
+    public int minimumSize(int[] nums, int maxOperations) {
+        int ans = 0;
+        int left = 1, right = 1000000000;
+        while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            int cnt = 0;
+            for (int num : nums) {
+                if (num > mid) {
+                    cnt += num / mid;
+                    if (num % mid == 0) {
+                        cnt -= 1;
+                    }
+                    if (cnt > maxOperations) {
+                        break;
+                    }
+                }
+            }
+            if (cnt > maxOperations) {
+                left = mid + 1;
+            } else {
+                ans = mid;
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
 }
