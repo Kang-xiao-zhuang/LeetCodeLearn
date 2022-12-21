@@ -562,4 +562,19 @@ public class Solution001 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode.cn/problems/maximum-score-from-removing-stones/
+     * 2022.12.21
+     *
+     * @param a 三堆
+     * @param b 三堆
+     * @param c 三堆
+     * @return 可以得到的最大分数
+     */
+    public int maximumScore(int a, int b, int c) {
+        int sum = a + b + c;
+        int maxVal = Math.max(Math.max(a, b), c);
+        return Math.min(sum - maxVal, sum / 2);
+    }
 }
