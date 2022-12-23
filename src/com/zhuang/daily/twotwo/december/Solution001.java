@@ -621,4 +621,23 @@ public class Solution001 {
         }
         return num1;
     }
+
+    /**
+     * https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/
+     * 2022.12.23
+     *
+     * @param operations 字符串数组
+     * @return 返回执行所有操作后，X的最终值
+     */
+    public int finalValueAfterOperations(String[] operations) {
+        int x = 0;
+        for (String op : operations) {
+            if ("X++".equals(op) || "++X".equals(op)) {
+                x++;
+            } else {
+                x--;
+            }
+        }
+        return x;
+    }
 }
