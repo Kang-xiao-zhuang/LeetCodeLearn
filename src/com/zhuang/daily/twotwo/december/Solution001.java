@@ -640,4 +640,28 @@ public class Solution001 {
         }
         return x;
     }
+
+    /**
+     * https://leetcode.cn/problems/largest-merge-of-two-strings/
+     * 2022.12.24
+     *
+     * @param word1 字符串
+     * @param word2 字符串
+     * @return 返回你可以构造的字典序 最大 的合并字符串 merge
+     */
+    public String largestMerge(String word1, String word2) {
+        StringBuilder merge = new StringBuilder();
+        int i = 0, j = 0;
+        while (i < word1.length() || j < word2.length()) {
+            if (i < word1.length() && word1.substring(i).compareTo(word2.substring(j)) > 0) {
+                merge.append(word1.charAt(i));
+                i++;
+            } else {
+                merge.append(word2.charAt(j));
+                j++;
+            }
+        }
+        return merge.toString();
+    }
+
 }
