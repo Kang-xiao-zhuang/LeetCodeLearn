@@ -664,4 +664,27 @@ public class Solution001 {
         return merge.toString();
     }
 
+    /**
+     * https://leetcode.cn/problems/building-boxes/
+     * 2022.12.25
+     *
+     * @param n 单位
+     * @return 接触地面的盒子的 最少 可能数量
+     */
+    public int minimumBoxes(int n) {
+        int cur = 1, i = 1, j = 1;
+        while (n > cur) {
+            n -= cur;
+            i++;
+            cur += i;
+        }
+        cur = 1;
+        while (n > cur) {
+            n -= cur;
+            j++;
+            cur++;
+        }
+        return (i - 1) * i / 2 + j;
+    }
+
 }
