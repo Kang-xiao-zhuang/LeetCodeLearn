@@ -687,4 +687,29 @@ public class Solution001 {
         return (i - 1) * i / 2 + j;
     }
 
+    /**
+     * https://leetcode.cn/problems/count-number-of-homogenous-substrings/
+     * 2022.12.26
+     *
+     * @param s 字符串
+     * @return 子字符串 是字符串中的一个连续字符序列
+     */
+    public int countHomogenous(String s) {
+        final int MOD = 1000000007;
+        long res = 0;
+        char prev = s.charAt(0);
+        int cnt = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == prev) {
+                cnt++;
+            } else {
+                res += (long) (cnt + 1) * cnt / 2;
+                cnt = 1;
+                prev = c;
+            }
+        }
+        res += (long) (cnt + 1) * cnt / 2;
+        return (int) (res % MOD);
+    }
 }
