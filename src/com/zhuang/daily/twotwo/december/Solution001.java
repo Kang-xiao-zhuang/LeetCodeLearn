@@ -712,4 +712,23 @@ public class Solution001 {
         res += (long) (cnt + 1) * cnt / 2;
         return (int) (res % MOD);
     }
+
+    /**
+     * https://leetcode.cn/problems/minimum-moves-to-convert-string/
+     * 2022.12.27
+     *
+     * @param s 字符串
+     * @return 将 s 中所有字符均转换为 'O' 需要执行的 最少 操作次数
+     */
+    public int minimumMoves(String s) {
+        int covered = -1, res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'X' && i > covered) {
+                res++;
+                covered = i + 2;
+            }
+        }
+        return res;
+    }
+
 }
