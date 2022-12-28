@@ -731,4 +731,25 @@ public class Solution001 {
         return res;
     }
 
+    /**
+     * https://leetcode.cn/problems/minimum-length-of-string-after-deleting-similar-ends/
+     * 2022.12.28
+     *
+     * @param s 字符串
+     * @return 返回对字符串 s 执行上面操作任意次以后（可能 0 次），能得到的 最短长度
+     */
+    public int minimumLength(String s) {
+        int n = s.length();
+        int left = 0, right = n - 1;
+        while (left < right && s.charAt(left) == s.charAt(right)) {
+            char c = s.charAt(left);
+            while (left <= right && s.charAt(left) == c) {
+                left++;
+            }
+            while (left <= right && s.charAt(right) == c) {
+                right--;
+            }
+        }
+        return right - left + 1;
+    }
 }
