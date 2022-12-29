@@ -752,4 +752,34 @@ public class Solution001 {
         }
         return right - left + 1;
     }
+
+    /**
+     * https://leetcode.cn/problems/two-out-of-three/solution/zhi-shao-zai-liang-ge-shu-zu-zhong-chu-x-5131/
+     * 2022.12.29
+     *
+     * @param nums1 整数数组
+     * @param nums2 整数数组
+     * @param nums3 整数数组
+     * @return 至少 在 两个 数组中出现的所有值组成。数组中的元素可以按 任意 顺序排列
+     */
+    public List<Integer> twoOutOfThree(int[] nums1, int[] nums2, int[] nums3) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i : nums1) {
+            map.put(i, 1);
+        }
+        for (int i : nums2) {
+            map.put(i, map.getOrDefault(i, 0) | 2);
+        }
+        for (int i : nums3) {
+            map.put(i, map.getOrDefault(i, 0) | 4);
+        }
+        List<Integer> res = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int k = entry.getKey(), v = entry.getValue();
+            if ((v & (v - 1)) != 0) {
+                res.add(k);
+            }
+        }
+        return res;
+    }
 }
