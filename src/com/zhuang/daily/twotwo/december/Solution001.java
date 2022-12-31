@@ -782,4 +782,22 @@ public class Solution001 {
         }
         return res;
     }
+
+    /**
+     * https://leetcode.cn/problems/minimum-number-of-moves-to-seat-everyone/
+     * 2022.12.31
+     *
+     * @param seats    n
+     * @param students n
+     * @return 使所有学生都有座位坐的 最少移动次数
+     */
+    public int minMovesToSeat(int[] seats, int[] students) {
+        Arrays.sort(seats);
+        Arrays.sort(students);
+        int res = 0;
+        for (int i = 0; i < seats.length; i++) {
+            res += Math.abs(seats[i] - students[i]);
+        }
+        return res;
+    }
 }
