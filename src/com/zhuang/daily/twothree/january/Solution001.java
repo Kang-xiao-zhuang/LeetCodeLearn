@@ -145,4 +145,27 @@ public class Solution001 {
         }
         return (int) l + 1;
     }
+
+    /**
+     * https://leetcode.cn/problems/count-integers-with-even-digit-sum/
+     * 2023.1.6
+     *
+     * @param num 正整数
+     * @return 返回 小于或等于 num 且各位数字之和为 偶数 的正整数的数目
+     */
+    public int countEven(int num) {
+        int res = 0;
+        for (int i = 1; i <= num; i++) {
+            int x = i, sum = 0;
+            while (x != 0) {
+                sum += x % 10;
+                x /= 10;
+            }
+            if (sum % 2 == 0) {
+                res++;
+            }
+        }
+        return res;
+    }
+
 }
