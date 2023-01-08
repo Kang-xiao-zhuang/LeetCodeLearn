@@ -203,4 +203,22 @@ public class Solution001 {
 
         return ans > n ? -1 : ans;
     }
+
+    /**
+     * https://leetcode.cn/problems/counting-words-with-a-given-prefix/
+     * 2023.1.8
+     *
+     * @param words 字符串数组
+     * @param pref  字符串
+     * @return words 中以 pref 作为 前缀 的字符串的数目
+     */
+    public int prefixCount(String[] words, String pref) {
+        int res = 0;
+        for (String word : words) {
+            if (word.startsWith(pref)) {
+                res++;
+            }
+        }
+        return res;
+    }
 }
