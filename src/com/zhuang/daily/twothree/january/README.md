@@ -818,3 +818,185 @@ class Solution {
 }
 ```
 
+#### [1807. 替换字符串中的括号内容](https://leetcode.cn/problems/evaluate-the-bracket-pairs-of-a-string/)
+
+难度中等60
+
+给你一个字符串 `s` ，它包含一些括号对，每个括号中包含一个 **非空** 的键。
+
+- 比方说，字符串 `"(name)is(age)yearsold"` 中，有 **两个** 括号对，分别包含键 `"name"` 和 `"age"` 。
+
+你知道许多键对应的值，这些关系由二维字符串数组 `knowledge` 表示，其中 `knowledge[i] = [keyi, valuei]` ，表示键 `keyi` 对应的值为 `valuei` 。
+
+你需要替换 **所有** 的括号对。当你替换一个括号对，且它包含的键为 `keyi` 时，你需要：
+
+- 将 `keyi` 和括号用对应的值 `valuei` 替换。
+- 如果从 `knowledge` 中无法得知某个键对应的值，你需要将 `keyi` 和括号用问号 `"?"` 替换（不需要引号）。
+
+`knowledge` 中每个键最多只会出现一次。`s` 中不会有嵌套的括号。
+
+请你返回替换 **所有** 括号对后的结果字符串。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "(name)is(age)yearsold", knowledge = [["name","bob"],["age","two"]]
+输出："bobistwoyearsold"
+解释：
+键 "name" 对应的值为 "bob" ，所以将 "(name)" 替换为 "bob" 。
+键 "age" 对应的值为 "two" ，所以将 "(age)" 替换为 "two" 。
+```
+
+**示例 2：**
+
+```
+输入：s = "hi(name)", knowledge = [["a","b"]]
+输出："hi?"
+解释：由于不知道键 "name" 对应的值，所以用 "?" 替换 "(name)" 。
+```
+
+**示例 3：**
+
+```
+输入：s = "(a)(a)(a)aaa", knowledge = [["a","yes"]]
+输出："yesyesyesaaa"
+解释：相同的键在 s 中可能会出现多次。
+键 "a" 对应的值为 "yes" ，所以将所有的 "(a)" 替换为 "yes" 。
+注意，不在括号里的 "a" 不需要被替换。
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 105`
+- `0 <= knowledge.length <= 105`
+- `knowledge[i].length == 2`
+- `1 <= keyi.length, valuei.length <= 10`
+- `s` 只包含小写英文字母和圆括号 `'('` 和 `')'` 。
+- `s` 中每一个左圆括号 `'('` 都有对应的右圆括号 `')'` 。
+- `s` 中每对括号内的键都不会为空。
+- `s` 中不会有嵌套括号对。
+- `keyi` 和 `valuei` 只包含小写英文字母。
+- `knowledge` 中的 `keyi` 不会重复。
+
+```java
+class Solution {
+    public String evaluate(String s, List<List<String>> knowledge) {
+        Map<String, String> dict = new HashMap<String, String>();
+        for (List<String> kd : knowledge) {
+            dict.put(kd.get(0), kd.get(1));
+        }
+        boolean addKey = false;
+        StringBuilder key = new StringBuilder();
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                addKey = true;
+            } else if (c == ')') {
+                if (dict.containsKey(key.toString())) {
+                    res.append(dict.get(key.toString()));
+                } else {
+                    res.append('?');
+                }
+                addKey = false;
+                key.setLength(0);
+            } else {
+                if (addKey) {
+                    key.append(c);
+                } else {
+                    res.append(c);
+                }
+            }
+        }
+        return res.toString();
+    }
+}
+
+```
+
+#### [2287. 重排字符形成目标字符串](https://leetcode.cn/problems/rearrange-characters-to-make-target-string/)
+
+难度简单28
+
+给你两个下标从 **0** 开始的字符串 `s` 和 `target` 。你可以从 `s` 取出一些字符并将其重排，得到若干新的字符串。
+
+从 `s` 中取出字符并重新排列，返回可以形成 `target` 的 **最大** 副本数。
+
+ 
+
+**示例 1：**
+
+```
+输入：s = "ilovecodingonleetcode", target = "code"
+输出：2
+解释：
+对于 "code" 的第 1 个副本，选取下标为 4 、5 、6 和 7 的字符。
+对于 "code" 的第 2 个副本，选取下标为 17 、18 、19 和 20 的字符。
+形成的字符串分别是 "ecod" 和 "code" ，都可以重排为 "code" 。
+可以形成最多 2 个 "code" 的副本，所以返回 2 。
+```
+
+**示例 2：**
+
+```
+输入：s = "abcba", target = "abc"
+输出：1
+解释：
+选取下标为 0 、1 和 2 的字符，可以形成 "abc" 的 1 个副本。 
+可以形成最多 1 个 "abc" 的副本，所以返回 1 。
+注意，尽管下标 3 和 4 分别有额外的 'a' 和 'b' ，但不能重用下标 2 处的 'c' ，所以无法形成 "abc" 的第 2 个副本。
+```
+
+**示例 3：**
+
+```
+输入：s = "abbaccaddaeea", target = "aaaaa"
+输出：1
+解释：
+选取下标为 0 、3 、6 、9 和 12 的字符，可以形成 "aaaaa" 的 1 个副本。
+可以形成最多 1 个 "aaaaa" 的副本，所以返回 1 。
+```
+
+ 
+
+**提示：**
+
+- `1 <= s.length <= 100`
+- `1 <= target.length <= 10`
+- `s` 和 `target` 由小写英文字母组成
+
+```java
+class Solution {
+    public int rearrangeCharacters(String s, String target) {
+        Map<Character, Integer> sCounts = new HashMap<>();
+        Map<Character, Integer> targetCounts = new HashMap<>();
+        int n = s.length(), m = target.length();
+        for (int i = 0; i < m; i++) {
+            char c = target.charAt(i);
+            targetCounts.put(c, targetCounts.getOrDefault(c, 0) + 1);
+        }
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if (targetCounts.containsKey(c)) {
+                sCounts.put(c, sCounts.getOrDefault(c, 0) + 1);
+            }
+        }
+        int ans = Integer.MAX_VALUE;
+        for (Map.Entry<Character, Integer> entry : targetCounts.entrySet()) {
+            char c = entry.getKey();
+            int count = entry.getValue();
+            int totalCount = sCounts.containsKey(c) ? sCounts.get(c) : 0;
+            ans = Math.min(ans, totalCount / count);
+            if (ans == 0) {
+                return 0;
+            }
+        }
+        return ans;
+    }
+}
+```
+
