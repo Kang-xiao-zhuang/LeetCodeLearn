@@ -1,9 +1,6 @@
 package com.zhuang.daily.twothree.january;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * description: Solution001
@@ -277,5 +274,80 @@ public class Solution001 {
             }
         }
         return true;
+    }
+
+    /**
+     * https://leetcode.cn/problems/evaluate-the-bracket-pairs-of-a-string/
+     * 2023.1.13
+     *
+     * @param s         字符串
+     * @param knowledge 二维字符串数组
+     * @return 替换 所有 括号对后的结果字符串
+     */
+    public String evaluate(String s, List<List<String>> knowledge) {
+        Map<String, String> dict = new HashMap<>();
+        for (List<String> kd : knowledge) {
+            dict.put(kd.get(0), kd.get(1));
+        }
+        boolean addKey = false;
+        StringBuilder key = new StringBuilder();
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                addKey = true;
+            } else if (c == ')') {
+                if (dict.containsKey(key.toString())) {
+                    res.append(dict.get(key.toString()));
+                } else {
+                    res.append('?');
+                }
+                addKey = false;
+                key.setLength(0);
+            } else {
+                if (addKey) {
+                    key.append(c);
+                } else {
+                    res.append(c);
+                }
+            }
+        }
+        return res.toString();
+    }
+
+
+    /**
+     * https://leetcode.cn/problems/rearrange-characters-to-make-target-string/
+     * 2023.1.13
+     *
+     * @param s      字符串
+     * @param target 字符串
+     * @return 可以形成 target 的 最大 副本数
+     */
+    public int rearrangeCharacters(String s, String target) {
+        Map<Character, Integer> sCounts = new HashMap<>();
+        Map<Character, Integer> targetCounts = new HashMap<>();
+        int n = s.length(), m = target.length();
+        for (int i = 0; i < m; i++) {
+            char c = target.charAt(i);
+            targetCounts.put(c, targetCounts.getOrDefault(c, 0) + 1);
+        }
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if (targetCounts.containsKey(c)) {
+                sCounts.put(c, sCounts.getOrDefault(c, 0) + 1);
+            }
+        }
+        int ans = Integer.MAX_VALUE;
+        for (Map.Entry<Character, Integer> entry : targetCounts.entrySet()) {
+            char c = entry.getKey();
+            int count = entry.getValue();
+            int totalCount = sCounts.containsKey(c) ? sCounts.get(c) : 0;
+            ans = Math.min(ans, totalCount / count);
+            if (ans == 0) {
+                return 0;
+            }
+        }
+        return ans;
     }
 }
