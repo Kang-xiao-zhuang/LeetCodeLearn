@@ -350,4 +350,46 @@ public class Solution001 {
         }
         return ans;
     }
+
+    /**
+     * https://leetcode.cn/problems/number-of-different-subsequences-gcds/
+     * 2023.1.14
+     *
+     * @param nums 正整数组成的数组
+     * @return 返回 nums 的所有 非空 子序列中 不同 最大公约数的 数目
+     */
+    public int countDifferentSubsequenceGCDs(int[] nums) {
+        int maxVal = Arrays.stream(nums).max().getAsInt();
+        boolean[] occured = new boolean[maxVal + 1];
+        for (int num : nums) {
+            occured[num] = true;
+        }
+        int ans = 0;
+        for (int i = 1; i <= maxVal; i++) {
+            int subGcd = 0;
+            for (int j = i; j <= maxVal; j += i) {
+                if (occured[j]) {
+                    if (subGcd == 0) {
+                        subGcd = j;
+                    } else {
+                        subGcd = gcd(subGcd, j);
+                    }
+                    if (subGcd == i) {
+                        ans++;
+                        break;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+
+    public int gcd(int num1, int num2) {
+        while (num2 != 0) {
+            int temp = num1;
+            num1 = num2;
+            num2 = temp % num2;
+        }
+        return num1;
+    }
 }
