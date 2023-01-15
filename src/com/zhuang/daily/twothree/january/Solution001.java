@@ -392,4 +392,27 @@ public class Solution001 {
         }
         return num1;
     }
+
+    /**
+     * https://leetcode.cn/problems/min-max-game/
+     * 2023.1.15
+     *
+     * @param nums 整数数组
+     * @return nums 中剩下的那个数字
+     */
+    public int minMaxGame(int[] nums) {
+        int n = nums.length;
+        if (n == 1) {
+            return nums[0];
+        }
+        int[] newNums = new int[n / 2];
+        for (int i = 0; i < newNums.length; i++) {
+            if (i % 2 == 0) {
+                newNums[i] = Math.min(nums[2 * i], nums[2 * i + 1]);
+            } else {
+                newNums[i] = Math.max(nums[2 * i], nums[2 * i + 1]);
+            }
+        }
+        return minMaxGame(newNums);
+    }
 }
