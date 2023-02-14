@@ -553,4 +553,27 @@ public class Solution001 {
         }
         return (double) totalTax / 100.0;
     }
+
+    /**
+     * https://leetcode.cn/problems/queries-on-number-of-points-inside-a-circle/
+     * 2023.1.24
+     *
+     * @param points  数组
+     * @param queries 数组
+     * @return 返回一个数组 answer ，其中 answer[j]是第 j 个查询的答案
+     */
+    public int[] countPoints(int[][] points, int[][] queries) {
+        int m = points.length, n = queries.length;
+        int[] ans = new int[n];
+        for (int i = 0; i < n; ++i) {
+            int cx = queries[i][0], cy = queries[i][1], cr = queries[i][2];
+            for (int j = 0; j < m; ++j) {
+                int px = points[j][0], py = points[j][1];
+                if ((cx - px) * (cx - px) + (cy - py) * (cy - py) <= cr * cr) {
+                    ++ans[i];
+                }
+            }
+        }
+        return ans;
+    }
 }
