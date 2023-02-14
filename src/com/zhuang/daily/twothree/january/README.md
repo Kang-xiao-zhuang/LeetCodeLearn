@@ -1267,3 +1267,191 @@ class Solution {
 }
 ```
 
+#### [1825. 求出 MK 平均值](https://leetcode.cn/problems/finding-mk-average/)
+
+给你两个整数 `m` 和 `k` ，以及数据流形式的若干整数。你需要实现一个数据结构，计算这个数据流的 **MK 平均值** 。
+
+**MK 平均值** 按照如下步骤计算：
+
+1. 如果数据流中的整数少于 `m` 个，**MK 平均值** 为 `-1` ，否则将数据流中最后 `m` 个元素拷贝到一个独立的容器中。
+2. 从这个容器中删除最小的 `k` 个数和最大的 `k` 个数。
+3. 计算剩余元素的平均值，并 **向下取整到最近的整数** 。
+
+请你实现 `MKAverage` 类：
+
+- `MKAverage(int m, int k)` 用一个空的数据流和两个整数 `m` 和 `k` 初始化 **MKAverage** 对象。
+- `void addElement(int num)` 往数据流中插入一个新的元素 `num` 。
+- `int calculateMKAverage()` 对当前的数据流计算并返回 **MK 平均数** ，结果需 **向下取整到最近的整数** 。
+
+ 
+
+**示例 1：**
+
+```
+输入：
+["MKAverage", "addElement", "addElement", "calculateMKAverage", "addElement", "calculateMKAverage", "addElement", "addElement", "addElement", "calculateMKAverage"]
+[[3, 1], [3], [1], [], [10], [], [5], [5], [5], []]
+输出：
+[null, null, null, -1, null, 3, null, null, null, 5]
+
+解释：
+MKAverage obj = new MKAverage(3, 1); 
+obj.addElement(3);        // 当前元素为 [3]
+obj.addElement(1);        // 当前元素为 [3,1]
+obj.calculateMKAverage(); // 返回 -1 ，因为 m = 3 ，但数据流中只有 2 个元素
+obj.addElement(10);       // 当前元素为 [3,1,10]
+obj.calculateMKAverage(); // 最后 3 个元素为 [3,1,10]
+                          // 删除最小以及最大的 1 个元素后，容器为 [3]
+                          // [3] 的平均值等于 3/1 = 3 ，故返回 3
+obj.addElement(5);        // 当前元素为 [3,1,10,5]
+obj.addElement(5);        // 当前元素为 [3,1,10,5,5]
+obj.addElement(5);        // 当前元素为 [3,1,10,5,5,5]
+obj.calculateMKAverage(); // 最后 3 个元素为 [5,5,5]
+                          // 删除最小以及最大的 1 个元素后，容器为 [5]
+                          // [5] 的平均值等于 5/1 = 5 ，故返回 5
+```
+
+ 
+
+**提示：**
+
+- `3 <= m <= 105`
+- `1 <= k*2 < m`
+- `1 <= num <= 105`
+- `addElement` 与 `calculateMKAverage` 总操作次数不超过 `105` 次。
+
+```java
+class MKAverage {
+    private int m, k;
+    private Queue<Integer> q;
+    private TreeMap<Integer, Integer> s1;
+    private TreeMap<Integer, Integer> s2;
+    private TreeMap<Integer, Integer> s3;
+    private int size1, size2, size3;
+    private long sum2;
+
+    public MKAverage(int m, int k) {
+        this.m = m;
+        this.k = k;
+        this.q = new ArrayDeque<Integer>();
+        this.s1 = new TreeMap<Integer, Integer>();
+        this.s2 = new TreeMap<Integer, Integer>();
+        this.s3 = new TreeMap<Integer, Integer>();
+        this.size1 = 0;
+        this.size2 = 0;
+        this.size3 = 0;
+        this.sum2 = 0;
+    }
+
+    public void addElement(int num) {
+        q.offer(num);
+        if (q.size() <= m) {
+            s2.put(num, s2.getOrDefault(num, 0) + 1);
+            size2++;
+            sum2 += num;
+            if (q.size() == m) {
+                while (size1 < k) {
+                    int firstNum = s2.firstKey();
+                    s1.put(firstNum, s1.getOrDefault(firstNum, 0) + 1);
+                    size1++;
+                    sum2 -= firstNum;
+                    s2.put(firstNum, s2.get(firstNum) - 1);
+                    if (s2.get(firstNum) == 0) {
+                        s2.remove(firstNum);
+                    }
+                    size2--;
+                }
+                while (size3 < k) {
+                    int lastNum = s2.lastKey();
+                    s3.put(lastNum, s3.getOrDefault(lastNum, 0) + 1);
+                    size3++;
+                    sum2 -= lastNum;
+                    s2.put(lastNum, s2.get(lastNum) - 1);
+                    if (s2.get(lastNum) == 0) {
+                        s2.remove(lastNum);
+                    }
+                    size2--;
+                }
+            }
+            return;
+        }
+
+        if (num < s1.lastKey()) {
+            s1.put(num, s1.getOrDefault(num, 0) + 1);
+            int lastNum = s1.lastKey();
+            s2.put(lastNum, s2.getOrDefault(lastNum, 0) + 1);
+            size2++;
+            sum2 += lastNum;
+            s1.put(lastNum, s1.get(lastNum) - 1);
+            if (s1.get(lastNum) == 0) {
+                s1.remove(lastNum);
+            }
+        } else if (num > s3.firstKey()) {
+            s3.put(num, s3.getOrDefault(num, 0) + 1);
+            int firstNum = s3.firstKey();
+            s2.put(firstNum, s2.getOrDefault(firstNum, 0) + 1);
+            size2++;
+            sum2 += firstNum;
+            s3.put(firstNum, s3.get(firstNum) - 1);
+            if (s3.get(firstNum) == 0) {
+                s3.remove(firstNum);
+            }
+        } else {
+            s2.put(num, s2.getOrDefault(num, 0) + 1);
+            size2++;
+            sum2 += num;
+        }
+
+        int x = q.poll();
+        if (s1.containsKey(x)) {
+            s1.put(x, s1.get(x) - 1);
+            if (s1.get(x) == 0) {
+                s1.remove(x);
+            }
+            int firstNum = s2.firstKey();
+            s1.put(firstNum, s1.getOrDefault(firstNum, 0) + 1);
+            sum2 -= firstNum;
+            s2.put(firstNum, s2.get(firstNum) - 1);
+            if (s2.get(firstNum) == 0) {
+                s2.remove(firstNum);
+            }
+            size2--;
+        } else if (s3.containsKey(x)) {
+            s3.put(x, s3.get(x) - 1);
+            if (s3.get(x) == 0) {
+                s3.remove(x);
+            }
+            int lastNum = s2.lastKey();
+            s3.put(lastNum, s3.getOrDefault(lastNum, 0) + 1);
+            sum2 -= lastNum;
+            s2.put(lastNum, s2.get(lastNum) - 1);
+            if (s2.get(lastNum) == 0) {
+                s2.remove(lastNum);
+            }
+            size2--;
+        } else {
+            s2.put(x, s2.get(x) - 1);
+            if (s2.get(x) == 0) {
+                s2.remove(x);
+            }
+            size2--;
+            sum2 -= x;
+        }
+    }
+
+    public int calculateMKAverage() {
+        if (q.size() < m) {
+            return -1;
+        }
+        return (int) (sum2 / (m - 2 * k));
+    }
+}
+
+/**
+ * Your MKAverage object will be instantiated and called as such:
+ * MKAverage obj = new MKAverage(m, k);
+ * obj.addElement(num);
+ * int param_2 = obj.calculateMKAverage();
+ */
+```
+
