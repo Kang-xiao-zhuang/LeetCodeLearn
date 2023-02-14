@@ -633,4 +633,26 @@ public class Solution001 {
         }
         return res;
     }
+
+    /**
+     * https://leetcode.cn/problems/count-asterisks/
+     * 2023.1.29
+     *
+     * @param s
+     * @return
+     */
+    public int countAsterisks(String s) {
+        boolean valid = true;
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '|') {
+                valid = !valid;
+            } else if (c == '*' && valid) {
+                res++;
+            }
+        }
+        return res;
+    }
+
 }
