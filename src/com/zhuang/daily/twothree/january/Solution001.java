@@ -437,4 +437,26 @@ public class Solution001 {
         return i + j == Math.min(words1.length, words2.length);
     }
 
+    /**
+     * https://leetcode.cn/problems/count-nice-pairs-in-an-array/
+     * 2023.2.14
+     *
+     * @param nums 数组
+     * @return 返回好下标对的数目
+     */
+    public int countNicePairs(int[] nums) {
+        final int MOD = 1000000007;
+        int res = 0;
+        Map<Integer, Integer> h = new HashMap<>();
+        for (int i : nums) {
+            int temp = i, j = 0;
+            while (temp > 0) {
+                j = j * 10 + temp % 10;
+                temp /= 10;
+            }
+            res = (res + h.getOrDefault(i - j, 0)) % MOD;
+            h.put(i - j, h.getOrDefault(i - j, 0) + 1);
+        }
+        return res;
+    }
 }
