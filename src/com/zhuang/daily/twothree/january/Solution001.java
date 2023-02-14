@@ -530,4 +530,27 @@ public class Solution001 {
         }
         return answer;
     }
+
+    /**
+     * https://leetcode.cn/problems/calculate-amount-paid-in-taxes/
+     * 2023.1.23
+     *
+     * @param brackets 二维整数数组
+     * @param income   整数
+     * @return 你需要缴纳的税款总额
+     */
+    public double calculateTax(int[][] brackets, int income) {
+        double totalTax = 0;
+        int lower = 0;
+        for (int[] bracket : brackets) {
+            int upper = bracket[0], percent = bracket[1];
+            int tax = (Math.min(income, upper) - lower) * percent;
+            totalTax += tax;
+            if (income <= upper) {
+                break;
+            }
+            lower = upper;
+        }
+        return (double) totalTax / 100.0;
+    }
 }
