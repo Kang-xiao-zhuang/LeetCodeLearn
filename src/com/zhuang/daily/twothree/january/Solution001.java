@@ -655,4 +655,26 @@ public class Solution001 {
         return res;
     }
 
+    /**
+     * https://leetcode.cn/problems/check-if-matrix-is-x-matrix/
+     * 2023.1.31
+     *
+     * @param grid 二维整数数组
+     * @return 如果 grid 是一个 X 矩阵 ，返回 true ；否则，返回 false
+     */
+    public boolean checkXMatrix(int[][] grid) {
+        int n = grid.length;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (i == j || (i + j) == (n - 1)) {
+                    if (grid[i][j] == 0) {
+                        return false;
+                    }
+                } else if (grid[i][j] != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
