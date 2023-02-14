@@ -507,4 +507,27 @@ public class Solution001 {
 
         return hasLower && hasUpper && hasDigit && hasSpecial;
     }
+
+    /**
+     * https://leetcode.cn/problems/finding-the-users-active-minutes/
+     * 2023.1.20
+     *
+     * @param logs 二维整数数组
+     * @param k    整数
+     * @return 上面描述的答案数组 answer
+     */
+    public int[] findingUsersActiveMinutes(int[][] logs, int k) {
+        Map<Integer, Set<Integer>> activeMinutes = new HashMap<>();
+        for (int[] log : logs) {
+            int id = log[0], time = log[1];
+            activeMinutes.putIfAbsent(id, new HashSet<>());
+            activeMinutes.get(id).add(time);
+        }
+        int[] answer = new int[k];
+        for (Set<Integer> minutes : activeMinutes.values()) {
+            int activeCount = minutes.size();
+            answer[activeCount - 1]++;
+        }
+        return answer;
+    }
 }
