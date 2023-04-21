@@ -19,8 +19,10 @@ public class Solution001 {
         //  rob3(nums);
 
         //    climbStairs(3);
-        climbStairs2(3);
-        climbStairs3(3);
+        //climbStairs2(3);
+        //climbStairs3(3);
+
+        System.out.println(fib2(4));
     }
 
     /**
@@ -32,7 +34,7 @@ public class Solution001 {
      */
     public static int rob(int[] nums) {
         int n = nums.length;
-        if (nums == null || n == 0) {
+        if (n == 0) {
             return 0;
         }
         if (n == 1) {
@@ -74,13 +76,13 @@ public class Solution001 {
      */
     public static int rob3(int[] nums) {
         int n = nums.length;
-        if (nums == null || n == 0) {
+        if (n == 0) {
             return 0;
         }
         if (n == 1) {
             return nums[0];
         }
-        int[] dp = new int[n];
+
         int first = nums[0];
         int second = Math.max(nums[0], nums[1]);
         for (int i = 2; i < n; i++) {
@@ -193,5 +195,28 @@ public class Solution001 {
             b = temp;
         }
         return temp;
+    }
+
+    /**
+     * https://leetcode.cn/problems/fibonacci-number/
+     * 斐波那契数列
+     *
+     * @param n 数列
+     * @return 计算 F(n)
+     */
+    public static int fib(int n) {
+        if (n < 2) return n;
+        return fib(n - 1) + fib(n - 2);
+    }
+
+    public static int fib2(int n) {
+        if (n < 2) return n;
+        int[] dp = {0, 1, 0};
+        for (int i = 2; i <= n; i++) {
+            int sum = dp[0] + dp[1];
+            dp[0] = dp[1];
+            dp[1] = sum;
+        }
+        return dp[1];
     }
 }
