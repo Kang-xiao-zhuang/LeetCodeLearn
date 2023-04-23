@@ -1,4 +1,4 @@
-package com.zhuang.dynamicPlanning;
+package com.zhuang.dynamicplanning;
 
 
 import java.util.HashMap;
