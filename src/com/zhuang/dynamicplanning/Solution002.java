@@ -10,8 +10,10 @@ import java.util.Arrays;
  */
 public class Solution002 {
     public static void main(String[] args) {
-//        integerBreak(10);
-        numTrees(4);
+        int[] nums = {1, 5, 11, 5};
+        canPartition(nums);
+        //integerBreak(10);
+        //numTrees(4);
     }
 
     /**
@@ -51,6 +53,43 @@ public class Solution002 {
             System.out.println(Arrays.toString(dp));
         }
         return dp[n];  // 返回最终结果
+    }
+
+    /**
+     * https://leetcode.cn/problems/partition-equal-subset-sum/
+     *
+     * @param nums 包含正整数 的 非空 数组 nums
+     * @return 判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等
+     */
+    public static boolean canPartition(int[] nums) {
+        int len = nums.length;
+
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        if ((sum & 1) == 1) {
+            return false;
+        }
+        int target = sum / 2;
+        boolean[][] dp = new boolean[len][target + 1];
+
+        dp[0][0] = true;
+        if (nums[0] <= target) {
+            dp[0][nums[0]] = true;
+        }
+        for (int i = 1; i < len; i++) {
+            for (int j = 0; j <= target; j++) {
+                dp[i][j] = dp[i - 1][j];
+                if (nums[i] <= j) {
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]];
+                }
+            }
+            if (dp[i][target]) {
+                return true;
+            }
+        }
+        return dp[len - 1][target];
     }
 
 }
