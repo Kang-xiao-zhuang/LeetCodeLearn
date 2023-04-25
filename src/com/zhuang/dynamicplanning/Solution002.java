@@ -92,7 +92,7 @@ public class Solution002 {
         return dp[len - 1][target];
     }
 
-    // TODO 未理解透彻
+    // TODO 未理解透彻 重学01背包
     public static boolean canPartition2(int[] nums) {
         int len = nums.length;
         // 题目已经说非空数组，可以不做非空判断
