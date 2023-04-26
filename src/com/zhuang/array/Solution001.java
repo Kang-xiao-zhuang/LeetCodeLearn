@@ -48,6 +48,7 @@ public class Solution001 {
 
     /**
      * https://leetcode-cn.com/problems/remove-element/
+     * 快慢指针法
      *
      * @param nums 数组
      * @param val  值
@@ -65,6 +66,21 @@ public class Solution001 {
         }
         System.out.println(slowIndex);
         return slowIndex;
+    }
+
+    //暴力解法
+    public static int removeElement2(int[] nums, int val) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == val) {
+                for (int j = i + 1; j < n; j++) {
+                    nums[j - 1] = nums[j];
+                }
+                i--;
+                n--;
+            }
+        }
+        return n;
     }
 
     /**
