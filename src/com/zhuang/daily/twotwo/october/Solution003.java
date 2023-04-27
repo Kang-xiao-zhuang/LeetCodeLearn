@@ -47,6 +47,42 @@ public class Solution003 {
         return ans;
     }
 
+
+    public int totalFruit2(int[] fruits) {
+     /*
+    startIndex：表示窗口的起点。
+    diffIndex：每当发现相邻两个水果不同，则将其指向发生不同的那个水果，当遍历发现有第三种水果的时候，用于将其作为新窗口的起点。
+    pickRecords：用于记录当前窗口内选中的水果（下图没有画），默认未选中为0，选中为1；
+    pickNums：用于记录当前窗口内，已经选中的水果种类数量。
+    curFruit：用于记录当前选中的苹果类型，当发现curFruit与fruits[i]不同时，diffIndex = fruits[i]。
+    */
+        int[] pickRecords = new int[fruits.length];
+        int res = 0, startIndex = 0, diffIndex = 0, pickNums = 0, curFruit = 0;
+        int n = fruits.length;
+        for (int i = 0; i < n; i++) {
+            if (pickRecords[fruits[i]] == 0) {
+                if (pickNums == 2) {
+                    res = Math.max(res, i - startIndex);
+                    // 设置未选择
+                    pickRecords[fruits[diffIndex - 1]] = 0;
+                    // 记录窗口的起始索引
+                    startIndex = diffIndex;
+                    pickNums--;
+                }
+                // 已选择水果种类+1
+                pickNums++;
+                // 设置为水果被选择
+                pickRecords[fruits[i]] = 1;
+            }
+            if (curFruit != fruits[i]) {
+                curFruit = fruits[i];
+                // 记录水果类型变换的index
+                diffIndex = i;
+            }
+        }
+        return Math.max(res, n - startIndex);
+    }
+
     /**
      * https://leetcode.cn/problems/number-of-students-unable-to-eat-lunch/
      * 2022.10.19
