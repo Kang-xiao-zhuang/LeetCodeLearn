@@ -1,7 +1,9 @@
 package com.zhuang.daily.twothree.april;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Solution001 {
     public static void main(String[] args) {
@@ -44,6 +46,30 @@ public class Solution001 {
         String[] res = new String[heights.length];
         for (int i = 0; i < height.length; i++) {
             res[i] = names[height[i]];
+        }
+        return res;
+    }
+
+    /**
+     * https://leetcode.cn/problems/longest-string-chain/
+     * 2023.4.27
+     *
+     * @param words 单词数组
+     * @return 词链的 最长可能长度
+     */
+    public int longestStrChain(String[] words) {
+        Map<String, Integer> cnt = new HashMap<String, Integer>();
+        Arrays.sort(words, Comparator.comparingInt(String::length));
+        int res = 0;
+        for (String word : words) {
+            cnt.put(word, 1);
+            for (int i = 0; i < word.length(); i++) {
+                String prev = word.substring(0, i) + word.substring(i + 1);
+                if (cnt.containsKey(prev)) {
+                    cnt.put(word, Math.max(cnt.get(word), cnt.get(prev) + 1));
+                }
+            }
+            res = Math.max(res, cnt.get(word));
         }
         return res;
     }
