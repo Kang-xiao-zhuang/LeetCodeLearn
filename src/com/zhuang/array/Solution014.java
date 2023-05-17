@@ -1,11 +1,16 @@
 package com.zhuang.array;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Solution014 {
     public static void main(String[] args) {
         int[] gas = new int[]{1, 2, 3, 4, 5};
         int[] cost = new int[]{3, 4, 5, 1, 2};
         //canCompleteCircuit(gas, cost);
         generateMatrix(3);
+        int[][] matrix = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        spiralOrder(matrix);
     }
 
     /**
@@ -53,6 +58,46 @@ public class Solution014 {
         }
         return res;
     }
+
+    /**
+     * https://leetcode.cn/problems/spiral-matrix/
+     *
+     * @param matrix 矩阵
+     * @return 按照顺时针螺旋顺序, 返回矩阵中的所有元素
+     */
+    public static List<Integer> spiralOrder(int[][] matrix) {
+        int left = 0, right = matrix[0].length - 1, top = 0, bottom = matrix.length - 1;
+        int target = matrix[0].length * matrix.length;
+        LinkedList<Integer> res = new LinkedList<>();
+        while (target >= 1) {
+            // 从左到右
+            for (int i = left; i <= right && target >= 1; i++) {
+                res.add(matrix[top][i]);
+                target--;
+            }
+            top++;
+            // 从上到下
+            for (int i = top; i <= bottom && target >= 1; i++) {
+                res.add(matrix[i][right]);
+                target--;
+            }
+            right--;
+            // 从右到左
+            for (int i = right; i >= left && target >= 1; i--) {
+                res.add(matrix[bottom][i]);
+                target--;
+            }
+            bottom--;
+            // 从下到上
+            for (int i = bottom; i >= top && target >= 1; i--) {
+                res.add(matrix[i][left]);
+                target--;
+            }
+            left++;
+        }
+        return res;
+    }
+
 
     /**
      * https://leetcode.cn/problems/spiral-matrix-ii/
