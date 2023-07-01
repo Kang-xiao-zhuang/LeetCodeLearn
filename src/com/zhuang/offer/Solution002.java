@@ -1,6 +1,7 @@
 package com.zhuang.offer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Solution002 {
     public static void main(String[] args) {
@@ -58,12 +59,53 @@ public class Solution002 {
         return pre;
     }
 
+    /**
+     * https://leetcode.cn/problems/fu-za-lian-biao-de-fu-zhi-lcof/
+     *
+     * @param head Node
+     * @return Node
+     */
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node cur = head;
+        HashMap<Node, Node> map = new HashMap<>();
+        // 复制各个节点
+        while (cur != null) {
+            map.put(cur, new Node(cur.val));
+            cur = cur.next;
+        }
+        // 构建新的链表next和random指向
+        cur = head;
+        while (cur != null) {
+            map.get(cur).next = map.get(cur.next);
+            map.get(cur).random = map.get(cur.random);
+            cur = cur.next;
+        }
+        // 返回新链表头节点
+        return map.get(head);
+    }
+
     static class ListNode {
         int val;
         ListNode next;
 
         ListNode(int x) {
             val = x;
+        }
+    }
+
+    // Definition for a Node.
+    class Node {
+        int val;
+        Node next;
+        Node random;
+
+        public Node(int val) {
+            this.val = val;
+            this.next = null;
+            this.random = null;
         }
     }
 }
