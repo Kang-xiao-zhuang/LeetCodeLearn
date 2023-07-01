@@ -27,6 +27,37 @@ public class Solution002 {
         return res;
     }
 
+    /**
+     * https://leetcode.cn/problems/fan-zhuan-lian-biao-lcof/
+     *
+     * @param head ListNode
+     * @return ListNode
+     */
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newHead = null;
+        while (head != null) {
+            ListNode tmp = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = tmp;
+        }
+        return newHead;
+    }
+
+    public ListNode reverseList2(ListNode head) {
+        ListNode cur = head, pre = null;
+        while (cur != null) {
+            ListNode tmp = cur.next; // 暂存后继节点 cur.next
+            cur.next = pre;          // 修改 next 引用指向
+            pre = cur;               // pre 暂存 cur
+            cur = tmp;               // cur 访问下一节点
+        }
+        return pre;
+    }
+
     static class ListNode {
         int val;
         ListNode next;
