@@ -144,9 +144,9 @@ class Solution {
 
 1. （可选）一个符号字符（`'+'` 或 `'-'`）
 2. 下述格式之一：
-    1. 至少一位数字，后面跟着一个点 `'.'`
-    2. 至少一位数字，后面跟着一个点 `'.'` ，后面再跟着至少一位数字
-    3. 一个点 `'.'` ，后面跟着至少一位数字
+   1. 至少一位数字，后面跟着一个点 `'.'`
+   2. 至少一位数字，后面跟着一个点 `'.'` ，后面再跟着至少一位数字
+   3. 一个点 `'.'` ，后面跟着至少一位数字
 
 **整数**（按顺序）可以分成以下几个部分：
 
@@ -483,3 +483,55 @@ class Automaton {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/8a3f6bc7713c4cb9959223b9e72a9020.png)
+
+
+
+#### [剑指 Offer 06. 从尾到头打印链表](https://leetcode.cn/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+
+输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
+
+
+
+**示例 1：**
+
+```
+输入：head = [1,3,2]
+输出：[2,3,1]
+```
+
+
+
+**限制：**
+
+```
+0 <= 链表长度 <= 10000
+```
+
+使用集合加入节点的值，最后倒序遍历即可
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int[] reversePrint(ListNode head) {
+        ArrayList<Integer> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+        int[] res = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(list.size() - i - 1);
+        }
+        return res;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/646fda0b7e394ff9886b358a4a155f62.png)
