@@ -17,46 +17,7 @@ public class Solution01 {
         longestPalindrome(s);
     }
 
-    /**
-     * https://leetcode-cn.com/problems/two-sum/
-     * 第1题
-     * 暴力法
-     *
-     * @param nums   整数数组
-     * @param target 整数目标值
-     * @return 数组下标
-     */
-    public int[] twoSum(int[] nums, int target) {
-        int n = nums.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (nums[i] + nums[j] == target) {
-                    return new int[]{i, j};
-                }
-            }
-        }
-        return new int[0];
-    }
 
-    /**
-     * 第1题
-     * 哈希表
-     *
-     * @param nums   整数数组
-     * @param target 整数目标值
-     * @return 数组下标
-     */
-    public int[] twoSum2(int[] nums, int target) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        int n = nums.length;
-        for (int i = 0; i < n; i++) {
-            if (map.containsKey(target - nums[i])) {
-                return new int[]{map.get(target - nums[i]), i};
-            }
-            map.put(nums[i], i);
-        }
-        return new int[0];
-    }
 
     /**
      * https://leetcode-cn.com/problems/add-two-numbers/

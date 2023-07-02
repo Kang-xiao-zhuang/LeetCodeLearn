@@ -1,5 +1,7 @@
 # 🔥 LeetCode 热题 HOT 100
 
+## 哈希
+
 #### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
 
 给定一个整数数组 `nums` 和一个整数目标值 `target`，请你在该数组中找出 **和为目标值** *`target`* 的那 **两个** 整数，并返回它们的数组下标。
@@ -76,8 +78,159 @@ class Solution {
 }
 ```
 
+![在这里插入图片描述](https://img-blog.csdnimg.cn/333488cf4c424026bb266f48a01c0f6e.png)
 
 
+
+#### [49. 字母异位词分组](https://leetcode-cn.com/problems/group-anagrams/)
+
+给你一个字符串数组，请你将 **字母异位词** 组合在一起。可以按任意顺序返回结果列表。
+
+**字母异位词** 是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母都恰好只用一次。
+
+ 
+
+**示例 1:**
+
+```
+输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+```
+
+**示例 2:**
+
+```
+输入: strs = [""]
+输出: [[""]]
+```
+
+**示例 3:**
+
+```
+输入: strs = ["a"]
+输出: [["a"]]
+```
+
+ 
+
+**提示：**
+
+- `1 <= strs.length <= 104`
+- `0 <= strs[i].length <= 100`
+- `strs[i]` 仅包含小写字母
+
+**排序**
+
+```java
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            char[] array = str.toCharArray();
+            // 对数组排序
+            Arrays.sort(array);
+            String key = new String(array);
+            List<String> list = map.getOrDefault(key, new ArrayList<String>());
+            list.add(str);
+            map.put(key, list);
+        }
+        return new ArrayList<List<String>>(map.values());
+    }
+}
+```
+
+**计数**
+
+```java
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            int[] counts = new int[26];
+            int len = str.length();
+            for (int i = 0; i < len; i++) {
+                counts[str.charAt(i) - 'a']++;
+            }
+            //将每个出现次数大于0的字母和出现次数按顺序拼接字符串，作为哈希表的键
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < 26; i++) {
+                if (counts[i] != 0) {
+                    sb.append((char) 'a' + i);
+                    sb.append(counts[i]);
+                }
+            }
+            String key = sb.toString();
+            List<String> list = map.getOrDefault(key, new ArrayList<String>());
+            list.add(str);
+            map.put(key, list);
+        }
+        return new ArrayList<List<String>>(map.values());
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/186f555fa40546b4b0da5c253076bf2f.png)
+
+
+
+#### [128. 最长连续序列](https://leetcode.cn/problems/longest-consecutive-sequence/)
+
+给定一个未排序的整数数组 `nums` ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。
+
+请你设计并实现时间复杂度为 `O(n)` 的算法解决此问题。
+
+ 
+
+**示例 1：**
+
+```
+输入：nums = [100,4,200,1,3,2]
+输出：4
+解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。
+```
+
+**示例 2：**
+
+```
+输入：nums = [0,3,7,2,5,8,4,6,0,1]
+输出：9
+```
+
+ 
+
+**提示：**
+
+- `0 <= nums.length <= 105`
+- `-109 <= nums[i] <= 109`
+
+**哈希**
+
+```java
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+        int longStreak = 0;
+        for (Integer e : set) {
+            if (!set.contains(e - 1)) {
+                int curNum = e;
+                int curStreak = 1;
+
+                while (set.contains(curNum + 1)) {
+                    curNum++;
+                    curStreak++;
+                }
+                longStreak = Math.max(longStreak, curStreak);
+            }
+        }
+        return longStreak;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6a25d4e1b410436b9145224bcbdd3e93.png)
 
 #### [2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
 
@@ -1570,92 +1723,7 @@ class Solution {
 }
 ```
 
-#### [49. 字母异位词分组](https://leetcode-cn.com/problems/group-anagrams/)
 
-给你一个字符串数组，请你将 **字母异位词** 组合在一起。可以按任意顺序返回结果列表。
-
-**字母异位词** 是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母都恰好只用一次。
-
- 
-
-**示例 1:**
-
-```
-输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
-输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
-```
-
-**示例 2:**
-
-```
-输入: strs = [""]
-输出: [[""]]
-```
-
-**示例 3:**
-
-```
-输入: strs = ["a"]
-输出: [["a"]]
-```
-
- 
-
-**提示：**
-
-- `1 <= strs.length <= 104`
-- `0 <= strs[i].length <= 100`
-- `strs[i]` 仅包含小写字母
-
-**排序**
-
-```java
-class Solution {
-    public List<List<String>> groupAnagrams(String[] strs) {
-        HashMap<String, List<String>> map = new HashMap<>();
-        for (String str : strs) {
-            char[] array = str.toCharArray();
-            // 对数组排序
-            Arrays.sort(array);
-            String key = new String(array);
-            List<String> list = map.getOrDefault(key, new ArrayList<String>());
-            list.add(str);
-            map.put(key, list);
-        }
-        return new ArrayList<List<String>>(map.values());
-    }
-}
-```
-
-**计数**
-
-```java
-class Solution {
-    public List<List<String>> groupAnagrams(String[] strs) {
-        HashMap<String, List<String>> map = new HashMap<>();
-        for (String str : strs) {
-            int[] counts = new int[26];
-            int len = str.length();
-            for (int i = 0; i < len; i++) {
-                counts[str.charAt(i) - 'a']++;
-            }
-            //将每个出现次数大于0的字母和出现次数按顺序拼接字符串，作为哈希表的键
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < 26; i++) {
-                if (counts[i] != 0) {
-                    sb.append((char) 'a' + i);
-                    sb.append(counts[i]);
-                }
-            }
-            String key = sb.toString();
-            List<String> list = map.getOrDefault(key, new ArrayList<String>());
-            list.add(str);
-            map.put(key, list);
-        }
-        return new ArrayList<List<String>>(map.values());
-    }
-}
-```
 
 #### [53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
 
