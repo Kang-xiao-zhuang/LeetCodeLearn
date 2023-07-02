@@ -26,7 +26,7 @@ class Solution {
     }
 }
 ```
-![在这里插入图片描述](https://img-blog.csdnimg.cn/80e03d63bc784bd498b5f63518720839.png)
+![](https://img-blog.csdnimg.cn/80e03d63bc784bd498b5f63518720839.png)
 
 用StringBuilder也可以，直接替换
 
@@ -46,7 +46,7 @@ class Solution {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3725cba2ea7c415f8f8fc874f6843553.png)
+![](https://img-blog.csdnimg.cn/3725cba2ea7c415f8f8fc874f6843553.png)
 
 python代码
 
@@ -60,7 +60,7 @@ class Solution:
         return "".join(res)
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/6a9fd77340ec4f8c856e60673a83dd7f.png)
+![](https://img-blog.csdnimg.cn/6a9fd77340ec4f8c856e60673a83dd7f.png)
 
 koltin代码
 
@@ -105,7 +105,7 @@ class Solution {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/3b64199ecd624c7ab459ad2b6778f456.png)
+![](https://img-blog.csdnimg.cn/3b64199ecd624c7ab459ad2b6778f456.png)
 
 另一种方法，使用字符串拼接，先从n到末尾拼接，再拼接0到n的字符串
 
@@ -127,7 +127,7 @@ class Solution {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/ab09e155be494106a94b0a307c6ce706.png)
+![](https://img-blog.csdnimg.cn/ab09e155be494106a94b0a307c6ce706.png)
 
 #### [剑指 Offer 20. 表示数值的字符串](https://leetcode.cn/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/)
 
@@ -232,7 +232,7 @@ class Solution {
 > 指数部分的整数部分
 > 末尾的空格
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/627cfb6ba4244e11b94d2dcd58de57a0.png)
+![](https://img-blog.csdnimg.cn/627cfb6ba4244e11b94d2dcd58de57a0.png)
 
 ```java
 class Solution {
@@ -482,7 +482,7 @@ class Automaton {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/8a3f6bc7713c4cb9959223b9e72a9020.png)
+![](https://img-blog.csdnimg.cn/8a3f6bc7713c4cb9959223b9e72a9020.png)
 
 
 
@@ -534,7 +534,7 @@ class Solution {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/646fda0b7e394ff9886b358a4a155f62.png)
+![](https://img-blog.csdnimg.cn/646fda0b7e394ff9886b358a4a155f62.png)
 
 #### [剑指 Offer 24. 反转链表](https://leetcode.cn/problems/fan-zhuan-lian-biao-lcof/)
 
@@ -582,7 +582,7 @@ class Solution {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/156d6c7c18394bf6b5d06cd4cc2a9c41.png)
+![](https://img-blog.csdnimg.cn/156d6c7c18394bf6b5d06cd4cc2a9c41.png)
 
 #### [剑指 Offer 35. 复杂链表的复制](https://leetcode.cn/problems/fu-za-lian-biao-de-fu-zhi-lcof/)
 
@@ -724,7 +724,7 @@ class Solution {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/4c1ec23eb7c24c7eb9c5f1bb845e7cdc.png)
+![](https://img-blog.csdnimg.cn/4c1ec23eb7c24c7eb9c5f1bb845e7cdc.png)
 
 ```java
 class Solution {
@@ -742,7 +742,7 @@ class Solution {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e9b6b612eb9d4f009eec0a091843ac4b.png)
+![](https://img-blog.csdnimg.cn/e9b6b612eb9d4f009eec0a091843ac4b.png)
 
 
 
@@ -795,7 +795,81 @@ class Solution {
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/dfe5eaca327241228206413afb36c691.png)
+![](https://img-blog.csdnimg.cn/dfe5eaca327241228206413afb36c691.png)
+
+
+
+#### [剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode.cn/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)
+
+输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数在数组的前半部分，所有偶数在数组的后半部分。
+
+
+
+**示例：**
+
+```
+输入：nums = [1,2,3,4]
+输出：[1,3,2,4] 
+注：[3,1,2,4] 也是正确的答案之一。
+```
+
+
+
+**提示：**
+
+1. `0 <= nums.length <= 50000`
+2. `0 <= nums[i] <= 10000`
+
+**双重遍历**
+
+```java
+class Solution {
+    public int[] exchange(int[] nums) {
+        // 双重遍历
+        int n = nums.length;
+        int[] res = new int[n];
+        int index = 0;
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                res[index++] = num;
+            }
+        }
+        for (int num : nums) {
+            if (num % 2 == 0) {
+                res[index++] = num;
+            }
+        }
+        return res;
+    }
+}
+```
+
+![](https://img-blog.csdnimg.cn/b719f2cd8537468e936549146909a76d.png)
+
+**双指针交换**
+
+```java
+class Solution {
+    public int[] exchange(int[] nums) {
+        // 双指针交换
+        int left = 0, right = nums.length - 1;
+        int n = nums.length;
+        int[] res = new int[n];
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                res[left++] = num;
+            } else {
+                res[right--] = num;
+            }
+        }
+        return res;
+    }
+}
+```
+
+![](https://img-blog.csdnimg.cn/a279e5c269de4146ad836475529398ce.png)
+
+
 
 
 
@@ -846,39 +920,39 @@ class Solution {
 
 ```java
 class Solution {
-   public String reverseWords(String s) {
-      // 除去开头和末尾的空白字符
-      s = s.trim();
-      // 正则表达式
-      String[] split = s.split("\\s+");
-      List<String> list = Arrays.asList(split);
-      String res = "";
-      for (int i = list.size() - 1; i >= 0; i--) {
-         res += list.get(i);
-         res += " ";
-      }
-      return res.trim();
-   }
+    public String reverseWords(String s) {
+        // 除去开头和末尾的空白字符
+        s = s.trim();
+        // 正则表达式
+        String[] split = s.split("\\s+");
+        List<String> list = Arrays.asList(split);
+        String res = "";
+        for (int i = list.size() - 1; i >= 0; i--) {
+            res += list.get(i);
+            res += " ";
+        }
+        return res.trim();
+    }
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/535954891eca43d8b4497941ca4d154a.png)
+![](https://img-blog.csdnimg.cn/535954891eca43d8b4497941ca4d154a.png)
 
 **拼接**
 
 ```java
 class Solution {
-   public String reverseWords(String s) {
-      // 除去开头和末尾的空白字符 分割字符串
-      String[] split = s.trim().split(" ");
-      StringBuilder sb = new StringBuilder();
-      for (int i = split.length - 1; i >= 0; i--) {
-         if (split[i].equals("")) continue;
-         sb.append(split[i] + " ");
-      }
-      return sb.toString().trim();
-   }
+    public String reverseWords(String s) {
+        // 除去开头和末尾的空白字符 分割字符串
+        String[] split = s.trim().split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = split.length - 1; i >= 0; i--) {
+            if (split[i].equals("")) continue;
+            sb.append(split[i] + " ");
+        }
+        return sb.toString().trim();
+    }
 }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/1fb6ba4cb39d485cb60d49592a98765d.png)
+![](https://img-blog.csdnimg.cn/1fb6ba4cb39d485cb60d49592a98765d.png)

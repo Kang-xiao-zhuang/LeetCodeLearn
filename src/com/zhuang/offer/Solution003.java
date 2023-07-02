@@ -68,6 +68,45 @@ public class Solution003 {
     }
 
     /**
+     * https://leetcode.cn/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/
+     *
+     * @param nums int[]
+     * @return int[]
+     */
+    public int[] exchange(int[] nums) {
+        // 双重遍历
+        int n = nums.length;
+        int[] res = new int[n];
+        int index = 0;
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                res[index++] = num;
+            }
+        }
+        for (int num : nums) {
+            if (num % 2 == 0) {
+                res[index++] = num;
+            }
+        }
+        return res;
+    }
+
+    public int[] exchange2(int[] nums) {
+        // 双指针交换
+        int left = 0, right = nums.length - 1;
+        int n = nums.length;
+        int[] res = new int[n];
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                res[left++] = num;
+            } else {
+                res[right--] = num;
+            }
+        }
+        return res;
+    }
+
+    /**
      * https://leetcode.cn/problems/fan-zhuan-dan-ci-shun-xu-lcof/
      *
      * @param s String
