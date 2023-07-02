@@ -1,7 +1,9 @@
 package com.zhuang.offer;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 双指针模块
@@ -104,6 +106,30 @@ public class Solution003 {
             }
         }
         return res;
+    }
+
+    /**
+     * https://leetcode.cn/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/
+     *
+     * @param headA ListNode
+     * @param headB ListNode
+     * @return ListNode
+     */
+    ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        Set<ListNode> visited = new HashSet<ListNode>();
+        ListNode temp = headA;
+        while (temp != null) {
+            visited.add(temp);
+            temp = temp.next;
+        }
+        temp = headB;
+        while (temp != null) {
+            if (visited.contains(temp)) {
+                return temp;
+            }
+            temp = temp.next;
+        }
+        return null;
     }
 
     /**
