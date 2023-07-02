@@ -44,6 +44,28 @@ public class Solution003 {
         return head;
     }
 
+    /**
+     * https://leetcode.cn/problems/he-wei-sde-liang-ge-shu-zi-lcof/
+     *
+     * @param nums   int[]
+     * @param target int
+     * @return int[]
+     */
+    public int[] twoSum(int[] nums, int target) {
+        // 双指针
+        int i = 0, j = nums.length - 1;
+        while (i < j) {
+            if (nums[i] == target - nums[j]) {
+                return new int[]{nums[i], nums[j]};
+            }
+            if (nums[i] + nums[j] < target) {
+                i++;
+            } else if (nums[i] + nums[j] > target) {
+                j--;
+            }
+        }
+        return new int[0];
+    }
 
     /**
      * https://leetcode.cn/problems/fan-zhuan-dan-ci-shun-xu-lcof/
