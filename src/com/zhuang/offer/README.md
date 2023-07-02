@@ -21,9 +21,9 @@
 
 ```java
 class Solution {
-   public String replaceSpace(String s) {
-      return s.replace(" ", "%20");
-   }
+    public String replaceSpace(String s) {
+        return s.replace(" ", "%20");
+    }
 }
 ```
 ![](https://img-blog.csdnimg.cn/80e03d63bc784bd498b5f63518720839.png)
@@ -32,17 +32,17 @@ class Solution {
 
 ```java
 class Solution {
-   public String replaceSpace(String s) {
-      StringBuilder sb = new StringBuilder();
-      for (char c : s.toCharArray()) {
-         if (c == ' ') {
-            sb.append("%20");
-         }else {
-            sb.append(c);
-         }
-      }
-      return sb.toString();
-   }
+    public String replaceSpace(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (c == ' ') {
+                sb.append("%20");
+            }else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 }
 ```
 
@@ -66,9 +66,9 @@ koltin代码
 
 ```kotlin
 class Solution {
-   fun replaceSpace(s: String): String {
-      return s.replace(" ", "%20")
-   }
+    fun replaceSpace(s: String): String {
+        return s.replace(" ", "%20")
+    }
 }
 ```
 
@@ -96,12 +96,12 @@ class Solution {
 
 ```java
 class Solution {
-   public String reverseLeftWords(String s, int n) {
-      if (n == 0) {
-         return s;
-      }
-      return s.substring(n) + s.substring(0, n);
-   }
+    public String reverseLeftWords(String s, int n) {
+        if (n == 0) {
+            return s;
+        }
+        return s.substring(n) + s.substring(0, n);
+    }   
 }
 ```
 
@@ -111,19 +111,19 @@ class Solution {
 
 ```java
 class Solution {
-   public String reverseLeftWords(String s, int n) {
-      if (n == 0) {
-         return s;
-      }
-      StringBuilder sb = new StringBuilder();
-      for (int i = n; i < s.length(); i++) {
-         sb.append(s.charAt(i));
-      }
-      for (int i = 0; i < n; i++) {
-         sb.append(s.charAt(i));
-      }
-      return sb.toString();
-   }
+    public String reverseLeftWords(String s, int n) {
+       if (n == 0) {
+            return s;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = n; i < s.length(); i++) {
+            sb.append(s.charAt(i));
+        }
+        for (int i = 0; i < n; i++) {
+            sb.append(s.charAt(i));
+        }
+        return sb.toString();
+    }   
 }
 ```
 
@@ -236,126 +236,126 @@ class Solution {
 
 ```java
 class Solution {
-   public boolean isNumber(String s) {
-      // 转移map
-      Map<State, Map<CharType, State>> transfer = new HashMap<>();
-      Map<CharType, State> initialMap = new HashMap<CharType, State>() {{
-         // 起始的空格 指向  空格 符号位 整数部分 小数点（左无整数）
-         put(CharType.CHAR_SPACE, State.STATE_INITIAL);
-         put(CharType.CHAR_NUMBER, State.STATE_INTEGER);
-         put(CharType.CHAR_POINT, State.STATE_POINT_WITHOUT_INT);
-         put(CharType.CHAR_SIGN, State.STATE_INT_SIGN);
-      }};
-      transfer.put(State.STATE_INITIAL, initialMap);
-      Map<CharType, State> intSignMap = new HashMap<CharType, State>() {{
-         // 符号位 指向 整数部分 小数点（左无整数）
-         put(CharType.CHAR_NUMBER, State.STATE_INTEGER);
-         put(CharType.CHAR_POINT, State.STATE_POINT_WITHOUT_INT);
-      }};
-      transfer.put(State.STATE_INT_SIGN, intSignMap);
-      Map<CharType, State> integerMap = new HashMap<CharType, State>() {{
-         // 整数部分 指向 整数部分 小数点（左有整数） 字符e 末尾空格
-         put(CharType.CHAR_NUMBER, State.STATE_INTEGER);
-         put(CharType.CHAR_EXP, State.STATE_EXP);
-         put(CharType.CHAR_POINT, State.STATE_POINT);
-         put(CharType.CHAR_SPACE, State.STATE_END);
-      }};
-      transfer.put(State.STATE_INTEGER, integerMap);
-      Map<CharType, State> pointMap = new HashMap<CharType, State>() {{
-         // 小数点（左有整数） 指向 小数部分 字符e 末尾空格
-         put(CharType.CHAR_NUMBER, State.STATE_FRACTION);
-         put(CharType.CHAR_EXP, State.STATE_EXP);
-         put(CharType.CHAR_SPACE, State.STATE_END);
-      }};
-      transfer.put(State.STATE_POINT, pointMap);
-      Map<CharType, State> pointWithoutIntMap = new HashMap<CharType, State>() {{
-         // 小数点（左无整数） 指向 小数点（左无整数）
-         put(CharType.CHAR_NUMBER, State.STATE_FRACTION);
-      }};
-      transfer.put(State.STATE_POINT_WITHOUT_INT, pointWithoutIntMap);
-      Map<CharType, State> fractionMap = new HashMap<CharType, State>() {{
-         // 小数部分 指向 字符e 末尾空格 小数部分
-         put(CharType.CHAR_NUMBER, State.STATE_FRACTION);
-         put(CharType.CHAR_EXP, State.STATE_EXP);
-         put(CharType.CHAR_SPACE, State.STATE_END);
-      }};
-      transfer.put(State.STATE_FRACTION, fractionMap);
-      Map<CharType, State> expMap = new HashMap<CharType, State>() {{
-         // 字符e 指向 指数符号 指数数字
-         put(CharType.CHAR_NUMBER, State.STATE_EXP_NUMBER);
-         put(CharType.CHAR_SIGN, State.STATE_EXP_SIGN);
-      }};
-      transfer.put(State.STATE_EXP, expMap);
-      Map<CharType, State> expSignMap = new HashMap<CharType, State>() {{
-         // 指数符号 指向 指数数字
-         put(CharType.CHAR_NUMBER, State.STATE_EXP_NUMBER);
-      }};
-      transfer.put(State.STATE_EXP_SIGN, expSignMap);
-      Map<CharType, State> expNumberMap = new HashMap<CharType, State>() {{
-         // 指数数字 指向 末尾空格 指数数字
-         put(CharType.CHAR_NUMBER, State.STATE_EXP_NUMBER);
-         put(CharType.CHAR_SPACE, State.STATE_END);
-      }};
-      transfer.put(State.STATE_EXP_NUMBER, expNumberMap);
-      Map<CharType, State> endMap = new HashMap<CharType, State>() {{
-         // 末尾空格 指向 末尾空格
-         put(CharType.CHAR_SPACE, State.STATE_END);
-      }};
-      transfer.put(State.STATE_END, endMap);
+public boolean isNumber(String s) {
+        // 转移map
+        Map<State, Map<CharType, State>> transfer = new HashMap<>();
+        Map<CharType, State> initialMap = new HashMap<CharType, State>() {{
+            // 起始的空格 指向  空格 符号位 整数部分 小数点（左无整数）
+            put(CharType.CHAR_SPACE, State.STATE_INITIAL);
+            put(CharType.CHAR_NUMBER, State.STATE_INTEGER);
+            put(CharType.CHAR_POINT, State.STATE_POINT_WITHOUT_INT);
+            put(CharType.CHAR_SIGN, State.STATE_INT_SIGN);
+        }};
+        transfer.put(State.STATE_INITIAL, initialMap);
+        Map<CharType, State> intSignMap = new HashMap<CharType, State>() {{
+            // 符号位 指向 整数部分 小数点（左无整数）
+            put(CharType.CHAR_NUMBER, State.STATE_INTEGER);
+            put(CharType.CHAR_POINT, State.STATE_POINT_WITHOUT_INT);
+        }};
+        transfer.put(State.STATE_INT_SIGN, intSignMap);
+        Map<CharType, State> integerMap = new HashMap<CharType, State>() {{
+            // 整数部分 指向 整数部分 小数点（左有整数） 字符e 末尾空格
+            put(CharType.CHAR_NUMBER, State.STATE_INTEGER);
+            put(CharType.CHAR_EXP, State.STATE_EXP);
+            put(CharType.CHAR_POINT, State.STATE_POINT);
+            put(CharType.CHAR_SPACE, State.STATE_END);
+        }};
+        transfer.put(State.STATE_INTEGER, integerMap);
+        Map<CharType, State> pointMap = new HashMap<CharType, State>() {{
+            // 小数点（左有整数） 指向 小数部分 字符e 末尾空格
+            put(CharType.CHAR_NUMBER, State.STATE_FRACTION);
+            put(CharType.CHAR_EXP, State.STATE_EXP);
+            put(CharType.CHAR_SPACE, State.STATE_END);
+        }};
+        transfer.put(State.STATE_POINT, pointMap);
+        Map<CharType, State> pointWithoutIntMap = new HashMap<CharType, State>() {{
+            // 小数点（左无整数） 指向 小数点（左无整数）
+            put(CharType.CHAR_NUMBER, State.STATE_FRACTION);
+        }};
+        transfer.put(State.STATE_POINT_WITHOUT_INT, pointWithoutIntMap);
+        Map<CharType, State> fractionMap = new HashMap<CharType, State>() {{
+            // 小数部分 指向 字符e 末尾空格 小数部分
+            put(CharType.CHAR_NUMBER, State.STATE_FRACTION);
+            put(CharType.CHAR_EXP, State.STATE_EXP);
+            put(CharType.CHAR_SPACE, State.STATE_END);
+        }};
+        transfer.put(State.STATE_FRACTION, fractionMap);
+        Map<CharType, State> expMap = new HashMap<CharType, State>() {{
+            // 字符e 指向 指数符号 指数数字
+            put(CharType.CHAR_NUMBER, State.STATE_EXP_NUMBER);
+            put(CharType.CHAR_SIGN, State.STATE_EXP_SIGN);
+        }};
+        transfer.put(State.STATE_EXP, expMap);
+        Map<CharType, State> expSignMap = new HashMap<CharType, State>() {{
+            // 指数符号 指向 指数数字
+            put(CharType.CHAR_NUMBER, State.STATE_EXP_NUMBER);
+        }};
+        transfer.put(State.STATE_EXP_SIGN, expSignMap);
+        Map<CharType, State> expNumberMap = new HashMap<CharType, State>() {{
+            // 指数数字 指向 末尾空格 指数数字
+            put(CharType.CHAR_NUMBER, State.STATE_EXP_NUMBER);
+            put(CharType.CHAR_SPACE, State.STATE_END);
+        }};
+        transfer.put(State.STATE_EXP_NUMBER, expNumberMap);
+        Map<CharType, State> endMap = new HashMap<CharType, State>() {{
+            // 末尾空格 指向 末尾空格
+            put(CharType.CHAR_SPACE, State.STATE_END);
+        }};
+        transfer.put(State.STATE_END, endMap);
 
-      int length = s.length();
-      State state = State.STATE_INITIAL;
+        int length = s.length();
+        State state = State.STATE_INITIAL;
 
-      for (int i = 0; i < length; i++) {
-         CharType type = toCharType(s.charAt(i));
-         if (!transfer.get(state).containsKey(type)) {
-            return false;
-         } else {
-            state = transfer.get(state).get(type);
-         }
-      }
-      return state == State.STATE_INTEGER || state == State.STATE_POINT || state == State.STATE_FRACTION || state == State.STATE_EXP_NUMBER || state == State.STATE_END;
-   }
+        for (int i = 0; i < length; i++) {
+            CharType type = toCharType(s.charAt(i));
+            if (!transfer.get(state).containsKey(type)) {
+                return false;
+            } else {
+                state = transfer.get(state).get(type);
+            }
+        }
+        return state == State.STATE_INTEGER || state == State.STATE_POINT || state == State.STATE_FRACTION || state == State.STATE_EXP_NUMBER || state == State.STATE_END;
+    }
 
-   public CharType toCharType(char ch) {
-      if (ch >= '0' && ch <= '9') {
-         return CharType.CHAR_NUMBER;
-      } else if (ch == 'e' || ch == 'E') {
-         return CharType.CHAR_EXP;
-      } else if (ch == '.') {
-         return CharType.CHAR_POINT;
-      } else if (ch == '+' || ch == '-') {
-         return CharType.CHAR_SIGN;
-      } else if (ch == ' ') {
-         return CharType.CHAR_SPACE;
-      } else {
-         return CharType.CHAR_ILLEGAL;
-      }
-   }
+    public CharType toCharType(char ch) {
+        if (ch >= '0' && ch <= '9') {
+            return CharType.CHAR_NUMBER;
+        } else if (ch == 'e' || ch == 'E') {
+            return CharType.CHAR_EXP;
+        } else if (ch == '.') {
+            return CharType.CHAR_POINT;
+        } else if (ch == '+' || ch == '-') {
+            return CharType.CHAR_SIGN;
+        } else if (ch == ' ') {
+            return CharType.CHAR_SPACE;
+        } else {
+            return CharType.CHAR_ILLEGAL;
+        }
+    }
 
-   // 所有状态
-   enum State {
-      STATE_INITIAL,
-      STATE_INT_SIGN,
-      STATE_INTEGER,
-      STATE_POINT,
-      STATE_POINT_WITHOUT_INT,
-      STATE_FRACTION,
-      STATE_EXP,
-      STATE_EXP_SIGN,
-      STATE_EXP_NUMBER,
-      STATE_END
-   }
+    // 所有状态
+    enum State {
+        STATE_INITIAL,
+        STATE_INT_SIGN,
+        STATE_INTEGER,
+        STATE_POINT,
+        STATE_POINT_WITHOUT_INT,
+        STATE_FRACTION,
+        STATE_EXP,
+        STATE_EXP_SIGN,
+        STATE_EXP_NUMBER,
+        STATE_END
+    }
 
-   // 数值字符串
-   enum CharType {
-      CHAR_NUMBER,
-      CHAR_EXP,
-      CHAR_POINT,
-      CHAR_SIGN,
-      CHAR_SPACE,
-      CHAR_ILLEGAL
-   }
+    // 数值字符串
+    enum CharType {
+        CHAR_NUMBER,
+        CHAR_EXP,
+        CHAR_POINT,
+        CHAR_SIGN,
+        CHAR_SPACE,
+        CHAR_ILLEGAL
+    }
 }
 ```
 
@@ -436,49 +436,49 @@ class Solution {
 
 ```java
 class Solution {
-   public int strToInt(String str) {
-      Automaton automaton = new Automaton();
-      int length = str.length();
-      for (int i = 0; i < length; ++i) {
-         automaton.get(str.charAt(i));
-      }
-      return (int) (automaton.sign * automaton.ans);
-   }
+public int strToInt(String str) {
+        Automaton automaton = new Automaton();
+        int length = str.length();
+        for (int i = 0; i < length; ++i) {
+            automaton.get(str.charAt(i));
+        }
+        return (int) (automaton.sign * automaton.ans);
+    }
 }
 
 class Automaton {
-   public int sign = 1;
-   public long ans = 0;
-   private String state = "start";
-   private Map<String, String[]> table = new HashMap<String, String[]>() {{
-      put("start", new String[]{"start", "signed", "in_number", "end"});
-      put("signed", new String[]{"end", "end", "in_number", "end"});
-      put("in_number", new String[]{"end", "end", "in_number", "end"});
-      put("end", new String[]{"end", "end", "end", "end"});
-   }};
+    public int sign = 1;
+    public long ans = 0;
+    private String state = "start";
+    private Map<String, String[]> table = new HashMap<String, String[]>() {{
+        put("start", new String[]{"start", "signed", "in_number", "end"});
+        put("signed", new String[]{"end", "end", "in_number", "end"});
+        put("in_number", new String[]{"end", "end", "in_number", "end"});
+        put("end", new String[]{"end", "end", "end", "end"});
+    }};
 
-   public void get(char c) {
-      state = table.get(state)[get_col(c)];
-      if ("in_number".equals(state)) {
-         ans = ans * 10 + c - '0';
-         ans = sign == 1 ? Math.min(ans, (long) Integer.MAX_VALUE) : Math.min(ans, -(long) Integer.MIN_VALUE);
-      } else if ("signed".equals(state)) {
-         sign = c == '+' ? 1 : -1;
-      }
-   }
+    public void get(char c) {
+        state = table.get(state)[get_col(c)];
+        if ("in_number".equals(state)) {
+            ans = ans * 10 + c - '0';
+            ans = sign == 1 ? Math.min(ans, (long) Integer.MAX_VALUE) : Math.min(ans, -(long) Integer.MIN_VALUE);
+        } else if ("signed".equals(state)) {
+            sign = c == '+' ? 1 : -1;
+        }
+    }
 
-   private int get_col(char c) {
-      if (c == ' ') {
-         return 0;
-      }
-      if (c == '+' || c == '-') {
-         return 1;
-      }
-      if (Character.isDigit(c)) {
-         return 2;
-      }
-      return 3;
-   }
+    private int get_col(char c) {
+        if (c == ' ') {
+            return 0;
+        }
+        if (c == '+' || c == '-') {
+            return 1;
+        }
+        if (Character.isDigit(c)) {
+            return 2;
+        }
+        return 3;
+    }
 }
 ```
 
@@ -519,18 +519,18 @@ class Automaton {
  * }
  */
 class Solution {
-   public int[] reversePrint(ListNode head) {
-      ArrayList<Integer> list = new ArrayList<>();
-      while (head != null) {
-         list.add(head.val);
-         head = head.next;
-      }
-      int[] res = new int[list.size()];
-      for (int i = 0; i < list.size(); i++) {
-         res[i] = list.get(list.size() - i - 1);
-      }
-      return res;
-   }
+    public int[] reversePrint(ListNode head) {
+        ArrayList<Integer> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+        int[] res = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(list.size() - i - 1);
+        }
+        return res;
+    }
 }
 ```
 
@@ -569,16 +569,16 @@ class Solution {
  * }
  */
 class Solution {
-   public ListNode reverseList(ListNode head) {
-      ListNode cur = head, pre = null;
-      while(cur != null) {
-         ListNode tmp = cur.next; // 暂存后继节点 cur.next
-         cur.next = pre;          // 修改 next 引用指向
-         pre = cur;               // pre 暂存 cur
-         cur = tmp;               // cur 访问下一节点
-      }
-      return pre;
-   }
+    public ListNode reverseList(ListNode head) {
+        ListNode cur = head, pre = null;
+        while(cur != null) {
+            ListNode tmp = cur.next; // 暂存后继节点 cur.next
+            cur.next = pre;          // 修改 next 引用指向
+            pre = cur;               // pre 暂存 cur
+            cur = tmp;               // cur 访问下一节点
+        }
+        return pre;
+    }
 }
 ```
 
@@ -651,27 +651,27 @@ class Node {
 }
 */
 class Solution {
-   public Node copyRandomList(Node head) {
-      if (head == null) {
-         return null;
-      }
-      Node cur = head;
-      HashMap<Node, Node> map = new HashMap<>();
-      // 复制各个节点
-      while (cur != null) {
-         map.put(cur, new Node(cur.val));
-         cur = cur.next;
-      }
-      // 构建新的链表next和random指向
-      cur = head;
-      while (cur != null) {
-         map.get(cur).next = map.get(cur.next);
-         map.get(cur).random = map.get(cur.random);
-         cur = cur.next;
-      }
-      // 返回新链表头节点
-      return map.get(head);
-   }
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node cur = head;
+        HashMap<Node, Node> map = new HashMap<>();
+        // 复制各个节点
+        while (cur != null) {
+            map.put(cur, new Node(cur.val));
+            cur = cur.next;
+        }
+        // 构建新的链表next和random指向
+        cur = head;
+        while (cur != null) {
+            map.get(cur).next = map.get(cur.next);
+            map.get(cur).random = map.get(cur.random);
+            cur = cur.next;
+        }
+        // 返回新链表头节点
+        return map.get(head);
+    }
 }
 ```
 
@@ -711,16 +711,16 @@ class Solution {
  * }
  */
 class Solution {
-   public ListNode deleteNode(ListNode head, int val) {
-      if (head == null) return null;
-      if (head.val == val) return head.next;
-      ListNode cur = head;
-      while (cur.next != null && cur.next.val != val) {
-         cur = cur.next;
-      }
-      if (cur.next != null) cur.next = cur.next.next;
-      return head;
-   }
+    public ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        if (head.val == val) return head.next;
+        ListNode cur = head;
+        while (cur.next != null && cur.next.val != val) {
+            cur = cur.next;
+        }
+        if (cur.next != null) cur.next = cur.next.next;
+        return head;
+    }
 }
 ```
 
@@ -728,17 +728,17 @@ class Solution {
 
 ```java
 class Solution {
-   public ListNode deleteNode(ListNode head, int val) {
-      if (head == null) return null;
-      if (head.val == val) return head.next;
-      ListNode pre = head, cur = head.next;
-      while (cur != null && cur.val != val) {
-         pre = cur;
-         cur = cur.next;
-      }
-      if (cur != null) pre.next = cur.next;
-      return head;
-   }
+    public ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        if (head.val == val) return head.next;
+        ListNode pre = head, cur = head.next;
+        while (cur != null && cur.val != val) {
+            pre = cur;
+            cur = cur.next;
+        }
+        if (cur != null) pre.next = cur.next;
+        return head;
+    }
 }
 ```
 
@@ -777,21 +777,21 @@ class Solution {
 
 ```java
 class Solution {
-   public int[] twoSum(int[] nums, int target) {
-      // 双指针
-      int i = 0, j = nums.length - 1;
-      while (i < j) {
-         if (nums[i] == target - nums[j]) {
-            return new int[]{nums[i], nums[j]};
-         }
-         if (nums[i] + nums[j] < target) {
-            i++;
-         } else if (nums[i] + nums[j] > target) {
-            j--;
-         }
-      }
-      return new int[0];
-   }
+    public int[] twoSum(int[] nums, int target) {
+        // 双指针
+        int i = 0, j = nums.length - 1;
+        while (i < j) {
+            if (nums[i] == target - nums[j]) {
+                return new int[]{nums[i], nums[j]};
+            }
+            if (nums[i] + nums[j] < target) {
+                i++;
+            } else if (nums[i] + nums[j] > target) {
+                j--;
+            }
+        }
+        return new int[0];
+    }
 }
 ```
 
@@ -824,23 +824,23 @@ class Solution {
 
 ```java
 class Solution {
-   public int[] exchange(int[] nums) {
-      // 双重遍历
-      int n = nums.length;
-      int[] res = new int[n];
-      int index = 0;
-      for (int num : nums) {
-         if (num % 2 == 1) {
-            res[index++] = num;
-         }
-      }
-      for (int num : nums) {
-         if (num % 2 == 0) {
-            res[index++] = num;
-         }
-      }
-      return res;
-   }
+    public int[] exchange(int[] nums) {
+        // 双重遍历
+        int n = nums.length;
+        int[] res = new int[n];
+        int index = 0;
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                res[index++] = num;
+            }
+        }
+        for (int num : nums) {
+            if (num % 2 == 0) {
+                res[index++] = num;
+            }
+        }
+        return res;
+    }
 }
 ```
 
@@ -850,20 +850,20 @@ class Solution {
 
 ```java
 class Solution {
-   public int[] exchange(int[] nums) {
-      // 双指针交换
-      int left = 0, right = nums.length - 1;
-      int n = nums.length;
-      int[] res = new int[n];
-      for (int num : nums) {
-         if (num % 2 == 1) {
-            res[left++] = num;
-         } else {
-            res[right--] = num;
-         }
-      }
-      return res;
-   }
+    public int[] exchange(int[] nums) {
+        // 双指针交换
+        int left = 0, right = nums.length - 1;
+        int n = nums.length;
+        int[] res = new int[n];
+        for (int num : nums) {
+            if (num % 2 == 1) {
+                res[left++] = num;
+            } else {
+                res[right--] = num;
+            }
+        }
+        return res;
+    }
 }
 ```
 
@@ -920,19 +920,19 @@ class Solution {
 
 ```java
 class Solution {
-   public String reverseWords(String s) {
-      // 除去开头和末尾的空白字符
-      s = s.trim();
-      // 正则表达式
-      String[] split = s.split("\\s+");
-      List<String> list = Arrays.asList(split);
-      String res = "";
-      for (int i = list.size() - 1; i >= 0; i--) {
-         res += list.get(i);
-         res += " ";
-      }
-      return res.trim();
-   }
+    public String reverseWords(String s) {
+        // 除去开头和末尾的空白字符
+        s = s.trim();
+        // 正则表达式
+        String[] split = s.split("\\s+");
+        List<String> list = Arrays.asList(split);
+        String res = "";
+        for (int i = list.size() - 1; i >= 0; i--) {
+            res += list.get(i);
+            res += " ";
+        }
+        return res.trim();
+    }
 }
 ```
 
@@ -942,16 +942,16 @@ class Solution {
 
 ```java
 class Solution {
-   public String reverseWords(String s) {
-      // 除去开头和末尾的空白字符 分割字符串
-      String[] split = s.trim().split(" ");
-      StringBuilder sb = new StringBuilder();
-      for (int i = split.length - 1; i >= 0; i--) {
-         if (split[i].equals("")) continue;
-         sb.append(split[i] + " ");
-      }
-      return sb.toString().trim();
-   }
+    public String reverseWords(String s) {
+        // 除去开头和末尾的空白字符 分割字符串
+        String[] split = s.trim().split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = split.length - 1; i >= 0; i--) {
+            if (split[i].equals("")) continue;
+            sb.append(split[i] + " ");
+        }
+        return sb.toString().trim();
+    }
 }
 ```
 
@@ -1093,3 +1093,47 @@ class Solution {
 }
 ```
 
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8f46fb96b54b43d09d95fdfdf03c953f.png)
+
+#### [剑指 Offer 22. 链表中倒数第k个节点](https://leetcode.cn/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
+
+输入一个链表，输出该链表中倒数第k个节点。为了符合大多数人的习惯，本题从1开始计数，即链表的尾节点是倒数第1个节点。
+
+例如，一个链表有 `6` 个节点，从头节点开始，它们的值依次是 `1、2、3、4、5、6`。这个链表的倒数第 `3` 个节点是值为 `4` 的节点。
+
+
+
+**示例：**
+
+```
+给定一个链表: 1->2->3->4->5, 和 k = 2.
+
+返回链表 4->5.
+```
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        ListNode fast = head;
+        while (fast != null) {
+            fast = fast.next;
+            if (k == 0) {
+                head = head.next;
+            } else {
+                k--;
+            }
+        }
+        return head;
+    }
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/bfb7179aaf024bc684080e5ad56484e1.png)
