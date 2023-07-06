@@ -1,5 +1,6 @@
 package com.zhuang.offer;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 public class Offer_QueueAndStack {
@@ -29,6 +30,36 @@ public class Offer_QueueAndStack {
             }
             return stack2.pop();
         }
+    }
+
+    static class MinStack {
+        private final Deque<Integer> xStack;
+        private final Deque<Integer> minStack;
+
+        public MinStack() {
+            xStack = new LinkedList<>();
+            minStack = new LinkedList<>();
+            minStack.push(Integer.MAX_VALUE);
+        }
+
+        public void push(int x) {
+            xStack.push(x);
+            minStack.push(Math.min(minStack.peek(), x));
+        }
+
+        public void pop() {
+            xStack.pop();
+            minStack.pop();
+        }
+
+        public int top() {
+            return xStack.peek();
+        }
+
+        public int min() {
+            return minStack.peek();
+        }
+
     }
 
 }
