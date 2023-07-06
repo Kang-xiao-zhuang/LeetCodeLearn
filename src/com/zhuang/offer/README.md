@@ -1,3 +1,7 @@
+# 剑指Offer
+
+## 字符串
+
 #### [剑指 Offer 05. 替换空格](https://leetcode.cn/problems/ti-huan-kong-ge-lcof/)
 
 请实现一个函数，把字符串 `s` 中的每个空格替换成"%20"。
@@ -486,6 +490,8 @@ class Automaton {
 
 
 
+## 链表
+
 #### [剑指 Offer 06. 从尾到头打印链表](https://leetcode.cn/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 
 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
@@ -676,6 +682,8 @@ class Solution {
 ```
 
 ![](https://img-blog.csdnimg.cn/1d3bd6d7c8ef42d4b7738c618f4057e2.png)
+
+## 双指针
 
 #### [剑指 Offer 18. 删除链表的节点](https://leetcode.cn/problems/shan-chu-lian-biao-de-jie-dian-lcof/)
 
@@ -1137,3 +1145,141 @@ class Solution {
 ```
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/bfb7179aaf024bc684080e5ad56484e1.png)
+
+## 栈和队列
+
+#### [剑指 Offer 09. 用两个栈实现队列](https://leetcode.cn/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
+
+用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 `appendTail` 和 `deleteHead` ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，`deleteHead` 操作返回 -1 )
+
+
+
+**示例 1：**
+
+```
+输入：
+["CQueue","appendTail","deleteHead","deleteHead","deleteHead"]
+[[],[3],[],[],[]]
+输出：[null,null,3,-1,-1]
+```
+
+**示例 2：**
+
+```
+输入：
+["CQueue","deleteHead","appendTail","appendTail","deleteHead","deleteHead"]
+[[],[],[5],[2],[],[]]
+输出：[null,-1,null,null,5,2]
+```
+
+**提示：**
+
+- `1 <= values <= 10000`
+- 最多会对` appendTail、deleteHead `进行` 10000` 次调用
+
+```java
+class CQueue {
+        private final LinkedList<Integer> stack1;
+        private final LinkedList<Integer> stack2;
+
+        public CQueue() {
+            stack1 = new LinkedList<>();
+            stack2 = new LinkedList<>();
+        }
+
+        public void appendTail(int value) {
+            stack1.push(value);
+        }
+
+        public int deleteHead() {
+            if (stack2.isEmpty()) {
+                if (stack1.isEmpty()) {
+                    return -1;
+                }
+                while (!stack1.isEmpty()) {
+                    stack2.push(stack1.pop());
+                }
+            }
+            return stack2.pop();
+        }
+}
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue obj = new CQueue();
+ * obj.appendTail(value);
+ * int param_2 = obj.deleteHead();
+ */
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/23f61763bf1a4d4ca646cd58b67a243a.png)
+
+
+
+#### [剑指 Offer 30. 包含min函数的栈](https://leetcode.cn/problems/bao-han-minhan-shu-de-zhan-lcof/)
+
+定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，调用 min、push 及 pop 的时间复杂度都是 O(1)。
+
+
+
+**示例:**
+
+```
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.min();   --> 返回 -3.
+minStack.pop();
+minStack.top();      --> 返回 0.
+minStack.min();   --> 返回 -2.
+```
+
+
+
+**提示：**
+
+1. 各函数的调用总次数不超过 20000 次
+
+```java
+class MinStack {
+
+            private final Deque<Integer> xStack;
+        private final Deque<Integer> minStack;
+
+        public MinStack() {
+            xStack = new LinkedList<>();
+            minStack = new LinkedList<>();
+            minStack.push(Integer.MAX_VALUE);
+        }
+
+        public void push(int x) {
+            xStack.push(x);
+            minStack.push(Math.min(minStack.peek(), x));
+        }
+
+        public void pop() {
+            xStack.pop();
+            minStack.pop();
+        }
+
+        public int top() {
+            return xStack.peek();
+        }
+
+        public int min() {
+            return minStack.peek();
+        }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.min();
+ */
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c63cb2334a5e4f76bf2eef0a91a5daee.png)
