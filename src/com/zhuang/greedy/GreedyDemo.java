@@ -97,4 +97,39 @@ public class GreedyDemo {
         return sum;
     }
 
+    /**
+     * https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/
+     *
+     * @param prices 价格
+     * @return 最大利润
+     */
+    public int maxProfit(int[] prices) {
+        int res = 0;
+        for (int i = 1; i < prices.length; i++) {
+            res += Math.max(prices[i] - prices[i - 1], 0);
+        }
+        return res;
+    }
+
+    /**
+     * https://leetcode.cn/problems/jump-game/
+     *
+     * @param nums 数组
+     * @return 是否可以到达最后一个目的地
+     */
+    public boolean canJump(int[] nums) {
+        if (nums.length == 1) {
+            return true;
+        }
+        // 当前能覆盖的范围
+        int coverRange = 0;
+        for (int i = 0; i <= coverRange; i++) {
+            coverRange = Math.max(nums[i] + i, coverRange);
+            // 如果能覆盖的范围大于等于最后 说明可以到达
+            if (coverRange >= nums.length - 1) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
