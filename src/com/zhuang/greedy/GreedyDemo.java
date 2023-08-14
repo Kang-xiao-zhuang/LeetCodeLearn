@@ -1,6 +1,7 @@
 package com.zhuang.greedy;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 /**
  * @Description 贪心例子
@@ -10,7 +11,9 @@ import java.util.Arrays;
  **/
 public class GreedyDemo {
     public static void main(String[] args) {
-
+        GreedyDemo demo = new GreedyDemo();
+        int[] nums = {2, -3, -1, 5, -4};
+        demo.largestSumAfterKNegations(nums, 2);
     }
 
 
@@ -131,5 +134,33 @@ public class GreedyDemo {
             }
         }
         return false;
+    }
+
+    /**
+     * https://leetcode.cn/problems/maximize-sum-of-array-after-k-negations/description/
+     *
+     * @param nums 数组
+     * @param k    整数k的次数
+     * @return 数组可能的最大和
+     */
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        // 将数组按照绝对值大小从大到小排序，注意要按照绝对值的大小
+        nums = IntStream.of(nums)
+                .boxed()
+                .sorted((o1, o2) -> Math.abs(o2) - Math.abs(o1))
+                .mapToInt(Integer::intValue).toArray();
+        int len = nums.length;
+        for (int i = 0; i < len; i++) {
+            //从前向后遍历，遇到负数将其变为正数，同时k--
+            if (nums[i] < 0 && k > 0) {
+                nums[i] = -nums[i];
+                k--;
+            }
+        }
+        // 如果k还大于0 继续遍历最小的一位 变号
+        if (k % 2 == 1) {
+            nums[len - 1] = -nums[len - 1];
+        }
+        return Arrays.stream(nums).sum();
     }
 }
