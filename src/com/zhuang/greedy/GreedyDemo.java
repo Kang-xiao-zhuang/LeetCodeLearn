@@ -163,4 +163,34 @@ public class GreedyDemo {
         }
         return Arrays.stream(nums).sum();
     }
+
+    /**
+     * https://leetcode.cn/problems/lemonade-change/description/
+     *
+     * @param bills 整数数组
+     * @return 能否给每位顾客正确找零
+     */
+    public boolean lemonadeChange(int[] bills) {
+        // 5元数量
+        int five = 0;
+        // 10元数量
+        int ten = 0;
+        for (int bill : bills) {
+            if (bill == 5) {
+                five++;
+            } else if (bill == 10) {
+                five--;
+                ten++;
+            } else if (bill == 20) {
+                if (ten > 0) {
+                    five--;
+                    ten--;
+                } else {
+                    five -= 3;
+                }
+            }
+            if (five < 0 || ten < 0) return false;
+        }
+        return true;
+    }
 }
