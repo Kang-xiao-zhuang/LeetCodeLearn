@@ -235,4 +235,27 @@ public class GreedyDemo {
         }
         return intervals.length - count;
     }
+
+    /**
+     * https://leetcode.cn/problems/monotone-increasing-digits/description/
+     *
+     * @param n 整数
+     * @return 返回 小于或等于 n 的最大数字，且数字呈 单调递增
+     */
+    public int monotoneIncreasingDigits(int n) {
+        char[] chars = String.valueOf(n).toCharArray();
+        int return9 = chars.length + 1;
+        for (int i = chars.length - 2; i >= 0; i--) {
+            if (chars[i] > chars[i + 1]) {
+                // 前一项大于后一项，前一项就减1
+                chars[i]--;
+                // 记录前一项的位置
+                return9 = i + 1;
+            }
+        }
+        for (int i = return9; i < chars.length; i++) {
+            chars[i] = '9';
+        }
+        return Integer.parseInt(new String(chars));
+    }
 }
