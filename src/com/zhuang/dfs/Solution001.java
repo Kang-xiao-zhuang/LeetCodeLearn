@@ -1,7 +1,6 @@
 package com.zhuang.dfs;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * description: Solution001
@@ -359,4 +358,38 @@ public class Solution001 {
             dfsgrid(grid, row + dir[0], col + dir[1]);
         }
     }
+
+    /**
+     * https://leetcode.cn/problems/n-ary-tree-level-order-traversal/description/
+     *
+     * @param root Node
+     * @return List<List < Integer>>
+     */
+    public List<List<Integer>> levelOrder(Node root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        ArrayDeque<Node> queue = new ArrayDeque<>();
+        // 加入根节点
+        queue.offer(root);
+        // 遍历加入值
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            ArrayList<Integer> level = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                Node tmp = queue.poll();
+                // 当前节点值保存
+                level.add(tmp.val);
+                for (Node child : tmp.children) {
+                    // 当前节点子节点值保存
+                    level.add(child.val);
+                }
+            }
+            res.add(level);
+        }
+        return res;
+    }
+
 }
