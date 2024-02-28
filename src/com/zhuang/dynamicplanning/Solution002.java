@@ -1,6 +1,8 @@
 package com.zhuang.dynamicplanning;
 
 import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * description: Solution002
@@ -11,7 +13,8 @@ import java.util.Arrays;
 public class Solution002 {
     public static void main(String[] args) {
         int[] nums = {1, 5, 11, 5};
-        canPartition2(nums);
+        //canPartition2(nums);
+        longestValidParentheses2("())(())");
         //integerBreak(10);
         //numTrees(4);
     }
@@ -129,6 +132,50 @@ public class Solution002 {
             }
         }
         return dp[len - 1][target];
+    }
+
+    /**
+     * https://leetcode.cn/problems/longest-valid-parentheses
+     *
+     * @param s String
+     * @return int
+     */
+    public int longestValidParentheses(String s) {
+        int res = 0;
+        Deque<Integer> stack = new LinkedList<>();
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                // 入栈
+                stack.push(i);
+            } else {
+                // 弹栈
+                stack.pop();
+                if (stack.isEmpty()) {
+                    // 右括号没有与之匹配的左括号
+                    stack.push(i);
+                } else {
+                    res = Math.max(res, i - stack.peek());
+                }
+            }
+        }
+        return res;
+    }
+
+    public static int longestValidParentheses2(String s) {
+        int maxans = 0;
+        int[] dp = new int[s.length()];
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == ')') {
+                if (s.charAt(i - 1) == '(') {
+                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+                } else if (i - dp[i - 1] > 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
+                    dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
+                }
+                maxans = Math.max(maxans, dp[i]);
+            }
+        }
+        return maxans;
     }
 
 }
