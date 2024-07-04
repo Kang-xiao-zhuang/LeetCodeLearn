@@ -102,7 +102,7 @@ public class Solution001 {
             }
             ret.add(row);
         }
-        System.out.println(ret.toString());
+        System.out.println(ret);
         return ret;
     }
 
@@ -126,7 +126,6 @@ public class Solution001 {
             }
             ret.add(row);
         }
-        System.out.println(ret.get(rowIndex));
         return ret.get(rowIndex);
     }
 }
